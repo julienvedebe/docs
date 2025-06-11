@@ -1,58 +1,2546 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
+    "title": "Masternaut Public API V1",
+    "description": "Consolidated API specification for User, Utilisation, Token Information, Speeding, Vehicle resources, Fuel, EcoScore, Group, Ecodrive.",
+    "version": "v1"
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://api.masternautconnect.com/connect-webservices/services/public/v1",
+      "description": "Production Server"
     }
   ],
-  "security": [
+  "tags": [
     {
-      "bearerAuth": []
+      "name": "/user",
+      "description": "Operations related to user management."
+    },
+    {
+      "name": "/utilisation",
+      "description": "Operations related to vehicle and driver utilisation summaries."
+    },
+    {
+      "name": "/tokenInformation",
+      "description": "Operations to retrieve information about the current authentication token."
+    },
+    {
+      "name": "/speeding",
+      "description": "Operations related to speeding events and details."
+    },
+    {
+      "name": "/vehicle",
+      "description": "Operations related to vehicle information, search, and status."
+    },
+    {
+      "name": "/fuel",
+      "description": "Operations related to fuel consumption."
+    },
+    {
+      "name": "/ecoscore",
+      "description": "Operations related to EcoScore calculations and events."
+    },
+    {
+      "name": "/group",
+      "description": "Operations for managing groups (hierarchy nodes)."
+    },
+    {
+      "name": "/ecodrive",
+      "description": "Operations related to Ecodrive scores and summaries."
+    },
+    {
+      "name": "/driver",
+      "description": "Operations related to drivers."
+    },
+    {
+      "name": "/journey/detail",
+      "description": "Operations related to detailed journey information."
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
+    "/customer/{customerId}/user": {
+      "options": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "CORS preflight check for User list/create endpoint",
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "customerId",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+              "type": "string"
+            },
+            "description": "The ID of the customer."
           }
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "OK. Provides allowed methods (GET, POST).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET, POST"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Get a list of users",
+        "operationId": "listAllUsers",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Page index for pagination."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 100
+            },
+            "description": "Page size for pagination (max 100)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Users were successfully returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultUserDto"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No users found matching the criteria."
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors)."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Create a new web user",
+        "description": "Create given user to the hierarchy node (user are removed from their current node).",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "requestBody": {
+          "description": "User details for creation.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully created. May include a reset token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreateResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors, invalid roleId)."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/user/{userId}": {
+      "options": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "CORS preflight check for specific User endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (GET, PUT, DELETE).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET, PUT, DELETE"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Get a user by ID",
+        "operationId": "getOneUser",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user to retrieve. (@Visible validation applies)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors)."
+          },
+          "404": {
+            "description": "User not found or not a web user."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Update an existing user",
+        "description": "Update user details. Users might be moved between hierarchy nodes based on the update. Partial update - only changed fields are applied.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user to update. (@Visible validation applies)"
+          }
+        ],
+        "requestBody": {
+          "description": "User details for update.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors, invalid roleId)."
+          },
+          "404": {
+            "description": "User not found."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Delete a user",
+        "description": "Deletes the specified user. If the user is also a driver, only the web user part might be affected depending on implementation.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user to delete. (@Visible validation applies)"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully deleted."
+          },
+          "404": {
+            "description": "User not found."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/user/{userId}/passwordResetToken": {
+      "options": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "CORS preflight check for password reset token endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (GET).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Generate a password reset token for a user",
+        "operationId": "getPasswordResetToken",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user for whom to generate the token. (@Visible validation applies)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset token generated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserTokenDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (e.g., trying to reset password for an SSO user)."
+          },
+          "404": {
+            "description": "User not found or not visible."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/user/password": {
+      "options": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "CORS preflight check for password reset endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (POST).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "POST"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Reset a user's password using a token",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "requestBody": {
+          "description": "Password reset request containing the token and new password.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password successfully reset.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePasswordResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors)."
+          },
+          "401": {
+            "description": "Unauthorized (e.g., trying to reset password for an SSO user)."
+          },
+          "403": {
+            "description": "Forbidden (e.g., invalid or expired token)."
+          },
+          "404": {
+            "description": "User associated with token not found or not visible."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/utilisation/vehicle": {
+      "options": {
+        "tags": [
+          "/utilisation"
+        ],
+        "summary": "CORS preflight check for Vehicle Utilisation endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (GET).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/utilisation"
+        ],
+        "summary": "Get vehicle utilisation summary",
+        "operationId": "getVehicleUtilisation",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date for the utilisation period."
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date for the utilisation period."
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional vehicle ID to filter by."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional group ID to filter by."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved vehicle utilisation data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisationVehicleResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors on dates or IDs)."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/utilisation/driver": {
+      "options": {
+        "tags": [
+          "/utilisation"
+        ],
+        "summary": "CORS preflight check for Driver Utilisation endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (GET).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/utilisation"
+        ],
+        "summary": "Get driver utilisation summary",
+        "operationId": "getDriverUtilisation",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date for the utilisation period."
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date for the utilisation period."
+          },
+          {
+            "name": "driverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional driver ID to filter by."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional group ID to filter by."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved driver utilisation data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisationDriverResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors on dates or IDs)."
+          }
+        }
+      }
+    },
+    "/tokenInformation": {
+      "get": {
+        "tags": [
+          "/tokenInformation"
+        ],
+        "summary": "Get information about the current authentication token",
+        "operationId": "getPersonInformation",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved token information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenInformationResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., token invalid or customer not found)."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/speeding/detail/vehicle": {
+      "get": {
+        "tags": [
+          "/speeding"
+        ],
+        "summary": "Get paginated speeding details for vehicles",
+        "operationId": "getVehicleSpeedingDetails",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date for filtering speeding events."
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date for filtering speeding events."
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by specific vehicle ID. (@Visible validation applies)"
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by group ID. (@Visible validation applies, mutually exclusive with vehicleId)"
+          },
+          {
+            "name": "percentAboveLimit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Minimum percentage above speed limit to include."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Page index for pagination."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Page size for pagination."
+          },
+          {
+            "name": "excludeChildGroups",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Exclude assets/persons from child groups when filtering by groupId."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved speeding details for vehicles.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultSpeedingDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors, date range too large, entity/day limit exceeded)."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/speeding/detail/vehicle/latest": {
+      "get": {
+        "tags": [
+          "/speeding"
+        ],
+        "summary": "Get latest speeding events for vehicles (within last hour)",
+        "operationId": "getLatestVehicleSpeedingDetails",
+        "description": "Returns the latest set of speeding events (within the last hour by default, adjustable via fromDateTime) for the specified vehicle or group.",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "fromDateTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Optional start time for filtering (capped at 1 hour ago). If omitted, defaults to 1 hour ago."
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by specific vehicle ID. (@Visible validation applies)"
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by group ID. (@Visible validation applies, mutually exclusive with vehicleId)"
+          },
+          {
+            "name": "percentAboveLimit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Minimum percentage above speed limit to include."
+          },
+          {
+            "name": "excludeChildGroups",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Exclude assets from child groups when filtering by groupId."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Latest set of speeding events for the customerId and vehicle/group.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultSpeedingDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors)."
+          },
+          "401": {
+            "description": "Unauthorized - invalid token."
+          },
+          "404": {
+            "description": "Unable to find speeding details for the specified criteria."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/speeding/detail/driver": {
+      "get": {
+        "tags": [
+          "/speeding"
+        ],
+        "summary": "Get paginated speeding details for drivers",
+        "operationId": "getDriverSpeedingDetails",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date for filtering speeding events."
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date for filtering speeding events."
+          },
+          {
+            "name": "driverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by specific driver ID. (@Visible validation applies)"
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by group ID. (@Visible validation applies, mutually exclusive with driverId)"
+          },
+          {
+            "name": "percentAboveLimit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Minimum percentage above speed limit to include."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Page index for pagination."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Page size for pagination."
+          },
+          {
+            "name": "excludeChildGroups",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Exclude persons from child groups when filtering by groupId."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved speeding details for drivers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultSpeedingDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors, date range too large, entity/day limit exceeded)."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/speeding/detail/driver/latest": {
+      "get": {
+        "tags": [
+          "/speeding"
+        ],
+        "summary": "Get latest speeding events for drivers (within last hour)",
+        "operationId": "getLatestDriverSpeedingDetails",
+        "description": "Returns the latest set of speeding events (within the last hour by default, adjustable via fromDateTime) for the specified driver or group.",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "fromDateTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Optional start time for filtering (capped at 1 hour ago). If omitted, defaults to 1 hour ago."
+          },
+          {
+            "name": "driverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by specific driver ID. (@Visible validation applies)"
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by group ID. (@Visible validation applies, mutually exclusive with driverId)"
+          },
+          {
+            "name": "percentAboveLimit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Minimum percentage above speed limit to include."
+          },
+          {
+            "name": "excludeChildGroups",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Exclude persons from child groups when filtering by groupId."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Latest set of speeding events for the customerId and driver/group.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultSpeedingDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors)."
+          },
+          "401": {
+            "description": "Unauthorized - invalid token."
+          },
+          "404": {
+            "description": "Unable to find speeding details for the specified criteria."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/speeding/detail/driver/triggerEmail": {
+      "post": {
+        "tags": [
+          "/speeding"
+        ],
+        "summary": "Trigger an email report of speeding details for the logged-in driver",
+        "operationId": "triggerSpeedingDetailToPerson",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer (context for the logged-in user)."
+          }
+        ],
+        "requestBody": {
+          "description": "Date range for the speeding report.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TriggerSpeedingDetailRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content. Report trigger request accepted successfully."
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors on dates)."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/vehicle": {
+      "options": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "CORS preflight check for Vehicle list endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (GET).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "Get a list of vehicles by customer and groups/filters",
+        "operationId": "searchVehicles",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "registration",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by partial vehicle registration."
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by vehicle name (exact match after trim)."
+          },
+          {
+            "name": "vehicleIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Filter by a list of specific vehicle IDs."
+          },
+          {
+            "name": "groupIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Filter by a list of specific group IDs."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Page index for pagination."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Page size for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vehicles were successfully returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultVehicleSearchResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors)."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/vehicle/{vehicleId}": {
+      "options": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "CORS preflight check for specific Vehicle endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the vehicle."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (PUT).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "PUT"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "Update an existing vehicle",
+        "operationId": "updateVehicle",
+        "description": "Update an asset (vehicle) by its ID.",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the vehicle to update. (@Visible validation applies)"
+          }
+        ],
+        "requestBody": {
+          "description": "Vehicle details for update.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated asset (vehicle) with correct values.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors)."
+          },
+          "404": {
+            "description": "Vehicle not found."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/vehicle/nearest": {
+      "options": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "CORS preflight check for Nearest Vehicles endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (GET).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "Find vehicles nearest to a location",
+        "operationId": "findNearestVehicles",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "description": "Longitude of the search center (required if address not provided)."
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "description": "Latitude of the search center (required if address not provided)."
+          },
+          {
+            "name": "addressLine1",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Address line 1 (used if longitude/latitude not provided)."
+          },
+          {
+            "name": "addressLine2",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Address line 2."
+          },
+          {
+            "name": "town",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Town/City."
+          },
+          {
+            "name": "county",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "County/State."
+          },
+          {
+            "name": "postcode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Postal code."
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Country."
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "description": "Search radius in kilometers."
+          },
+          {
+            "name": "maximumResultsToReturn",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Maximum number of nearest vehicles to return."
+          },
+          {
+            "name": "lastMovedStartDateTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Optional filter - include vehicles that last moved after this time (defaults to 24 hours ago if no dates provided)."
+          },
+          {
+            "name": "lastMovedEndDateTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Optional filter - include vehicles that last moved before this time (defaults to now if no dates provided)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found nearest vehicles.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Plant"
+                    "$ref": "#/components/schemas/NearestVehiclesSearchResultDto"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "Bad Request (e.g., validation errors, missing location info)."
+          },
+          "404": {
+            "description": "Could not resolve coordinates from address, or geocoding service error."
+          },
+          "503": {
+            "description": "Geocoding service unavailable or query limit exceeded."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/vehicle/serviceDate": {
+      "options": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "CORS preflight check for Vehicle Service Date endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (GET).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "Search vehicles by next service due date",
+        "operationId": "searchVehiclesWithServiceDate",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date for the service due date range."
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date for the service due date range."
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional vehicle ID to filter by."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional group ID to filter by."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Page index for pagination."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            },
+            "description": "Page size for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved vehicles matching service date criteria.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/WithPaginationResultVehicleSearchResultWithServiceDateDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors)."
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/vehicle/faults": {
+      "options": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "CORS preflight check for Vehicle Faults endpoint",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Provides allowed methods (GET).",
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "example": "GET"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/vehicle"
+        ],
+        "summary": "Search vehicle faults (active or historical)",
+        "operationId": "searchVehiclesWithFaults",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date for the fault occurrence range (required for historical faults)."
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date for the fault occurrence range (required for historical faults)."
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional vehicle ID to filter by."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional group ID to filter by."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Page index for pagination."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            },
+            "description": "Page size for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved vehicle faults. If no dates provided and no vehicle/group specified, returns active faults for the user's default group.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultVehicleSearchResultWithFaultsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request (e.g., validation errors, missing dates for historical search)."
+          }
+        }
+      }
+    },
+    "/{customerId}/fuel/vehicle": {
+      "get": {
+        "tags": [
+          "/fuel"
+        ],
+        "summary": "Get vehicle fuel consumptions",
+        "operationId": "getVehicleConsumptions",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          },
+          {
+            "name": "startDateRange",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The date range for the summary."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional group ID to filter vehicles."
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional vehicle ID to filter."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of vehicle consumption results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleConsumptionResultDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/fuel"
+        ],
+        "summary": "CORS preflight request for vehicle consumptions",
+        "operationId": "optionsVehicleConsumptions",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/{customerId}/fuel/driver": {
+      "get": {
+        "tags": [
+          "/fuel"
+        ],
+        "summary": "Get driver fuel consumptions",
+        "operationId": "getDriverVehicleConsumptions",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          },
+          {
+            "name": "startDateRange",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The date range for the summary."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional group ID to filter drivers."
+          },
+          {
+            "name": "driverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional driver ID to filter."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of driver consumption results with associated vehicles.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DriverVehicleConsumptionResultDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/fuel"
+        ],
+        "summary": "CORS preflight request for driver consumptions",
+        "operationId": "optionsDriverVehicleConsumptions",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/{customerId}/ecoscore/vehicle": {
+      "get": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "Get vehicle EcoScore summary",
+        "operationId": "getEcoScoreVehicle",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vehicle EcoScore summary response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcoScoreVehicleResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "CORS preflight request for vehicle EcoScore",
+        "operationId": "optionsEcoScoreVehicle",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/{customerId}/ecoscore/driver": {
+      "get": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "Get driver EcoScore summary",
+        "operationId": "getEcoScoreDriver",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "driverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Driver EcoScore summary response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcoScorePersonResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "CORS preflight request for driver EcoScore",
+        "operationId": "optionsEcoScoreDriver",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/{customerId}/ecoscore/event/vehicle": {
+      "get": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "Get paginated vehicle EcoScore events",
+        "operationId": "getEcoScoreEventVehicle",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventFilter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "eventStartDateTime"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            }
+          },
+          {
+            "name": "dateType",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "EVENT_START_DATE_TIME"
+              ],
+              "default": "EVENT_START_DATE_TIME"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of vehicle EcoScore events.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultEcoScoreEventResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "CORS preflight request for vehicle EcoScore events",
+        "operationId": "optionsEcoScoreEventVehicle",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/{customerId}/ecoscore/event/vehicle/latest": {
+      "get": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "Returns the vehicle score driving events that occurred/were modified after a specified modifiedSinceDate date.",
+        "operationId": "getLatestEcoScoreEventVehicle",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          },
+          {
+            "name": "modifiedSinceDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Only events occurring or modified after this date will be returned."
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of vehicle used for filtering. Mandatory if 'groupId' is not provided."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of Group used for filtering. Mandatory if 'vehicleId' is not provided."
+          },
+          {
+            "name": "eventFilter",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "RPM",
+                "HARSH_BRAKING",
+                "HARSH_ACCELERATION",
+                "HARSH_CORNERING",
+                "SPEEDING",
+                "IDLING_INSIDE_BASE",
+                "IDLING_OUTSIDE_BASE"
+              ]
+            },
+            "description": "Optional event type filter."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of vehicle score driving events that occurred or were modified after the specified date.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LatestEcoScoreEventDetailsVehicleDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When VehicleId or GroupId is not provided. Message is: 'One of following properties [VehicleId, GroupId] can not be null'\nWhen both VehicleId or GroupId are provided. Message is: 'One of following properties [VehicleId, GroupId] must be null'\nWhen given property, VehicleId or GroupId, are not visible for current User. Message is: 'Resource not visible to User'\n"
+          }
+        }
+      }
+    },
+    "/{customerId}/ecoscore/event/driver": {
+      "get": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "Get paginated driver EcoScore events",
+        "operationId": "getEcoScoreEventDriver",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "driverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventFilter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "eventStartDateTime"
+            }
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "DESC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of driver EcoScore events.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithPaginationResultEcoScoreEventResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/ecoscore"
+        ],
+        "summary": "CORS preflight request for driver EcoScore events",
+        "operationId": "optionsEcoScoreEventDriver",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/{customerId}/group": {
+      "get": {
+        "tags": [
+          "/group"
+        ],
+        "summary": "Returns all groups visible to request context",
+        "description": "Endpoint fetches all groups from user context and counts how many drivers and vehicles has each group assigned",
+        "operationId": "getAllGroups",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of Groups visible to request context with counts of drivers and vehicles",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupSearchResultDto"
+                  }
                 }
               }
             }
@@ -60,35 +2548,206 @@
         }
       },
       "post": {
-        "description": "Creates a new plant in the store",
+        "tags": [
+          "/group"
+        ],
+        "summary": "Creates new group",
+        "description": "Based on the request body endpoint creates new group and it returns newly created group / hierarchy node. If group exists with same name as body holds it returns 400 code with message that node with group name already exists",
+        "operationId": "createGroup",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
         "requestBody": {
-          "description": "Plant to add to the store",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/GroupQueryDto"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Newly created group",
             "content": {
-              "application/json": {
+              "application/json;charset=UTF-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/GroupDto"
                 }
               }
             }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "When name is blank or size name does not fit. When size parentId does not fit or it does not match pattern or it isn't visible for user. When name contains illegal characters or already exists.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiErrorDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "/group"
+        ],
+        "summary": "Updates existing group.",
+        "description": "Based on body, endpoint updates existing group. Following properties can be updated node name, persons and vehicles assigned to group, parent of group / node. If update run successfully it returns 200 with updated Group. Else if node has not been found it returns 400. Else if newly selected name for group is already taken or new parent group is one of the direct / indirect descendants it returns 409 - Conflict",
+        "operationId": "updateGroup",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated group.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. When id is incorrect and group is not visible to user or is blank or doesn't fit for selected size. When name doesn't fit for selected size or contains illegal characters. When parentId is not visible to user. When personIds or vehicleIds are not visible to user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiErrorDto"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict message, when group name is already taken by another group or when parentId is ID of group which is currently one of group descendants.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/group"
+        ],
+        "summary": "CORS preflight request for group operations",
+        "operationId": "optionsGroup",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/{customerId}/group/{nodeId}": {
+      "delete": {
+        "tags": [
+          "/group"
+        ],
+        "summary": "Deletes group",
+        "description": "Endpoint deletes the group / hierarchy node when following conditions are true group exists, is not customer (root) node, is allowed to be deleted, group / node hasn't assigned any vehicle or person and it does not have any children group. If it deletes it returns 200 code if not either 400 or 409",
+        "operationId": "deleteGroup",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the customer."
+          },
+          {
+            "name": "nodeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of group to be deleted",
+            "example": "groupID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - group has been deleted",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When group to be deleted is not visible to user. When group is customer (root) node or it is not allowed to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiErrorDto"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "When group contains any person or vehicle or it has children nodes.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
                 }
               }
             }
@@ -96,121 +2755,3722 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/ecodrive/summary": {
+      "get": {
+        "tags": [
+          "/ecodrive"
+        ],
+        "summary": "Get Ecodrive summary for the logged-in user",
+        "operationId": "getEcodriveSummary",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
+            "name": "date",
+            "in": "query",
             "required": true,
             "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Reference date for the summary."
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of days to include in summary."
+          },
+          {
+            "name": "weeks",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of weeks to include in summary."
+          },
+          {
+            "name": "months",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of months to include in summary."
+          },
+          {
+            "name": "maxJourneySummaries",
+            "in": "query",
+            "schema": {
               "type": "integer",
-              "format": "int64"
+              "default": 0
+            },
+            "description": "Maximum number of recent journey summaries to return."
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional locale (e.g., 'en_GB'). Defaults to customer/user setting."
+          },
+          {
+            "name": "userTimezone",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional timezone ID (e.g., 'Europe/London'). Defaults to user/customer setting."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ecodrive summary result.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcodriveSummaryResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/ecodrive"
+        ],
+        "summary": "CORS preflight request for Ecodrive summary",
+        "operationId": "optionsEcodriveSummary",
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/ecodrive/driversScore": {
+      "get": {
+        "tags": [
+          "/ecodrive"
+        ],
+        "summary": "Get detailed Ecodrive scores for the logged-in user",
+        "operationId": "getEcodriveDriversScore",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Reference date for the scores."
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of days to include."
+          },
+          {
+            "name": "weeks",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of weeks to include."
+          },
+          {
+            "name": "months",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of months to include."
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional locale (e.g., 'en_GB'). Defaults to customer/user setting."
+          },
+          {
+            "name": "userTimezone",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional timezone ID (e.g., 'Europe/London'). Defaults to user/customer setting."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed Ecodrive scores result.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcodriveDriversScoreResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "/ecodrive"
+        ],
+        "summary": "CORS preflight request for Ecodrive driver scores",
+        "operationId": "optionsEcodriveDriversScore",
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      }
+    },
+    "/ecodrive/summary/driver/triggerEmail": {
+      "post": {
+        "tags": [
+          "/ecodrive"
+        ],
+        "summary": "Trigger sending the Ecodrive summary email to the logged-in user",
+        "operationId": "triggerEcoDriveSummaryToPerson",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/TriggerEcodriveSummaryRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Email trigger request accepted successfully."
+          },
+          "400": {
+            "description": "Invalid request parameters (e.g., invalid date range)."
+          }
+        }
+      }
+    },
+    "/{customerId}/driver": {
+      "options": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "CORS preflight request for driver operations",
+        "operationId": "optionsDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Get a paginated list of drivers based on input parameters",
+        "operationId": "findDrivers",
+        "description": "<u><b>Parameters:</b></u>\n<ul>\n<li><b>name</b> (String) : Name of driver.\n</li>\n<li><b>groupId</b> (String) : Id of the group in hierarchy.\n</li>\n<li><b>groupName</b> (String) : Name of the group in hierarchy\n</li>\n<li><b>active</b> (Boolean) : If driver is active (true = active, false = inactive)\n</li>\n<li><b>defaultVehicleId</b> (String) : Id of default vehicle id\n</li>\n<li><b>keys</b> (List<String>) : List of driver keys/IDs to filter by.\n</li>\n<li><b>pageIndex</b> (Integer) : Number of page, default = 0.\n</li>\n<li><b>pageSize</b> (Integer) : Batches per page, default = 50.\n</li>\n</ul>\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name of driver.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "Id of the group in hierarchy.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupName",
+            "in": "query",
+            "description": "Name of the group in hierarchy.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "If driver is active (true = active, false = inactive).",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "defaultVehicleId",
+            "in": "query",
+            "description": "Id of default vehicle id.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keys",
+            "in": "query",
+            "description": "List of driver keys/IDs to filter by.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "Number of page.",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Batches per page.",
+            "schema": {
+              "type": "integer",
+              "default": 50
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "Drivers were successfully returned or empty if none of drivers fulfill criteria.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/WithPaginationResultDriverSearchResultDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing validation such as groupIds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Create given driver",
+        "description": "Creates a new driver. The driver will be created in the HierarchyNode of the authenticated user. This service cannot be used to link/unlink a vehicle to a driver.",
+        "operationId": "createDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DriverDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Driver was successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, or validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
                 }
               }
             }
           }
         }
       }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
+    },
+    "/{customerId}/driver/{driverId}": {
+      "options": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "CORS preflight request for single driver operations",
+        "operationId": "optionsOneDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Get a specific driver by ID",
+        "description": "Gets the driver with the given id but only if the caller has permission to see it.",
+        "operationId": "getDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved driver details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found or not visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Update an existing driver",
+        "description": "Updates the given driver. Only changed fields are updated. This service cannot be used to link/unlink a vehicle to a driver.",
+        "operationId": "updateDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
         "requestBody": {
-          "description": "Plant added to the store",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/DriverDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
+            "description": "Driver was successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, or validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found or not visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Delete a driver",
+        "operationId": "deleteDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Driver successfully deleted."
+          },
+          "400": {
+            "description": "Validation error (e.g., driver cannot be deleted).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found or not visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/driver/{driverId}/vehicle/{vehicleId}": {
+      "options": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "CORS preflight request for linking/unlinking driver and vehicle",
+        "operationId": "optionsLinkDriverVehicle",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/vehicleIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Link a driver to a vehicle as their default vehicle",
+        "operationId": "linkVehicle",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/vehicleIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vehicle successfully linked to the driver.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error (e.g., driver or vehicle not suitable for linking).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver or vehicle not found/visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Unlink a driver from a specific vehicle",
+        "operationId": "unlinkVehicle",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/vehicleIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vehicle successfully unlinked from the driver.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error (e.g., driver not linked to this vehicle).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver or vehicle not found/visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/driver/{driverId}/vehicle/{vehicleId}/temporary": {
+      "post": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Temporarily link a driver to a vehicle",
+        "operationId": "linkVehicleTemp",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/vehicleIdPathParam"
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "description": "Duration of the temporary link.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "today",
+                "next"
+              ],
+              "default": "next"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Vehicle successfully temporarily linked to the driver."
+          },
+          "400": {
+            "description": "Invalid parameters or validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden, e.g. driverId does not match current user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver or vehicle not found/visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/driver/{driverId}/vehicle/temporary": {
+      "delete": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Unlink a driver from a temporary vehicle assignment",
+        "operationId": "unlinkVehicleTemp",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Temporary vehicle assignment successfully unlinked."
+          },
+          "400": {
+            "description": "Validation error (e.g., driver not temporarily linked).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden, e.g. driverId does not match current user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found/visible or no temporary assignment found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/driver/{driverId}/vehicle": {
+      "get": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Get the vehicle currently assigned to the driver",
+        "operationId": "getAssignedVehicle",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "Locale for localized information.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en-GB"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved assigned vehicle details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignedVehicleDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters or validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden, e.g. driverId does not match current user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found/visible or no vehicle assigned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Unlink the driver's default vehicle",
+        "operationId": "unlinkDefaultVehicle",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default vehicle successfully unlinked from the driver.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error (e.g., driver has no default vehicle).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found/visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/driver/{driverId}/temporaryPrivacy": {
+      "post": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Add temporary privacy for a driver",
+        "operationId": "addTempPrivacy",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "description": "Duration of the temporary privacy.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "today",
+                "next"
+              ],
+              "default": "next"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Temporary privacy successfully added for the driver."
+          },
+          "400": {
+            "description": "Invalid parameters or validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden, e.g. driverId does not match current user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found/visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Remove temporary privacy for a driver",
+        "operationId": "removeTempPrivacy",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Temporary privacy successfully removed for the driver."
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden, e.g. driverId does not match current user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found/visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/driver/{driverId}/enableAsUser": {
+      "post": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Enable a driver as a web user",
+        "operationId": "enableAsUser",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Driver successfully enabled as a user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreateResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, validation error, or driver already a user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found/visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/driver/{driverId}/userInvitation": {
+      "post": {
+        "tags": [
+          "/driver"
+        ],
+        "summary": "Invite a driver to become a web user",
+        "operationId": "inviteAsWebUser",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "$ref": "#/components/parameters/driverIdPathParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInvitationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Invitation successfully sent.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasternauthUserInvitationBulkResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Driver not found/visible.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/journey/detail/vehicle": {
+      "options": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "CORS preflight request for vehicle journey details",
+        "operationId": "optionsJourneyDetailVehicle",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "Get a paginated list of detailed vehicle journeys",
+        "description": "Endpoint fetches all detailed journeys with pagination based on filtering.\nJourneys Details data are combined from JourneyResult and Asset DB collections.\nJourneys details are fetched based on ExecutionTime and VehicleId or GroupId.\nOne of Group or Vehicle must be filled, but not both.\n\n<u><b>Parameters:</b></u>\n<ul>\n<li><b>startDate</b> (Date) : Start date of time interval used for filtering. Mandatory and cannot be later then 'endDate'.\n</li>\n<li><b>endDate</b> (Date) : End date of time interval used for filtering. Mandatory and cannot be sooner then 'startDate'.\n</li>\n<li><b>vehicleId</b> (String) : Id of vehicle used for filtering. Mandatory if 'groupId' is not provided, but cannot be both filled.\n</li>\n<li><b>groupId</b> (String) : Id of Group used for filtering. Mandatory if 'vehicleId' is not provided, but cannot be both filled.\n</li>\n<li><b>pageIndex</b> (Integer) : Number of page, default = 0.\n</li>\n<li><b>pageSize</b> (Integer) : Batches per page, default = 50.\n</li>\n<li><b>excludeChildGroups</b> (Boolean)  : Exclude child groups, default = FALSE.</li>\n</ul>\n",
+        "operationId": "getJourneyDetailVehicle",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date of time interval used for filtering. Mandatory and cannot be later then 'endDate'."
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date of time interval used for filtering. Mandatory and cannot be sooner then 'startDate'."
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of vehicle used for filtering. Mandatory if 'groupId' is not provided, but cannot be both filled."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of Group used for filtering. Mandatory if 'vehicleId' is not provided, but cannot be both filled."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of page."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Batches per page."
+          },
+          {
+            "name": "excludeChildGroups",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Exclude child groups."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List for Journeys Details (TimestampedWithPaginationResult) selected by VehicleId or GroupId, and from given Execution time. May be empty list if now Journeys has been found.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimestampedWithPaginationResultJourneyDetailVehicleDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When VehicleId or GroupId is not provided. Message is: 'One of following properties [VehicleId, GroupId] can not be null'\nWhen both VehicleId or GroupId are provided. Message is: 'One of following properties [VehicleId, GroupId] must be null'\nWhen given property, VehicleId or GroupId, are not visible for current User. Message is: 'Resource not visible to User'\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/journey/detail/vehicle/latest": {
+      "options": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "CORS preflight request for latest vehicle journey details",
+        "operationId": "optionsJourneyDetailVehicleLatest",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "Get latest detailed vehicle journeys",
+        "description": "Endpoint fetches latest detailed journeys with pagination and starting with the most recent entry based on filtering.\nReturned Journeys are not older than hour ago from current time.\nJourneys Details data are combined from JourneyResult and Asset DB collections.\nJourneys details are fetched based on ExecutionTime and VehicleId or GroupId.\nOne of Group or Vehicle must be filled, but not both.\n\n<u><b>Parameters:</b></u>\n<ul>\n<li><b>fromDateTime</b> (Date)</u> : Start time used for filtering, cannot be older than hour ago from current time.\n</li>\n<li><b>startDate</b> (Date) : End date of time interval used for filtering. Mandatory and cannot be later then 'endDate'.\n</li>\n<li><b>endDate</b> (Date) : End date of time interval used for filtering. Mandatory and cannot be sooner then 'starDate'.\n</li>\n<li><b>driverId</b> (String) : Id of driver used for filtering. @Visible validation, mandatory if 'groupId' is not provided, but cannot be both filled\n</li>\n<li><b>groupId</b> (String) : Id of group used for filtering. @Visible validation, mandatory if 'driverId' is not provided, but cannot be both filled\n</li>\n<li><b>pageIndex</b> (Integer) : Number of page, default = 0.\n</li>\n<li><b>pageSize</b> (Integer) : Batches per page, default = 50.\n</li>\n<li><b>excludeChildGroups</b> (Boolean)  : Exclude child groups, default = FALSE.</li>\n</ul>\n",
+        "operationId": "getLatestJourneyDetailVehicle",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "name": "fromDateTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start time used for filtering, cannot be older than hour ago from current time."
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date"
+          },
+          {
+            "name": "vehicleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of vehicle used for filtering. Mandatory if 'groupId' is not provided, but cannot be both filled."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of Group used for filtering. Mandatory if 'vehicleId' is not provided, but cannot be both filled."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of page"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Batches per page"
+          },
+          {
+            "name": "excludeChildGroups",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Exclude child groups."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List for Journeys Details (LatestJourneyDetailsVehicleDto) selected by VehicleId, and from Execution time which is no older than hour ago from current time. May be empty list if now Journeys has been found.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LatestJourneyDetailsVehicleDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When VehicleId or GroupId is not provided. Message is: 'One of following properties [VehicleId, GroupId] can not be null'\nWhen both VehicleId or GroupId are provided. Message is: 'One of following properties [VehicleId, GroupId] must be null'\nWhen given property, VehicleId or GroupId, are not visible for current User. Message is: 'Resource not visible to User'\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/journey/detail/driver": {
+      "options": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "CORS preflight request for driver journey details",
+        "operationId": "optionsJourneyDetailDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "Get a paginated list of detailed driver journeys",
+        "description": "Endpoint fetches all detailed journeys with pagination based on filtering.\nJourneys Details data are combined from JourneyResult and Asset DB collections.\nJourneys details are fetched based on ExecutionTime and DriverId or GroupId.\nOne of Group or Driver must be filled, but not both.\n\n<u><b>Parameters:</b></u>\n<ul>\n<li><b>startDate</b> (Date) : Start date of time interval used for filtering. Mandatory and cannot be later then 'endDate'.\n</li>\n<li><b>endDate</b> (Date) : End date of time interval used for filtering. Mandatory and cannot be sooner then 'startDate'.\n</li>\n<li><b>driverId</b> (String) : Id of driver used for filtering. Mandatory if 'groupId' is not provided, but cannot be both filled.\n</li>\n<li><b>groupId</b> (String) : Id of group used for filtering. Mandatory if 'driverId' is not provided, but cannot be both filled.\n</li>\n<li><b>pageIndex</b> (Integer) : Number of page, default = 0.\n</li>\n<li><b>pageSize</b> (Integer) : Batches per page, default = 50.\n</li>\n<li><b>excludeChildGroups</b> (Boolean)  : Exclude child groups, default = FALSE.</li>\n</ul>\n",
+        "operationId": "getJourneyDetailDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start date of time interval used for filtering. Mandatory and cannot be later then 'endDate'."
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End date of time interval used for filtering. Mandatory and cannot be sooner then 'startDate'."
+          },
+          {
+            "name": "driverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of driver used for filtering. Mandatory if 'groupId' is not provided, but cannot be both filled."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of group used for filtering. Mandatory if 'driverId' is not provided, but cannot be both filled."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of page."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Batches per page."
+          },
+          {
+            "name": "excludeChildGroups",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Exclude child groups."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List for Journeys Details (TimestampedWithPaginationResult) selected by GroupId or DriverId, and from given Execution time. May be empty list if now Journeys has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimestampedWithPaginationResultJourneyDetailDriverDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When DriverId or GroupId is not provided. Message is: 'One of following properties [DriverId, GroupId] can not be null'\nWhen both DriverId or GroupId are provided. Message is: 'One of following properties [DriverId, GroupId] must be null'\nWhen given property, DriverId or GroupId, are not visible for current User. Message is: 'Resource not visible to User'\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/journey/detail/driver/triggerEmail": {
+      "post": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "Trigger sending the detailed driver journey report email",
+        "operationId": "triggerJourneyDetailedDriverReport",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JourneyDriverReportTriggerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Email trigger request accepted successfully."
+          },
+          "400": {
+            "description": "Invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{customerId}/journey/detail/driver/latest": {
+      "options": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "CORS preflight request for latest driver journey details",
+        "operationId": "optionsJourneyDetailDriverLatest",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - CORS headers provided."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "/journey/detail"
+        ],
+        "summary": "Get latest detailed driver journeys",
+        "description": "Endpoint fetches latest detailed journeys with pagination and starting with the most recent entry based on filtering.\nReturned Journeys are not older than hour ago from current time.\nJourneys Details data are combined from JourneyResult and Asset DB collections.\nJourneys details are fetched based on DriverId or GroupId and execution time is set on current date\nOne of Group or Driver must be filled, but not both.\n\n<u><b>Parameters:</b></u>\n<ul>\n<li><b>fromDateTime</b> (Date)</u> : Start time used for filtering, cannot be older than hour ago from current time.\n</li>\n<li><b>driverId</b> (String) : Id of driver for filtering. Mandatory if groupId is not provided, but cannot be both filled.\n</li>\n<li><b>groupId</b> (String) : Id of group used for filtering. Mandatory if 'driverId' is not provided, but cannot be both filled.\n</li>\n<li><b>pageIndex</b> (Integer) : Number of page, default = 0.\n</li>\n<li><b>pageSize</b> (Integer) : Batches per page, default = 50.\n</li>\n<li><b>excludeChildGroups</b> (Boolean)  : Exclude child groups, default = FALSE.</li>\n</ul>\n",
+        "operationId": "getLatestJourneyDetailDriver",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerIdPathParam"
+          },
+          {
+            "name": "fromDateTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start time used for filtering, cannot be older than hour ago from current time."
+          },
+          {
+            "name": "driverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of driver for filtering. Mandatory if groupId is not provided, but cannot be both filled."
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of group used for filtering. Mandatory if 'driverId' is not provided, but cannot be both filled."
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of page"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Batches per page"
+          },
+          {
+            "name": "excludeChildGroups",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Exclude child groups."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List for latest Journeys Details (LatestJourneyDetailsDriverDto) selected by DriverId, and from given Execution time. May be empty list if now Journeys has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LatestJourneyDetailsDriverDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When DriverId or GroupId is not provided. Message is: 'One of following properties [DriverId, GroupId] can not be null'\nWhen both DriverId or GroupId are provided. Message is: 'One of following properties [DriverId, GroupId] must be null'\nWhen given property, DriverId or GroupId, are not visible for current User. Message is: 'Resource not visible to User'\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
           }
         }
       }
     }
   },
   "components": {
+    "parameters": {
+      "customerIdPathParam": {
+        "name": "customerId",
+        "in": "path",
+        "required": true,
+        "description": "ID of the customer.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "driverIdPathParam": {
+        "name": "driverId",
+        "in": "path",
+        "required": true,
+        "description": "ID of the driver.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{24}$"
+        }
+      },
+      "vehicleIdPathParam": {
+        "name": "vehicleId",
+        "in": "path",
+        "required": true,
+        "description": "ID of the vehicle.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{24}$"
+        }
+      }
+    },
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "WithPaginationRequest": {
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
+          "pageIndex": {
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "The index of the page to retrieve (0-based)."
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "default": 50,
+            "description": "The number of items per page."
+          }
+        }
+      },
+      "IdNameDto": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "UserDto": {
+        "type": "object",
+        "description": "Represents a Masternaut Web User.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "userName": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "emailAddress": {
+            "type": "string",
+            "format": "email"
+          },
+          "roleId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "secondaryGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDto"
+            }
+          },
+          "externalIdentifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "sendWelcomeEmail": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "userName",
+          "firstName",
+          "lastName",
+          "emailAddress",
+          "roleId",
+          "groupId"
+        ]
+      },
+      "UserCreateResponseDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Password reset token (only present if sendWelcomeEmail is false and no externalIdentifier).",
+            "nullable": true
+          },
+          "expiryTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiry time for the token.",
+            "nullable": true
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserDto"
+          }
+        },
+        "required": [
+          "user"
+        ]
+      },
+      "UserTokenDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "expiryTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "token",
+          "expiryTime"
+        ]
+      },
+      "UpdatePasswordRequestDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "newPassword": {
+            "type": "string",
+            "format": "password"
+          },
+          "reseller": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "token",
+          "newPassword"
+        ]
+      },
+      "UpdatePasswordResultDto": {
+        "type": "object",
+        "properties": {
+          "personId": {
+            "type": "string"
+          },
+          "personName": {
             "type": "string"
           }
         }
       },
-      "NewPlant": {
+      "UtilisationVehicleRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicleId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "startDate",
+          "endDate"
+        ]
+      },
+      "UtilisationVehicleResultDto": {
+        "type": "object",
+        "description": "Summary of vehicle utilisation.",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "vehicleId": {
+                  "type": "string"
+                },
+                "vehicleName": {
+                  "type": "string"
+                },
+                "groupId": {
+                  "type": "string"
+                },
+                "groupName": {
+                  "type": "string"
+                },
+                "totalDistance": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "totalDurationSeconds": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UtilisationDriverRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "driverId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "startDate",
+          "endDate"
+        ]
+      },
+      "UtilisationDriverResultDto": {
+        "type": "object",
+        "description": "Summary of driver utilisation.",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "driverId": {
+                  "type": "string"
+                },
+                "driverName": {
+                  "type": "string"
+                },
+                "groupId": {
+                  "type": "string"
+                },
+                "groupName": {
+                  "type": "string"
+                },
+                "totalDistance": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "totalDurationSeconds": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GroupResultDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "TokenInformationResultDto": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string"
+          },
+          "webUserEmailAddress": {
+            "type": "string",
+            "format": "email"
+          },
+          "webUserName": {
+            "type": "string"
+          },
+          "customerName": {
+            "type": "string"
+          },
+          "webUserLocale": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "personId": {
+            "type": "string"
+          },
+          "hierarchyNodeId": {
+            "type": "string"
+          },
+          "groupName": {
+            "type": "string"
+          },
+          "groupPath": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupResultDto"
+            }
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "isTempAdminUser": {
+            "type": "boolean"
+          },
+          "allowedCustomers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SpeedingDetailRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fromDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "groupId": {
+            "type": "string",
+            "nullable": true
+          },
+          "percentAboveLimit": {
+            "type": "integer",
+            "nullable": true
+          },
+          "excludeChildGroups": {
+            "type": "boolean",
+            "default": false
+          },
+          "pageIndex": {
+            "type": "integer",
+            "format": "int32",
+            "default": 0
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "default": 50
+          }
+        }
+      },
+      "AssetSpeedingDetailRequestDto": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/Plant"
+            "$ref": "#/components/schemas/SpeedingDetailRequestDto"
           },
           {
-            "required": [
-              "id"
-            ],
             "type": "object",
             "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
+              "vehicleId": {
+                "type": "string",
+                "nullable": true
               }
             }
           }
         ]
       },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
+      "PersonSpeedingDetailRequestDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SpeedingDetailRequestDto"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "driverId": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "SpeedingDetailDto": {
+        "type": "object",
+        "description": "Represents a single speeding event detail.",
+        "properties": {
+          "assetId": {
+            "type": "string"
+          },
+          "assetRegistration": {
+            "type": "string"
+          },
+          "assetName": {
+            "type": "string"
+          },
+          "personId": {
+            "type": "string",
+            "nullable": true
+          },
+          "personName": {
+            "type": "string",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "durationSeconds": {
+            "type": "integer"
+          },
+          "maxSpeedKph": {
+            "type": "number",
+            "format": "double"
+          },
+          "speedLimitKph": {
+            "type": "number",
+            "format": "double"
+          },
+          "percentAboveLimit": {
+            "type": "integer"
+          },
+          "startLocation": {
+            "type": "object"
+          },
+          "endLocation": {
+            "type": "object"
+          }
+        }
+      },
+      "TriggerSpeedingDetailRequestDto": {
         "type": "object",
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
           },
-          "message": {
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "startDate",
+          "endDate"
+        ]
+      },
+      "VehicleSearchRequestDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WithPaginationRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "registration": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string",
+                "nullable": true
+              },
+              "vehicleIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              "groupIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "VehicleSearchRequestWithDateRangeDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WithPaginationRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "endDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "vehicleId": {
+                "type": "string",
+                "nullable": true
+              },
+              "groupId": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "VehicleDto": {
+        "type": "object",
+        "description": "Represents vehicle details for update.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "customerId": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "registration": {
+            "type": "string"
+          },
+          "make": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer"
+          },
+          "fuelType": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "secondaryGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDto"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "registration",
+          "groupId"
+        ]
+      },
+      "VehicleSearchResultDto": {
+        "type": "object",
+        "description": "Represents a vehicle in search results.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "registration": {
+            "type": "string"
+          },
+          "make": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "groupName": {
+            "type": "string"
+          },
+          "secondaryGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDto"
+            }
+          },
+          "engineTotalHours": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "engineTotalHoursType": {
+            "type": "string",
+            "enum": [
+              "CAN",
+              "ESTIMATED"
+            ],
+            "nullable": true
+          },
+          "engineTotalHoursLastModified": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "activeFaultCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "registration",
+          "groupId",
+          "groupName"
+        ]
+      },
+      "VehicleSearchResultWithServiceDateDto": {
+        "type": "object",
+        "description": "Vehicle search result including next service date information.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "registration": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "groupName": {
+            "type": "string"
+          },
+          "nextServiceDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nextServiceDistanceKm": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "registration",
+          "groupId",
+          "groupName"
+        ]
+      },
+      "VehicleSearchResultWithFaultsDto": {
+        "type": "object",
+        "description": "Vehicle search result including fault code information.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "registration": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "groupName": {
+            "type": "string"
+          },
+          "faultCode": {
+            "type": "string"
+          },
+          "faultDescription": {
+            "type": "string"
+          },
+          "faultSource": {
+            "type": "string"
+          },
+          "faultFmi": {
+            "type": "string"
+          },
+          "faultTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "registration",
+          "groupId",
+          "groupName",
+          "faultCode",
+          "faultTimestamp"
+        ]
+      },
+      "NearestVehiclesSearchRequestDto": {
+        "type": "object",
+        "properties": {
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "addressLine1": {
+            "type": "string"
+          },
+          "addressLine2": {
+            "type": "string"
+          },
+          "town": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "radius": {
+            "type": "number",
+            "format": "double",
+            "description": "Search radius in kilometers."
+          },
+          "maximumResultsToReturn": {
+            "type": "integer"
+          },
+          "lastMovedStartDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastMovedEndDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "required": [
+          "maximumResultsToReturn"
+        ]
+      },
+      "NearestVehiclesSearchResultDto": {
+        "type": "object",
+        "description": "Represents a vehicle found in a nearest search.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "registration": {
+            "type": "string"
+          },
+          "distanceKm": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "registration",
+          "distanceKm"
+        ]
+      },
+      "WithPaginationResultUserDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserDto"
+            }
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "totalPages",
+          "totalCount"
+        ]
+      },
+      "WithPaginationResultSpeedingDetailDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SpeedingDetailDto"
+            }
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "totalPages",
+          "totalCount"
+        ]
+      },
+      "WithPaginationResultVehicleSearchResultDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleSearchResultDto"
+            }
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "WithPaginationResultVehicleSearchResultWithServiceDateDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleSearchResultWithServiceDateDto"
+            }
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "totalPages",
+          "totalCount"
+        ]
+      },
+      "WithPaginationResultVehicleSearchResultWithFaultsDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleSearchResultWithFaultsDto"
+            }
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "totalPages",
+          "totalCount"
+        ]
+      },
+      "VehicleConsumptionRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDateRange": {
+            "type": "string",
+            "description": "Date range filter."
+          },
+          "groupId": {
+            "type": "string",
+            "description": "Group ID filter."
+          },
+          "vehicleId": {
+            "type": "string",
+            "description": "Vehicle ID filter."
+          }
+        }
+      },
+      "VehicleConsumptionResultDto": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string"
+          },
+          "registration": {
+            "type": "string"
+          },
+          "fuelConsumedLitres": {
+            "type": "number",
+            "format": "double"
+          },
+          "distanceKm": {
+            "type": "number",
+            "format": "double"
+          },
+          "litresPer100Km": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "DriverVehicleConsumptionRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDateRange": {
+            "type": "string",
+            "description": "Date range filter."
+          },
+          "groupId": {
+            "type": "string",
+            "description": "Group ID filter."
+          },
+          "driverId": {
+            "type": "string",
+            "description": "Driver ID filter."
+          }
+        }
+      },
+      "DriverVehicleConsumptionResultDto": {
+        "type": "object",
+        "properties": {
+          "driverId": {
+            "type": "string"
+          },
+          "driverName": {
+            "type": "string"
+          },
+          "vehicles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleConsumptionResultDto"
+            }
+          }
+        }
+      },
+      "EcoScoreVehicleRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicleId": {
+            "type": "string"
+          },
+          "groupId": {
             "type": "string"
           }
         }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      },
+      "EcoScoreVehicleResponseDto": {
+        "type": "object",
+        "description": "Placeholder for EcoScoreVehicleResponseDto structure.",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "EcoScoreDriverRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "driverId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          }
+        }
+      },
+      "EcoScorePersonResponseDto": {
+        "type": "object",
+        "description": "Placeholder for EcoScorePersonResponseDto structure.",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "EcoScoreEventVehicleRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicleId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "eventFilter": {
+            "type": "string"
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "sortField": {
+            "type": "string"
+          },
+          "sortDirection": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          "dateType": {
+            "type": "string"
+          }
+        }
+      },
+      "EcoScoreEventDriverRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "driverId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "eventFilter": {
+            "type": "string"
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "sortField": {
+            "type": "string"
+          },
+          "sortDirection": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          }
+        }
+      },
+      "EcoScoreEventResponseDto": {
+        "type": "object",
+        "description": "Placeholder for EcoScoreEventResponseDto structure.",
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "eventStartDateTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WithPaginationResultEcoScoreEventResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EcoScoreEventResponseDto"
+            }
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "totalItems": {
+            "type": "integer"
+          },
+          "totalPages": {
+            "type": "integer"
+          }
+        }
+      },
+      "LatestEcoScoreEventVehicleRequestDto": {
+        "type": "object",
+        "properties": {
+          "modifiedSinceDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicleId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "eventFilter": {
+            "type": "string"
+          }
+        }
+      },
+      "LatestEcoScoreEventDetailsVehicleDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EcoScoreEventResponseDto"
+            }
+          },
+          "lastModifiedTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GroupSearchResultDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "driverCount": {
+            "type": "integer"
+          },
+          "vehicleCount": {
+            "type": "integer"
+          },
+          "secondaryDriverCount": {
+            "type": "integer"
+          }
+        }
+      },
+      "GroupQueryDto": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "parentId": {
+            "type": "string",
+            "description": "ID of the parent group. If null/empty, uses user's default group."
+          }
+        }
+      },
+      "GroupDto": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "personIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "vehicleIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isCustomerNode": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EcodriveSummaryRequestDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "days": {
+            "type": "integer"
+          },
+          "weeks": {
+            "type": "integer"
+          },
+          "months": {
+            "type": "integer"
+          },
+          "maxJourneySummaries": {
+            "type": "integer"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "userTimezone": {
+            "type": "string"
+          }
+        }
+      },
+      "EcodriveSummaryResultDto": {
+        "type": "object",
+        "description": "Placeholder for EcodriveSummaryResultDto structure.",
+        "properties": {
+          "dailyScore": {
+            "type": "number"
+          },
+          "weeklyScore": {
+            "type": "number"
+          },
+          "monthlyScore": {
+            "type": "number"
+          },
+          "ecodriveJourneySummaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EcodriveJourneySummaryDto"
+            }
+          }
+        }
+      },
+      "EcodriveDriversScoreRequestDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "days": {
+            "type": "integer"
+          },
+          "weeks": {
+            "type": "integer"
+          },
+          "months": {
+            "type": "integer"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "userTimezone": {
+            "type": "string"
+          }
+        }
+      },
+      "EcodriveDriversScoreResultDto": {
+        "type": "object",
+        "description": "Placeholder for EcodriveDriversScoreResultDto structure.",
+        "properties": {
+          "driverId": {
+            "type": "string"
+          },
+          "driverName": {
+            "type": "string"
+          },
+          "dailyScores": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "weeklyScores": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "monthlyScores": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "EcodriveJourneySummaryDto": {
+        "type": "object",
+        "description": "Placeholder for EcodriveJourneySummaryDto structure.",
+        "properties": {
+          "journeyId": {
+            "type": "string"
+          },
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TriggerEcodriveSummaryRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ApiErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object"
+          }
+        }
+      },
+      "DriverSearchRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of driver."
+          },
+          "groupId": {
+            "type": "string",
+            "description": "Id of the group in hierarchy."
+          },
+          "groupName": {
+            "type": "string",
+            "description": "Name of the group in hierarchy."
+          },
+          "active": {
+            "type": "boolean",
+            "description": "If driver is active (true = active, false = inactive)."
+          },
+          "defaultVehicleId": {
+            "type": "string",
+            "description": "Id of default vehicle id."
+          },
+          "keys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of driver keys/IDs to filter by."
+          },
+          "pageIndex": {
+            "type": "integer",
+            "description": "Number of page.",
+            "default": 0
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Batches per page.",
+            "default": 50
+          }
+        }
+      },
+      "DriverSearchResultDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Driver ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Driver's full name."
+          },
+          "defaultVehicleId": {
+            "type": "string",
+            "nullable": true,
+            "description": "ID of the default vehicle assigned to the driver."
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the driver is active."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of tags associated with the driver."
+          },
+          "primaryGroup": {
+            "$ref": "#/components/schemas/IdNameDto",
+            "description": "Primary hierarchy group of the driver."
+          },
+          "secondaryGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDto"
+            },
+            "description": "List of secondary hierarchy groups the driver belongs to."
+          }
+        }
+      },
+      "WithPaginationResultDriverSearchResultDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DriverSearchResultDto"
+            }
+          },
+          "pageIndex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The current page index (0-based)."
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of items per page."
+          },
+          "totalItems": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The total number of items available."
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The total number of pages."
+          }
+        }
+      },
+      "DriverDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Driver ID. Read-only for create, required for update.",
+            "pattern": "^[a-fA-F0-9]{24}$"
+          },
+          "name": {
+            "type": "string",
+            "description": "Driver's full name."
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Driver's first name."
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Driver's last name."
+          },
+          "emailAddress": {
+            "type": "string",
+            "format": "email",
+            "nullable": true,
+            "description": "Driver's email address."
+          },
+          "defaultVehicleId": {
+            "type": "string",
+            "nullable": true,
+            "description": "ID of the default vehicle assigned to the driver.",
+            "readOnly": true
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the driver is active."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of tags associated with the driver."
+          },
+          "groupId": {
+            "type": "string",
+            "description": "ID of the primary hierarchy group for the driver."
+          },
+          "secondaryGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDto"
+            },
+            "description": "List of secondary hierarchy groups. ID is required, name is optional/read-only."
+          },
+          "employeeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "driverUniqueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "UserInvitationDto": {
+        "type": "object",
+        "description": "Placeholder for UserInvitationDto. Define its properties.",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "roleId": {
+            "type": "string"
+          }
+        }
+      },
+      "MasternauthUserInvitationBulkResponseDto": {
+        "type": "object",
+        "description": "Placeholder for MasternauthUserInvitationBulkResponseDto. Define its properties.",
+        "properties": {
+          "successfulInvitations": {
+            "type": "integer"
+          },
+          "failedInvitations": {
+            "type": "integer"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "AssignedVehicleDto": {
+        "type": "object",
+        "properties": {
+          "assignedAssetType": {
+            "type": "string",
+            "description": "Type of assignment (e.g., PERMANENT, TEMPORARY)."
+          },
+          "vehicle": {
+            "$ref": "#/components/schemas/AssetDto",
+            "nullable": true
+          },
+          "trackingLive": {
+            "$ref": "#/components/schemas/TrackingLiveDto",
+            "nullable": true
+          }
+        }
+      },
+      "AssetDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Vehicle ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Vehicle name or registration."
+          },
+          "registration": {
+            "type": "string"
+          },
+          "make": {
+            "type": "string",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "group": {
+            "$ref": "#/components/schemas/IdNameDto",
+            "description": "Hierarchy group of the vehicle."
+          },
+          "latestEvents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrackingLiveInputEventOverviewDto"
+            },
+            "description": "Overview of latest input events for the vehicle."
+          }
+        }
+      },
+      "TrackingLiveDto": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "speedKph": {
+            "type": "integer"
+          },
+          "heading": {
+            "type": "integer"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "TrackingLiveInputEventOverviewDto": {
+        "type": "object",
+        "description": "Placeholder for TrackingLiveInputEventOverviewDto. Define its properties.",
+        "properties": {
+          "eventName": {
+            "type": "string"
+          },
+          "eventTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "JourneyDetailVehicleRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicleId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "excludeChildGroups": {
+            "type": "boolean"
+          }
+        }
+      },
+      "JourneyDetailDriverRequestDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "driverId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "excludeChildGroups": {
+            "type": "boolean"
+          }
+        }
+      },
+      "LatestJourneyDetailsVehicleRequestDto": {
+        "type": "object",
+        "properties": {
+          "fromDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicleId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "excludeChildGroups": {
+            "type": "boolean"
+          }
+        }
+      },
+      "LatestJourneyDetailsDriverRequestDto": {
+        "type": "object",
+        "properties": {
+          "fromDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "driverId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "excludeChildGroups": {
+            "type": "boolean"
+          }
+        }
+      },
+      "JourneyDriverReportTriggerRequest": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TimestampedWithPaginationResultJourneyDetailVehicleDto": {
+        "type": "object",
+        "properties": {
+          "processedDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JourneyDetailVehicleDto"
+            }
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "totalItems": {
+            "type": "integer"
+          },
+          "totalPages": {
+            "type": "integer"
+          }
+        }
+      },
+      "TimestampedWithPaginationResultJourneyDetailDriverDto": {
+        "type": "object",
+        "properties": {
+          "processedDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JourneyDetailDriverDto"
+            }
+          },
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "totalItems": {
+            "type": "integer"
+          },
+          "totalPages": {
+            "type": "integer"
+          }
+        }
+      },
+      "LatestJourneyDetailsVehicleDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JourneyDetailVehicleDto"
+            }
+          },
+          "lastModifiedTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LatestJourneyDetailsDriverDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JourneyDetailDriverDto"
+            }
+          },
+          "lastModifiedTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "JourneyDetailVehicleDto": {
+        "type": "object",
+        "description": "Placeholder for JourneyDetailVehicleDto structure.",
+        "properties": {
+          "journeyId": {
+            "type": "string"
+          },
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "distanceKm": {
+            "type": "number",
+            "format": "double"
+          },
+          "durationSeconds": {
+            "type": "integer"
+          },
+          "startLocation": {
+            "$ref": "#/components/schemas/LocationDto"
+          },
+          "endLocation": {
+            "$ref": "#/components/schemas/LocationDto"
+          },
+          "vehicle": {
+            "$ref": "#/components/schemas/AssetDto"
+          }
+        }
+      },
+      "JourneyDetailDriverDto": {
+        "type": "object",
+        "description": "Placeholder for JourneyDetailDriverDto structure.",
+        "properties": {
+          "journeyId": {
+            "type": "string"
+          },
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "distanceKm": {
+            "type": "number",
+            "format": "double"
+          },
+          "durationSeconds": {
+            "type": "integer"
+          },
+          "startLocation": {
+            "$ref": "#/components/schemas/LocationDto"
+          },
+          "endLocation": {
+            "$ref": "#/components/schemas/LocationDto"
+          },
+          "vehicle": {
+            "$ref": "#/components/schemas/AssetDto"
+          },
+          "driverId": {
+            "type": "string"
+          },
+          "driverName": {
+            "type": "string"
+          }
+        }
+      },
+      "LocationDto": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          }
+        }
       }
     }
   }
