@@ -18,23 +18,52 @@ Learn how to update your docs locally and deploy them to the public.
  username/password or you cannot access the required Masternaut Connect API endpoint. .
 3. Use your credential in the basic auth header of each of your requests.
   </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 
-    1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `docs.json` is): ``` mintlify dev ```
-    <Note>
-      If you’re currently using the legacy ```mint.json``` configuration file, please update the Mintlify CLI:
+  <Accordion icon="rectangle-terminal" title="Step 2: Make Your First API Request">
+  
+
+Let's start by making a simple request to the Connect API to list your resources.
+
+### Getting a list of your Drivers
 
 
-      ```npm i -g mintlify@latest```
-      And run the new upgrade command in your docs repository:
+**API Call Response Example:**
 
-      ```mintlify upgrade```
-      You should now be using the new ```docs.json``` configuration file. Feel free to delete the ```mint.json``` file from your repository.
+```json
+{ 
+ "totalPages":1, 
+ "totalCount":2, 
+ "items":[ 
+    {
+      "id":"3454070", 
+      "driverName": "Coburnhill Wood", 
+      "groupId": "5315b03360b12054ebd4a8c5", 
+      "groupdName": "Masternaut"", 
+      "customerId": "123456", 
+      "active": false 
+    }, 
+    {
+      "id" :": "3454072", 
+      "driverName": "Hayton Wood", 
+      "groupId": "5315b03360b12054ebd4a8c5", 
+      "groupdName": "Masternaut"", 
+      "customerId": "123456", 
+      "active": true, 
+      "defaultVehicleId": "235204", 
+      "keys": [ 
+        { 
+          Connect API Reference v1.31 | 60 
+          MN-Confidential 
+          "value": "AB7CADE2B1", 
+          "type": "RFID", 
+          "privateMode": false 
+        } 
+      ] 
+    } 
+  ] 
+ }
+```
+
+This response confirms that the anchor has been successfully set and provides an `anchor_id` for future reference.
     </Note>
   </Accordion>
 </AccordionGroup>
