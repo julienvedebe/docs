@@ -27,7 +27,7 @@
               "essentials/definitions",
               "essentials/programming",
               "essentials/authentication",
-              "essentials/settings",
+              "essentials/datetime",
               "essentials/navigation",
               "essentials/reusable-snippets"
             ]
