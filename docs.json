@@ -26,7 +26,7 @@
             "pages": [
               "essentials/definitions",
               "essentials/programming",
-              "essentials/images",
+              "essentials/authentication",
               "essentials/settings",
               "essentials/navigation",
               "essentials/reusable-snippets"
