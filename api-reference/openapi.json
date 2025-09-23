@@ -27,6 +27,8 @@
       "post" : {
         "tags" : [ "/alert" ],
         "operationId" : "createAlertEvents",
+        "summary" : "Create alert events",
+        "description" : "Creates alert events for a customer.",
         "requestBody" : {
           "content" : {
             "application/json;charset=UTF-8" : {
@@ -65,6 +67,8 @@
       "get" : {
         "tags" : [ "/alert" ],
         "operationId" : "getPersonAlertHistory",
+        "summary" : "Get driver alert history",
+        "description" : "Returns details of triggered alerts for a driver in the specified period.",
         "parameters" : [ {
           "name" : "customerId",
           "in" : "path",
