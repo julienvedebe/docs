@@ -5433,6 +5433,8 @@
       "put" : {
         "tags" : [ "/location" ],
         "operationId" : "updateLocation",
+         "summary" : "Update location",
+        "description" : "PUT request to update location details. The identifier for the location to be updated is included in the JSON body.",
         "requestBody" : {
           "content" : {
             "application/json;charset=UTF-8" : {
