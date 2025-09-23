@@ -664,6 +664,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "optionsUnlinkAppShellMenu",
+        "summary" : "Options for unlinking app shell menu",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -678,6 +679,8 @@
       "get" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "getDriverDetails",
+         "summary" : "Get driver business travel details",
+        "description" : "Returns detailed business travel information for drivers.",
         "parameters" : [ {
           "name" : "pageIndex",
           "in" : "query",
@@ -762,6 +765,7 @@
       "options" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "optionsTaxAndExpenseJourneyDetailDriver",
+        "summary" : "Options for driver business travel details",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -776,6 +780,8 @@
       "get" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "getTaxAndExpenseJourneySummaryDriver",
+        "summary" : "Get driver business travel summary",
+        "description" : "Returns summary business travel information for drivers.",
         "parameters" : [ {
           "name" : "startDate",
           "in" : "query",
@@ -837,6 +843,7 @@
       "options" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "optionsTaxAndExpenseJourneySummaryDriver",
+        "summary" : "Options for driver business travel summary",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -851,6 +858,8 @@
       "get" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "getTaxAndExpenseJourneySummaryVehicle",
+        "summary" : "Get vehicle business travel summary",
+        "description" : "Returns summary business travel information for vehicles.",
         "parameters" : [ {
           "name" : "startDate",
           "in" : "query",
@@ -912,6 +921,7 @@
       "options" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "optionsTaxAndExpenseJourneySummaryVehicle",
+        "summary" : "Options for vehicle business travel summary",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -926,6 +936,8 @@
       "get" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "getVehicleDetails",
+        "summary" : "Get vehicle business travel details",
+        "description" : "Returns detailed business travel information for vehicles.",
         "parameters" : [ {
           "name" : "pageIndex",
           "in" : "query",
@@ -1010,6 +1022,7 @@
       "options" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "optionsTaxAndExpenseJourneyDetailVehicle",
+        "summary" : "Options for vehicle business travel details",
         "responses" : {
           "default" : {
             "description" : "default response",
