@@ -1037,6 +1037,8 @@
       "post" : {
         "tags" : [ "/device" ],
         "operationId" : "createDeviceRegistration",
+         "summary" : "Create device registration",
+        "description" : "Creates a device registration for a customer.",
         "parameters" : [ {
           "name" : "deviceId",
           "in" : "path",
@@ -1072,6 +1074,8 @@
       "post" : {
         "tags" : [ "/device" ],
         "operationId" : "managePositionData",
+        "summary" : "Manage position data",
+        "description" : "Manages batch position data for a device.",
         "parameters" : [ {
           "name" : "deviceId",
           "in" : "path",
@@ -1106,6 +1110,8 @@
       "post" : {
         "tags" : [ "/driver" ],
         "operationId" : "addTempPrivacy",
+        "summary" : "Add temporary privacy",
+        "description" : "Adds temporary privacy for a driver.",
         "parameters" : [ {
           "name" : "driverId",
           "in" : "path",
@@ -1135,6 +1141,8 @@
       "delete" : {
         "tags" : [ "/driver" ],
         "operationId" : "removeTempPrivacy",
+         "summary" : "Remove temporary privacy",
+        "description" : "Removes temporary privacy for a driver.",
         "parameters" : [ {
           "name" : "driverId",
           "in" : "path",
@@ -1315,6 +1323,8 @@
       "delete" : {
         "tags" : [ "/driver" ],
         "operationId" : "deleteDriver",
+         "summary" : "Delete driver",
+        "description" : "DELETE request to delete a driver that matches the driverId.",
         "parameters" : [ {
           "name" : "driverId",
           "in" : "path",
