@@ -1,3 +1,4 @@
+
 {
   "openapi" : "3.0.1",
   "info" : {
@@ -26,9 +27,7 @@
       "post" : {
         "tags" : [ "/alert" ],
         "operationId" : "createAlertEvents",
-        "summary" : "Create alert events",
-        "description" : "Creates alert events for a customer.",
-		"requestBody" : {
+        "requestBody" : {
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
@@ -52,8 +51,7 @@
       "options" : {
         "tags" : [ "/alert" ],
         "operationId" : "optionsCreateAlertEvents",
-        "summary" : "Options for create alert events",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -67,9 +65,7 @@
       "get" : {
         "tags" : [ "/alert" ],
         "operationId" : "getPersonAlertHistory",
-        "summary" : "Get driver alert history",
-        "description" : "Returns details of triggered alerts for a driver in the specified period.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "customerId",
           "in" : "path",
           "required" : true,
@@ -181,8 +177,7 @@
       "options" : {
         "tags" : [ "/alert" ],
         "operationId" : "optionsGetPersonAlertHistory",
-        "summary" : "Options for driver alert history",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -196,8 +191,8 @@
       "get" : {
         "tags" : [ "/alert" ],
         "operationId" : "getVehicleAlertHistory",
-        "summary" : "Get vehicle alert history",
-        "description" : "Returns details of triggered alerts for a vehicle in the specified period.",
+        "parameters" : [ {
+          "name" : "customerId",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -308,8 +303,7 @@
       "options" : {
         "tags" : [ "/alert" ],
         "operationId" : "optionsGetVehicleAlertHistory",
-        "summary" : "Options for vehicle alert history",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -323,9 +317,7 @@
       "post" : {
         "tags" : [ "/alert" ],
         "operationId" : "searchAlerts",
-        "summary" : "Search alerts",
-        "description" : "Searches for alerts based on specified criteria.",
-		"requestBody" : {
+        "requestBody" : {
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
@@ -350,8 +342,7 @@
       "options" : {
         "tags" : [ "/alert" ],
         "operationId" : "optionsSearchAlerts",
-        "summary" : "Options for search alerts",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -365,8 +356,7 @@
       "get" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "getAppShellMenus",
-        "summary" : "Get app shell menus",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -385,9 +375,7 @@
       "post" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "createAppShellMenu",
-        "summary" : "Create app shell menu",
-        "description" : "Creates a new app shell menu.",
-		"requestBody" : {
+        "requestBody" : {
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
@@ -412,7 +400,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "options",
-        "summary" : "Options for app shell menu",
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -426,9 +414,7 @@
       "get" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "getAppShellMenu",
-        "summary" : "Get app shell menu details",
-        "description" : "Returns details for a specific app shell menu.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "key",
           "in" : "path",
           "required" : true,
@@ -452,9 +438,7 @@
       "put" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "updateAppShellMenu",
-        "summary" : "Update app shell menu",
-        "description" : "Updates an existing app shell menu.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "key",
           "in" : "path",
           "required" : true,
@@ -487,9 +471,7 @@
       "delete" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "deleteAppShellMenu",
-        "summary" : "Delete app shell menu",
-        "description" : "Deletes an app shell menu.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "key",
           "in" : "path",
           "required" : true,
@@ -509,8 +491,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "optionsDetail",
-        "summary" : "Options for app shell menu details",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -524,8 +505,7 @@
       "get" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "getSsoPartners",
-        "summary" : "Get SSO partners",
-		 "responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -546,8 +526,7 @@
       "get" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "getStructure",
-        "summary" : "Get app shell menu structure",
-		 "responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -566,8 +545,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "optionsStructure",
-        "summary" : "Options for app shell menu structure",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -581,9 +559,7 @@
       "post" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "linkAppShellMenu",
-        "summary" : "Link app shell menu to feature",
-        "description" : "Links an app shell menu to a specific feature.",
-		 "parameters" : [ {
+        "parameters" : [ {
           "name" : "featureId",
           "in" : "path",
           "required" : true,
@@ -623,8 +599,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "optionsLinkAppShellMenu",
-        "summary" : "Options for linking app shell menu",
-		 "responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -638,9 +613,7 @@
       "delete" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "unlinkAppShellMenu",
-        "summary" : "Unlink app shell menu from feature",
-        "description" : "Unlinks an app shell menu from a feature.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "featureId",
           "in" : "path",
           "required" : true,
@@ -664,8 +637,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "optionsUnlinkAppShellMenu",
-        "summary" : "Options for unlinking app shell menu",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -679,9 +651,7 @@
       "get" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "getDriverDetails",
-        "summary" : "Get driver business travel details",
-        "description" : "Returns detailed business travel information for drivers.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "pageIndex",
           "in" : "query",
           "schema" : {
@@ -765,8 +735,7 @@
       "options" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "optionsTaxAndExpenseJourneyDetailDriver",
-        "summary" : "Options for driver business travel details",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -780,9 +749,7 @@
       "get" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "getTaxAndExpenseJourneySummaryDriver",
-        "summary" : "Get driver business travel summary",
-        "description" : "Returns summary business travel information for drivers.",
-		 "parameters" : [ {
+        "parameters" : [ {
           "name" : "startDate",
           "in" : "query",
           "schema" : {
@@ -843,8 +810,7 @@
       "options" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "optionsTaxAndExpenseJourneySummaryDriver",
-        "summary" : "Options for driver business travel summary",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -858,9 +824,7 @@
       "get" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "getTaxAndExpenseJourneySummaryVehicle",
-        "summary" : "Get vehicle business travel summary",
-        "description" : "Returns summary business travel information for vehicles.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "startDate",
           "in" : "query",
           "schema" : {
@@ -921,8 +885,7 @@
       "options" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "optionsTaxAndExpenseJourneySummaryVehicle",
-        "summary" : "Options for vehicle business travel summary",
-		 "responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -936,9 +899,7 @@
       "get" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "getVehicleDetails",
-        "summary" : "Get vehicle business travel details",
-        "description" : "Returns detailed business travel information for vehicles.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "pageIndex",
           "in" : "query",
           "schema" : {
@@ -1022,8 +983,7 @@
       "options" : {
         "tags" : [ "/businesstravel" ],
         "operationId" : "optionsTaxAndExpenseJourneyDetailVehicle",
-        "summary" : "Options for vehicle business travel details",
-		"responses" : {
+        "responses" : {
           "default" : {
             "description" : "default response",
             "content" : {
@@ -1037,9 +997,7 @@
       "post" : {
         "tags" : [ "/device" ],
         "operationId" : "createDeviceRegistration",
-        "summary" : "Create device registration",
-        "description" : "Creates a device registration for a customer.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "deviceId",
           "in" : "path",
           "required" : true,
@@ -1074,9 +1032,7 @@
       "post" : {
         "tags" : [ "/device" ],
         "operationId" : "managePositionData",
-        "summary" : "Manage position data",
-        "description" : "Manages batch position data for a device.",
-		 "parameters" : [ {
+        "parameters" : [ {
           "name" : "deviceId",
           "in" : "path",
           "required" : true,
@@ -1110,9 +1066,7 @@
       "post" : {
         "tags" : [ "/driver" ],
         "operationId" : "addTempPrivacy",
-        "summary" : "Add temporary privacy",
-        "description" : "Adds temporary privacy for a driver.",
-		 "parameters" : [ {
+        "parameters" : [ {
           "name" : "driverId",
           "in" : "path",
           "required" : true,
@@ -1141,9 +1095,7 @@
       "delete" : {
         "tags" : [ "/driver" ],
         "operationId" : "removeTempPrivacy",
-        "summary" : "Remove temporary privacy",
-        "description" : "Removes temporary privacy for a driver.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "driverId",
           "in" : "path",
           "required" : true,
@@ -1294,9 +1246,7 @@
         "tags" : [ "/driver" ],
         "summary" : "update given driver to the hierarchy node (drivers are removed from their current node).",
         "operationId" : "updateDriver",
-        "summary" : "Update driver",
-        "description" : "PUT request to update the details for an existing driver. This is a partial update and only those values specified will be updated.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "driverId",
           "in" : "path",
           "required" : true,
@@ -1325,9 +1275,7 @@
       "delete" : {
         "tags" : [ "/driver" ],
         "operationId" : "deleteDriver",
-        "summary" : "Delete driver",
-        "description" : "DELETE request to delete a driver that matches the driverId.",
-		 "parameters" : [ {
+        "parameters" : [ {
           "name" : "driverId",
           "in" : "path",
           "required" : true,
@@ -5435,9 +5383,7 @@
       "put" : {
         "tags" : [ "/location" ],
         "operationId" : "updateLocation",
-        "summary" : "Update location",
-        "description" : "PUT request to update location details. The identifier for the location to be updated is included in the JSON body.",
-		 "requestBody" : {
+        "requestBody" : {
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
@@ -8060,9 +8006,7 @@
       "get" : {
         "tags" : [ "/utilisation" ],
         "operationId" : "getDriverUtilisation",
-        "summary" : "Driver Utilisation Hours",
-        "description" : "Returns summary utilisation information for a driver for all journeys where the journey started in the specified period.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "startDate",
           "in" : "query",
           "schema" : {
@@ -8125,9 +8069,7 @@
       "get" : {
         "tags" : [ "/utilisation" ],
         "operationId" : "getVehicleUtilisation",
-        "summary" : "Vehicle Utilisation Hours",
-        "description" : "Returns summary utilisation information for a vehicle for all journeys where the journey started in the specified period.",
-		 "parameters" : [ {
+        "parameters" : [ {
           "name" : "startDate",
           "in" : "query",
           "schema" : {
@@ -8297,9 +8239,7 @@
         "tags" : [ "/vehicle" ],
         "description" : "update an asset by id in given customer database",
         "operationId" : "updateVehicle",
-        "summary" : "Update vehicle",
-        "description" : "PUT request to update the details for an existing vehicle. This is a partial update and only those values specified will be updated.",
-		"parameters" : [ {
+        "parameters" : [ {
           "name" : "vehicleId",
           "in" : "path",
           "required" : true,
