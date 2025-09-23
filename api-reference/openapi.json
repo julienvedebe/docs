@@ -195,6 +195,8 @@
       "get" : {
         "tags" : [ "/alert" ],
         "operationId" : "getVehicleAlertHistory",
+        "summary" : "Get vehicle alert history",
+        "description" : "Returns details of triggered alerts for a vehicle in the specified period.",
         "parameters" : [ {
           "name" : "customerId",
           "in" : "path",
@@ -321,6 +323,8 @@
       "post" : {
         "tags" : [ "/alert" ],
         "operationId" : "searchAlerts",
+        "summary" : "Search alerts",
+        "description" : "Searches for alerts based on specified criteria.",
         "requestBody" : {
           "content" : {
             "application/json;charset=UTF-8" : {
@@ -360,6 +364,7 @@
       "get" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "getAppShellMenus",
+        "summary" : "Get app shell menus",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -379,6 +384,8 @@
       "post" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "createAppShellMenu",
+        "summary" : "Create app shell menu",
+        "description" : "Creates a new app shell menu.",
         "requestBody" : {
           "content" : {
             "application/json;charset=UTF-8" : {
@@ -404,6 +411,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "options",
+        "summary" : "Options for app shell menu",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -418,6 +426,8 @@
       "get" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "getAppShellMenu",
+        "summary" : "Get app shell menu details",
+        "description" : "Returns details for a specific app shell menu.",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
@@ -442,6 +452,8 @@
       "put" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "updateAppShellMenu",
+        "summary" : "Update app shell menu",
+        "description" : "Updates an existing app shell menu.",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
@@ -475,6 +487,8 @@
       "delete" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "deleteAppShellMenu",
+        "summary" : "Delete app shell menu",
+        "description" : "Deletes an app shell menu.",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
@@ -495,6 +509,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "optionsDetail",
+        "summary" : "Options for app shell menu details",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -509,6 +524,7 @@
       "get" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "getSsoPartners",
+        "summary" : "Get SSO partners",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -530,6 +546,7 @@
       "get" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "getStructure",
+        "summary" : "Get app shell menu structure",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -549,6 +566,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "optionsStructure",
+        "summary" : "Options for app shell menu structure",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -563,6 +581,8 @@
       "post" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "linkAppShellMenu",
+        "summary" : "Link app shell menu to feature",
+        "description" : "Links an app shell menu to a specific feature.",
         "parameters" : [ {
           "name" : "featureId",
           "in" : "path",
@@ -603,6 +623,7 @@
       "options" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "optionsLinkAppShellMenu",
+        "summary" : "Options for linking app shell menu",
         "responses" : {
           "default" : {
             "description" : "default response",
@@ -617,6 +638,8 @@
       "delete" : {
         "tags" : [ "/appshellmenu" ],
         "operationId" : "unlinkAppShellMenu",
+        "summary" : "Unlink app shell menu from feature",
+        "description" : "Unlinks an app shell menu from a feature.",
         "parameters" : [ {
           "name" : "featureId",
           "in" : "path",
