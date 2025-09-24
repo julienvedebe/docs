@@ -197,8 +197,8 @@
             }
           }
         },
-        "summary": "Get Alert History",
-        "description": "Retrieves historical data and records."
+        "summary": "Driver Alert History",
+        "description": "API endpoint for Driver Alert History. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -345,8 +345,8 @@
             }
           }
         },
-        "summary": "Get Alert History",
-        "description": "Retrieves historical data and records."
+        "summary": "Vehicle Alert History",
+        "description": "API endpoint for Vehicle Alert History. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -856,8 +856,8 @@
             }
           }
         },
-        "summary": "Get Business Travel Details",
-        "description": "Retrieves detailed information and comprehensive data."
+        "summary": "Driver Detailed Business Travel",
+        "description": "API endpoint for Driver Detailed Business Travel. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -944,8 +944,8 @@
             }
           }
         },
-        "summary": "Get Business Travel Summary",
-        "description": "Retrieves summary information and aggregated data."
+        "summary": "Driver Business Travel",
+        "description": "API endpoint for Driver Business Travel. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -1032,8 +1032,8 @@
             }
           }
         },
-        "summary": "Get Business Travel Summary",
-        "description": "Retrieves summary information and aggregated data."
+        "summary": "Vehicle Business Travel",
+        "description": "API endpoint for Vehicle Business Travel. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -1146,8 +1146,8 @@
             }
           }
         },
-        "summary": "Get Business Travel Details",
-        "description": "Retrieves detailed information and comprehensive data."
+        "summary": "Vehicle Detailed Business Travel",
+        "description": "API endpoint for Vehicle Detailed Business Travel. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -1318,7 +1318,7 @@
           "/driver"
         ],
         "summary": "List Driver",
-        "description": "Returns details for all drivers and the group they have been assigned to.",
+        "description": "API endpoint for List Driver. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "findDrivers",
         "parameters": [
           {
@@ -1415,7 +1415,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "POST request to add a new driver."
+        "description": "API endpoint for Add Driver. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -1461,7 +1461,7 @@
           }
         },
         "summary": "List Driver Details",
-        "description": "Returns details for a driver including their default vehicle."
+        "description": "API endpoint for List Driver Details. Detailed description available in MCF Connect API Reference documentation."
       },
       "put": {
         "tags": [
@@ -1496,7 +1496,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "PUT request to update the details for an existing driver."
+        "description": "API endpoint for Update Driver. Detailed description available in MCF Connect API Reference documentation."
       },
       "delete": {
         "tags": [
@@ -1522,7 +1522,7 @@
           }
         },
         "summary": "Delete Driver",
-        "description": "DELETE request to delete a driver that matches the {driverId}."
+        "description": "API endpoint for Delete Driver. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -1647,7 +1647,7 @@
           }
         },
         "summary": "Unlink Driver Default Vehicle",
-        "description": "DELETE request to unlink a driver to their default vehicle without having to specify the existing default vehicle."
+        "description": "API endpoint for Unlink Driver Default Vehicle. Detailed description available in MCF Connect API Reference documentation."
       }
     },
     "/public/v1/customer/{customerId}/driver/{driverId}/userInvitation": {
@@ -1766,7 +1766,7 @@
           }
         },
         "summary": "Delete Driver Default Vehicle",
-        "description": "DELETE request to delete the default vehicle for a driver."
+        "description": "API endpoint for Delete Driver Default Vehicle. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -2272,8 +2272,8 @@
             }
           }
         },
-        "summary": "Get Driver",
-        "description": "Retrieves specific information for the requested resource."
+        "summary": "Driver Score",
+        "description": "API endpoint for Driver Score. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -2377,8 +2377,8 @@
             }
           }
         },
-        "summary": "Get Driver",
-        "description": "Retrieves specific information for the requested resource."
+        "summary": "Driver Score Events",
+        "description": "API endpoint for Driver Score Events. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -2482,8 +2482,8 @@
             }
           }
         },
-        "summary": "Get Eco Score",
-        "description": "Retrieves specific information for the requested resource."
+        "summary": "Vehicle Score Events",
+        "description": "API endpoint for Vehicle Score Events. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -2573,8 +2573,8 @@
             }
           }
         },
-        "summary": "Get Eco Score",
-        "description": "Retrieves specific information for the requested resource."
+        "summary": "Vehicle Score",
+        "description": "API endpoint for Vehicle Score. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -2596,7 +2596,7 @@
         "tags": [
           "/ecoscore"
         ],
-        "summary": "Returns the vehicle score driving events that occurred/were modified after a specified \nmodifiedSinceDate date.\n<u><b>Parameters:</b></u>\n<ul><li><b>modifiedSinceDate</b> (Date) : Only events occurring or modified after this date will be returned. This field is mandatory. Users can calculate this value by taking the maximum lastModifiedTime field from previous invocations of this endpoint or the '/event/vehicle' endpoint.\n</li><li><b>vehicleId</b> (String) : Id of vehicle used for filtering. @Visible validation, mandatory if 'groupId' is not provided, but cannot be both filled\n</li><li><b>groupId</b> (String) : Id of Group used for filtering. @Visible validation, mandatory if 'vehicleId' is not provided, but cannot be both filled\n</li><li><b>eventFilter</b> (String)  : Optional event type corresponding to one of IncidentType enumeration values: RPM, HARSH_BRAKING, HARSH_ACCELERATION, HARSH_CORNERING, SPEEDING, IDLING_INSIDE_BASE, IDLING_OUTSIDE_BASE</li></ul>",
+        "summary": "Vehicle Journey History Latest",
         "operationId": "getLatestEcoScoreEventVehicle",
         "parameters": [
           {
@@ -2644,7 +2644,7 @@
             "description": "When VehicleId or GroupId is not provided. Message is: 'One of following properties [VehicleId, GroupId] can not be null'\n\tWhen both VehicleId or GroupId are provided. Message is: 'One of following properties [VehicleId, GroupId] must be null'\n\tWhen given property, VehicleId or GroupId, are not visible for current User. Message is: 'Resource not visible to User'"
           }
         },
-        "description": "Retrieves the most recent data and information."
+        "description": "API endpoint for Vehicle Journey History Latest. Detailed description available in MCF Connect API Reference documentation."
       }
     },
     "/public/v1/ecodrive/driversScore": {
@@ -3487,8 +3487,8 @@
             }
           }
         },
-        "summary": "Get Fuel",
-        "description": "Retrieves specific information for the requested resource."
+        "summary": "Fuel Card Transactions",
+        "description": "API endpoint for Fuel Card Transactions. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -3511,7 +3511,7 @@
           "/group"
         ],
         "summary": "List Group",
-        "description": "Returns the group hierarchy starting from the root node.",
+        "description": "API endpoint for List Group. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getAllGroups",
         "responses": {
           "200": {
@@ -3534,7 +3534,7 @@
           "/group"
         ],
         "summary": "Update Group",
-        "description": "PUT request to update the group that matches the {id} in the JSON object included in the HTTP body.",
+        "description": "API endpoint for Update Group. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "updateGroup",
         "requestBody": {
           "content": {
@@ -3586,7 +3586,7 @@
           "/group"
         ],
         "summary": "Add Group",
-        "description": "POST request to add a new group.",
+        "description": "API endpoint for Add Group. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "createGroup",
         "requestBody": {
           "content": {
@@ -3644,7 +3644,7 @@
           "/group"
         ],
         "summary": "Delete Group",
-        "description": "DELETE request to delete the group that matches the {groupId}.",
+        "description": "API endpoint for Delete Group. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "deleteGroup",
         "parameters": [
           {
@@ -4263,8 +4263,8 @@
             }
           }
         },
-        "summary": "Get Driver",
-        "description": "Retrieves specific information for the requested resource."
+        "summary": "Driver Input Usage",
+        "description": "API endpoint for Driver Input Usage. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -4354,8 +4354,8 @@
             }
           }
         },
-        "summary": "Get Input",
-        "description": "Retrieves specific information for the requested resource."
+        "summary": "Vehicle Input Usage",
+        "description": "API endpoint for Vehicle Input Usage. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -5635,7 +5635,7 @@
           "/journey/detail"
         ],
         "summary": "Driver Journeys",
-        "description": "Returns summary journey details for a driver for each journey that started in the specified period.",
+        "description": "API endpoint for Driver Journeys. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getJourneyDetailDriver",
         "parameters": [
           {
@@ -5729,7 +5729,7 @@
           "/journey/detail"
         ],
         "summary": "Vehicle Journeys",
-        "description": "Returns summary journey details for a vehicle for each journey that started in the specified period.",
+        "description": "API endpoint for Vehicle Journeys. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getJourneyDetailVehicle",
         "parameters": [
           {
@@ -5829,8 +5829,8 @@
         "tags": [
           "/journey/detail"
         ],
-        "summary": "Driver Journeys Latest",
-        "description": "Returns summary journey details for a driver for each journey that was processed by Connect since the specified date/time.",
+        "summary": "Driver Journey History Latest",
+        "description": "API endpoint for Driver Journey History Latest. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getLatestJourneyDetailDriver",
         "parameters": [
           {
@@ -5932,7 +5932,7 @@
           "/journey/detail"
         ],
         "summary": "Vehicle Journeys Latest",
-        "description": "Returns summary journey details for a vehicle for each journey that was processed by Connect since the specified date/time.",
+        "description": "API endpoint for Vehicle Journeys Latest. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getLatestJourneyDetailVehicle",
         "parameters": [
           {
@@ -6156,7 +6156,7 @@
           }
         },
         "summary": "List Location Category",
-        "description": "Returns details for all location categories."
+        "description": "API endpoint for List Location Category. Detailed description available in MCF Connect API Reference documentation."
       },
       "put": {
         "tags": [
@@ -6185,7 +6185,7 @@
           }
         },
         "summary": "Update Location Category",
-        "description": "PUT request to update the location category that matches the {id} in the JSON object included in the HTTP body."
+        "description": "API endpoint for Update Location Category. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -6257,7 +6257,7 @@
           }
         },
         "summary": "Delete Location Category",
-        "description": "DELETE request to delete the location category that matches the {categoryId}."
+        "description": "API endpoint for Delete Location Category. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -6302,7 +6302,7 @@
           }
         },
         "summary": "Update Location",
-        "description": "PUT request to update location details."
+        "description": "API endpoint for Update Location. Detailed description available in MCF Connect API Reference documentation."
       },
       "post": {
         "tags": [
@@ -6332,7 +6332,7 @@
           }
         },
         "summary": "Add Location",
-        "description": "POST request to add a new location with a geo-fence boundary that can be either CIRCULAR or POLYGON."
+        "description": "API endpoint for Add Location. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -6374,7 +6374,7 @@
           }
         },
         "summary": "Delete Location",
-        "description": "DELETE request to delete a location that matches the {locationId}."
+        "description": "API endpoint for Delete Location. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -6665,7 +6665,7 @@
           }
         },
         "summary": "List Location",
-        "description": "Returns the location (points of interest) matching the specified parameters."
+        "description": "API endpoint for List Location. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -6901,7 +6901,7 @@
           }
         },
         "summary": "List Role",
-        "description": "Returns all roles and the active features for each role."
+        "description": "API endpoint for List Role. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -6947,7 +6947,7 @@
           }
         },
         "summary": "List Role Details",
-        "description": "Returns details for a single role."
+        "description": "API endpoint for List Role Details. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -7075,8 +7075,8 @@
             }
           }
         },
-        "summary": "Get Driver Details",
-        "description": "Retrieves detailed information and comprehensive data."
+        "summary": "Driver Speeding Detail",
+        "description": "API endpoint for Driver Speeding Detail. Detailed description available in MCF Connect API Reference documentation."
       }
     },
     "/public/v1/customer/{customerId}/speeding/detail/driver/latest": {
@@ -7438,8 +7438,8 @@
             }
           }
         },
-        "summary": "Get Speeding Details",
-        "description": "Retrieves detailed information and comprehensive data."
+        "summary": "Vehicle Speeding Detail",
+        "description": "API endpoint for Vehicle Speeding Detail. Detailed description available in MCF Connect API Reference documentation."
       }
     },
     "/public/v1/customer/{customerId}/speeding/detail/driver/triggerEmail": {
@@ -8246,7 +8246,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position Latest",
-        "description": "Returns the live position and status for a resource (driver or vehicle).",
+        "description": "API endpoint for Live Position Latest. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getLatestLiveStatus",
         "parameters": [
           {
@@ -8339,7 +8339,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position Latest AEMP",
-        "description": "Returns the latest live position and status for a vehicle in AEMP format.",
+        "description": "API endpoint for Live Position Latest AEMP. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getLatestLiveStatusAemp",
         "parameters": [
           {
@@ -8417,8 +8417,8 @@
         "tags": [
           "/tracking/live"
         ],
-        "summary": "Live Position Latest GeojSON",
-        "description": "Returns the live position and status for all vehicles in GeojSON Specification (RFC 7946) format.",
+        "summary": "Live Position Latest GeoJSON",
+        "description": "API endpoint for Live Position Latest GeoJSON. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getLatestLiveStatusAsGeoJson",
         "parameters": [
           {
@@ -8511,7 +8511,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position",
-        "description": "Returns the live position and status for a resource (driver or vehicle).",
+        "description": "API endpoint for Live Position. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getLiveStatus",
         "parameters": [
           {
@@ -8618,7 +8618,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position AEMP",
-        "description": "Returns the live position and status for all vehicles in AEMP XML format.",
+        "description": "API endpoint for Live Position AEMP. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getLiveStatusAemp",
         "parameters": [
           {
@@ -8696,8 +8696,8 @@
         "tags": [
           "/tracking/live"
         ],
-        "summary": "Live Position GeojSON",
-        "description": "Returns the live position and status for all vehicles in GeojSON Specification (RFC 7946) format.",
+        "summary": "Live Position GeoJSON",
+        "description": "API endpoint for Live Position GeoJSON. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "getLiveStatusAsGeoJson",
         "parameters": [
           {
@@ -9073,7 +9073,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "Returns details for all active users."
+        "description": "API endpoint for List User. Detailed description available in MCF Connect API Reference documentation."
       },
       "post": {
         "tags": [
@@ -9098,7 +9098,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "POST request to add a web user."
+        "description": "API endpoint for Add User. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -9140,7 +9140,7 @@
             "description": "Missing validation."
           }
         },
-        "description": "Returns details for a single user."
+        "description": "API endpoint for List User Details. Detailed description available in MCF Connect API Reference documentation."
       },
       "put": {
         "tags": [
@@ -9175,7 +9175,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "PUT request to update an existing user."
+        "description": "API endpoint for Update User. Detailed description available in MCF Connect API Reference documentation."
       },
       "delete": {
         "tags": [
@@ -9201,7 +9201,7 @@
           }
         },
         "summary": "Delete User",
-        "description": "DELETE request to delete a user that matches the {userId}."
+        "description": "API endpoint for Delete User. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -9385,7 +9385,7 @@
           }
         },
         "summary": "Driver Utilisation Hours",
-        "description": "Returns summary utilisation information for a driver for all journeys where the journey started in the specified period."
+        "description": "API endpoint for Driver Utilisation Hours. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -9460,7 +9460,7 @@
           }
         },
         "summary": "Vehicle Utilisation Hours",
-        "description": "Returns summary utilisation information for a vehicle for all journeys where the journey started in the period."
+        "description": "API endpoint for Vehicle Utilisation Hours. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
@@ -9606,7 +9606,7 @@
         "tags": [
           "/vehicle"
         ],
-        "description": "PUT request to update the details for an existing vehicle.",
+        "description": "API endpoint for Set Driver Default Vehicle. Detailed description available in MCF Connect API Reference documentation.",
         "operationId": "updateVehicle",
         "parameters": [
           {
@@ -9636,7 +9636,7 @@
             "description": "Message related to validation"
           }
         },
-        "summary": "Update Vehicle"
+        "summary": "Set Driver Default Vehicle"
       },
       "options": {
         "tags": [
@@ -9720,7 +9720,7 @@
             "description": "Missing validation on parameters."
           }
         },
-        "description": "Returns the registration, group and current odometer reading for a vehicle."
+        "description": "API endpoint for List Vehicle. Detailed description available in MCF Connect API Reference documentation."
       },
       "options": {
         "tags": [
