@@ -198,7 +198,7 @@
           }
         },
         "summary": "Driver Alert History",
-        "description": "Returns details of alerts that were triggered for a driver in the specified period[cite: 1739]. The value specified for the endDate cannot be before startDate and the period cannot be more than 7 days[cite: 1740]. Either driverId or groupId must be specified. If driverId is specified, then only alerts for the specified driver are included in the output[cite: 1741]. If"
+        "description": "Returns details of alerts that were triggered for a driver in the specified period. The value specified for the endDate cannot be before startDate and the period cannot be more than 7 days. Either driverId or groupId must be specified. If driverId is specified, then only alerts for the specified driver are included in the output. If"
       },
       "options": {
         "tags": [
@@ -346,7 +346,7 @@
           }
         },
         "summary": "Vehicle Alert History",
-        "description": "Returns details of alerts that were triggered for a vehicle in the specified period[cite: 1716]. The value specified for the endDate cannot be before startDate and the period cannot be more than 7 days[cite: 1717]. Either vehicleId or groupId must be specified. If vehicleId is specified, then only alerts for the specified vehicle are included in the output[cite: 1718]. If groupId is specified, then alerts that were triggered for all vehicles in the specified group are included in the output[cite: 1719]. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 1720]. If there are more than 100 triggered alerts that match the search criteria, then by default only the first 100 triggered alerts are returned[cite: 1721]. To view details of the other alerts you will need to specify values for pageSize and pageIndex[cite: 1722]."
+        "description": "Returns details of alerts that were triggered for a vehicle in the specified period. The value specified for the endDate cannot be before startDate and the period cannot be more than 7 days. Either vehicleId or groupId must be specified. If vehicleId is specified, then only alerts for the specified vehicle are included in the output. If groupId is specified, then alerts that were triggered for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If there are more than 100 triggered alerts that match the search criteria, then by default only the first 100 triggered alerts are returned. To view details of the other alerts you will need to specify values for pageSize and pageIndex."
       },
       "options": {
         "tags": [
@@ -857,7 +857,7 @@
           }
         },
         "summary": "Driver Detailed Business Travel",
-        "description": "Returns detailed business travel information for a driver for a journey that has been classified where the journey started in the period[cite: 1697]. The end date of the journey does not have to be within the period[cite: 1698]. No details are returned for journeys that have not been classified and submitted by the driver[cite: 1699]. Either driverIds or groupId must be specified as an input parameter[cite: 1700]. If groupId is specified, then the business travel for all drivers in the specified group are included in the output[cite: 1701]. Asset Day Limit: The asset day limit on this endpoint is 50 asset days. You will receive an HTTP status code of 400 (Bad input parameters) and no details will be returned if you exceed this restriction[cite: 1703]."
+        "description": "Returns detailed business travel information for a driver for a journey that has been classified where the journey started in the period. The end date of the journey does not have to be within the period. No details are returned for journeys that have not been classified and submitted by the driver. Either driverIds or groupId must be specified as an input parameter. If groupId is specified, then the business travel for all drivers in the specified group are included in the output. Asset Day Limit: The asset day limit on this endpoint is 50 asset days. You will receive an HTTP status code of 400 (Bad input parameters) and no details will be returned if you exceed this restriction."
       },
       "options": {
         "tags": [
@@ -1033,7 +1033,7 @@
           }
         },
         "summary": "Vehicle Business Travel",
-        "description": "Returns summarised business travel information for a vehicle for all journeys where the journey started in the period[cite: 1644]. The end date of the journey does not have to be within the period[cite: 1645]. If vehicleIds or groupId is not specified, that details for all vehicles are returned[cite: 1646]. If groupId is specified, then the business travel for all vehicles in the specified group are included in the output[cite: 1647]. Either vehicleIds or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 1648]."
+        "description": "Returns summarised business travel information for a vehicle for all journeys where the journey started in the period. The end date of the journey does not have to be within the period. If vehicleIds or groupId is not specified, that details for all vehicles are returned. If groupId is specified, then the business travel for all vehicles in the specified group are included in the output. Either vehicleIds or groupId can be specified as an input parameter, an error is returned if both are specified."
       },
       "options": {
         "tags": [
@@ -1147,7 +1147,7 @@
           }
         },
         "summary": "Vehicle Detailed Business Travel",
-        "description": "Returns detailed business travel information for a vehicle for a journey that has been submitted and where the journey started in the period[cite: 1677]. The end date of the journey does not have to be within the period[cite: 1678]. No details are returned for journeys that have not been classified and submitted by the driver[cite: 1679]. Either vehicleIds or groupId must be specified as an input parameter[cite: 1680]. If groupId is specified, then the business travel for all vehicles in the specified group are included in the output[cite: 1681]. Asset Day Limit: The asset day limit on this endpoint is 50 asset days. You will receive an HTTP status code of 400 (Bad input parameters) and no details will be returned if you exceed this restriction[cite: 1683]."
+        "description": "Returns detailed business travel information for a vehicle for a journey that has been submitted and where the journey started in the period. The end date of the journey does not have to be within the period. No details are returned for journeys that have not been classified and submitted by the driver. Either vehicleIds or groupId must be specified as an input parameter. If groupId is specified, then the business travel for all vehicles in the specified group are included in the output. Asset Day Limit: The asset day limit on this endpoint is 50 asset days. You will receive an HTTP status code of 400 (Bad input parameters) and no details will be returned if you exceed this restriction."
       },
       "options": {
         "tags": [
@@ -1415,7 +1415,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "POST request to add a new driver. [cite: 508] When adding a new driver, the identifier for the newly added driver is included in the JSON object returned as the response. [cite: 509] The details for the driver are in a JSON object included in the HTTP body. [cite: 510] Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 511]"
+        "description": "POST request to add a new driver.  When adding a new driver, the identifier for the newly added driver is included in the JSON object returned as the response.  The details for the driver are in a JSON object included in the HTTP body.  Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". "
       },
       "options": {
         "tags": [
@@ -1496,7 +1496,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "PUT request to update the details for an existing driver. [cite: 527] This is a partial update and only those values specified will be updated. [cite: 528] The update details for the driver are in a JSON object included in the HTTP body. [cite: 529] Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 530]"
+        "description": "PUT request to update the details for an existing driver.  This is a partial update and only those values specified will be updated.  The update details for the driver are in a JSON object included in the HTTP body.  Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". "
       },
       "delete": {
         "tags": [
@@ -1728,7 +1728,7 @@
           }
         },
         "summary": "Set Driver Default Vehicle",
-        "description": "POST request to set the default vehicle for a driver to the specified {vehicleId}. [cite: 548] An error is returned in the following cases: ● If there is already a default vehicle assigned to the driver; [cite: 549] ● If the vehicle is already assigned to be the default vehicle for another driver; [cite: 550]"
+        "description": "POST request to set the default vehicle for a driver to the specified {vehicleId}.  An error is returned in the following cases: ● If there is already a default vehicle assigned to the driver;  ● If the vehicle is already assigned to be the default vehicle for another driver; "
       },
       "delete": {
         "tags": [
@@ -1766,7 +1766,7 @@
           }
         },
         "summary": "Delete Driver Default Vehicle",
-        "description": "DELETE request to delete the default vehicle for a driver. [cite: 557] An error is returned in the following cases: ● There is no default vehicle assigned to the driver. [cite: 558] ● The {vehicleId} does not match the existing default vehicle for the driver. [cite: 559]"
+        "description": "DELETE request to delete the default vehicle for a driver.  An error is returned in the following cases: ● There is no default vehicle assigned to the driver.  ● The {vehicleId} does not match the existing default vehicle for the driver. "
       },
       "options": {
         "tags": [
@@ -1892,7 +1892,7 @@
           }
         },
         "summary": "Driver Behaviour Group Ranking",
-        "description": "POST request to return the behaviour rank of a driver in their group[cite: 1404]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate should be at least 7 days[cite: 1405]. The details for the user are in a JSON object included in the HTTP body[cite: 1406]. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\"[cite: 1407]."
+        "description": "POST request to return the behaviour rank of a driver in their group. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate should be at least 7 days. The details for the user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\"."
       }
     },
     "/public/v1/customer/{customerId}/driverbehaviourmetrics/vehicle/summary": {
@@ -1969,7 +1969,7 @@
           }
         },
         "summary": "Driver Behaviour Vehicle Summary",
-        "description": "Returns the behaviour summary metrics for a vehicle[cite: 1342]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate must be at least 7 days and cannot be more than 31 days[cite: 1342]. A value for either vehicleId or groupId must be specified If there are more than 50 details that match the search criteria, then by default only the first 50 summary details are returned[cite: 1343]. To view details of the summary details you will need to specify values for pageSize and pageIndex[cite: 1344]."
+        "description": "Returns the behaviour summary metrics for a vehicle. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate must be at least 7 days and cannot be more than 31 days. A value for either vehicleId or groupId must be specified If there are more than 50 details that match the search criteria, then by default only the first 50 summary details are returned. To view details of the summary details you will need to specify values for pageSize and pageIndex."
       }
     },
     "/public/v1/customer/{customerId}/driverbehaviourmetrics/driver/summary": {
@@ -2046,7 +2046,7 @@
           }
         },
         "summary": "Driver Behaviour Driver Summary",
-        "description": "Returns the driver behaviour summary metrics for a driver. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate must be at least 7 days and cannot be more than 31 days[cite: 1365]. A value for either driverId or groupId must be specified If there are more than 50 details that match the search criteria, then by default only the first 50 summary details are returned[cite: 1366]. To view details of the summary details you will need to specify values for pageSize and pageIndex[cite: 1367]."
+        "description": "Returns the driver behaviour summary metrics for a driver. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate must be at least 7 days and cannot be more than 31 days. A value for either driverId or groupId must be specified If there are more than 50 details that match the search criteria, then by default only the first 50 summary details are returned. To view details of the summary details you will need to specify values for pageSize and pageIndex."
       }
     },
     "/public/v1/customer/{customerId}/driverbehaviourmetrics/group": {
@@ -2080,7 +2080,7 @@
           }
         },
         "summary": "Driver Behaviour Group Metrics",
-        "description": "POST request to return behaviour metrics for a group for the specified period[cite: 1395]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate should be at least 7 days[cite: 1396]. The details for the user are in a JSON object included in the HTTP body[cite: 1397]. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\"[cite: 1398]."
+        "description": "POST request to return behaviour metrics for a group for the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate should be at least 7 days. The details for the user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\"."
       }
     },
     "/public/v1/customer/{customerId}/driverbehaviourmetrics": {
@@ -2114,7 +2114,7 @@
           }
         },
         "summary": "Driver Behaviour Metrics",
-        "description": "POST request to return the behaviour metrics for each day in the period for a driver[cite: 1382]. As well as a value for the behaviour metric for each day, the response also includes a value for the behaviour metric for the whole of the specified period[cite: 1383]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate should be at least 7 days[cite: 1384]. The details for the user are in a JSON object included in the HTTP body[cite: 1385]. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\"[cite: 1386]."
+        "description": "POST request to return the behaviour metrics for each day in the period for a driver. As well as a value for the behaviour metric for each day, the response also includes a value for the behaviour metric for the whole of the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate should be at least 7 days. The details for the user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\"."
       }
     },
     "/public/v1/driverbehaviourmetrics/rankings/group": {
@@ -2273,7 +2273,7 @@
           }
         },
         "summary": "Driver Score",
-        "description": "Note: ● The Driver Behaviour endpoints (summary, metrics, group metrics and Group Ranking) should be used instead of EcoDrive Driver Score[cite: 1485]. Returns the score for a driver based on journeys that started in the specified period[cite: 1486]. The end date of the journey does not have to be within the specified period[cite: 1487]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days"
+        "description": "Note: ● The Driver Behaviour endpoints (summary, metrics, group metrics and Group Ranking) should be used instead of EcoDrive Driver Score. Returns the score for a driver based on journeys that started in the specified period. The end date of the journey does not have to be within the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days"
       },
       "options": {
         "tags": [
@@ -2378,7 +2378,7 @@
           }
         },
         "summary": "Driver Behaviour Driver Events",
-        "description": "The following events are taken into account when deriving the Smoother KPI[cite: 1419]. ● Harsh Braking (event id = behaviourHarshBraking) ● Harsh Acceleration (event Id = behaviourHarshAcceleration) There is no endpoint that returns the driving events for the Smoother KPI[cite: 1421]. The 5.4.6 ecoDrive Driver Score Events endpoint can be used to retrieve the required events[cite: 1421]. This endpoint includes the following events in the output response which should be ignored as they are not used to calculate the Smoother KPI[cite: 1422]. ● Driving over a speed threshold (event id = behaviourOverSpee) ● Excessive idling (event id = behaviourExcessiveIdling) ● Harsh Cornering (event id = behaviourHarshCornering) ● Engine Over revving (event id = behaviourEngineOver"
+        "description": "The following events are taken into account when deriving the Smoother KPI. ● Harsh Braking (event id = behaviourHarshBraking) ● Harsh Acceleration (event Id = behaviourHarshAcceleration) There is no endpoint that returns the driving events for the Smoother KPI. The 5.4.6 ecoDrive Driver Score Events endpoint can be used to retrieve the required events. This endpoint includes the following events in the output response which should be ignored as they are not used to calculate the Smoother KPI. ● Driving over a speed threshold (event id = behaviourOverSpee) ● Excessive idling (event id = behaviourExcessiveIdling) ● Harsh Cornering (event id = behaviourHarshCornering) ● Engine Over revving (event id = behaviourEngineOver"
       },
       "options": {
         "tags": [
@@ -2483,7 +2483,7 @@
           }
         },
         "summary": "Driver Behaviour Vehicle Events",
-        "description": "The following events are taken into account when deriving the Smoother KPI[cite: 1413]. ● Harsh Braking (event id = behaviourHarshBraking) ● Harsh Acceleration (event Id = behaviourHarshAcceleration) There is no endpoint that returns the driving events for the Smoother KPI[cite: 1415]. The 5,4,5 ecoDrive Vehicle Score Events endpoint can be used to retrieve the required events[cite: 1415]. The endpoint includes the following events in the output response which should be ignored as they are not used to calculate the Smoother KPI[cite: 1416]. ● Driving over a speed threshold (even"
+        "description": "The following events are taken into account when deriving the Smoother KPI. ● Harsh Braking (event id = behaviourHarshBraking) ● Harsh Acceleration (event Id = behaviourHarshAcceleration) There is no endpoint that returns the driving events for the Smoother KPI. The 5,4,5 ecoDrive Vehicle Score Events endpoint can be used to retrieve the required events. The endpoint includes the following events in the output response which should be ignored as they are not used to calculate the Smoother KPI. ● Driving over a speed threshold (even"
       },
       "options": {
         "tags": [
@@ -2574,7 +2574,7 @@
           }
         },
         "summary": "Vehicle Score",
-        "description": "Note: ● The Driver Behaviour endpoints (summary, metrics, group metrics and Group Ranking) should be used instead of EcoDrive Vehicle Score[cite: 1463]. Returns the score for a vehicle based on journeys that started in the specified period[cite: 1464]. The end date of the journey does not have to be within the specified period[cite: 1465]. The value specified for the endDate Cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days One of vehicleId or groupId must be specified[cite: 1466]. If vehicleId is specified, then details for the specified vehicle are included in the output[cite: 1467]. If groupId is specified, then details of all vehicles in the specified group are included in the output[cite: 1468]. Either vehicleId or gro"
+        "description": "Note: ● The Driver Behaviour endpoints (summary, metrics, group metrics and Group Ranking) should be used instead of EcoDrive Vehicle Score. Returns the score for a vehicle based on journeys that started in the specified period. The end date of the journey does not have to be within the specified period. The value specified for the endDate Cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days One of vehicleId or groupId must be specified. If vehicleId is specified, then details for the specified vehicle are included in the output. If groupId is specified, then details of all vehicles in the specified group are included in the output. Either vehicleId or gro"
       },
       "options": {
         "tags": [
@@ -3312,7 +3312,7 @@
           }
         },
         "summary": "Driver Fuel Consumption",
-        "description": "Returns the fuel consumption and CO2 information for all journeys where the journey started in the period[cite: 1443]. The end date of the journey does not have to be within the period[cite: 1444]. Separate fuel consumption details are returned for each vehicle driven by a driver[cite: 1445]. Includes the fuel used on a private journey[cite: 1446]. If a value for driverId or groupId is not specified, then details for all drivers are returned[cite: 1446]. If groupId is specified, then the fuel consumption for all vehicles in the specified group is included in the output[cite: 1447]. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 1448]."
+        "description": "Returns the fuel consumption and CO2 information for all journeys where the journey started in the period. The end date of the journey does not have to be within the period. Separate fuel consumption details are returned for each vehicle driven by a driver. Includes the fuel used on a private journey. If a value for driverId or groupId is not specified, then details for all drivers are returned. If groupId is specified, then the fuel consumption for all vehicles in the specified group is included in the output. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified."
       },
       "options": {
         "tags": [
@@ -3390,7 +3390,7 @@
           }
         },
         "summary": "Vehicle Fuel Consumption",
-        "description": "Returns the fuel consumption and CO2 information for a vehicle for all journeys where the journey started within the period[cite: 1429]. The end date of the journey does not have to be within the period[cite: 1430]. Includes the fuel used on a private journey[cite: 1431]. If vehicleId or groupId is not specified, then details for all vehicles are returned[cite: 1431]. If groupId is specified, then the fuel consumption for all vehicles in the specified group is included in the output[cite: 1432]. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 1433]."
+        "description": "Returns the fuel consumption and CO2 information for a vehicle for all journeys where the journey started within the period. The end date of the journey does not have to be within the period. Includes the fuel used on a private journey. If vehicleId or groupId is not specified, then details for all vehicles are returned. If groupId is specified, then the fuel consumption for all vehicles in the specified group is included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified."
       },
       "options": {
         "tags": [
@@ -3488,7 +3488,7 @@
           }
         },
         "summary": "Fuel Card Transactions",
-        "description": "Returns details of the fuel card transaction where the transaction occurred within the specified period[cite: 1617]. The value specified for the endDate cannot be before startDate. Either vehicleId or groupId must be specified[cite: 1618]. If vehicleId is specified, then transactions for the specified vehicle are included in the output[cite: 1619]. If groupId is specified, then the details for all vehicles in the specified group are included in the output[cite: 1620]. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 1621]. If IncludeUnmatchedVehicles is set to true, then transactions not matched to a vehicle registered in Connect will be included in the output response[cite: 1622]. If a value is not specifi"
+        "description": "Returns details of the fuel card transaction where the transaction occurred within the specified period. The value specified for the endDate cannot be before startDate. Either vehicleId or groupId must be specified. If vehicleId is specified, then transactions for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If IncludeUnmatchedVehicles is set to true, then transactions not matched to a vehicle registered in Connect will be included in the output response. If a value is not specifi"
       },
       "options": {
         "tags": [
@@ -3511,7 +3511,7 @@
           "/group"
         ],
         "summary": "List Group",
-        "description": "Returns the group hierarchy starting from the root node. [cite: 267]",
+        "description": "Returns the group hierarchy starting from the root node. ",
         "operationId": "getAllGroups",
         "responses": {
           "200": {
@@ -3534,7 +3534,7 @@
           "/group"
         ],
         "summary": "Update Group",
-        "description": "PUT request to update the group that matches the {id} in the JSON object included in the HTTP body. [cite: 283] This is a partial update and only those details specified in the JSON body will be updated. [cite: 284] The request will fail when the updated group name contains illegal characters. [cite: 285] The details for the group to update are in a JSON object included in the HTTP body. [cite: 286] Ensure you set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 287]",
+        "description": "PUT request to update the group that matches the {id} in the JSON object included in the HTTP body.  This is a partial update and only those details specified in the JSON body will be updated.  The request will fail when the updated group name contains illegal characters.  The details for the group to update are in a JSON object included in the HTTP body.  Ensure you set the content-type of the request body to \"application/json;charset=UTF-8\". ",
         "operationId": "updateGroup",
         "requestBody": {
           "content": {
@@ -3586,7 +3586,7 @@
           "/group"
         ],
         "summary": "Add Group",
-        "description": "POST request to add a new group. The identifier for the newly added group is included in the JSON object returned as the response. [cite: 275] The request will fail when the group name contains illegal characters. [cite: 276] The details for the location category in a JSON object included in the HTTP body. [cite: 277] Ensure you set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 278]",
+        "description": "POST request to add a new group. The identifier for the newly added group is included in the JSON object returned as the response.  The request will fail when the group name contains illegal characters.  The details for the location category in a JSON object included in the HTTP body.  Ensure you set the content-type of the request body to \"application/json;charset=UTF-8\". ",
         "operationId": "createGroup",
         "requestBody": {
           "content": {
@@ -4060,7 +4060,7 @@
           }
         },
         "summary": "Vehicle Idling",
-        "description": "Returns idling details for a vehicle for each idling activity block that started in the specified period[cite: 1296]. No details for idling that occurred inside a private journey are returned[cite: 1297]. The end date of the idling activity block does not have to be within the specified period[cite: 1298]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days Either vehicleId or groupId must be specified[cite: 1299]. If vehicleId is specified, then idling activity for the specified vehicle is included in the output[cite: 1300]. If groupId is specified, then idling for all ve"
+        "description": "Returns idling details for a vehicle for each idling activity block that started in the specified period. No details for idling that occurred inside a private journey are returned. The end date of the idling activity block does not have to be within the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days Either vehicleId or groupId must be specified. If vehicleId is specified, then idling activity for the specified vehicle is included in the output. If groupId is specified, then idling for all ve"
       }
     },
     "/public/v1/customer/{customerId}/idling/detail/driver": {
@@ -4160,7 +4160,7 @@
           }
         },
         "summary": "Driver Idling",
-        "description": "Returns idling details for a driver for each idling activity block that started in the specified period[cite: 1317]. No details for idling that occurred inside a private journey[cite: 1318]. The end date of the idling activity block does not have to be within the specified period[cite: 1319]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days Either driverId or groupId must be specified[cite: 1320]. If driverId is specified, then idling activity for the specified driver is included in the output[cite: 1321]. If groupId is specified, then idling for all drivers in the specified group is included in the output. Either driverId"
+        "description": "Returns idling details for a driver for each idling activity block that started in the specified period. No details for idling that occurred inside a private journey. The end date of the idling activity block does not have to be within the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days Either driverId or groupId must be specified. If driverId is specified, then idling activity for the specified driver is included in the output. If groupId is specified, then idling for all drivers in the specified group is included in the output. Either driverId"
       }
     },
     "/public/v1/customer/{customerId}/idling/detail/driver/triggerEmail": {
@@ -4264,7 +4264,7 @@
           }
         },
         "summary": "Driver Input Usage",
-        "description": "Returns input usage details for each instance when an input on a vehicle was activated on a vehicle driven by the driver in the specified period[cite: 1206]. The input deactivation does not have to be within the specified period[cite: 1207]. Details of an input activated during a private journey are not included in the response[cite: 1208]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days[cite: 1209]. A value for driverId must be specified and only inputs activated on a vehicle driven by the specified driver are included in the output[cite: 1210]. If there are more than 50 input usage details that match the search criteria, then by default only the first 5"
+        "description": "Returns input usage details for each instance when an input on a vehicle was activated on a vehicle driven by the driver in the specified period. The input deactivation does not have to be within the specified period. Details of an input activated during a private journey are not included in the response. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days. A value for driverId must be specified and only inputs activated on a vehicle driven by the specified driver are included in the output. If there are more than 50 input usage details that match the search criteria, then by default only the first 5"
       },
       "options": {
         "tags": [
@@ -4355,7 +4355,7 @@
           }
         },
         "summary": "Vehicle Input Usage",
-        "description": "Returns input usage details for each instance when an input on a vehicle was activated in the specified period[cite: 1174]. The input deactivation does not have to be within the specified period[cite: 1175]. Details of an input activated during a private journey are not included in the response[cite: 1176]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days[cite: 1177]. A value for vehicleId must be specified and only inputs activated on the specified vehicle are included in the output[cite: 1178]. If there are more than 50 input usage details that match the search criteria, then b"
+        "description": "Returns input usage details for each instance when an input on a vehicle was activated in the specified period. The input deactivation does not have to be within the specified period. Details of an input activated during a private journey are not included in the response. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days. A value for vehicleId must be specified and only inputs activated on the specified vehicle are included in the output. If there are more than 50 input usage details that match the search criteria, then b"
       },
       "options": {
         "tags": [
@@ -5635,7 +5635,7 @@
           "/journey/detail"
         ],
         "summary": "Driver Journeys",
-        "description": "Returns summary journey details for a driver for each journey that started in the specified period[cite: 951]. For a private journey only limited details are returned. The end date of the journey does not have to be within the specified period[cite: 952]. The value specified for the endDate cannot be before startDate[cite: 953]. Either driverId or groupId must be specified[cite: 954]. If driverId is specified, then only journeys for the specified driver are included in the output[cite: 954]. If groupId is specified, then the details for all drivers in the specified group are included in the output[cite: 955]. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 956]. If there are mo",
+        "description": "Returns summary journey details for a driver for each journey that started in the specified period. For a private journey only limited details are returned. The end date of the journey does not have to be within the specified period. The value specified for the endDate cannot be before startDate. Either driverId or groupId must be specified. If driverId is specified, then only journeys for the specified driver are included in the output. If groupId is specified, then the details for all drivers in the specified group are included in the output. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified. If there are mo",
         "operationId": "getJourneyDetailDriver",
         "parameters": [
           {
@@ -5729,7 +5729,7 @@
           "/journey/detail"
         ],
         "summary": "Vehicle Journeys",
-        "description": "Returns summary journey details for a vehicle for each journey that started in the specified period. For a private journey only limited details are returned. The end date of the journey does not have to be within the specified period[cite: 901]. The value specified for the endDate cannot be before startDate[cite: 902]. Either vehicleId or groupId must be specified[cite: 903]. If vehicleId is specified, then only journeys for the specified vehicle are included in the output[cite: 903]. If groupId is specified, then the details for all vehicles in the specified group are included in the output[cite: 904]. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 905]. If there are more than 50 journeys that match the search criteria, then by default only the first 50 journeys are",
+        "description": "Returns summary journey details for a vehicle for each journey that started in the specified period. For a private journey only limited details are returned. The end date of the journey does not have to be within the specified period. The value specified for the endDate cannot be before startDate. Either vehicleId or groupId must be specified. If vehicleId is specified, then only journeys for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If there are more than 50 journeys that match the search criteria, then by default only the first 50 journeys are",
         "operationId": "getJourneyDetailVehicle",
         "parameters": [
           {
@@ -5830,7 +5830,7 @@
           "/journey/detail"
         ],
         "summary": "Driver Journeys Latest",
-        "description": "Returns summary journey details for a driver for each journey that was processed by Connect since the specified date/time[cite: 1042]. For a private journey only limited details are returned[cite: 1043]. To use this endpoint to return details for only those drivers where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Driver Journeys endpoint to see what journeys have been completed so far[cite: 1043]. 2. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Driver Journeys endpoint[cite: 1044]. 3. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint[cite: 1045]. Either driverId or",
+        "description": "Returns summary journey details for a driver for each journey that was processed by Connect since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those drivers where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Driver Journeys endpoint to see what journeys have been completed so far. 2. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Driver Journeys endpoint. 3. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either driverId or",
         "operationId": "getLatestJourneyDetailDriver",
         "parameters": [
           {
@@ -5932,7 +5932,7 @@
           "/journey/detail"
         ],
         "summary": "Vehicle Journeys Latest",
-        "description": "Returns summary journey details for a vehicle for each journey that was processed by Connect since the specified date/time[cite: 998]. For a private journey only limited details are returned[cite: 999]. To use this endpoint to return details for only those vehicles where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Vehicle Journey endpoint to see what journeys have been completed so far[cite: 999]. 2. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Vehicle Journey endpoint[cite: 1000]. 3. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint[cite: 1001]. Either vehicleId",
+        "description": "Returns summary journey details for a vehicle for each journey that was processed by Connect since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those vehicles where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Vehicle Journey endpoint to see what journeys have been completed so far. 2. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Vehicle Journey endpoint. 3. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either vehicleId",
         "operationId": "getLatestJourneyDetailVehicle",
         "parameters": [
           {
@@ -6185,7 +6185,7 @@
           }
         },
         "summary": "Add Location Category",
-        "description": "PUT request to add a new location category. [cite: 401] The identifier for the newly added location category is included in the JSON object returned as the response. [cite: 402] The details for the location category in a JSON object included in the HTTP body. [cite: 403] Ensure you set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 404]"
+        "description": "PUT request to add a new location category.  The identifier for the newly added location category is included in the JSON object returned as the response.  The details for the location category in a JSON object included in the HTTP body.  Ensure you set the content-type of the request body to \"application/json;charset=UTF-8\". "
       },
       "options": {
         "tags": [
@@ -6257,7 +6257,7 @@
           }
         },
         "summary": "Delete Location Category",
-        "description": "DELETE request to delete the location category that matches the {categoryId}. [cite: 419]"
+        "description": "DELETE request to delete the location category that matches the {categoryId}. "
       },
       "options": {
         "tags": [
@@ -6302,7 +6302,7 @@
           }
         },
         "summary": "Update Location",
-        "description": "PUT request to update a location. This is a partial update and only those values specified will be updated. The type of a location can be updated from a circle to a polygon or from a polygon to a circle, by specifying the the geofence for the location as either: ● radius A geofence for the location is a circle. [cite: 357] The radius for the circle must be between 0.001 and 1. [cite: 358] ● polygon The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs. [cite: 358] There must be at least three longitude and latitude pairs specified. [cite: 359] The geofence boundary is closed by automatically linking the first longitude and latitude pair to the last longitude and latitude pair specified. [cite: 360] The geofence for a location can overlap the geofence for another location. [cite: 361] The geofence for this location can overlap up to 5 locations. [cite: 362] The location details are in a JSON object included in the HTTP body. [cite: 363] Ensure you have set the content-type of the request body to “application/json;charset=UTF-8”. [cite: 364]"
+        "description": "PUT request to update a location. This is a partial update and only those values specified will be updated. The type of a location can be updated from a circle to a polygon or from a polygon to a circle, by specifying the the geofence for the location as either: ● radius A geofence for the location is a circle.  The radius for the circle must be between 0.001 and 1.  ● polygon The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs.  There must be at least three longitude and latitude pairs specified.  The geofence boundary is closed by automatically linking the first longitude and latitude pair to the last longitude and latitude pair specified.  The geofence for a location can overlap the geofence for another location.  The geofence for this location can overlap up to 5 locations.  The location details are in a JSON object included in the HTTP body.  Ensure you have set the content-type of the request body to “application/json;charset=UTF-8”. "
       },
       "post": {
         "tags": [
@@ -6332,7 +6332,7 @@
           }
         },
         "summary": "Add Location",
-        "description": "POST request to add a new location with a geo-fence boundary that can be either CIRCULAR or POLYGON. [cite: 320] There cannot be an existing location with the same name as the location being created. [cite: 321] The maximum number of POI that can be created in your account is limited based on the number of vehicles in your fleet. [cite: 322] ● If your fleet size is less than 1,000 then you can create up to 250,000 locations. [cite: 323] ● If your fleet size is more than 1,000, then the maximum is reduced on a sliding scale depending on the number of vehicles in your fleet. [cite: 324] The address for the location can be specified as either: ● longitude and latitude coordinates An address lookup is done to determine values for roadNumber, road, city, postcode and country. [cite: 325] The formattedAddress is constructed as a comma separated set of values from roadNumber, road, city [cite: 326]"
+        "description": "POST request to add a new location with a geo-fence boundary that can be either CIRCULAR or POLYGON.  There cannot be an existing location with the same name as the location being created.  The maximum number of POI that can be created in your account is limited based on the number of vehicles in your fleet.  ● If your fleet size is less than 1,000 then you can create up to 250,000 locations.  ● If your fleet size is more than 1,000, then the maximum is reduced on a sliding scale depending on the number of vehicles in your fleet.  The address for the location can be specified as either: ● longitude and latitude coordinates An address lookup is done to determine values for roadNumber, road, city, postcode and country.  The formattedAddress is constructed as a comma separated set of values from roadNumber, road, city "
       },
       "options": {
         "tags": [
@@ -6569,7 +6569,7 @@
           }
         },
         "summary": "Find Nearest Location",
-        "description": "Returns all the nearest Point of Interest (POI) locations to a search point[cite: 850]. The number returned is restricted to the maximum specified. The locations returned are ordered based on distance from the specified search point[cite: 851]. The search point can be specified as either latitude and longitude or an address (at least one of roadNumber, road, city, pos"
+        "description": "Returns all the nearest Point of Interest (POI) locations to a search point. The number returned is restricted to the maximum specified. The locations returned are ordered based on distance from the specified search point. The search point can be specified as either latitude and longitude or an address (at least one of roadNumber, road, city, pos"
       },
       "options": {
         "tags": [
@@ -6901,7 +6901,7 @@
           }
         },
         "summary": "List Role",
-        "description": "Returns all roles and the active features for each role. [cite: 588]"
+        "description": "Returns all roles and the active features for each role. "
       },
       "options": {
         "tags": [
@@ -7076,7 +7076,7 @@
           }
         },
         "summary": "Driver Speeding Detail",
-        "description": "Returns details for speeding episodes that occurred within the specified period[cite: 1262]. The end of the speeding episode does not have to be within the specified period[cite: 1263]. No details are returned for speeding episodes during a private journey[cite: 1264]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days[cite: 1265]. A value for either driverId or groupId must be specified[cite: 1266]. If there are more than 50 speeding episodes that match the search criteria, then by default only the first 50 speeding episodes are returned[cite: 1267]. To view details of the other speeding episodes you will need to specify values for pageSize and pageIndex[cite: 1268]. A"
+        "description": "Returns details for speeding episodes that occurred within the specified period. The end of the speeding episode does not have to be within the specified period. No details are returned for speeding episodes during a private journey. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days. A value for either driverId or groupId must be specified. If there are more than 50 speeding episodes that match the search criteria, then by default only the first 50 speeding episodes are returned. To view details of the other speeding episodes you will need to specify values for pageSize and pageIndex. A"
       }
     },
     "/public/v1/customer/{customerId}/speeding/detail/driver/latest": {
@@ -7439,7 +7439,7 @@
           }
         },
         "summary": "Vehicle Speeding Detail",
-        "description": "Returns details for speeding episodes that occurred within the specified period[cite: 1230]. The end of the speeding episode does not have to be within the specified period[cite: 1231]. No details are returned for speeding episodes during a private journey[cite: 1232]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days[cite: 1233]. A value for either vehicleId or groupId must be specified[cite: 1234]. If there are more than 50 speeding episodes that match the search criteria, then by default only the first 50 speeding episodes are returned[cite: 1235]. To view details of the other speeding episodes you will need to specify values for pageSize and pageIndex[cite: 1236]. Asset Day Limit: The asset day limit on this endpoint is 50 asset days. You will receive an HTTP status code of 400 (Bad input parameters) and no details will be returned if you exceed this restriction[cite: 1238]."
+        "description": "Returns details for speeding episodes that occurred within the specified period. The end of the speeding episode does not have to be within the specified period. No details are returned for speeding episodes during a private journey. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days. A value for either vehicleId or groupId must be specified. If there are more than 50 speeding episodes that match the search criteria, then by default only the first 50 speeding episodes are returned. To view details of the other speeding episodes you will need to specify values for pageSize and pageIndex. Asset Day Limit: The asset day limit on this endpoint is 50 asset days. You will receive an HTTP status code of 400 (Bad input parameters) and no details will be returned if you exceed this restriction."
       }
     },
     "/public/v1/customer/{customerId}/speeding/detail/driver/triggerEmail": {
@@ -7576,7 +7576,7 @@
           }
         },
         "summary": "Driver Journey History",
-        "description": "Returns the journey tracking history for a driver for each journey that started in the specified period[cite: 1106]. No details are returned for a private journey. The end date of the journey does not have to be within the specified period[cite: 1107]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days [cite: 1108]. driverId must be specified and only journeys for the specified driver are included in the output[cite: 1109]. If there are more than 50 tracking events that match the search criteria, then by default only the first 50 tracking events are returned[cite: 1110]. To view details of the other events you will need to specify values for pageSize and pageIndex[cite: 1111]."
+        "description": "Returns the journey tracking history for a driver for each journey that started in the specified period. No details are returned for a private journey. The end date of the journey does not have to be within the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days . driverId must be specified and only journeys for the specified driver are included in the output. If there are more than 50 tracking events that match the search criteria, then by default only the first 50 tracking events are returned. To view details of the other events you will need to specify values for pageSize and pageIndex."
       },
       "options": {
         "tags": [
@@ -7678,7 +7678,7 @@
           }
         },
         "summary": "Vehicle Journey History",
-        "description": "Returns the journey tracking history for a vehicle for each journey that started in the specified period[cite: 1079]. No details are returned for a private journey. The end date of the journey does not have to be within the specified period[cite: 1080]. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days [cite: 1081]. vehicleId must be specified and only journeys for the specified vehicle are included in the output[cite: 1082]. If there are more than 50 tracking events that match the search criteria, then by default only the first 50 tracking events are returned[cite: 1083]. To view details of the other events you will need to specify values for pageSize and pageIndex[cite: 1084]."
+        "description": "Returns the journey tracking history for a vehicle for each journey that started in the specified period. No details are returned for a private journey. The end date of the journey does not have to be within the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 7 days . vehicleId must be specified and only journeys for the specified vehicle are included in the output. If there are more than 50 tracking events that match the search criteria, then by default only the first 50 tracking events are returned. To view details of the other events you will need to specify values for pageSize and pageIndex."
       },
       "options": {
         "tags": [
@@ -7731,7 +7731,7 @@
           }
         },
         "summary": "Driver Journey History Latest",
-        "description": "Returns the latest tracking events that have been processed by Connect for a driver since the specified date[cite: 1153]. No details are returned for a private journey[cite: 1154]. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date[cite: 1154]. The output response is limited to a maximum of 500 tracking events as the output is not paged[cite: 1155]. To use this endpoint to return tracking events for only those drivers that have been processed by Connect since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past[cite: 1156]. 2. In the next call this endpoint, specify the value for fromDateTime to"
+        "description": "Returns the latest tracking events that have been processed by Connect for a driver since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those drivers that have been processed by Connect since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to"
       },
       "options": {
         "tags": [
@@ -7794,7 +7794,7 @@
           }
         },
         "summary": "Vehicle Journey History Latest",
-        "description": "Returns the latest tracking events that have been processed by Connect for a vehicle since the specified date[cite: 1129]. No details are returned for a private journey[cite: 1130]. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date[cite: 1130]. The output response is limited to a maximum of 500 tracking events as the output is not paged[cite: 1131]. To use this endpoint to return tracking events for only those vehicles that have been processed by Connect since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime tha"
+        "description": "Returns the latest tracking events that have been processed by Connect for a vehicle since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those vehicles that have been processed by Connect since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime tha"
       },
       "options": {
         "tags": [
@@ -8156,7 +8156,7 @@
           }
         },
         "summary": "Distance Travelled",
-        "description": "Returns the distance travelled (in kilometres) by a vehicle for all journeys where the journey started within the period[cite: 861]. The end date for the journey does not have to be within the period[cite: 862]. The distance travelled on private journeys that started in the period is included[cite: 863]. If groupIds is specified, then the distance travelled by all the vehicles in the specified groups are included in the output[cite: 864]. Either vehicleIds or groupIds can be specified as an input parameter, an error is returned if both are specified[cite: 865]."
+        "description": "Returns the distance travelled (in kilometres) by a vehicle for all journeys where the journey started within the period. The end date for the journey does not have to be within the period. The distance travelled on private journeys that started in the period is included. If groupIds is specified, then the distance travelled by all the vehicles in the specified groups are included in the output. Either vehicleIds or groupIds can be specified as an input parameter, an error is returned if both are specified."
       },
       "options": {
         "tags": [
@@ -8339,7 +8339,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position Latest AEMP",
-        "description": "Returns the latest live position and status for a vehicle in AEMP format[cite: 776]. The live position for a vehicle on a private journey is not returned[cite: 777]. By default vehicles which have a status of SOLD are not included in the response[cite: 778]. This endpoint can be used to return details for only those vehicles where tracking data has been processed since a specified processed date/time[cite: 779]. If fromDateTime is specified, then only vehicles where tracking information has been processed since the specified date/time are included in the output response[cite: 780]. An error is returned if the value specified for fromDateTime is more than one day in the past[cite: 781]. No details are returned if the value specified for fromDateTime is a future date[cite: 782].",
+        "description": "Returns the latest live position and status for a vehicle in AEMP format. The live position for a vehicle on a private journey is not returned. By default vehicles which have a status of SOLD are not included in the response. This endpoint can be used to return details for only those vehicles where tracking data has been processed since a specified processed date/time. If fromDateTime is specified, then only vehicles where tracking information has been processed since the specified date/time are included in the output response. An error is returned if the value specified for fromDateTime is more than one day in the past. No details are returned if the value specified for fromDateTime is a future date.",
         "operationId": "getLatestLiveStatusAemp",
         "parameters": [
           {
@@ -8418,7 +8418,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position Latest GeoJSON",
-        "description": "Returns the live position and status for all vehicles in GeoJSON Specification (RFC 7946) format[cite: 811]. Returns the live position and status for a resource (driver or vehicle)[cite: 812]. The live position for a vehicle on a private journey is not returned[cite: 813]. By default vehicles which have a status of SOLD are not included in the response[cite: 814]. This endpoint can be used to return details for only those vehicles where tracking data has been processed since a specified processed date/time as follows: 3. Call the endpoint and do not specify a value for fromDateTime[cite: 815]. 4. In the next call to this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call[cite: 816]. If vehicleIds, driverIds or groupIds are not specified, then the live position for all vehicles i",
+        "description": "Returns the live position and status for all vehicles in GeoJSON Specification (RFC 7946) format. Returns the live position and status for a resource (driver or vehicle). The live position for a vehicle on a private journey is not returned. By default vehicles which have a status of SOLD are not included in the response. This endpoint can be used to return details for only those vehicles where tracking data has been processed since a specified processed date/time as follows: 3. Call the endpoint and do not specify a value for fromDateTime. 4. In the next call to this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. If vehicleIds, driverIds or groupIds are not specified, then the live position for all vehicles i",
         "operationId": "getLatestLiveStatusAsGeoJson",
         "parameters": [
           {
@@ -8511,7 +8511,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position",
-        "description": "Returns the live position and status for a resource (driver or vehicle). [cite: 671] The live position for a vehicle on a private journey is not returned. [cite: 672] By default vehicles which have a status of SOLD are not included in the response. [cite: 673] If vehicleIds, driverIds or groupIds are not specified, then the live position for all vehicles is returned. [cite: 674] If driverIds is specified, then the driver must be recorded with their vehicle for their live position to be returned. [cite: 675] If groupIds is specified, then the current position for all drivers/vehicles in the specified groups are included in the output. [cite: 676] Only one of vehicleIds, driverIds or groupIds can be specified as an input parameter. [cite: 677] Request Limit The request limit on this endpoint is one request every 15 seconds. [cite: 678] You will receive an HTTP status code of 429 (too man [cite: 679]",
+        "description": "Returns the live position and status for a resource (driver or vehicle).  The live position for a vehicle on a private journey is not returned.  By default vehicles which have a status of SOLD are not included in the response.  If vehicleIds, driverIds or groupIds are not specified, then the live position for all vehicles is returned.  If driverIds is specified, then the driver must be recorded with their vehicle for their live position to be returned.  If groupIds is specified, then the current position for all drivers/vehicles in the specified groups are included in the output.  Only one of vehicleIds, driverIds or groupIds can be specified as an input parameter.  Request Limit The request limit on this endpoint is one request every 15 seconds.  You will receive an HTTP status code of 429 (too man ",
         "operationId": "getLiveStatus",
         "parameters": [
           {
@@ -8618,7 +8618,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position AEMP",
-        "description": "Returns the live position and status for all vehicles in AEMP XML format[cite: 765]. The live position for a vehicle on a private journey is not returned[cite: 766]. By default vehicles which have a status of SOLD are not included in the response[cite: 767]. Request Limit: The request limit on this endpoint is one request every 15 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction[cite: 768, 769].",
+        "description": "Returns the live position and status for all vehicles in AEMP XML format. The live position for a vehicle on a private journey is not returned. By default vehicles which have a status of SOLD are not included in the response. Request Limit: The request limit on this endpoint is one request every 15 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
         "operationId": "getLiveStatusAemp",
         "parameters": [
           {
@@ -8697,7 +8697,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position GeoJSON",
-        "description": "Returns the live position and status for all vehicles in GeoJSON Specification (RFC 7946) format[cite: 791]. Returns the live position and status for a resource (driver or vehicle)[cite: 792]. The live position for a vehicle on a private journey is not returned[cite: 793]. By default vehicles which have a status of SOLD are not included in the response[cite: 794]. If vehicleIds, driverIds or groupIds are not specified, then the live position for all vehicles is returned[cite: 795]. If driverIds is specified, then the driver must be recorded with their vehicle for their live position to be returned[cite: 796]. If groupIds is specified, then the current position for all drivers/vehicles in the specified groups are included in the output[cite: 797]. Only one of vehicleIds, driverIds or groupIds can be specified as an",
+        "description": "Returns the live position and status for all vehicles in GeoJSON Specification (RFC 7946) format. Returns the live position and status for a resource (driver or vehicle). The live position for a vehicle on a private journey is not returned. By default vehicles which have a status of SOLD are not included in the response. If vehicleIds, driverIds or groupIds are not specified, then the live position for all vehicles is returned. If driverIds is specified, then the driver must be recorded with their vehicle for their live position to be returned. If groupIds is specified, then the current position for all drivers/vehicles in the specified groups are included in the output. Only one of vehicleIds, driverIds or groupIds can be specified as an",
         "operationId": "getLiveStatusAsGeoJson",
         "parameters": [
           {
@@ -9073,7 +9073,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "Returns details for all active users. No details are returned for inactive users. [cite: 596] If there are more than 50 users, then by default only details for the first 50 users are returned. [cite: 597] To view details for the other users you will need to specify values for pageSize and pageIndex. [cite: 598]"
+        "description": "Returns details for all active users. No details are returned for inactive users.  If there are more than 50 users, then by default only details for the first 50 users are returned.  To view details for the other users you will need to specify values for pageSize and pageIndex. "
       },
       "post": {
         "tags": [
@@ -9098,7 +9098,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "POST request to add a web user. [cite: 622] You cannot include the password for the new user in the same request as adding a user, instead you must use the Set User Password endpoint and include the token from the output response of this endpoint. [cite: 623] The generated token will expire if it is not used within 30 days or if a password reset token is requested. [cite: 624] If a value for externalIdentifier is specified, then the user will be enabled for SSO and a Connect password cannot be set. [cite: 625] If the user being created will be using the SmarterDriver Mobile application and login using SSO, then the same values must be specified for both username and emailAddress. [cite: 626] The details for the user are in a JSON object included in the HTTP body. [cite: 627] Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 628]"
+        "description": "POST request to add a web user.  You cannot include the password for the new user in the same request as adding a user, instead you must use the Set User Password endpoint and include the token from the output response of this endpoint.  The generated token will expire if it is not used within 30 days or if a password reset token is requested.  If a value for externalIdentifier is specified, then the user will be enabled for SSO and a Connect password cannot be set.  If the user being created will be using the SmarterDriver Mobile application and login using SSO, then the same values must be specified for both username and emailAddress.  The details for the user are in a JSON object included in the HTTP body.  Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". "
       },
       "options": {
         "tags": [
@@ -9140,7 +9140,7 @@
             "description": "Missing validation."
           }
         },
-        "description": "Returns details for a single user. [cite: 609]"
+        "description": "Returns details for a single user. "
       },
       "put": {
         "tags": [
@@ -9175,7 +9175,7 @@
             "description": "Missing validation such as groupIds."
           }
         },
-        "description": "PUT request to update an existing user. This is a partial update and only those values specified will be updated. [cite: 637] You cannot use this endpoint to update the username or the password for an existing user. [cite: 638] To update the password you must first get a token from the Password Reset Token endpoint and then use that token with the Set User Password endpoint. [cite: 639] If a value for externalIdentifier is specified, then ● the user will be enabled for SSO ● the existing password for the user will be removed ● if the user had been enabled for “Connect using Google” this feature will be removed. [cite: 640] If the value specified for externalIdentifier is an empty string, then SSO functionality is removed from the user, allowing for a Connect password to be set. [cite: 641] The details for the user are in a JSON object included in the HTTP body. Ensure you have [cite: 642]"
+        "description": "PUT request to update an existing user. This is a partial update and only those values specified will be updated.  You cannot use this endpoint to update the username or the password for an existing user.  To update the password you must first get a token from the Password Reset Token endpoint and then use that token with the Set User Password endpoint.  If a value for externalIdentifier is specified, then ● the user will be enabled for SSO ● the existing password for the user will be removed ● if the user had been enabled for “Connect using Google” this feature will be removed.  If the value specified for externalIdentifier is an empty string, then SSO functionality is removed from the user, allowing for a Connect password to be set.  The details for the user are in a JSON object included in the HTTP body. Ensure you have "
       },
       "delete": {
         "tags": [
@@ -9201,7 +9201,7 @@
           }
         },
         "summary": "Delete User",
-        "description": "DELETE request to delete a user that matches the {userId}. [cite: 649]"
+        "description": "DELETE request to delete a user that matches the {userId}. "
       },
       "options": {
         "tags": [
@@ -9310,7 +9310,7 @@
           }
         },
         "summary": "Set User Password",
-        "description": "POST request to set the password for a user. [cite: 658] You must include the token generated when a new user was added or when a password reset token was requested. [cite: 659] A password cannot be set for a user enabled for SSO, i.e. a value for externalIdentifier has been set. [cite: 660] The details for the password are in a JSON object included in the HTTP body. [cite: 661] Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 662]"
+        "description": "POST request to set the password for a user.  You must include the token generated when a new user was added or when a password reset token was requested.  A password cannot be set for a user enabled for SSO, i.e. a value for externalIdentifier has been set.  The details for the password are in a JSON object included in the HTTP body.  Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". "
       },
       "options": {
         "tags": [
@@ -9385,7 +9385,7 @@
           }
         },
         "summary": "Driver Utilisation Hours",
-        "description": "Returns summary utilisation information for a driver for all journeys where the journey started in the specified period[cite: 886]. The end date of the journey does not have to be within the period[cite: 887]. If the vehicle driven by the driver has been configured for a PTO, then driving and idling time with PTO active and with PTO inactive are included in the response[cite: 888]. Details for private journeys that started in the period are included in the utilisation values[cite: 889]. If driverId or groupId is not specified, then details for all drivers are returned[cite: 890]. If groupId is specified, then the utilisation for all drivers in the specified group are included in the output[cite: 891]. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 892]."
+        "description": "Returns summary utilisation information for a driver for all journeys where the journey started in the specified period. The end date of the journey does not have to be within the period. If the vehicle driven by the driver has been configured for a PTO, then driving and idling time with PTO active and with PTO inactive are included in the response. Details for private journeys that started in the period are included in the utilisation values. If driverId or groupId is not specified, then details for all drivers are returned. If groupId is specified, then the utilisation for all drivers in the specified group are included in the output. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified."
       },
       "options": {
         "tags": [
@@ -9460,7 +9460,7 @@
           }
         },
         "summary": "Vehicle Utilisation Hours",
-        "description": "Returns summary utilisation information for a vehicle for all journeys where the journey started in the period[cite: 872]. The end date of the journey does not have to be within the period[cite: 873]. If the vehicle has been configured for a PTO, then driv"
+        "description": "Returns summary utilisation information for a vehicle for all journeys where the journey started in the period. The end date of the journey does not have to be within the period. If the vehicle has been configured for a PTO, then driv"
       },
       "options": {
         "tags": [
@@ -9584,7 +9584,7 @@
           }
         },
         "summary": "Find Nearest Vehicle",
-        "description": "Returns all the nearest vehicles to the search point[cite: 831]. Details for a vehicle on a private journey are not returned[cite: 832]. The number of vehicles returned is restricted to the maximum specified[cite: 833]. The vehicles are ordered based on distance from the search point[cite: 834]. The search point can be specified as either latitude and longitude or as an address (at least one of roadNumber, road, city, postcode or country)[cite: 835]. A date range can optionally be specified[cite: 837]. If specified, then vehicles that were within the search area in the specified time period are returned[cite: 837]. If no date range is provided, then the previous 24 hour period is used[cite: 838]."
+        "description": "Returns all the nearest vehicles to the search point. Details for a vehicle on a private journey are not returned. The number of vehicles returned is restricted to the maximum specified. The vehicles are ordered based on distance from the search point. The search point can be specified as either latitude and longitude or as an address (at least one of roadNumber, road, city, postcode or country). A date range can optionally be specified. If specified, then vehicles that were within the search area in the specified time period are returned. If no date range is provided, then the previous 24 hour period is used."
       },
       "options": {
         "tags": [
@@ -9606,7 +9606,7 @@
         "tags": [
           "/vehicle"
         ],
-        "description": "PUT request to update the details for an existing vehicle. [cite: 443] This is a partial update and only those values specified will be updated. [cite: 444] The update details for the vehicle are in a JSON object included in the HTTP body. [cite: 445] Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 446]",
+        "description": "PUT request to update the details for an existing vehicle.  This is a partial update and only those values specified will be updated.  The update details for the vehicle are in a JSON object included in the HTTP body.  Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". ",
         "operationId": "updateVehicle",
         "parameters": [
           {
@@ -9720,7 +9720,7 @@
             "description": "Missing validation on parameters."
           }
         },
-        "description": "Returns the registration, group and current odometer reading for a vehicle. [cite: 422] The odometer reading is in kilometres. If no parameters are specified, then d [cite: 422]"
+        "description": "Returns the registration, group and current odometer reading for a vehicle.  The odometer reading is in kilometres. If no parameters are specified, then d "
       },
       "options": {
         "tags": [
@@ -9902,7 +9902,7 @@
           }
         },
         "summary": "Service Due Date",
-        "description": "Returns the service due date for a vehicle[cite: 1572]. If no parameters are specified, then details for all vehicles with a service due date are returned[cite: 1573]. If groupId is specified, then all vehicles in the specified group are included in the output[cite: 1574]. If vehicleId is specified, then only the specified vehicle is included in the output[cite: 1575]. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified[cite: 1576]. If startDate is specified, then only those vehicles where the service due date is on or after the specified date are returned[cite: 1577]. If endDate is specified, then only those vehicles where the service due date is on or before the specified end date are returned[cite: 1578]. If both startDate and endDate are specified, then endDate cannot be before startDate[cite: 1579]. If there are mo"
+        "description": "Returns the service due date for a vehicle. If no parameters are specified, then details for all vehicles with a service due date are returned. If groupId is specified, then all vehicles in the specified group are included in the output. If vehicleId is specified, then only the specified vehicle is included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If startDate is specified, then only those vehicles where the service due date is on or after the specified date are returned. If endDate is specified, then only those vehicles where the service due date is on or before the specified end date are returned. If both startDate and endDate are specified, then endDate cannot be before startDate. If there are mo"
       },
       "options": {
         "tags": [
@@ -14285,24 +14285,24 @@
             "minLength": 1,
             "pattern": "^[a-z0-9]+$",
             "type": "string",
-            "description": "ID of group",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the newly added group.",
             "example": "groupID"
           },
           "name": {
             "maxLength": 255,
             "minLength": 0,
             "type": "string",
-            "description": "Group name",
+            "description": "The name for the group",
             "example": "group-name"
           },
           "parentId": {
             "type": "string",
-            "description": "ID of parent group, in case for changing the hierarchy",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the parent of this group.",
             "example": "rootGroupId"
           },
           "path": {
             "type": "string",
-            "description": "Hierarchy path from root group",
+            "description": "List of the unique, unchangeable system generated identifiers (alphanumeric) for all the parent groups (starting from the root node) of this group, separated by full stops. The list includes the identifier for this group. ",
             "readOnly": true,
             "example": "rootGroupId.groupID"
           },
@@ -14313,7 +14313,7 @@
               "description": "List of Vehicle IDs to assign for concrete group",
               "example": "[\"vehicleID1\",\"vehicleID2\"]"
             },
-            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the vehicles assigned to this group. [cite: 295]"
+            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the vehicles assigned to this group."
           },
           "personIds": {
             "type": "array",
@@ -14322,7 +14322,7 @@
               "description": "List of Person IDs to assign for concrete group",
               "example": "[\"personID1\",\"personID2\"]"
             },
-            "description": "If specified, all listed drivers/users are moved from their current group and added to this group (existing drivers/users assigned to this group remain unchanged). [cite: 290]"
+            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the drivers and web users assigned to this group. Wil be an empty array for a newly created group."
           }
         }
       },
@@ -14350,18 +14350,19 @@
         ],
         "type": "object",
         "properties": {
-          "Name of the group": {
+          "name": {
             "maxLength": 255,
             "minLength": 1,
             "type": "string",
-            "example": "Group Name"
+            "example": "Group Name",
+            "description": "The name for the group - name must not contain any of the characters <>?\"/|\\%{}*[]"
           },
           "parentId": {
             "maxLength": 255,
             "minLength": 0,
             "pattern": "^[a-z0-9]*$",
             "type": "string",
-            "description": "ID of parent group / hierarchy node. When empty it is used node id of request context",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the parent of this group. This value is mandatory, a new top root node for the hierarchy cannot be created.",
             "example": "parentGroupId"
           }
         }
@@ -14377,30 +14378,30 @@
             "minLength": 1,
             "pattern": "^[a-z0-9]+$",
             "type": "string",
-            "description": "ID of group",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) of the group.",
             "example": "groupID"
           },
           "name": {
             "maxLength": 255,
             "minLength": 0,
             "type": "string",
-            "description": "Group name",
+            "description": "Name of the group.",
             "example": "group-name"
           },
           "parentId": {
             "type": "string",
-            "description": "ID of parent group, in case for changing the hierarchy",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the parent of this group.Not included for the root group in the hierarchy",
             "example": "rootGroupId"
           },
           "path": {
             "type": "string",
-            "description": "Hierarchy path from root group",
+            "description": "List of the unique, unchangeable system generated identifiers (alphanumeric) for all the parent groups (starting from the root node) of this group, separated by full stops.The list includes the identifier for this group",
             "readOnly": true,
             "example": "rootGroupId.groupID"
           },
           "countDrivers": {
             "type": "integer",
-            "description": "Count of assigned drivers to group",
+            "description": "Count of the number of drivers in this group node.",
             "format": "int32",
             "readOnly": true,
             "example": 1
@@ -14421,7 +14422,7 @@
           },
           "countVehicles": {
             "type": "integer",
-            "description": "Count of assigned vehicles to group",
+            "description": "Count of the number of vehicles in this group node.",
             "format": "int32",
             "readOnly": true,
             "example": 0
