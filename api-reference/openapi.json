@@ -1461,7 +1461,7 @@
           }
         },
         "summary": "Update Driver",
-        "description": "PUT request to update the details for an existing driver. [cite: 527] This is a partial update and only those values specified will be updated. [cite: 528] The update details for the driver are in a JSON object included in the HTTP body. [cite: 529] Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 530]"
+        "description": "PUT request to update the details for an existing driver.  This is a partial update and only those values specified will be updated.  The update details for the driver are in a JSON object included in the HTTP body.  Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". "
       },
       "put": {
         "tags": [
@@ -1522,7 +1522,7 @@
           }
         },
         "summary": "Update Driver",
-        "description": "PUT request to update the details for an existing driver. [cite: 527] This is a partial update and only those values specified will be updated. [cite: 528] The update details for the driver are in a JSON object included in the HTTP body. [cite: 529] Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 530]"
+        "description": "PUT request to update the details for an existing driver.  This is a partial update and only those values specified will be updated.  The update details for the driver are in a JSON object included in the HTTP body.  Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". "
       },
       "options": {
         "tags": [
@@ -6155,8 +6155,8 @@
             }
           }
         },
-        "summary": "Add Location Category",
-        "description": "PUT request to add a new location category. [cite: 401] The identifier for the newly added location category is included in the JSON object returned as the response. [cite: 402] The details for the location category in a JSON object included in the HTTP body. [cite: 403] Ensure you set the content-type of the request body to \"application/json;charset=UTF-8\". [cite: 404]"
+        "summary": "List Location Category",
+        "description": "Returns details for all location categories. If a location category identifier is specified, then only details of the specified location category are returned."
       },
       "put": {
         "tags": [
@@ -6230,8 +6230,8 @@
             }
           }
         },
-        "summary": "Delete Location Category",
-        "description": "DELETE request to delete the location category that matches the {categoryId}. [cite: 419]"
+        "summary": "List (one) Location Category",
+        "description": "Returns details for all location categories. If a location category identifier is specified, then only details of the specified location category are returned."
       },
       "delete": {
         "tags": [
@@ -8246,7 +8246,7 @@
           "/tracking/live"
         ],
         "summary": "Live Position Latest",
-        "description": "Returns the live position and status for a resource (driver or vehicle). [cite: 719] The live position for a vehicle on a private journey is not returned. [cite: 720] By default vehicles which have a status of SOLD are not included in the response. [cite: 721] This endpoint can be used to return details for only those vehicles where tracking data has been processed since a specified processed date/time as follows: 1. Call the endpoint and do not specify a value for fromDateTime. [cite: 722] 2. In the next call to this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. [cite: 723] If vehicleIds, driverIds or groupIds are not specified, then the live position for all vehicles is returned. [cite: 724] If driverIds is specified, then the driver must be recorded against their vehicle for their live position to be returned. [cite: 725] If groupIds is specified, then the current position for all drivers/vehicles in the specified groups are included in the output. [cite: 726] Only one of ve [cite: 727]",
+        "description": "Returns the live position and status for a resource (driver or vehicle).  The live position for a vehicle on a private journey is not returned.  By default vehicles which have a status of SOLD are not included in the response.  This endpoint can be used to return details for only those vehicles where tracking data has been processed since a specified processed date/time as follows: 1. Call the endpoint and do not specify a value for fromDateTime.  2. In the next call to this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call.  If vehicleIds, driverIds or groupIds are not specified, then the live position for all vehicles is returned.  If driverIds is specified, then the driver must be recorded against their vehicle for their live position to be returned.  If groupIds is specified, then the current position for all drivers/vehicles in the specified groups are included in the output.  Only one of ve ",
         "operationId": "getLatestLiveStatus",
         "parameters": [
           {
@@ -9685,7 +9685,8 @@
               "items": {
                 "type": "string"
               }
-            }
+            },
+            "description": "only the specified vehicles are included in the output."
           },
           {
             "name": "groupIds",
@@ -9694,7 +9695,8 @@
               "type": "array",
               "items": {
                 "type": "string"
-              }
+              },
+            "description": "all vehicles in the specified groups are included in the output."
             }
           },
           {
@@ -9709,7 +9711,8 @@
             "in": "query",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "only the vehicle with the specified name is included in the output"
           }
         ],
         "responses": {
@@ -11169,11 +11172,13 @@
         "properties": {
           "longitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "The longitude value for one of the coordinate."
           },
           "latitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "The latitude value for one of the coordinate."
           }
         }
       },
@@ -11626,73 +11631,81 @@
           "id": {
             "pattern": "^[\\w]*$",
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier (alphanumeric) of the driver. [cite: 538]"
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) of the driver. "
           },
           "customerId": {
             "type": "string",
-            "description": "MCF customer identifier (alphanumeric). [cite: 538]"
+            "description": "MCF customer identifier (alphanumeric). "
           },
           "name": {
             "type": "string",
-            "description": "Name of the driver. [cite: 539]"
+            "description": "Name of the driver. "
           },
           "active": {
             "type": "boolean",
-            "description": "Boolean (true/false) to indicate if this driver is active. [cite: 539]"
+            "description": "Boolean (true/false) to indicate if this driver is active. "
           },
           "activeDate": {
             "type": "string",
             "format": "date-time",
-            "description": "The date this driver became active. UTC, in the format of YYYY-MM-DDThh:mm:ss. Not included if the driver is inactive (i.e. active = false) [cite: 540, 541]"
+            "description": "The date this driver became active. UTC, in the format of YYYY-MM-DDThh:mm:ss. Not included if the driver is inactive (i.e. active = false) "
           },
           "groupId": {
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier (alphanumeric) of the group assigned to this driver. [cite: 542]"
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) of the group assigned to this driver. "
           },
           "groupName": {
             "type": "string",
-            "description": "Name of the group assigned to this driver. [cite: 543]"
+            "description": "Name of the group assigned to this driver. "
           },
           "defaultVehicleId": {
             "type": "string",
-            "description": "Default vehicle identifier (alphanumeric) for this driver. Not returned if there is no default vehicle for this driver. [cite: 544, 545]"
+            "description": "Default vehicle identifier (alphanumeric) for this driver. Not returned if there is no default vehicle for this driver. "
           },
           "tempVehicleId": {
-            "type": "string"
+            "type": "string",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the temporary vehicle."
           },
           "tempVehicleExpiry": {
             "type": "string",
             "format": "date-time"
+            ,
+            "description": "Date the temporary vehicle assignment will end, in UTC, in the format of YYYY-MM-DDThh:mm:ss."
           },
           "tempVehicleNextJourneyOnly": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean (true / false) to indicate that defaultVehicleId is a temporary assigned vehicle for just the next journey."
           },
           "tempPrivateMode": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean (true / false) to indicate if journeys for this driver will be private for the remainder of the day."
           },
           "tempPrivateModeExpiry": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": ""
           },
           "tempPrivateModeNextJourneyOnly": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean (true / false) to indicate if just the next journey for the driver will be a private journey."
           },
           "autoCreated": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean (true / false) to indicate if this driver was automatically created as part of Tachograph functionality."
           },
           "keys": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/DriverKeyDto"
             },
-            "description": "Array of keys for the driver. [cite: 543]"
+            "description": "Array of keys for the driver. "
           },
           "tags": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Comma separated list of tags for this driver. [cite: 541]"
+            "description": "Comma separated list of tags for this driver. "
           },
           "secondaryGroups": {
             "type": "array",
@@ -11703,7 +11716,7 @@
           "externalId": {
             "pattern": "^[a-zA-Z0-9]{0,25}$|",
             "type": "string",
-            "description": "An external alphanumeric identifier for this driver. [cite: 545]"
+            "description": "An external alphanumeric identifier for this driver. "
           }
         }
       },
@@ -11711,13 +11724,16 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "string"
+            "type": "string",
+            "description": "Value for the key."
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "description": "Type of key. Can be one of DALLAS, RFID or TachoID."
           },
           "privateMode": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean (true / false) to indicate if journeys with this key are always private."
           }
         }
       },
@@ -11762,14 +11778,14 @@
           },
           "externalIdentifier": {
             "type": "string",
-            "description": "The SSO external identifier for the user. If specified, must be unique, i.e. it cannot be the same value as set for another user within the Connect Web Application. [cite: 579, 580]"
+            "description": "The SSO external identifier for the user. If specified, must be unique, i.e. it cannot be the same value as set for another user within the Connect Web Application. "
           },
           "fullName": {
             "type": "string"
           },
           "emailAddress": {
             "type": "string",
-            "description": "Correctly formatted email address for the user. [cite: 582]"
+            "description": "Correctly formatted email address for the user. "
           },
           "language": {
             "type": "object",
@@ -11829,15 +11845,15 @@
                 "type": "string"
               }
             },
-            "description": "See Connect Web User section for the supported language locale values. [cite: 583]"
+            "description": "See Connect Web User section for the supported language locale values. "
           },
           "timezone": {
             "type": "string",
-            "description": "See Connect Web User section for the supported timezone values. [cite: 582]"
+            "description": "See Connect Web User section for the supported timezone values. "
           },
           "roleId": {
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier (alphanumeric) of an existing role to be assigned to this user. [cite: 581]"
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) of an existing role to be assigned to this user. "
           },
           "roleName": {
             "type": "string"
@@ -14285,7 +14301,7 @@
             "minLength": 1,
             "pattern": "^[a-z0-9]+$",
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the newly added group.",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the newly added / updated group.",
             "example": "groupID"
           },
           "name": {
@@ -14503,24 +14519,24 @@
           "id": {
             "pattern": "^[\\w]*$",
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier of the location. [cite: 345]"
+            "description": "Unique, unchangeable system generated identifier of the location. "
           },
           "radius": {
             "type": "number",
             "format": "double",
-            "description": "Radius (in km) of the location boundary. Must be between 0.001 and 1. Must be specified if polygon details are not specified. [cite: 334, 335, 339]"
+            "description": "Radius (in km) of the location boundary. Must be between 0.001 and 1. Must be specified if polygon details are not specified. "
           },
           "name": {
             "type": "string",
-            "description": "Unique name for the location. [cite: 332, 338]"
+            "description": "Unique name for the location."
           },
           "categoryName": {
             "type": "string",
-            "description": "Name of an existing location category. [cite: 332, 338]"
+            "description": "Name of an existing location category. "
           },
           "address": {
             "$ref": "#/components/schemas/AddressDto",
-            "description": "Address object of the location. [cite: 340]"
+            "description": "Address object of the location. "
           },
           "coordinate": {
             "$ref": "#/components/schemas/CoordinateDto"
@@ -14532,26 +14548,26 @@
             "items": {
               "$ref": "#/components/schemas/CoordinateDto"
             },
-            "description": "Array of points that define the geo-fence boundary of the polygon. Must be specified if radius is not specified. [cite: 335, 336, 340]"
+            "description": "Array of points that define the geo-fence boundary of the polygon. Must be specified if radius is not specified. "
           },
           "reference": {
             "maxLength": 50,
             "minLength": 0,
             "type": "string",
-            "description": "A reference for this location. Included in the response if a reference has been specified for this location. [cite: 350, 351]"
+            "description": "A reference for this location. Included in the response if a reference has been specified for this location. "
           },
           "phoneNumber": {
             "maxLength": 20,
             "minLength": 0,
             "pattern": "^\\+?\\d+$",
             "type": "string",
-            "description": "A phone number for this location. Included in the response if a phone number has been specified for this location. [cite: 352, 353]"
+            "description": "A phone number for this location. Included in the response if a phone number has been specified for this location. "
           },
           "contact": {
             "maxLength": 50,
             "minLength": 0,
             "type": "string",
-            "description": "A contact for this location. Included in the response if a contact has been specified for this location. [cite: 351, 352]"
+            "description": "A contact for this location. Included in the response if a contact has been specified for this location. "
           },
           "email": {
             "maxLength": 50,
@@ -14563,7 +14579,7 @@
             "maxLength": 140,
             "minLength": 0,
             "type": "string",
-            "description": "Notes for this location, Cannot be more than 140 characters. [cite: 343]"
+            "description": "Notes for this location, Cannot be more than 140 characters. "
           }
         }
       },
@@ -17774,15 +17790,15 @@
           "id": {
             "pattern": "^[\\w]*$",
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the newly added location category. [cite: 408]"
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the newly added location category. "
           },
           "name": {
             "type": "string",
-            "description": "The name for the location category. [cite: 405]"
+            "description": "The name for the location category. "
           },
           "icon": {
             "type": "string",
-            "description": "The icon for the location category - see the Point of Interest (POI) section. [cite: 406]"
+            "description": "The icon for the location category - see the Point of Interest (POI) section. "
           }
         }
       },
@@ -17796,17 +17812,20 @@
           "id": {
             "pattern": "^[\\w]*$",
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the newly added location category. [cite: 408]"
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the newly added location category. "
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the location category."
           },
           "icon": {
-            "type": "string"
+            "type": "string",
+            "description": "The icon assigned to the location category"
           },
           "locationsCount": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "description": "The number of locations with this location category."
           }
         }
       },
@@ -17822,25 +17841,32 @@
             "type": "string"
           },
           "road": {
-            "type": "string"
+            "type": "string",
+            "description": "Road name"
           },
           "roadNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Road number"
           },
           "city": {
             "maxLength": 50,
             "minLength": 0,
             "type": "string"
+            ,
+            "description": "City. Cannot be more than 50 characters."
           },
           "postCode": {
             "maxLength": 20,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "description": "Postcode. Cannot be more than 20 characters."
           },
           "country": {
             "maxLength": 50,
             "minLength": 0,
             "type": "string"
+            ,
+            "description": "Country. Cannot be more than 50 characters."
           },
           "roadType": {
             "type": "string"
@@ -17965,10 +17991,12 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) of the location."
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the location."
           },
           "address": {
             "$ref": "#/components/schemas/MMAddressDto"
@@ -17977,16 +18005,20 @@
             "$ref": "#/components/schemas/MMCoordinateDto"
           },
           "customerId": {
-            "type": "string"
+            "type": "string",
+            "description": "MCF customer identifier (alphanumeric)"
           },
           "customerReference": {
-            "type": "string"
+            "type": "string",
+            "description": "MCF customer reference."
           },
           "categoryId": {
-            "type": "string"
+            "type": "string",
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the location category."
           },
           "categoryName": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the location category."
           },
           "radiusKm": {
             "type": "number",
@@ -17999,22 +18031,28 @@
             }
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "description": "Specifies if the geo-fence boundary for this location has been defined as a circle or a polygon; can be POLYGON or CIRCULAR."
           },
           "reference": {
-            "type": "string"
+            "type": "string",
+            "description": "A reference for this location. Included in the response if a reference has been specified for this location."
           },
           "phoneNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "A phone number for this location. Included in the response if a phone number has been specified for this location."
           },
           "contact": {
-            "type": "string"
+            "type": "string",
+            "description": "A contact for this location. Included in the response if a contact has been specified for this location."
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "An email address for this location. Included in the response if an email address has been specified for this location."
           },
           "notes": {
-            "type": "string"
+            "type": "string",
+            "description": "The notes for this location. Included in the response if notes have been specified for this location."
           },
           "polygonGeofence": {
             "$ref": "#/components/schemas/PolygonGeofence"
@@ -18028,22 +18066,28 @@
         "type": "object",
         "properties": {
           "formattedAddress": {
-            "type": "string"
+            "type": "string",
+            "description": "Formatted address for the location."
           },
           "road": {
-            "type": "string"
+            "type": "string",
+            "description": "Road name."
           },
           "roadNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Road number"
           },
           "city": {
-            "type": "string"
+            "type": "string",
+            "description": "City"
           },
           "postCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Postcode"
           },
           "country": {
-            "type": "string"
+            "type": "string",
+            "description": "Country"
           },
           "roadType": {
             "type": "string"
@@ -18055,11 +18099,13 @@
         "properties": {
           "longitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Longitude value for the central point of the location."
           },
           "latitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Latitude value for the central point of the location."
           }
         }
       },
@@ -18090,19 +18136,19 @@
           "totalPages": {
             "type": "integer",
             "format": "int32",
-            "description": "Total number of pages based on the pageSize. [cite: 310]"
+            "description": "Total number of pages based on the pageSize. "
           },
           "totalCount": {
             "type": "integer",
             "format": "int64",
-            "description": "Total number of items that matched the search parameters [cite: 311]"
+            "description": "Total number of items that matched the search parameters "
           },
           "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/LocationSearchResultDto"
             },
-            "description": "Array of locations. [cite: 311]"
+            "description": "Array of locations. "
           }
         }
       },
@@ -18452,18 +18498,18 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier for the role. [cite: 590]"
+            "description": "Unique, unchangeable system generated identifier for the role. "
           },
           "name": {
             "type": "string",
-            "description": "Role name. [cite: 590]"
+            "description": "Role name. "
           },
           "activeFeatureKeys": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Array of active features. [cite: 590]"
+            "description": "Array of active features. "
           }
         }
       },
@@ -20418,11 +20464,11 @@
         "properties": {
           "personId": {
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the user. [cite: 667]"
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) for the user. "
           },
           "personName": {
             "type": "string",
-            "description": "Full name for the user. [cite: 668]"
+            "description": "Full name for the user. "
           }
         }
       },
@@ -20431,15 +20477,15 @@
         "properties": {
           "token": {
             "type": "string",
-            "description": "Unique system generated token. [cite: 662]"
+            "description": "Unique system generated token. "
           },
           "newPassword": {
             "type": "string",
-            "description": "New password for the user. Must be between 8 to 50 characters in length. [cite: 663] Must include at least one non- alphanumeric character, for example !. [cite: 664]"
+            "description": "New password for the user. Must be between 8 to 50 characters in length.  Must include at least one non- alphanumeric character, for example !. "
           },
           "reseller": {
             "type": "string",
-            "description": "The reseller branding to use on the password set confirmation email. If not specified then the email will be MCF branded. [cite: 665, 666]"
+            "description": "The reseller branding to use on the password set confirmation email. If not specified then the email will be MCF branded. "
           }
         }
       },
@@ -21087,21 +21133,21 @@
           },
           "name": {
             "type": "string",
-            "description": "The friendly name for the vehicle. If a value is specified then ● Cannot contain any one of these characters: <>?*\" [cite: 448]"
+            "description": "The friendly name for the vehicle. If a value is specified then ● Cannot contain any one of these characters: <>?*\" "
           },
           "registration": {
             "type": "string"
           },
           "groupId": {
             "type": "string",
-            "description": "Unique, unchangeable system generated identifier (alphanumeric) of an existing group to be assigned to this vehicle. [cite: 447]"
+            "description": "Unique, unchangeable system generated identifier (alphanumeric) of an existing group to be assigned to this vehicle. "
           },
           "groupName": {
             "type": "string"
           },
           "type": {
             "type": "string",
-            "description": "The vehicle type. Can be one of the following: ● AMBULANCE ● BICYCLE ● BOAT ● BUS ● BUS _ DOUBLE _ DECK ● CAR ● CAR _ ESTATE ● CAR _ SPORTS ● CARAVAN ● CARRIAGE ● COACH ● CONTAINER _ ASSET ● DIGGER ● DIGGER _ 2 ● GRITTER ● HGV ● HORSEBOX ● MAN ● MINIBUS ● MIXER ● MOTORCYCLE ● MOTORHOME ● PDA111 ● RIGID ● SMARTPHONE _ PDA ● SWEEPER _ LARGE ● SWEEPER _ SMALL ● TIPPER ● TIPPER _ 2 ● TRACTOR ● TRACTOR _ TRAILER ● TRAILER ● TRAIN ● VAN ● VAN _ BOX ● VAN _ SMALL ● WASTE _ VEHICLE ● CHERRY _ PICKER _ HGV ● CHERRY _ PICKER _ LCV ● VAN _ LCV ● POOL _ CAR ● HEAVY _ VAN _ HGV ● TIPPER _ MEDIUM [cite: 449, 450, 451, 452]"
+            "description": "The vehicle type. Can be one of the following: ● AMBULANCE ● BICYCLE ● BOAT ● BUS ● BUS _ DOUBLE _ DECK ● CAR ● CAR _ ESTATE ● CAR _ SPORTS ● CARAVAN ● CARRIAGE ● COACH ● CONTAINER _ ASSET ● DIGGER ● DIGGER _ 2 ● GRITTER ● HGV ● HORSEBOX ● MAN ● MINIBUS ● MIXER ● MOTORCYCLE ● MOTORHOME ● PDA111 ● RIGID ● SMARTPHONE _ PDA ● SWEEPER _ LARGE ● SWEEPER _ SMALL ● TIPPER ● TIPPER _ 2 ● TRACTOR ● TRACTOR _ TRAILER ● TRAILER ● TRAIN ● VAN ● VAN _ BOX ● VAN _ SMALL ● WASTE _ VEHICLE ● CHERRY _ PICKER _ HGV ● CHERRY _ PICKER _ LCV ● VAN _ LCV ● POOL _ CAR ● HEAVY _ VAN _ HGV ● TIPPER _ MEDIUM "
           },
           "make": {
             "type": "string"
@@ -21115,18 +21161,18 @@
             "items": {
               "type": "string"
             },
-            "description": "Comma separated list of tags. If spe [cite: 448]"
+            "description": "Comma separated list of tags. If spe "
           },
           "defaultDriverId": {
             "type": "string"
           },
           "status": {
             "type": "string",
-            "description": "Status of the vehicle (optional). Will remain as its current value on the asset if not present in the update document. [cite: 453] Can be one of the following: ● IN _ CIRCULATION ● IN _ MAINTENANCE ● SOLD [cite: 454]"
+            "description": "Status of the vehicle (optional). Will remain as its current value on the asset if not present in the update document.  Can be one of the following: ● IN _ CIRCULATION ● IN _ MAINTENANCE ● SOLD "
           },
           "assetCosts": {
             "$ref": "#/components/schemas/VehicleCostsDto",
-            "description": "Costs associated with the vehicle. [cite: 455] ● If specified replaces all existing asset costs. [cite: 456] ● An empty assetCosts document will remove all costs. [cite: 457]"
+            "description": "Costs associated with the vehicle.  ● If specified replaces all existing asset costs.  ● An empty assetCosts document will remove all costs. "
           },
           "customerId": {
             "type": "string"
