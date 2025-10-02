@@ -4,85 +4,830 @@ description: 'Text, title, and styling in standard markdown'
 icon: 'text-size'
 ---
 
-## Titles
+## 2. MCF Solution
 
-Best used for section headers.
+The MCF Connect solution comprises of:
 
-```md
-## Titles
+
+- Connect – this is the component that receives and processes the tracking events from an On
+Board Unit (OBU).
+
+
+- Connect Web Application - this is the web based application used for managing
+assets/resources and accessing the track and trace functionality of Connect.
+
+
+- OBU – is the tracking box installed on the resource and connects via GPRS to Connect. The
+OBU transmits vehicle events such as ignition on, ignition off, resource movement and
+resource position to Connect.
+
+- Connect API - this is the Application Programming Interface that allows data to be pulled
+from Connect.
+
+### 2.1 Target Audience
+
+Connect is used to track and trace a resource. **Connect** receives location and related data from
+the asset via an **OBU**. The tracking data is viewable using the **Connect Web Application** in either
+tabular or on a map.
+
+A resource can be:
+
+- Vehicle – An asset (car, van, truck, trailer, boat, power generator etc.) which has an OBU
+installed.
+
+  - A vehicle can be assigned to a group. The group assigned to a vehicle does not have
+to be the same group as assigned to a driver.
+
+  - If a vehicle is part of the customer’s fleet (having a status of IN-CIRCULATION), its
+position is included in the response from Live Position.
+
+  - If a vehicle is no longer part of the customer’s fleet (having a status of SOLD), the
+vehicle is not included in the response from Live Position but details of historical
+journeys can be retrieved
+
+- Driver – A person that drives a vehicle. A driver can be associated with a key fob which
+enables Connect to determine who is driving a vehicle. A driver can be associated with a
+vehicle, e.g. their company car. A driver can be assigned to a group. The group for the driver
+does not have to be the same group as assigned to the vehicle.
+
+### 2.2 Group
+
+**Connect** allows for the creation of a group hierarchy. You have only one group hierarchy, but
+you can create many subgroups within the hierarchy to meet your reporting/tracking
+requirements.
+
+
+A resource (vehicle or driver) can be assigned to only one group in the hierarchy. You do not
+need to assign a driver to the same group as their default vehicle.
+
+For example, the following company, country, city and fleet group hierarchy can be used to
+group drivers and vehicles. Drivers would be assigned to any of the subgroups under “Offices”,
+whilst vehicles would be assigned to any of the subgroups under “Fleet”.
+
+```
+Masternaut
+Offices
+United Kingdom
+Leeds
+Skipton
+France
+Suresnes
+Germany
+Munich
+Fleet
+Car
+HGV
+```
+By assigning a vehicle/driver to a group enables tracking information to be retrieved for either:
+
+
+- A single vehicle
+
+- A single driver.
+
+- All vehicles based on type (e.e. car).
+
+- All drivers based in one city (e.g. Leeds).
+
+- All drivers based in one country (e.g. United Kingdom).
+
+- All vehicles or drivers in the company (e.g. Masternaut)
+
+### 2.3 Tracking and Tracing
+
+**Tracking** is knowing the location of a resource in real time. In addition to the location, Connect
+captures speed, direction of travel and other information items depending on the vehicle type
+(e.g. gritting events).
+
+**Tracing** is knowing the locations where a resource has been. Historic location information is
+stored by Connect based on the customer’s data retention period. This period is configurable,
+please speak to your **Customer Service Representative** for details.
+
+
+### 2.4 Journey
+
+A journey is a vehicle moving between locations. The start of the journey is when the ignition is
+switched on and the end of the journey is when the ignition is switched off. There can be many
+journeys for a vehicle on the same day. By associating a driver with a vehicle or if the driver has a
+key fob, allows you to track and trace the journeys for a driver.
+
+During the journey the vehicle’s status will change, for example:
+
+```
+● driving - The vehicle is moving. Movement events are generated every minute or when
+certain events occur, e.g. harsh braking, harsh accelerating.
+```
+```
+● idling - The vehicle has not moved location but the ignition is still on.
+```
+```
+● endOfJourney - The vehicle’s ignition has been switched off.
+```
+A private journey is a journey that a driver has specified as **private**. A **private journey** cannot be
+tracked or traced using the **Connect Web Application**. Likewise, the **Connect API** does not
+return any tracking or tracing information for a private journey. However, the distance travelled
+and the fuel used in a private journey are taken into account when calculating utilisation and fuel
+summary details.
+
+### 2.5 Distance Travelled
+
+The distance that a vehicle travelled during a journey is captured by the OBU using one of two
+methods:
+
+```
+Method Definition
+```
+```
+CAN This is the most accurate method with the OBU extracting the distance
+travelled from the vehicle’s CANbus.
+```
+```
+You can read more about CANbus at
+http://en.wikipedia.org/wiki/CAN_bus
+```
+```
+GPS During a journey, the OBU calculates the distance between each GPS
+location and sums these distance values together to derive the total
+distance for the journey.
+```
+```
+This method is not as accurate as the distance obtained from the
+CANbus.
 ```
 
-### Subtitles
+### 2.6 Point Of Interest (POI)
 
-Best use to subsection headers.
+```
+A Point of Interest (POI) is a map location that has been given a name and marked by a geo-fence
+boundary. By creating POI locations, it is possible to report when a resource has arrived at or
+departed from that named location. There is a limit on the number of locations you can create.
+```
+```
+● Using the Connect Web Application you can create a location and specify the geo-fence
+boundary to be either a circle or a polygon.
+```
+```
+● Using the Connect API , the geo-fence boundary can be defined as a circle or a polygon.
+```
+```
+When creating a POI location, it is assigned a location category. You can create as many
+location categories as required to meet your reporting/tracking requirements. The location
+category can be assigned one of the standard Connect icons. The icon is displayed on the map
+when using the Connect Web Application to view a journey.
+```
+```
+This is a list of the icon names that can be used:
+```
+**Name Icon Name Icon Name Icon Name Icon**
 
-```md
-### Subtitles
+airport customer depots fuel station (^)
+local_usine location_hotel office port (^)
+prospect restaurant restaurants service_red (^)
+supplier train_station
+building company gazStation home (^)
+hotel house internal location (^)
+man none others usine (^)
+circle-blue circle-green circle-orange circle-purple (^)
+circle-red circle-white circle-yellow
+dot-blue dot-green dot-navy dot-orange (^)
+dot-red dot-yellow
+flag-blue flag-green flag-orange flag-purple (^)
+flag-red flag-white flag-yellow
+pin-orange pin-green pin-purple pin-red (^)
+pin-white pin-yellow
+
+
+### 2.7 Tags
+
+A tag is a word that you can use to add information about a driver or vehicle. For example, you
+can add a tag to identify if the driver is an engineer, has a particular skill, or if the vehicle has a
+long wheelbase etc.
+
+Tags can be used in addition to the **Connect** features of groups and vehicle types. There is no
+limit on the number of tags you can create.
+
+### 2.8 Driver Keys
+
+A **driver key** is a way to identify who is driving a vehicle. A driver signs in with their key before
+they begin a journey.
+
+A driver can sign in using either:
+
+```
+● TachoID – the driver signs in using their Tachograph smart card.
+```
+```
+● RFID – the driver touches their key fob against the MCF Light Bar.
+```
+```
+● DALLAS – the driver touches their Dallas key fob against the MCF Light Bar.
+```
+A key can be configured so that all journeys using that key are specified as private journeys. A
+private journey cannot be tracked or traced using the **Connect Web Application**.
+
+A driver key (TachoID, RFID or DALLAS) can only be assigned to a single driver. Before you can
+assign the key to another driver, the key must be first deleted from the donor driver.
+
+### 2.9 Driver Behaviour
+
+**Driver behaviour** provides an analysis of the driving behaviour based on the three key
+performance indicators (KPI) which are based on the driving events that occur during a journey.
+Driver behaviour analysis requires the driver to be either the default driver for a vehicle or the
+driver signed in with their driver key during the journey.
+
+The three key performance indicators (KPI) are:
+
+```
+● Smoother
+```
+```
+○ This KPI shows how smoothly a vehicle was driven. It decreases when the driver
+brakes or accelerates harshly.
+```
+```
+● Safe Speed
+```
+```
+○ This KPI shows how the percentage of distance travelled at safe speed. It decreases
+when the driver exceeds the road speed limit by more than 10%.
+```
+```
+● Cleaner
 ```
 
-<Tip>
+```
+○ This KPI shows the percentage of time spent driving compared to drive time + idling
+time. It decreases when more time is spent idling.
+```
+```
+The aim for a driver is to achieve a value of 100% for each KPI.
+```
+```
+● Changes in KPI values where the trend shows an increase in KPI value shows an
+improvement in driving behaviour.
+```
+```
+● Changes in KPI values where the trend shows a decrease in KPI value shows a deterioration
+in driving behaviour.
+```
+```
+Due to the methodology used to calculate these KPI, the KPI can be used to compare the driving
+style across drivers in different groups, and organisations.
+```
+```
+Note:
+```
+```
+● Although either Driver Behaviour or EcoDrive can be used to analyse the driver’s driving
+behaviour, MCF’s preferred methodology is to use Driver Behaviour.
+```
+### 2.10 EcoDrive
 
-Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
-
-</Tip>
-
-## Text Formatting
-
-We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
-
-| Style         | How to write it   | Result          |
-| ------------- | ----------------- | --------------- |
-| Bold          | `**bold**`        | **bold**        |
-| Italic        | `_italic_`        | _italic_        |
-| Strikethrough | `~strikethrough~` | ~strikethrough~ |
-
-You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
-
-You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
-
-| Text Size   | How to write it          | Result                 |
-| ----------- | ------------------------ | ---------------------- |
-| Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
-| Subscript   | `<sub>subscript</sub>`   | <sub>subscript</sub>   |
-
-## Linking to Pages
-
-You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to [link to google](https://google.com).
-
-Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
-
-Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
-
-## Blockquotes
-
-### Singleline
-
-To create a blockquote, add a `>` in front of a paragraph.
-
-> Dorothy followed her through many of the beautiful rooms in her castle.
-
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
+```
+The EcoDrive product allows analysis of a driver’s driving behaviour based on driving events that
+occur during a journey. EcoDrive analysis can be performed either for a vehicle or driver. Driver
+analysis requires the driver to be either the default driver for a vehicle or the driver signed in
+with their driver key during the journey.
+```
+```
+The events that can be analysed are:
+```
+```
+● Harsh braking
+```
+```
+● Harsh acceleration
+```
+```
+● Harsh cornering
+```
+```
+● Over revving
+```
+```
+● Excessive idling
+```
+```
+● Speed over a defined threshold
+```
+```
+Excessive idling can occur either inside or outside a specified set of POI location categories. For
+example, if you set the location category for a number of POI locations to be “Goods Drop Point”,
+you can then analyse the number of excessive idling that occurred within and outside these
+“Goods Drop Point” POI locations.
+```
+```
+Speed over a defined threshold event is generated whenever the vehicle’s speed exceeds the
+value set for the ecoDrive speed threshold. The ecoDrive speed threshold is not checked
+against the road speed limit and is not the same as a speeding episode.
+```
+```
+The EcoDrive scoring algorithm uses these events to calculate a score per hour for a vehicle and
+a driver. The target is to have a score of zero, i.e. there were no “bad” driving events during a
 ```
 
-### Multiline
+```
+period being analysed. The calculated score can be used to rank the driving behaviour within a
+group and compare the driving behaviour with all the other vehicles/drivers in the same group.
+```
+```
+The EcoDrive scoring algorithm can be configured to give greater weight to one driving event
+over the other events, for example, you can initially give greater weight to speeding, but as driver
+behaviour changes, you can give greater weight to idling.
+```
+```
+Please speak to your Customer Service Representative to find out more details about your
+EcoDrive settings.
+```
+```
+Note:
+```
+```
+● Although either Driver Behaviour or EcoDrive can be used to analyse the driver’s driving
+behaviour, MCF’s preferred methodology is to use Driver Behaviour.
+```
+### 2.11 Inputs and PTO
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+```
+As well as detecting if the vehicle is moving, stopped or idling, the Masternaut OBU can be
+configured to detect other vehicle activity, for example:
+```
+```
+● if a door is opened or closed;
+```
+```
+● the beacon lights are switched on or switched off;
+```
+```
+● the street sweeper brushes are down or up.
+```
+```
+This vehicle activity is reported in Connect Web Application as an input.
+```
+```
+Power Take Off ( PTO ) is when the vehicle engine is being used to power additional machinery,
+for example a crane. PTO uses additional fuel, therefore, it is important to know if the PTO was
+active when the vehicle was moving, active when the vehicle was idling or if the PTO was inactive
+and the vehicle was idling.
+```
+### 2.12 Advanced Inputs (Input Events)
 
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+```
+The OBU can be configured to interface to a physical input. To remove the need to physically
+interface to the OBU and to expand the type of inputs that can be supported by Connect , a set
+of advanced input event endpoints have been created that allow input event data to be sent to
+the Connect Application using the Advanced Inputs API.
+```
+```
+An input event consists of:
+```
+```
+● Asset identifier – the asset that the input event was generated against.
+```
+```
+● Location – the latitude and longitude values where the input event occurred.
+```
+```
+● Event type – that describes the overall event.
+```
+```
+● Channel - that describes data for the event consisting of a number of input type key/value
+pairs.
 ```
 
-### LaTeX
+```
+These are some example event and input types:
+```
+```
+Event Type Input types
+```
+```
+Vehicle Metrics Engine temperature
+```
+```
+Tyre pressure
+```
+```
+Oil Level
+```
+```
+Refuse collection Bin Weight
+```
+```
+Bin RFID tag
+```
+```
+Photograph
+```
+```
+Gully Cleaning Customer name
+```
+```
+Work order
+```
+```
+Time taken
+```
+```
+Event Types and Input Types are loosely coupled. So, it is possible to use the “Oil Level” input for
+both the “Vehicle Metrics” and “Gully Cleaning” events.
+```
+```
+Input events added using the Advanced Inputs API are
+```
+```
+● Shown in the Connect Web Application.
+```
+```
+● Included in the response of Live Position and Live Position Latest.
+```
+### 2.13 Tax & Expense
 
-Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component.
+```
+The Tax & Expense product allows drivers to classify their journeys as business or private for tax
+and business expense purposes. Once a journey has been classified it can be submitted to the
+driver’s manager for approval.
+```
+```
+The classifications for a journey are as follows:
+```
+```
+● NOTSUBMITTED – the journey has not yet been submitted by the driver.
+```
+```
+● BUSINESS – the journey was a business journey.
+```
+```
+● PERSONAL – the journey was a personal journey.
+```
+```
+● COMMUTE_A – a journey that was a commute to a normal place of work, this classification is
+required in some European countries.
+```
+```
+● COMMUTE_B – a journey that was a commute to a temporary place of work, this
+classification is required in some European countries.
+```
 
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
+### 2.14 Connect Web User
 
-```md
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
+```
+A Connect web user has login credentials to access the Connect Web Application. The Connect
+Web Application features that a user can access is dependent on the role they are assigned.
+```
+```
+You can define the features that are available for each role and can create as many roles as
+required to meet your reporting needs. A Connect Web user can be assigned to only one role.
+```
+```
+A Connect Web user is allocated to a group in the group hierarchy. A user can only view details
+(drivers, vehicles, journeys) for resources in the same group (or one of its subgroups) in the
+group hierarchy.
+```
+```
+When creating or updating a user, you can specify the timezone and language for the user with
+the following values:
+```
+```
+Attribute Definition
+```
+```
+Timezone The timezone for the user. Dates and time are held in UTC and
+converted into the specified timezone when displaying details in the
+Connect Web Application.
+```
+```
+Allowed timezone values are:
+● Australia/Sydney
+● Australia/Brisbane
+● Australia/Adelaide
+● Australia/Darwin
+● Australia/Perth
+● Atlantic/Azores
+● Europe/Prague
+● Europe/Berlin
+● Europe/Copenhagen
+● Europe/London
+● Europe/Helsinki
+● Europe/Paris
+● Europe/Athens
+● Europe/Rome
+● Europe/Amsterdam
+● Europe/Warsaw
+● Europe/Lisbon
+● Europe/Madrid
+● Europe/Stockholm
+● Africa/Luanda
+● Africa/Casablanca
+● Africa/Maputo
+● America/New_York
+● America/Chicago
+● America/Denver
+● America/Los_Angeles
+● America/Anchorage
+```
+
+```
+● America/Halifax
+● America/Cayenne
+● America/Guadeloupe
+● America/Martinique
+● Pacific/Honolulu
+● Pacific/Midway
+● Pacific/Noumea
+● Pacific/Auckland
+● Indian/Mayotte
+● Indian/Reunion
+```
+Language The **Connect Web Application** provides multilingual support for the
+following languages:
+● English, English (US), French, Spanish, Swedish, German,
+Czech, Danish, Dutch, Polish, Italian, Greek, Finnish and
+Portuguese.
+
+```
+The language for the user is specified as one of the following
+locales:
+```
+```
+locale Language
+```
+```
+en_GB English
+```
+```
+en_US American English
+```
+```
+fr_FR French
+```
+```
+es_ES Spanish
+```
+```
+sv_SE Swedish
+```
+```
+de_DE German
+```
+```
+cs_CZ Czech
+```
+```
+da_DK Danish
+```
+```
+nl_NL Dutch
+```
+```
+pl_PL Polish
+```
+```
+it_IT Italian
+```
+```
+el_GR Greek
+```
+```
+fi_FI Finnish
+```
+```
+pt_PT Portuguese
+```
+Unit of
+measures
+
+```
+When a user is added to the Connect Web Application using the
+Connect API , the unit of measures to use when viewing fuel
+```
+
+```
+consumption, speed, fuel and distance are configured based on the
+settings for the user’s customer account.
+```
+```
+A user can update their settings using Connect Web Application.
+```
+```
+You cannot specify the password for a Connect Web User in the same request as creating a new
+Connect web user or when updating the details for an existing user. Instead, you set the
+password by using the Set User Password endpoint and using either the token returned in the
+JSON response from adding a new web user or the token returned in the JSON response from
+calling the Password Reset Token endpoint.
+```
+```
+This approach has been done as it allows you to either:
+```
+```
+● Use the Set User Password endpoint to set the password.
+```
+```
+● Send an email to the user so the user can use the Connect Web Application to set the
+password.
+```
+```
+The URL to include in the email to allow the user to use the Connect Web Application set
+should be formatted as follows:
+```
+```
+https://www.masternautconnect.com/Account/LogOn?customer=&token={token}#reset-passwor
+d
+```
+```
+Where {token} is the token returned in the JSON response from Add User or Password Reset
+Token endpoints.
+```
+### 2.15 Single Sign On
+
+```
+The Connect Web Application supports Single Sign On (SSO) using the OpenID Connect
+standard. SSO avoids the Connect Web User having to remember another username/password
+combination as the user can access the Connect Web Application using their company’s
+authentication details.
+```
+```
+To enable SSO for a web user, you set an external identifier against the user.
+```
+```
+● The external identifier is used to associate a user in your Authorization Server to a Connect
+web user.
+```
+```
+● The external identifier is returned by your Authorization Server once the user has been
+successfully authenticated by your Authorization Server.
+```
+```
+● A Connect Web User enabled for SSO cannot use the Connect Web Application functionality
+to reset their password.
+```
+```
+You can read more about OpenID Connect at https://openid.net/connect/.
+```
+
+### 2.16 Speeding Episodes
+
+```
+The Connect application is able to determine if a vehicle is speeding and will create a speeding
+episode whenever both of the following conditions are satisfied.
+```
+```
+● The vehicle speed exceeds the road speed limit for the vehicle type.
+```
+```
+● At least two consecutive tracking frames are received where the vehicle speed exceeded the
+road speed limit for the vehicle type.
+```
+```
+A speeding episode ends when any one of the following occurs:
+```
+```
+● The vehicle’s speed drops below the road speed limit for the vehicle type.
+```
+```
+● The speed limit for the road cannot be determined.
+```
+```
+● The road type changes.
+```
+```
+The road speed limit for a vehicle depends on the vehicle type. The following are UK examples of
+the road speed limits for different vehicle types.
+```
+```
+Vehicle Type Single
+carriageways
+```
+```
+Dual
+carriageways
+```
+```
+Motorways
+```
+```
+Cars, motorcycles,
+car-derived vans and
+dual-purpose vehicles.
+```
+```
+60 mph (96 km/h) 70 mph (
+km/h)
+```
+```
+70 mph (
+km/h)
+```
+```
+Goods vehicles (not more
+than 7.5 tonnes maximum
+laden weight).
+```
+```
+50 mph (96 km/h) 60 mph (
+km/h)
+```
+```
+70 mph (
+km/h)
+```
+```
+It is important that the vehicle type is set correctly as this will ensure the correct road speed limit
+is used.
+```
+### 2.17 Alerts
+
+```
+The Connect application can trigger an alert when specific conditions are met. Alerts can be set
+for a single vehicle or vehicles in a group.
+```
+
+The available alert types are:
+
+```
+Alert Type Description
+```
+```
+arriveOrLeaveLocationAlert An alert if a vehicle arrives at or leaves a specific
+location.
+```
+```
+cameraAlert An alert when a High-G Event or Emergency button
+press is received from a camera.
+```
+```
+cameraEventAlert An alert when a High-G Event or Emergency button
+press is received from a camera.
+```
+```
+driveTimeAlert An alert if a vehicle is moving for longer than a
+defined threshold. Moving time includes driving and
+idling
+```
+```
+drivingWithoutAuthenticationKeyAlert An alert if a vehicle is driven without an
+identification key or tacho card being used. Note
+that vehicles need to be equipped with a MCF
+identification key reader or connected tachograph
+```
+```
+exceptionAlert Ann alert if a vehicle performs a specific activity, for
+example idles longer than 20 minutes.
+```
+```
+genericInputAlert An alert if a temperature value is outside a defined
+threshold / if the refrigeration alarm is activated.
+```
+```
+idlingAssetAlert An alert if someone idles too long.
+```
+```
+inputAlert An alert when an input or PTO is used.
+```
+
+```
+lateStartAlert An alert if a vehicle doesn’t start its day by a specific
+time.
+```
+```
+lowBatteryAlert An alert when the ATU's Battery is low.
+```
+```
+lowEVChargeAlert An alert when the EV charge is low.
+```
+```
+maintenanceFaultAlert An alert if a maintenance fault is detected on a
+vehicle.
+```
+```
+onTimeLateJobArrivalAlert An alert if a vehicle does NOT arrive at a scheduled
+job on time.
+```
+```
+outOfHoursAlert An alert if a vehicle is used outside of working
+hours.
+```
+```
+speedOverXAlert An alert if a vehicle exceeds a user-defined speed
+threshold.
+```
+```
+stopTimeAlert An alert if a vehicle exceeds a user-defined stop
+time threshold
+```
+```
+tamperEventAlert
+An alert when a device is unplugged from a vehicle
+(M210 only).
+```
+These are the recipients that can be configured for an alert
+
+```
+● Once or more Connect web users
+```
+```
+● One or more email addresses
+```
+```
+● One or more mobile telephone numbers
 ```
