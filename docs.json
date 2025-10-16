@@ -35,7 +35,9 @@
           {
             "group": "Success stories",
             "pages" : [
-              "stories/story1"
+              "stories/story1",
+              "stories/story2",
+              "stories/story3"
             ]
           }
         ]
