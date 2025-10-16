@@ -1,0 +1,442 @@
+---
+title: 'Fleet maintenance'
+description: 'Fleet Maintenance Automation for Logistics Company'
+---
+
+## Company Profile
+**Industry:** Transport & Logistics  
+**Company Size:** 150 commercial vehicles (trucks and vans)  
+**Department:** Fleet Operations
+
+## Character Profile
+**Name:** Sarah Mitchell  
+**Role:** Fleet Maintenance Manager  
+**Experience:** 8 years in fleet operations
+
+## The Challenge
+
+Sarah manages a fleet of 150 vehicles for a regional logistics company. Her main responsibilities include:
+- Ensuring all vehicles are maintained on schedule
+- Minimizing vehicle downtime
+- Tracking maintenance costs
+- Complying with safety regulations
+
+### Current Pain Points:
+1. **Manual Odometer Tracking:** Drivers report mileage manually, leading to delays and inaccuracies
+2. **Reactive Maintenance:** Vehicles often break down before scheduled maintenance
+3. **Poor Planning:** Difficult to predict when vehicles will need service
+4. **Compliance Risks:** Missing service dates can result in regulatory violations
+5. **High Administrative Burden:** Spending 15+ hours per week coordinating maintenance schedules
+
+## The Solution
+
+Sarah implements an automated maintenance scheduling system using the Connect API to:
+- Automatically retrieve real-time odometer readings
+- Monitor vehicle fault codes and warnings
+- Schedule maintenance based on actual usage
+- Integrate with the company's fleet management system
+
+## Technical Implementation
+
+### Step 1: Authenticate and Retrieve Vehicle List
+
+```javascript
+const axios = require('axios');
+
+class FleetMaintenanceManager {
+  constructor(apiBaseUrl, customerId, apiKey) {
+    this.apiBaseUrl = apiBaseUrl;
+    this.customerId = customerId;
+    this.apiKey = apiKey;
+    this.headers = {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    };
+  }
+
+  /**
+   * Retrieve all vehicles in the fleet
+   */
+  async getAllVehicles() {
+    try {
+      const response = await axios.get(
+        `${this.apiBaseUrl}/customer/${this.customerId}/vehicle`,
+        { headers: this.headers }
+      );
+      
+      console.log(`Retrieved ${response.data.items.length} vehicles`);
+      return response.data.items;
+    } catch (error) {
+      console.error('Error fetching vehicles:', error.message);
+      throw error;
+    }
+  }
+
+  /**
+   * Get vehicles with service dates to check which ones need maintenance
+   */
+  async getVehiclesWithServiceDates(startDate, endDate) {
+    try {
+      const requestBody = {
+        startDate: startDate,
+        endDate: endDate,
+        pageSize: 100,
+        pageIndex: 0
+      };
+
+      const response = await axios.post(
+        `${this.apiBaseUrl}/customer/${this.customerId}/vehicle/searchVehiclesWithServiceDate`,
+        requestBody,
+        { headers: this.headers }
+      );
+
+      console.log(`Found ${response.data.items.length} vehicles with upcoming service dates`);
+      return response.data.items;
+    } catch (error) {
+      console.error('Error fetching vehicles with service dates:', error.message);
+      throw error;
+    }
+  }
+}
+```
+
+### Step 2: Monitor Vehicle Faults and Anomalies
+
+```javascript
+/**
+ * Check for vehicle faults that might require immediate attention
+ */
+async getVehicleFaults(startDate, endDate) {
+  try {
+    const requestBody = {
+      startDate: startDate,
+      endDate: endDate,
+      pageSize: 100,
+      pageIndex: 0,
+      faultTypes: [
+        'ENGINE_FAULT',
+        'BRAKE_FAULT',
+        'TIRE_PRESSURE_FAULT',
+        'OIL_PRESSURE_FAULT',
+        'COOLANT_TEMP_FAULT'
+      ]
+    };
+
+    const response = await axios.post(
+      `${this.apiBaseUrl}/customer/${this.customerId}/vehicle/searchVehiclesWithFaults`,
+      requestBody,
+      { headers: this.headers }
+    );
+
+    // Filter critical faults that need immediate attention
+    const criticalFaults = response.data.items.filter(vehicle => 
+      vehicle.faults.some(fault => 
+        fault.severity === 'CRITICAL' || fault.severity === 'HIGH'
+      )
+    );
+
+    console.log(`Found ${criticalFaults.length} vehicles with critical faults`);
+    return criticalFaults;
+  } catch (error) {
+    console.error('Error fetching vehicle faults:', error.message);
+    throw error;
+  }
+}
+```
+
+### Step 3: Calculate Maintenance Schedule Based on Mileage
+
+```javascript
+/**
+ * Retrieve current odometer readings for all vehicles
+ */
+async getCurrentOdometerReadings(vehicleIds) {
+  try {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const requestBody = {
+      vehicleIds: vehicleIds,
+      startDate: yesterday.toISOString().split('T')[0] + 'T00:00:00',
+      endDate: today.toISOString().split('T')[0] + 'T23:59:59'
+    };
+
+    const response = await axios.post(
+      `${this.apiBaseUrl}/customer/${this.customerId}/vehicle/odometer`,
+      requestBody,
+      { headers: this.headers }
+    );
+
+    return response.data.items;
+  } catch (error) {
+    console.error('Error fetching odometer readings:', error.message);
+    throw error;
+  }
+}
+
+/**
+ * Calculate which vehicles need maintenance based on mileage thresholds
+ */
+async calculateMaintenanceSchedule() {
+  const MAINTENANCE_INTERVALS = {
+    OIL_CHANGE: 10000, // km
+    TIRE_ROTATION: 15000, // km
+    BRAKE_INSPECTION: 20000, // km
+    MAJOR_SERVICE: 50000 // km
+  };
+
+  try {
+    const vehicles = await this.getAllVehicles();
+    const vehicleIds = vehicles.map(v => v.vehicleId);
+    const odometerReadings = await this.getCurrentOdometerReadings(vehicleIds);
+
+    const maintenanceSchedule = [];
+
+    for (const reading of odometerReadings) {
+      const vehicle = vehicles.find(v => v.vehicleId === reading.vehicleId);
+      const currentOdometer = reading.currentOdometer;
+      const lastServiceOdometer = vehicle.lastServiceOdometer || 0;
+      const kmSinceLastService = currentOdometer - lastServiceOdometer;
+
+      const maintenanceDue = [];
+
+      // Check each maintenance type
+      if (kmSinceLastService >= MAINTENANCE_INTERVALS.MAJOR_SERVICE) {
+        maintenanceDue.push({
+          type: 'MAJOR_SERVICE',
+          priority: 'HIGH',
+          kmOverdue: kmSinceLastService - MAINTENANCE_INTERVALS.MAJOR_SERVICE
+        });
+      } else if (kmSinceLastService >= MAINTENANCE_INTERVALS.BRAKE_INSPECTION) {
+        maintenanceDue.push({
+          type: 'BRAKE_INSPECTION',
+          priority: 'MEDIUM',
+          kmOverdue: kmSinceLastService - MAINTENANCE_INTERVALS.BRAKE_INSPECTION
+        });
+      } else if (kmSinceLastService >= MAINTENANCE_INTERVALS.TIRE_ROTATION) {
+        maintenanceDue.push({
+          type: 'TIRE_ROTATION',
+          priority: 'MEDIUM',
+          kmOverdue: kmSinceLastService - MAINTENANCE_INTERVALS.TIRE_ROTATION
+        });
+      } else if (kmSinceLastService >= MAINTENANCE_INTERVALS.OIL_CHANGE) {
+        maintenanceDue.push({
+          type: 'OIL_CHANGE',
+          priority: 'LOW',
+          kmOverdue: kmSinceLastService - MAINTENANCE_INTERVALS.OIL_CHANGE
+        });
+      }
+
+      if (maintenanceDue.length > 0) {
+        maintenanceSchedule.push({
+          vehicleId: reading.vehicleId,
+          vehicleRegistration: vehicle.registration,
+          vehicleName: vehicle.name,
+          currentOdometer: currentOdometer,
+          kmSinceLastService: kmSinceLastService,
+          maintenanceDue: maintenanceDue
+        });
+      }
+    }
+
+    return maintenanceSchedule.sort((a, b) => 
+      b.maintenanceDue[0].kmOverdue - a.maintenanceDue[0].kmOverdue
+    );
+  } catch (error) {
+    console.error('Error calculating maintenance schedule:', error.message);
+    throw error;
+  }
+}
+```
+
+### Step 4: Integrate with Fleet Management System
+
+```javascript
+/**
+ * Send maintenance alerts to the fleet management system
+ */
+async sendMaintenanceAlerts(maintenanceSchedule) {
+  for (const vehicle of maintenanceSchedule) {
+    const alert = {
+      vehicleId: vehicle.vehicleId,
+      vehicleRegistration: vehicle.vehicleRegistration,
+      vehicleName: vehicle.vehicleName,
+      currentOdometer: vehicle.currentOdometer,
+      maintenanceType: vehicle.maintenanceDue[0].type,
+      priority: vehicle.maintenanceDue[0].priority,
+      kmOverdue: vehicle.maintenanceDue[0].kmOverdue,
+      message: `${vehicle.vehicleRegistration} requires ${vehicle.maintenanceDue[0].type}. ` +
+               `Currently ${vehicle.maintenanceDue[0].kmOverdue}km overdue.`
+    };
+
+    // Send to fleet management system
+    await this.sendToFleetManagementSystem(alert);
+  }
+}
+
+/**
+ * Main execution function - runs daily via scheduled job
+ */
+async runDailyMaintenanceCheck() {
+  console.log('=== Starting Daily Maintenance Check ===');
+  console.log(`Timestamp: ${new Date().toISOString()}`);
+
+  try {
+    // 1. Calculate maintenance schedule
+    const maintenanceSchedule = await this.calculateMaintenanceSchedule();
+    console.log(`\nVehicles requiring maintenance: ${maintenanceSchedule.length}`);
+
+    // 2. Check for critical faults
+    const today = new Date();
+    const sevenDaysAgo = new Date(today);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const criticalFaults = await this.getVehicleFaults(
+      sevenDaysAgo.toISOString().split('T')[0] + 'T00:00:00',
+      today.toISOString().split('T')[0] + 'T23:59:59'
+    );
+    console.log(`Vehicles with critical faults: ${criticalFaults.length}`);
+
+    // 3. Send alerts for maintenance and faults
+    if (maintenanceSchedule.length > 0) {
+      await this.sendMaintenanceAlerts(maintenanceSchedule);
+    }
+
+    if (criticalFaults.length > 0) {
+      await this.sendCriticalFaultAlerts(criticalFaults);
+    }
+
+    console.log('\n=== Daily Maintenance Check Complete ===');
+
+    return {
+      success: true,
+      maintenanceCount: maintenanceSchedule.length,
+      criticalFaultsCount: criticalFaults.length
+    };
+  } catch (error) {
+    console.error('Error during maintenance check:', error.message);
+    return {
+      success: false,
+      error: error.message
+    };
+  }
+}
+```
+
+### Step 5: Generate Monthly Maintenance Report
+
+```javascript
+/**
+ * Generate comprehensive monthly maintenance report
+ */
+async generateMonthlyReport(year, month) {
+  try {
+    const startDate = new Date(year, month - 1, 1);
+    const endDate = new Date(year, month, 0, 23, 59, 59);
+
+    const report = {
+      period: `${year}-${month.toString().padStart(2, '0')}`,
+      generatedAt: new Date().toISOString(),
+      vehiclesMaintained: [],
+      totalMaintenanceCost: 0,
+      vehiclesWithFaults: [],
+      recommendedActions: []
+    };
+
+    // Get all vehicles with service dates in the period
+    const servicedVehicles = await this.getVehiclesWithServiceDates(
+      startDate.toISOString().split('T')[0] + 'T00:00:00',
+      endDate.toISOString().split('T')[0] + 'T23:59:59'
+    );
+
+    report.vehiclesMaintained = servicedVehicles;
+
+    // Get vehicles with faults
+    const faultedVehicles = await this.getVehicleFaults(
+      startDate.toISOString().split('T')[0] + 'T00:00:00',
+      endDate.toISOString().split('T')[0] + 'T23:59:59'
+    );
+
+    report.vehiclesWithFaults = faultedVehicles;
+
+    // Calculate upcoming maintenance
+    const upcomingMaintenance = await this.calculateMaintenanceSchedule();
+    report.recommendedActions = upcomingMaintenance;
+
+    console.log('\n=== Monthly Maintenance Report ===');
+    console.log(`Period: ${report.period}`);
+    console.log(`Vehicles Maintained: ${report.vehiclesMaintained.length}`);
+    console.log(`Vehicles with Faults: ${report.vehiclesWithFaults.length}`);
+    console.log(`Upcoming Maintenance: ${report.recommendedActions.length}`);
+
+    return report;
+  } catch (error) {
+    console.error('Error generating monthly report:', error.message);
+    throw error;
+  }
+}
+```
+
+### Usage Example
+
+```javascript
+// Initialize the maintenance manager
+const manager = new FleetMaintenanceManager(
+  'https://api.connect-platform.com/v1',
+  'CUSTOMER_12345',
+  'your-api-key-here'
+);
+
+// Run daily maintenance check (scheduled via cron job)
+manager.runDailyMaintenanceCheck()
+  .then(result => {
+    if (result.success) {
+      console.log('✓ Maintenance check completed successfully');
+    } else {
+      console.error('✗ Maintenance check failed:', result.error);
+    }
+  });
+
+// Generate monthly report (run on 1st of each month)
+const today = new Date();
+manager.generateMonthlyReport(today.getFullYear(), today.getMonth() + 1)
+  .then(report => {
+    console.log('Monthly report generated:', report);
+    // Export to PDF, send via email, etc.
+  });
+```
+
+## Business Impact
+
+### Results After 6 Months:
+
+**Operational Improvements:**
+- ✅ **40% reduction** in unexpected vehicle breakdowns
+- ✅ **25% decrease** in maintenance costs through preventive scheduling
+- ✅ **90% accuracy** in odometer tracking (up from 65% with manual entry)
+- ✅ **15 hours/week saved** in administrative time
+
+**Financial Impact:**
+- **Cost Savings:** €45,000/year in reduced breakdown costs
+- **Efficiency Gains:** €28,000/year in reduced administrative labor
+- **Uptime Improvement:** Additional €35,000/year in revenue from better vehicle availability
+- **Total Annual Benefit:** €108,000
+
+**Safety & Compliance:**
+- Zero regulatory violations in 6 months
+- 100% on-time maintenance completion
+- Improved driver safety scores
+- Better insurance ratings
+
+## Key Takeaways
+
+Sarah's automated maintenance system demonstrates how telematics API integration can:
+
+1. **Transform Operations:** Moving from reactive to predictive maintenance
+2. **Reduce Costs:** Preventing expensive breakdowns through early detection
+3. **Save Time:** Automating manual processes that previously took hours
+4. **Improve Compliance:** Ensuring all vehicles meet regulatory requirements
+5. **Enhance Safety:** Catching critical faults before they become dangerous
+
+> *"The Connect API integration has completely transformed how we manage our fleet. We now catch issues before they become problems, and our maintenance scheduling runs like clockwork. It's like having a dedicated assistant monitoring every vehicle 24/7."* — Sarah Mitchell, Fleet Maintenance Manager

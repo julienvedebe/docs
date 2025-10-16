@@ -31,6 +31,12 @@
               "essentials/quotas",
               "essentials/reusable-snippets"
             ]
+          },
+          {
+            "group": "Success stories",
+            "pages" : [
+              "stories/story1"
+            ]
           }
         ]
       },

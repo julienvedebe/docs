@@ -1,0 +1,726 @@
+---
+title: 'Alert'
+description: 'Proactive Alert Management for Emergency Response Fleet'
+---
+
+## Company Profile
+**Industry:** Emergency Services & Roadside Assistance  
+**Company Size:** 85 emergency response vehicles across metropolitan area  
+**Department:** Fleet Operations & Dispatch
+
+## Character Profile
+**Name:** Jennifer Rodriguez  
+**Role:** Fleet Operations Director  
+**Experience:** 15 years in emergency services logistics
+
+## The Challenge
+
+Jennifer manages an emergency roadside assistance fleet serving a major metropolitan area. Her company provides 24/7 breakdown assistance, towing, and emergency repairs. Response time and vehicle reliability are critical to their business success and customer satisfaction.
+
+### Current Pain Points:
+1. **Reactive Vehicle Failures:** Assistance vehicles breaking down while on service calls
+2. **Poor Response Coordination:** Difficulty identifying nearest available vehicle for each call
+3. **Missed Critical Alerts:** Engine warnings, low fuel, tire pressure issues going unnoticed
+4. **Customer Dissatisfaction:** Average response time of 45 minutes (target: 30 minutes)
+5. **Lost Revenue:** Vehicle downtime costing €8,000 per vehicle per month
+6. **Safety Concerns:** Drivers unaware of vehicle issues until emergency situations
+7. **Inefficient Dispatch:** Manual tracking of vehicle locations and availability
+
+## The Solution
+
+Jennifer implements a real-time alert monitoring and proactive fleet management system using the Connect API to:
+- Monitor vehicle health alerts in real-time
+- Receive instant notifications for critical vehicle faults
+- Track driver behavior and alert on safety issues
+- Optimize dispatch based on real-time vehicle location and status
+- Prevent vehicle failures through early warning detection
+- Improve response times through better fleet coordination
+
+## Technical Implementation
+
+### Step 1: Real-Time Alert Monitoring System
+
+```javascript
+const axios = require('axios');
+const WebSocket = require('ws');
+const { subHours, format } = require('date-fns');
+
+class EmergencyFleetAlertManager {
+  constructor(apiBaseUrl, customerId, apiKey) {
+    this.apiBaseUrl = apiBaseUrl;
+    this.customerId = customerId;
+    this.apiKey = apiKey;
+    this.headers = {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    };
+    
+    // Alert subscribers (dispatch center, maintenance team, managers)
+    this.alertSubscribers = {
+      critical: ['dispatch@company.com', 'fleet-manager@company.com'],
+      maintenance: ['maintenance@company.com'],
+      safety: ['safety-officer@company.com', 'fleet-manager@company.com']
+    };
+  }
+
+  /**
+   * Format date for API
+   */
+  formatDateForAPI(date) {
+    return format(date, "yyyy-MM-dd'T'HH:mm:ss");
+  }
+
+  /**
+   * Get vehicle alert history
+   */
+  async getVehicleAlertHistory(vehicleIds, startDate, endDate, alertTypes = null) {
+    try {
+      const requestBody = {
+        vehicleId: vehicleIds.length === 1 ? vehicleIds[0] : undefined,
+        groupId: vehicleIds.length > 1 ? 'EMERGENCY_FLEET' : undefined,
+        startDate: this.formatDateForAPI(startDate),
+        endDate: this.formatDateForAPI(endDate),
+        pageSize: 100,
+        pageIndex: 0
+      };
+
+      if (alertTypes) {
+        requestBody.type = alertTypes;
+      }
+
+      const response = await axios.get(
+        `${this.apiBaseUrl}/customer/${this.customerId}/alert/history/vehicle`,
+        {
+          headers: this.headers,
+          params: requestBody
+        }
+      );
+
+      console.log(`Retrieved ${response.data.items.length} vehicle alerts`);
+      return response.data.items;
+    } catch (error) {
+      console.error('Error fetching vehicle alerts:', error.message);
+      throw error;
+    }
+  }
+
+  /**
+   * Get driver alert history
+   */
+  async getDriverAlertHistory(driverIds, startDate, endDate, alertTypes = null) {
+    try {
+      const requestBody = {
+        driverId: driverIds.length === 1 ? driverIds[0] : undefined,
+        groupId: driverIds.length > 1 ? 'EMERGENCY_DRIVERS' : undefined,
+        startDate: this.formatDateForAPI(startDate),
+        endDate: this.formatDateForAPI(endDate),
+        pageSize: 100,
+        pageIndex: 0
+      };
+
+      if (alertTypes) {
+        requestBody.type = alertTypes;
+      }
+
+      const response = await axios.get(
+        `${this.apiBaseUrl}/customer/${this.customerId}/alert/history/driver`,
+        {
+          headers: this.headers,
+          params: requestBody
+        }
+      );
+
+      console.log(`Retrieved ${response.data.items.length} driver alerts`);
+      return response.data.items;
+    } catch (error) {
+      console.error('Error fetching driver alerts:', error.message);
+      throw error;
+    }
+  }
+}
+```
+
+### Step 2: Alert Classification and Priority System
+
+```javascript
+/**
+ * Classify and prioritize alerts
+ */
+class AlertClassifier {
+  constructor() {
+    this.alertPriorities = {
+      // Critical - Immediate action required
+      'maintenanceFaultAlert': { priority: 'CRITICAL', category: 'MAINTENANCE', action: 'IMMEDIATE' },
+      'tamperEventAlert': { priority: 'CRITICAL', category: 'SECURITY', action: 'IMMEDIATE' },
+      'lowEVChargeAlert': { priority: 'CRITICAL', category: 'OPERATIONAL', action: 'IMMEDIATE' },
+      
+      // High - Action required within 1 hour
+      'speedOverXAlert': { priority: 'HIGH', category: 'SAFETY', action: 'URGENT' },
+      'idlingAssetAlert': { priority: 'HIGH', category: 'EFFICIENCY', action: 'URGENT' },
+      'lowBatteryAlert': { priority: 'HIGH', category: 'MAINTENANCE', action: 'URGENT' },
+      
+      // Medium - Action required within 4 hours
+      'outOfHoursAlert': { priority: 'MEDIUM', category: 'OPERATIONAL', action: 'SCHEDULED' },
+      'driveTimeAlert': { priority: 'MEDIUM', category: 'COMPLIANCE', action: 'SCHEDULED' },
+      'stopTimeAlert': { priority: 'MEDIUM', category: 'OPERATIONAL', action: 'SCHEDULED' },
+      
+      // Low - Action required within 24 hours
+      'arriveOrLeaveLocationAlert': { priority: 'LOW', category: 'TRACKING', action: 'SCHEDULED' },
+      'lateStartAlert': { priority: 'LOW', category: 'OPERATIONAL', action: 'SCHEDULED' }
+    };
+  }
+
+  /**
+   * Classify an alert
+   */
+  classifyAlert(alert) {
+    const classification = this.alertPriorities[alert.type] || {
+      priority: 'LOW',
+      category: 'OTHER',
+      action: 'SCHEDULED'
+    };
+
+    return {
+      ...alert,
+      classification: classification,
+      requiresDispatch: classification.priority === 'CRITICAL',
+      requiresMaintenance: classification.category === 'MAINTENANCE',
+      requiresSafetyReview: classification.category === 'SAFETY'
+    };
+  }
+
+  /**
+   * Filter alerts by priority
+   */
+  filterByPriority(alerts, priority) {
+    return alerts
+      .map(alert => this.classifyAlert(alert))
+      .filter(alert => alert.classification.priority === priority);
+  }
+
+  /**
+   * Get critical alerts requiring immediate action
+   */
+  getCriticalAlerts(alerts) {
+    return this.filterByPriority(alerts, 'CRITICAL');
+  }
+}
+```
+
+### Step 3: Real-Time Alert Processing and Dispatch System
+
+```javascript
+/**
+ * Process alerts and trigger appropriate actions
+ */
+class AlertProcessor {
+  constructor(alertManager, classifier) {
+    this.alertManager = alertManager;
+    this.classifier = classifier;
+    this.processedAlerts = new Set();
+  }
+
+  /**
+   * Process new alerts in real-time
+   */
+  async processRealtimeAlerts() {
+    const now = new Date();
+    const checkPeriod = subHours(now, 1); // Check last hour
+
+    try {
+      // Get all recent alerts
+      const vehicleAlerts = await this.alertManager.getVehicleAlertHistory(
+        [], // All vehicles
+        checkPeriod,
+        now
+      );
+
+      const driverAlerts = await this.alertManager.getDriverAlertHistory(
+        [], // All drivers
+        checkPeriod,
+        now
+      );
+
+      const allAlerts = [...vehicleAlerts, ...driverAlerts];
+
+      // Filter out already processed alerts
+      const newAlerts = allAlerts.filter(alert => 
+        !this.processedAlerts.has(alert.id)
+      );
+
+      console.log(`\n=== Processing ${newAlerts.length} New Alerts ===`);
+
+      // Classify and process each alert
+      for (const alert of newAlerts) {
+        const classifiedAlert = this.classifier.classifyAlert(alert);
+        await this.handleAlert(classifiedAlert);
+        this.processedAlerts.add(alert.id);
+      }
+
+      return {
+        processed: newAlerts.length,
+        critical: this.classifier.getCriticalAlerts(newAlerts).length
+      };
+    } catch (error) {
+      console.error('Error processing alerts:', error.message);
+      throw error;
+    }
+  }
+
+  /**
+   * Handle individual alert based on priority and type
+   */
+  async handleAlert(alert) {
+    console.log(`\n[${alert.classification.priority}] ${alert.type}`);
+    console.log(`  Vehicle: ${alert.assetRegistration} (${alert.assetName})`);
+    console.log(`  Driver: ${alert.personName}`);
+    console.log(`  Message: ${alert.message}`);
+    console.log(`  Time: ${alert.dateTime}`);
+
+    // Take action based on priority
+    switch (alert.classification.priority) {
+      case 'CRITICAL':
+        await this.handleCriticalAlert(alert);
+        break;
+      case 'HIGH':
+        await this.handleHighPriorityAlert(alert);
+        break;
+      case 'MEDIUM':
+        await this.handleMediumPriorityAlert(alert);
+        break;
+      case 'LOW':
+        await this.handleLowPriorityAlert(alert);
+        break;
+    }
+  }
+
+  /**
+   * Handle critical alerts - immediate dispatch intervention
+   */
+  async handleCriticalAlert(alert) {
+    console.log('  ⚠️  CRITICAL ALERT - Immediate Action Required');
+
+    // 1. Notify dispatch center immediately
+    await this.notifyDispatch({
+      priority: 'CRITICAL',
+      alert: alert,
+      action: 'Remove vehicle from service immediately',
+      escalation: 'Fleet Manager'
+    });
+
+    // 2. If maintenance fault, schedule immediate service
+    if (alert.classification.category === 'MAINTENANCE') {
+      await this.scheduleEmergencyMaintenance(alert);
+    }
+
+    // 3. If vehicle is on active call, dispatch replacement
+    const vehicleStatus = await this.getVehicleStatus(alert.assetId);
+    if (vehicleStatus.onActiveCall) {
+      await this.dispatchReplacementVehicle(vehicleStatus.activeCall, alert.assetId);
+    }
+
+    // 4. Log incident for safety review
+    await this.logSafetyIncident(alert);
+  }
+
+  /**
+   * Handle high priority alerts - urgent action within 1 hour
+   */
+  async handleHighPriorityAlert(alert) {
+    console.log('  ⚡ HIGH PRIORITY - Action Required Within 1 Hour');
+
+    // Send notification to appropriate team
+    if (alert.classification.category === 'SAFETY') {
+      await this.notifySafetyTeam(alert);
+      
+      // For speed violations, contact driver
+      if (alert.type === 'speedOverXAlert') {
+        await this.contactDriver(alert.personId, {
+          type: 'SAFETY_VIOLATION',
+          message: 'Speed limit exceeded. Please reduce speed immediately.',
+          alert: alert
+        });
+      }
+    }
+
+    // For efficiency alerts (idling), send driver reminder
+    if (alert.classification.category === 'EFFICIENCY') {
+      await this.contactDriver(alert.personId, {
+        type: 'EFFICIENCY_REMINDER',
+        message: 'Excessive idling detected. Please turn off engine when stationary.',
+        alert: alert
+      });
+    }
+  }
+
+  /**
+   * Handle medium priority alerts
+   */
+  async handleMediumPriorityAlert(alert) {
+    console.log('  📋 MEDIUM PRIORITY - Scheduled Action Required');
+    
+    // Add to daily review queue
+    await this.addToReviewQueue(alert);
+    
+    // Send summary to relevant team
+    await this.addToDailySummary(alert);
+  }
+
+  /**
+   * Handle low priority alerts
+   */
+  async handleLowPriorityAlert(alert) {
+    console.log('  ℹ️  LOW PRIORITY - Logged for Review');
+    
+    // Just log for weekly review
+    await this.logToWeeklyReport(alert);
+  }
+
+  /**
+   * Dispatch replacement vehicle for critical situations
+   */
+  async dispatchReplacementVehicle(activeCall, failedVehicleId) {
+    console.log(`  🚗 Dispatching replacement vehicle for call #${activeCall.id}`);
+
+    // Find nearest available vehicle
+    const nearestVehicle = await this.findNearestAvailableVehicle(
+      activeCall.location,
+      [failedVehicleId] // Exclude failed vehicle
+    );
+
+    if (nearestVehicle) {
+      // Update dispatch system
+      await this.updateDispatch({
+        callId: activeCall.id,
+        originalVehicle: failedVehicleId,
+        replacementVehicle: nearestVehicle.vehicleId,
+        reason: 'Vehicle fault - emergency replacement'
+      });
+
+      // Notify new driver
+      await this.notifyDriver(nearestVehicle.driverId, {
+        type: 'EMERGENCY_DISPATCH',
+        callId: activeCall.id,
+        location: activeCall.location,
+        customer: activeCall.customer
+      });
+
+      console.log(`    ✓ Replacement dispatched: ${nearestVehicle.registration}`);
+    } else {
+      console.log('    ⚠️  No replacement vehicle available - escalating');
+      await this.escalateToManager(activeCall);
+    }
+  }
+
+  /**
+   * Schedule emergency maintenance
+   */
+  async scheduleEmergencyMaintenance(alert) {
+    const maintenanceRequest = {
+      vehicleId: alert.assetId,
+      vehicleRegistration: alert.assetRegistration,
+      priority: 'EMERGENCY',
+      faultCode: alert.type,
+      description: alert.message,
+      scheduledFor: 'IMMEDIATE',
+      requestedBy: 'AUTOMATED_ALERT_SYSTEM',
+      alertId: alert.id
+    };
+
+    console.log(`  🔧 Emergency maintenance scheduled for ${alert.assetRegistration}`);
+    
+    // Send to maintenance system
+    await this.submitMaintenanceRequest(maintenanceRequest);
+    
+    // Notify maintenance team
+    await this.notifyMaintenanceTeam(maintenanceRequest);
+  }
+
+  // Placeholder methods for external system integration
+  async notifyDispatch(notification) {
+    // Send SMS, email, or push notification to dispatch center
+    console.log('    → Dispatch notified');
+  }
+
+  async notifySafetyTeam(alert) {
+    console.log('    → Safety team notified');
+  }
+
+  async notifyMaintenanceTeam(request) {
+    console.log('    → Maintenance team notified');
+  }
+
+  async contactDriver(driverId, message) {
+    console.log(`    → Driver ${driverId} contacted`);
+  }
+
+  async getVehicleStatus(vehicleId) {
+    // Query dispatch system for current status
+    return { onActiveCall: false, activeCall: null };
+  }
+
+  async findNearestAvailableVehicle(location, excludeVehicles) {
+    // Query available vehicles and find nearest
+    return null;
+  }
+
+  async updateDispatch(update) {
+    console.log('    → Dispatch system updated');
+  }
+
+  async notifyDriver(driverId, notification) {
+    console.log(`    → Driver notified`);
+  }
+
+  async submitMaintenanceRequest(request) {
+    console.log('    → Maintenance request submitted');
+  }
+
+  async logSafetyIncident(alert) {
+    console.log('    → Safety incident logged');
+  }
+
+  async addToReviewQueue(alert) {
+    console.log('    → Added to review queue');
+  }
+
+  async addToDailySummary(alert) {
+    console.log('    → Added to daily summary');
+  }
+
+  async logToWeeklyReport(alert) {
+    console.log('    → Logged to weekly report');
+  }
+
+  async escalateToManager(call) {
+    console.log('    → Escalated to manager');
+  }
+}
+```
+
+### Step 4: Alert Analytics and Reporting
+
+```javascript
+/**
+ * Generate alert analytics and trends
+ */
+class AlertAnalytics {
+  constructor(alertManager, classifier) {
+    this.alertManager = alertManager;
+    this.classifier = classifier;
+  }
+
+  /**
+   * Generate daily alert summary
+   */
+  async generateDailySummary(date) {
+    const startDate = new Date(date);
+    startDate.setHours(0, 0, 0, 0);
+    
+    const endDate = new Date(date);
+    endDate.setHours(23, 59, 59, 999);
+
+    console.log(`\n=== Daily Alert Summary for ${format(date, 'yyyy-MM-dd')} ===`);
+
+    // Get all alerts for the day
+    const vehicleAlerts = await this.alertManager.getVehicleAlertHistory(
+      [],
+      startDate,
+      endDate
+    );
+
+    const driverAlerts = await this.alertManager.getDriverAlertHistory(
+      [],
+      startDate,
+      endDate
+    );
+
+    const allAlerts = [...vehicleAlerts, ...driverAlerts];
+    const classifiedAlerts = allAlerts.map(alert => 
+      this.classifier.classifyAlert(alert)
+    );
+
+    // Analyze by priority
+    const byPriority = {
+      critical: classifiedAlerts.filter(a => a.classification.priority === 'CRITICAL').length,
+      high: classifiedAlerts.filter(a => a.classification.priority === 'HIGH').length,
+      medium: classifiedAlerts.filter(a => a.classification.priority === 'MEDIUM').length,
+      low: classifiedAlerts.filter(a => a.classification.priority === 'LOW').length
+    };
+
+    // Analyze by category
+    const byCategory = {};
+    classifiedAlerts.forEach(alert => {
+      const category = alert.classification.category;
+      byCategory[category] = (byCategory[category] || 0) + 1;
+    });
+
+    // Analyze by vehicle
+    const byVehicle = {};
+    classifiedAlerts.forEach(alert => {
+      const vehicle = alert.assetRegistration;
+      if (!byVehicle[vehicle]) {
+        byVehicle[vehicle] = { count: 0, critical: 0 };
+      }
+      byVehicle[vehicle].count++;
+      if (alert.classification.priority === 'CRITICAL') {
+        byVehicle[vehicle].critical++;
+      }
+    });
+
+    // Find problem vehicles (>5 alerts or any critical)
+    const problemVehicles = Object.entries(byVehicle)
+      .filter(([_, data]) => data.count > 5 || data.critical > 0)
+      .sort((a, b) => b[1].critical - a[1].critical || b[1].count - a[1].count);
+
+    console.log('\n--- Alert Summary ---');
+    console.log(`Total Alerts: ${allAlerts.length}`);
+    console.log(`  Critical: ${byPriority.critical}`);
+    console.log(`  High: ${byPriority.high}`);
+    console.log(`  Medium: ${byPriority.medium}`);
+    console.log(`  Low: ${byPriority.low}`);
+
+    console.log('\n--- By Category ---');
+    Object.entries(byCategory).forEach(([category, count]) => {
+      console.log(`  ${category}: ${count}`);
+    });
+
+    if (problemVehicles.length > 0) {
+      console.log('\n--- Problem Vehicles (Require Attention) ---');
+      problemVehicles.forEach(([vehicle, data]) => {
+        console.log(`  ${vehicle}: ${data.count} alerts (${data.critical} critical)`);
+      });
+    }
+
+    return {
+      date: format(date, 'yyyy-MM-dd'),
+      totalAlerts: allAlerts.length,
+      byPriority: byPriority,
+      byCategory: byCategory,
+      problemVehicles: problemVehicles.map(([vehicle, data]) => ({
+        vehicle,
+        ...data
+      }))
+    };
+  }
+
+  /**
+   * Generate weekly trend report
+   */
+  async generateWeeklyTrends(endDate) {
+    const trends = [];
+    
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(endDate);
+      date.setDate(date.getDate() - i);
+      
+      const summary = await this.generateDailySummary(date);
+      trends.push(summary);
+    }
+
+    console.log('\n=== 7-Day Alert Trends ===');
+    console.log('Date       | Total | Critical | High | Problem Vehicles');
+    console.log('-----------|-------|----------|------|------------------');
+    
+    trends.forEach(day => {
+      console.log(
+        `${day.date} | ${String(day.totalAlerts).padStart(5)} | ` +
+        `${String(day.byPriority.critical).padStart(8)} | ` +
+        `${String(day.byPriority.high).padStart(4)} | ` +
+        `${day.problemVehicles.length}`
+      );
+    });
+
+    return trends;
+  }
+}
+```
+
+### Complete Usage Example
+
+```javascript
+// Initialize the system
+const alertManager = new EmergencyFleetAlertManager(
+  'https://api.connect-platform.com/v1',
+  'CUSTOMER_12345',
+  'your-api-key-here'
+);
+
+const classifier = new AlertClassifier();
+const processor = new AlertProcessor(alertManager, classifier);
+const analytics = new AlertAnalytics(alertManager, classifier);
+
+// Real-time alert monitoring (runs every 5 minutes)
+setInterval(async () => {
+  try {
+    const result = await processor.processRealtimeAlerts();
+    console.log(`\n✓ Alert check complete: ${result.processed} processed, ${result.critical} critical`);
+  } catch (error) {
+    console.error('Alert processing error:', error);
+  }
+}, 5 * 60 * 1000); // Every 5 minutes
+
+// Daily summary (runs at 6 AM)
+async function runDailySummary() {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  
+  const summary = await analytics.generateDailySummary(yesterday);
+  
+  // Send email to fleet manager
+  await sendEmailReport('fleet-manager@company.com', summary);
+}
+
+// Weekly trend analysis (runs every Monday)
+async function runWeeklyAnalysis() {
+  const trends = await analytics.generateWeeklyTrends(new Date());
+  
+  // Generate executive report
+  await generateExecutiveReport(trends);
+}
+
+// Start the system
+console.log('🚨 Emergency Fleet Alert System Started');
+console.log('Monitoring 85 vehicles in real-time...\n');
+```
+
+## Business Impact
+
+### Results After 6 Months:
+
+**Operational Improvements:**
+- ✅ **65% reduction** in emergency vehicle breakdowns (from 12/month to 4/month)
+- ✅ **35% improvement** in average response time (from 45 min to 29 min)
+- ✅ **Zero stranded drivers** due to undetected vehicle faults
+- ✅ **90% faster** fault detection and response
+
+**Financial Impact:**
+- **Reduced Downtime:** €340,000/year savings from prevented breakdowns
+- **Improved Response Time:** €125,000/year in additional revenue from faster service
+- **Lower Maintenance Costs:** €45,000/year through preventive maintenance
+- **Insurance Premium Reduction:** €18,000/year from improved safety record
+- **Total Annual Benefit:** €528,000
+
+**Customer Satisfaction:**
+- Response time improved from 45 to 29 minutes (35% improvement)
+- Customer satisfaction score increased from 3.8 to 4.6 stars
+- 28% increase in repeat customers
+- Zero service failures due to vehicle breakdown
+
+**Safety Improvements:**
+- 70% reduction in speed violations
+- 100% detection of critical vehicle faults before failure
+- Improved driver safety training based on alert data
+- Zero accidents caused by vehicle maintenance issues
+
+## Key Takeaways
+
+Jennifer's proactive alert system demonstrates:
+
+1. **Predictive Operations:** Moving from reactive firefighting to proactive prevention
+2. **Real-Time Response:** Immediate detection and handling of critical situations
+3. **Improved Safety:** Early warning prevents dangerous situations
+4. **Cost Reduction:** Preventing breakdowns is far cheaper than emergency repairs
+5. **Customer Experience:** Faster, more reliable service builds customer loyalty
+
+> *"The alert system has been game-changing for our operation. We catch problems before they become emergencies, dispatch runs smoother, and our customers get faster service. The system paid for itself in the first two months through prevented breakdowns alone."* — Jennifer Rodriguez, Fleet Operations Director
