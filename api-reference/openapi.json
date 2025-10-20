@@ -22,6 +22,11 @@
       "description": "INT2 Server"
     }
   ],
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
   
   "tags": [
     {
@@ -5995,6 +6000,12 @@
     }
   },
   "components": {
+     "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    },
     "schemas": {
       "TrackingLiveResultDto": {
         "type": "object",
