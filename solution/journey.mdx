@@ -1,0 +1,14 @@
+---
+title: "Journey"
+description: "Description of your new file."
+---
+
+A journey is a vehicle moving between locations. The start of the journey is when the ignition is switched on and the end of the journey is when the ignition is switched off.  There can be many journeys for a vehicle on the same day. By associating a driver with a vehicle or if the driver has a key fob, allows you to track and trace the journeys for a driver.
+
+During the journey the vehicle’s status will change, for example:
+
+- **driving** - The vehicle is moving. Movement events are generated every minute or when certain events occur, e.g. harsh braking, harsh accelerating.
+- **idling** - The vehicle has not moved location but the ignition is still on.
+- **endOfJourney** - The vehicle’s ignition has been switched off.
+
+A private journey is a journey that a driver has specified as **private**. A **private journey** cannot be tracked or traced using the **Connect Web Application**. Likewise, the **Connect API** does not return any tracking or tracing information for a private journey. However, the distance travelled and the fuel used in a private journey are taken into account when calculating utilisation and fuel summary details.
