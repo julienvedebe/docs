@@ -22,36 +22,3 @@ The road speed limit for a vehicle depends on the vehicle type. The following ar
 | Goods vehicles (not more than 7.5 tonnes maximum laden weight). | 50 mph (96 km/h)        | 60 mph (112 km/h)     | 70 mph (112 km/h) |
 
 It is important that the vehicle type is set correctly as this will ensure the correct road speed limit is used.
-
-1. **Alerts**
-
-The **Connect application** can trigger an alert when specific conditions are met.  Alerts can be set for a single vehicle or vehicles in a group.
-
-The available alert types are:
-
-| **Alert Type**                       | **Description**                                                                                                                                                                             |
-| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| arriveOrLeaveLocationAlert           | An alert if a vehicle arrives at or leaves a specific location.                                                                                                                             |
-| cameraAlert                          | An alert when a High-G Event or Emergency button press is received from a camera.                                                                                                           |
-| cameraEventAlert                     | An alert when a High-G Event or Emergency button press is received from a camera.                                                                                                           |
-| driveTimeAlert                       | An alert if a vehicle is moving for longer than a defined threshold. Moving time includes driving and idling                                                                                |
-| drivingWithoutAuthenticationKeyAlert | An alert if a vehicle is driven without an identification key or tacho card being used. Note that vehicles need to be equipped with a MCF identification key reader or connected tachograph |
-| exceptionAlert                       | Ann alert if a vehicle performs a specific activity, for example idles longer than 20 minutes.                                                                                              |
-| genericInputAlert                    | An alert if a temperature value is outside a defined threshold / if the refrigeration alarm is activated.                                                                                   |
-| idlingAssetAlert                     | An alert if someone idles too long.                                                                                                                                                         |
-| inputAlert                           | An alert when an input or PTO is used.                                                                                                                                                      |
-| lateStartAlert                       | An alert if a vehicle doesn’t start its day by a specific time.                                                                                                                             |
-| lowBatteryAlert                      | An alert when the ATU's Battery is low.                                                                                                                                                     |
-| lowEVChargeAlert                     | An alert when the EV charge is low.                                                                                                                                                         |
-| maintenanceFaultAlert                | An alert if a maintenance fault is detected on a vehicle.                                                                                                                                   |
-| onTimeLateJobArrivalAlert            | An alert if a vehicle does NOT arrive at a scheduled job on time.                                                                                                                           |
-| outOfHoursAlert                      | An alert if a vehicle is used outside of working hours.                                                                                                                                     |
-| speedOverXAlert                      | An alert if a vehicle exceeds a user-defined speed threshold.                                                                                                                               |
-| stopTimeAlert                        | An alert if a vehicle exceeds a user-defined stop time threshold                                                                                                                            |
-| tamperEventAlert                     | An alert when a device is unplugged from a vehicle (M210 only).                                                                                                                             |
-
-These are the recipients that can be configured for an alert
-
-- Once or more Connect web users
-- One or more email addresses
-- One or more mobile telephone numbers  
