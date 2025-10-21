@@ -1,0 +1,14 @@
+---
+title: "Single Sign On"
+description: "Description of your new file."
+---
+
+The **Connect Web Application** supports **Single Sign On** (SSO) using the **OpenID Connect** standard. **SSO** avoids the Connect Web User having to remember another username/password combination as the user can access the **Connect Web Application** using their company’s authentication details. 
+
+To enable SSO for a web user, you set an **external identifier** against the user. 
+
+- The external identifier is used to associate a user in your Authorization Server to a Connect web user.
+- The external identifier is returned by your Authorization Server once the user has been successfully authenticated by your Authorization Server.
+- A Connect Web User enabled for SSO cannot use the Connect Web Application functionality to reset their password.
+
+You can read more about OpenID Connect at [<u>https://openid.net/connect/</u>](https://openid.net/connect/) .
