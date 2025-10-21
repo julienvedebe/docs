@@ -26,11 +26,12 @@
             "pages": [
               "essentials/definitions",
               "essentials/programming",
+              "essentials/restAPI",
               "essentials/authentication",
               "essentials/datetime",
               "essentials/quotas",
-              "essentials/reusable-snippets"
-              
+              "essentials/versions",
+              "essentials/compress"     
             ]
           },
           {
