@@ -26,11 +26,29 @@
             "pages": [
               "essentials/definitions",
               "essentials/programming",
+              "essentials/restAPI",
               "essentials/authentication",
               "essentials/datetime",
               "essentials/quotas",
-              "essentials/reusable-snippets"
-              
+              "essentials/versions",
+              "essentials/compress"     
+            ]
+          },
+          {
+            "group": "Solution",
+            "pages" : [
+              "solution/driverBehaviour",
+              "solution/driverKeys",              
+              "solution/group",
+              "solution/inputs",
+              "solution/journey",
+              "solution/locations",
+              "solution/singleSignOn",
+              "solution/speeding",
+              "solution/taxExpense",
+              "solution/tracking",
+              "solution/users",
+              "solution/alerts"     
             ]
           },
           {
