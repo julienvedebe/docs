@@ -1,21 +1,10 @@
 ---
 title: "Pagination"
-description: "Endpoints that GET a list of objects are paginated. This means that every time you make a request, you'll receive one "page" of results "
 ---
 
-pageIndex and pageSize are used to
+**pageIndex **specifies the pagination page index. Pages are zero indexed, i.e. the first page has an index value of zero. If not specified, then will default to a pageIndex of 0.
 
-Specifies the pagination page index. Pages are zero indexed, i.e. the first page has an index value of zero.
-
-If not specified, then will default to a pageIndex of 0.
-
-Example 
-
-pageIndex=1&pageSize=3
-
-Specifies the number of items to include on a page. Must be specified if pageIndex has been specified.
-
-If not specified, then will default to a pageSize of 50.
+**pageSize** specifies the number of items to include on a page. Must be specified if pageIndex has been specified. If not specified, then will default to a pageSize of 50.
 
 Example
 
