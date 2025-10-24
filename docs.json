@@ -24,14 +24,14 @@
           {
             "group": "Essentials",
             "pages": [
-              "essentials/definitions",
               "essentials/programming",
               "essentials/restAPI",
               "essentials/authentication",
               "essentials/datetime",
+              "essentials/pagination",
               "essentials/quotas",
-              "essentials/versions",
-              "essentials/compress"     
+              "essentials/compress",
+              "essentials/versions"
             ]
           },
           {
