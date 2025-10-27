@@ -135,7 +135,7 @@
           {
             "name": "vehicleIds",
             "in": "query",
-            "description": "Id of vehicle used for filtering.",
+            "description": "Comma separated list of vehicle identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -146,7 +146,7 @@
           {
             "name": "groupIds",
             "in": "query",
-            "description": "Id of group used for filtering.",
+            "description": "Comma separated list of group identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -157,43 +157,27 @@
           {
             "name": "driverIds",
             "in": "query",
-            "description": "Id of driver used for filtering.",
+            "description": "Comma separated list of driver identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
                 "type": "string"
               }
             }
-          },
-          {
-            "name": "fromDateTime",
-            "in": "query",
-            "description": "Start date used for filtering.",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
+          }
           {
             "name": "showAllVehicleStatus",
             "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
+            "description": "By default, vehicles with a status
+of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "schema": {
               "type": "boolean"
             }
-          },
-          {
-            "name": "locale",
-            "in": "query",
-            "description": "Locale used for language.",
-            "schema": {
-              "type": "string"
-            }
-          },
+          }
           {
             "name": "hideSpeedIfSpeedSensitive",
             "in": "query",
-            "description": "Boolean (true/false) to indicate if the vehicle speed should be excluded from the output if the driver;’s group (if there is a driver for the vehicle) or the vehicle’s group has been defined to be speed sensitive.  If not specified, defaults to FALSE, so the vehicle’s speed is included in the response. ",
+            "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
             "schema": {
               "type": "boolean"
             }
@@ -225,116 +209,6 @@
           },
           "429": {
             "description": "Too many requests - request limit exceeded"
-          }
-        }
-      }
-    },
-    "/customer/{customerId}/tracking/live/geojson": {
-      "get": {
-        "tags": [
-          "/tracking/live"
-        ],
-        "summary": "Live Position GeoJSON",
-        "description": "Gives detailed tracking inputs starting with the most recent entry based on filtering. Produces GeoJSON format response.",
-        "operationId": "getLiveStatusAsGeoJson",
-        "parameters": [
-          {
-            "name": "customerId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "vehicleIds",
-            "in": "query",
-            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "groupIds",
-            "in": "query",
-            "description": "Id(s) of the group used for filtering the live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "driverIds",
-            "in": "query",
-            "description": "Id(s) of the driver used for filtering the live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "fromDateTime",
-            "in": "query",
-            "description": "Start date used for filtering.",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "showAllVehicleStatus",
-            "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "locale",
-            "in": "query",
-            "description": "Locale used for language.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "hideSpeedIfSpeedSensitive",
-            "in": "query",
-            "description": "Hide speed from results if results are speed sensitive, default = FALSE.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of tracking inputs in GeoJSON format",
-            "content": {
-              "application/geo+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FeatureCollection"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When multiple filter option are filled in or resource not visible to user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorDto"
-                }
-              }
-            }
           }
         }
       }
@@ -438,6 +312,116 @@
           },
           "400": {
             "description": "fromDateTime is more than one day in the past or is a future date, or multiple filter options provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/tracking/live/geojson": {
+      "get": {
+        "tags": [
+          "/tracking/live"
+        ],
+        "summary": "Live Position GeoJSON",
+        "description": "Gives detailed tracking inputs starting with the most recent entry based on filtering. Produces GeoJSON format response.",
+        "operationId": "getLiveStatusAsGeoJson",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "vehicleIds",
+            "in": "query",
+            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "groupIds",
+            "in": "query",
+            "description": "Id(s) of the group used for filtering the live position response.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "driverIds",
+            "in": "query",
+            "description": "Id(s) of the driver used for filtering the live position response.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "fromDateTime",
+            "in": "query",
+            "description": "Start date used for filtering.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "showAllVehicleStatus",
+            "in": "query",
+            "description": "Show status of all vehicles, default = FALSE.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "Locale used for language.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hideSpeedIfSpeedSensitive",
+            "in": "query",
+            "description": "Hide speed from results if results are speed sensitive, default = FALSE.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of tracking inputs in GeoJSON format",
+            "content": {
+              "application/geo+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeatureCollection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When multiple filter option are filled in or resource not visible to user",
             "content": {
               "application/json": {
                 "schema": {
