@@ -319,7 +319,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           "/tracking/live"
         ],
         "summary": "Live Position GeoJSON",
-        "description": "Gives detailed tracking inputs starting with the most recent entry based on filtering. Produces GeoJSON format response.",
+        "description": "live position and status for all vehicles in GeoJSON Specification (RFC 7946) format.",
         "operationId": "getLiveStatusAsGeoJson",
         "parameters": [
           {
@@ -333,7 +333,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           {
             "name": "vehicleIds",
             "in": "query",
-            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
+            "description": "Comma separated list of vehicle identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -344,7 +344,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           {
             "name": "groupIds",
             "in": "query",
-            "description": "Id(s) of the group used for filtering the live position response.",
+            "description": "Comma separated list of group identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -355,47 +355,29 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           {
             "name": "driverIds",
             "in": "query",
-            "description": "Id(s) of the driver used for filtering the live position response.",
+            "description": "Comma separated list of driver identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
                 "type": "string"
               }
             }
-          },
-          {
-            "name": "fromDateTime",
-            "in": "query",
-            "description": "Start date used for filtering.",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
+          }
           {
             "name": "showAllVehicleStatus",
             "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
+            "description": "By default, vehicles with a status
+of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "schema": {
-              "type": "boolean",
-              "default": false
+              "type": "boolean"
             }
-          },
-          {
-            "name": "locale",
-            "in": "query",
-            "description": "Locale used for language.",
-            "schema": {
-              "type": "string"
-            }
-          },
+          }
           {
             "name": "hideSpeedIfSpeedSensitive",
             "in": "query",
-            "description": "Hide speed from results if results are speed sensitive, default = FALSE.",
+            "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
             "schema": {
-              "type": "boolean",
-              "default": false
+              "type": "boolean"
             }
           }
         ],
@@ -443,7 +425,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           {
             "name": "vehicleIds",
             "in": "query",
-            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
+            "description": "Comma separated list of vehicle identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -454,7 +436,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           {
             "name": "groupIds",
             "in": "query",
-            "description": "Id(s) of the group used for filtering the live position response.",
+            "description": "Comma separated list of group identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -465,7 +447,54 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           {
             "name": "driverIds",
             "in": "query",
-            "description": "Id(s) of the driver used for filtering the live position response.",
+            "description": "Comma separated list of driver identifiers used for filtering.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+          {
+            "name": "showAllVehicleStatus",
+            "in": "query",
+            "description": "By default, vehicles with a status
+of SOLD are excluded. Set to TRUE to get details of all vehicles.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "hideSpeedIfSpeedSensitive",
+            "in": "query",
+            "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+                    {
+            "name": "fromDateTime",
+            "in": "query",
+            "description": "Start date used for filtering. Date must be less than one day ago.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "vehicleIds",
+            "in": "query",
+            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
             "schema": {
               "type": "array",
               "items": {
@@ -473,6 +502,8 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
               }
             }
           },
+          
+          
           {
             "name": "fromDateTime",
             "in": "query",
