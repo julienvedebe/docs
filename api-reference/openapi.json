@@ -549,65 +549,6 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "vehicleIds",
-            "in": "query",
-            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "groupIds",
-            "in": "query",
-            "description": "Id(s) of the group used for filtering the live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "driverIds",
-            "in": "query",
-            "description": "Id(s) of the driver used for filtering the live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "fromDateTime",
-            "in": "query",
-            "description": "Start date used for filtering.",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "showAllVehicleStatus",
-            "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "locale",
-            "in": "query",
-            "description": "Locale used for language.",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "responses": {
