@@ -7,6 +7,9 @@
     "light": "#FCE500",
     "dark": "#00205B"
   },
+  "fonts": {
+  "family": "Open Sans"
+  },
   "favicon": "/favicon-michelin.png",
   "navigation": {
     "tabs": [
@@ -108,7 +111,7 @@
 
     "primary": {
       "type": "button",
-      "label": "myCF Login",
+      "label": "Login to myCF",
       "href": "https://login.connectedfleet.michelin.com/"
     }
   },
