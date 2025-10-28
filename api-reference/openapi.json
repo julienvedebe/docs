@@ -6104,7 +6104,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "electricBatteryLevelPercentEstimated": {
             "type": "boolean",
-            "description": "Boolean (true/false) if the electric vehicle battery level was estimated - true if estimated, fal "
+            "description": "Boolean (true/false) if the electric vehicle battery level was estimated. true if estimated, false if rea"
           },
           "electricCharging": {
             "type": "boolean"
@@ -6132,7 +6132,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "engineTotalHoursType": {
             "type": "string",
-            "description": "Either ESTIMATED or CAN. ● CAN indicates the engineTotalHours value has been read from the vehicle’s CANbus, ● ESTIMATED indicates the engineTotalHours value has been calculated from the total vehicle journey times. "
+            "description": "Either ESTIMATED or CAN. CAN indicates the engineTotalHours value has been read from the vehicle’s CANbus. ESTIMATED indicates the engineTotalHours value has been calculated from the total vehicle journey times. "
           },
           "serialNumber": {
             "type": "integer",
@@ -6181,7 +6181,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "path": {
             "type": "string",
-            "description": "List of the unique, unchangeable system generated identifiers (alphanumeric) for all the parent groups (starting from the root node) of this group, separated by full stops. The list includes the identifier for this group.",
+            "description": "List of the unique, unchangeable system generated identifiers (alphanumeric) for all parent groups (starting from the root node) of this group, separated by full stops. The list includes the identifier for this group.",
             "example": "rootGroupId.groupID",
             "readOnly": true
           },
@@ -6190,7 +6190,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "items": {
               "type": "string"
             },
-            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the vehicles assigned to this group. Wil be an empty array for a newly created group.",
+            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the vehicles assigned to this group. Will be an empty array for a newly created group.",
             "example": [
               "vehicleID1",
               "vehicleID2"
@@ -6201,7 +6201,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "items": {
               "type": "string"
             },
-            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the drivers and web users assigned to this group. Wil be an empty array for a newly created group.",
+            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the drivers and web users assigned to this group. Will be an empty array for a newly created group.",
             "example": [
               "personID1",
               "personID2"
@@ -6569,7 +6569,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "status": {
             "type": "string",
-            "description": "Status of the vehicle. Can be one of the following: ● IN_CIRCULATION = Vehicle is active ● IN_MAINTENANCE = Vehicle is off the road for maintenance ● SOLD = Vehicle has been sold"
+            "description": "Status of the vehicle. Can be one of the following: IN_CIRCULATION = Vehicle is active. IN_MAINTENANCE = Vehicle is off the road for maintenance. SOLD = Vehicle has been sold"
           },
           "assetCosts": {
             "$ref": "#/components/schemas/VehicleCostsDto",
@@ -6580,7 +6580,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "items": {
               "type": "string"
             },
-            "description": "A list of the primary and secondary fuel types for the vehicle. Values in the list can include: ● PETROL ● DIESEL ● PROPANE ● METHANE ● ELECTRIC ● HYDROGEN"
+            "description": "A list of the primary and secondary fuel types for the vehicle. Values in the list can include: PETROL, DIESEL, PROPANE, METHANE, ELECTRIC, HYDROGEN"
           },
           "engineTotalHours": {
             "type": "number",
@@ -6589,7 +6589,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "engineTotalHoursType": {
             "type": "string",
-            "description": "Either ESTIMATED or CAN. ● CAN indicates the engineTotalHours value has been read from the vehicle's CANbus, ● ESTIMATED indicates the engineTotalHours value has been calculated from the total vehicle journey times."
+            "description": "Either ESTIMATED or CAN. CAN indicates the engineTotalHours value has been read from the vehicle's CANbus.  ESTIMATED indicates the engineTotalHours value has been calculated from the total vehicle journey times."
           },
           "serialNumber": {
             "type": "integer",
@@ -6628,7 +6628,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "name": {
             "type": "string",
-            "description": "The friendly name for the vehicle. If a value is specified then ● Cannot contain any one of these characters: <>?*\""
+            "description": "The friendly name for the vehicle. If a value is specified then cannot contain any one of these characters: <>?*\""
           },
           "registration": {
             "type": "string",
@@ -6644,7 +6644,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "type": {
             "type": "string",
-            "description": "The vehicle type. Can be one of the following: ● AMBULANCE ● BICYCLE ● BOAT ● BUS ● BUS_DOUBLE_DECK ● CAR ● CAR_ESTATE ● CAR_SPORTS ● CARAVAN ● CARRIAGE ● COACH ● CONTAINER_ASSET ● DIGGER ● DIGGER_2 ● GRITTER ● HGV ● HORSEBOX ● MAN ● MINIBUS ● MIXER ● MOTORCYCLE ● MOTORHOME ● PDA111 ● RIGID ● SMARTPHONE_PDA ● SWEEPER_LARGE ● SWEEPER_SMALL ● TIPPER ● TIPPER_2 ● TRACTOR ● TRACTOR_TRAILER ● TRAILER ● TRAIN ● VAN ● VAN_BOX ● VAN_SMALL ● WASTE_VEHICLE ● CHERRY_PICKER_HGV ● CHERRY_PICKER_LCV ● VAN_LCV ● POOL_CAR ● HEAVY_VAN_HGV ● TIPPER_MEDIUM"
+            "description": "The vehicle type. Can be one of the following: AMBULANCE, BICYCLE, BOAT, BUS, BUS_DOUBLE_DECK, CAR, CAR_ESTATE, CAR_SPORTS, CARAVAN, CARRIAGE, COACH, CONTAINER_ASSET, DIGGER, DIGGER_2, GRITTER, HGV, HORSEBOX, MAN, MINIBUS, MIXER, MOTORCYCLE, MOTORHOME, PDA111, RIGID, SMARTPHONE_PDA, SWEEPER_LARGE, SWEEPER_SMALL, TIPPER, TIPPER_2, TRACTOR, TRACTOR_TRAILER, TRAILER,  TRAIN, VAN, VAN_BOX, VAN_SMALL, WASTE_VEHICLE, CHERRY_PICKER_HGV, CHERRY_PICKER_LCV, VAN_LCV, POOL_CAR, HEAVY_VAN_HGV, TIPPER_MEDIUM"
           },
           "make": {
             "type": "string",
@@ -6667,11 +6667,11 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "status": {
             "type": "string",
-            "description": "Status of the vehicle (optional). Will remain as its current value on the asset if not present in the update document. Can be one of the following: ● IN_CIRCULATION ● IN_MAINTENANCE ● SOLD"
+            "description": "Status of the vehicle (optional). Will remain as its current value on the asset if not present in the update document. Can be one of the following: IN_CIRCULATION, IN_MAINTENANCE, SOLD"
           },
           "assetCosts": {
             "$ref": "#/components/schemas/VehicleCostsDto",
-            "description": "Costs associated with the vehicle. ● If specified replaces all existing asset costs. ● An empty assetCosts document will remove all costs."
+            "description": "Costs associated with the vehicle. ● If specified replaces all existing asset costs. An empty assetCosts document will remove all costs."
           }
         }
       },
@@ -7678,7 +7678,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
         "properties": {
           "userName": {
             "type": "string",
-            "description": "Username for the web user"
+            "description": "Username for the user"
           },
           "fullName": {
             "type": "string",
@@ -7690,7 +7690,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "roleId": {
             "type": "string",
-            "description": "Role identifier for the user"
+            "description": "Identifier of the role assigned to the user"
           },
           "externalIdentifier": {
             "type": "string",
@@ -9277,7 +9277,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "groupId": {
             "type": "string",
-            "description": "System identifier (alphanumeric) of the group the vehicle has been assigned to."
+            "description": "System identifier (alphanumeric) of the group for vehicle has been assigned to."
           },
           "groupName": {
             "type": "string",
@@ -9436,14 +9436,14 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "energyType": {
             "type": "string",
-            "description": "The energy type for the vehicle. Can be one of the following: UNDEFINED, EV - Battery Electric Vehicle, PHEV - Plug-in Hybrid Electric Vehicle, HEV - Hybrid Electric Vehicle, FCEV - Fuel Cell Electric Vehicle (hydrogen), ICE - Internal combustion engine, CNG - Compressed Natural Gas, LNG - Liquefied natural gas, LPG - Liquefied petroleum gas, BI-FUEL - multi-fuel engines capable of running on two fuels."
+            "description": "The energy type for the vehicle."
           },
           "fuelType": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "A list of the primary and secondary fuel types for the vehicle. Values in the list can included: PETROL, DIESEL, PROPANE, METHANE, ELECTRIC, HYDROGEN."
+            "description": "A list of the primary and secondary fuel types for the vehicle."
           },
           "fuelUsedPetrolEquivalentLitres": {
             "type": "number",
