@@ -43,19 +43,19 @@
               "Solution concepts",
               {
                 "pages": [
-                      "solution/driverBehaviour",
-                      "solution/driverKeys",              
-                      "solution/group",
-                      "solution/inputs",
-                      "solution/journey",
-                      "solution/locations",
-                      "solution/singleSignOn",
-                      "solution/speeding",
-                      "solution/taxExpense",
-                      "solution/tracking",
-                      "solution/users",
-                      "solution/alerts"
-                    ]
+                  "solution/users",
+                  "solution/driverBehaviour",
+                  "solution/driverKeys",              
+                  "solution/group",
+                  "solution/inputs",
+                  "solution/journey",
+                  "solution/locations",
+                  "solution/singleSignOn",
+                  "solution/speeding",
+                  "solution/taxExpense",
+                  "solution/tracking",
+                  "solution/alerts"
+                ]
                 }
             ]
           },
