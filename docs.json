@@ -25,6 +25,22 @@
             ]
           },
           {
+            "group": "Start building",
+            "icon": "play",
+            "expanded": false,
+            "pages": [
+              "Essentials",
+              {
+                "group": "Editing",
+                "icon": "pencil",
+                "pages": [
+                  "installation",
+                  "editor"
+                ]
+              }
+            ]
+          },
+          {
             "group": "ESSENTIALS",
             "pages": [
               "essentials/programming",
