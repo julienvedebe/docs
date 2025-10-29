@@ -31,26 +31,30 @@
             "pages": [
               "Essentials",
               {
-                "group": "Editing",
+                "group": "REST",
                 "icon": "pencil",
                 "pages": [
-                  "installation",
-                  "editor"
+                  "essentials/restAPI"
+                ]
+              },
+              {
+                "group": "Authentication",
+                "icon": "pencil",
+                "pages": [
+                  "essentials/authentication"
+                ]
+              },
+              {
+                "group": "xyz",
+                "icon": "pencil",
+                "pages": [
+                  "essentials/datetime",
+                  "essentials/pagination",
+                  "essentials/quotas",
+                  "essentials/compress",
+                  "essentials/versions"
                 ]
               }
-            ]
-          },
-          {
-            "group": "ESSENTIALS",
-            "pages": [
-              "essentials/programming",
-              "essentials/restAPI",
-              "essentials/authentication",
-              "essentials/datetime",
-              "essentials/pagination",
-              "essentials/quotas",
-              "essentials/compress",
-              "essentials/versions"
             ]
           },
           {
