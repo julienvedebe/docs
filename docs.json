@@ -14,28 +14,10 @@
   "navigation": {
     "tabs": [
          {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "openapi": "api-reference/openapi.json"
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      },
-      {
         "tab": "Guides",
         "groups": [
           {
-            "group": "GET STARTED",
+            "group": "Get Started",
             "pages": [
               "index",
               "quickstart",
@@ -43,8 +25,9 @@
             ]
           },
           {
-            "group": "essentials",
+            "group": "Essentials",
             "pages": [
+              "essentials/programming",
               "essentials/restAPI",
               "essentials/authentication",
               "essentials/datetime",
@@ -55,25 +38,25 @@
             ]
           },
           {
-          "group": "Solution",
-          "pages": [
-            "solution/users",
-            "solution/driverBehaviour",
-            "solution/driverKeys",              
-            "solution/group",
-            "solution/inputs",
-            "solution/journey",
-            "solution/locations",
-            "solution/singleSignOn",
-            "solution/speeding",
-            "solution/taxExpense",
-            "solution/tracking",
-            "solution/alerts"
-          ]
+            "group": "Solution",
+            "pages" : [
+              "solution/driverBehaviour",
+              "solution/driverKeys",              
+              "solution/group",
+              "solution/inputs",
+              "solution/journey",
+              "solution/locations",
+              "solution/singleSignOn",
+              "solution/speeding",
+              "solution/taxExpense",
+              "solution/tracking",
+              "solution/users",
+              "solution/alerts"     
+            ]
           },
           {
-            "group": "COMMON USE CASES",
-            "pages": [
+            "group": "Success stories",
+            "pages" : [
               "stories/story1",
               "stories/story2",
               "stories/story3"
