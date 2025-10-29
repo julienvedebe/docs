@@ -38,6 +38,7 @@
           {
             "group": "Solution",
             "pages": [
+              "solution/overview",
               "solution/driverBehaviour",
               "solution/driverKeys",
               "solution/group",
