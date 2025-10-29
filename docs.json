@@ -25,39 +25,33 @@
             ]
           },
           {
-            "group": "START BUILDING",
-            "expanded": false,
+            "group": "essentials",
             "pages": [
-              "API essentials",
-              {
-                "pages": [
-                  "essentials/restAPI",
-                  "essentials/authentication",
-                  "essentials/datetime",
-                  "essentials/pagination",
-                  "essentials/quotas",
-                  "essentials/compress",
-                  "essentials/versions"
-                ]
-              },
-              "Solution concepts",
-              {
-                "pages": [
-                  "solution/users",
-                  "solution/driverBehaviour",
-                  "solution/driverKeys",              
-                  "solution/group",
-                  "solution/inputs",
-                  "solution/journey",
-                  "solution/locations",
-                  "solution/singleSignOn",
-                  "solution/speeding",
-                  "solution/taxExpense",
-                  "solution/tracking",
-                  "solution/alerts"
-                ]
-                }
+              "essentials/restAPI",
+              "essentials/authentication",
+              "essentials/datetime",
+              "essentials/pagination",
+              "essentials/quotas",
+              "essentials/compress",
+              "essentials/versions"
             ]
+          },
+          {
+          "group": "Solution",
+          "pages": [
+            "solution/users",
+            "solution/driverBehaviour",
+            "solution/driverKeys",              
+            "solution/group",
+            "solution/inputs",
+            "solution/journey",
+            "solution/locations",
+            "solution/singleSignOn",
+            "solution/speeding",
+            "solution/taxExpense",
+            "solution/tracking",
+            "solution/alerts"
+          ]
           },
           {
             "group": "COMMON USE CASES",
