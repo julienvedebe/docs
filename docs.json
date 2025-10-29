@@ -25,58 +25,43 @@
             ]
           },
           {
-            "group": "Start building",
-            "icon": "play",
+            "group": "START BUILDING",
             "expanded": false,
             "pages": [
-              "Essentials",
+              "API essentials",
               {
-                "group": "REST",
-                "icon": "pencil",
                 "pages": [
-                  "essentials/restAPI"
-                ]
-              },
-              {
-                "group": "Authentication",
-                "icon": "pencil",
-                "pages": [
-                  "essentials/authentication"
-                ]
-              },
-              {
-                "group": "xyz",
-                "icon": "pencil",
-                "pages": [
+                  "essentials/restAPI",
+                  "essentials/authentication",
                   "essentials/datetime",
                   "essentials/pagination",
                   "essentials/quotas",
                   "essentials/compress",
                   "essentials/versions"
                 ]
-              }
-            ]
-          },
-          {
-            "group": "SOLUTION",
-            "pages" : [
-              "solution/driverBehaviour",
-              "solution/driverKeys",              
-              "solution/group",
-              "solution/inputs",
-              "solution/journey",
-              "solution/locations",
-              "solution/singleSignOn",
-              "solution/speeding",
-              "solution/taxExpense",
-              "solution/tracking",
-              "solution/users",
-              "solution/alerts"     
+              },
+              "Solution concepts",
+              {
+                "pages": [
+                      "solution/driverBehaviour",
+                      "solution/driverKeys",              
+                      "solution/group",
+                      "solution/inputs",
+                      "solution/journey",
+                      "solution/locations",
+                      "solution/singleSignOn",
+                      "solution/speeding",
+                      "solution/taxExpense",
+                      "solution/tracking",
+                      "solution/users",
+                      "solution/alerts"
+                    ]
+                }
             ]
           },
           {
             "group": "COMMON USE CASES",
-            "pages" : [
+            "pages": [
               "stories/story1",
               "stories/story2",
               "stories/story3"
