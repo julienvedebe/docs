@@ -27,7 +27,6 @@
           {
             "group": "Essentials",
             "pages": [
-              "essentials/programming",
               "essentials/restAPI",
               "essentials/authentication",
               "essentials/datetime",
