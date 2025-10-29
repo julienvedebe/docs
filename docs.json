@@ -82,16 +82,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mcf.mintlify.io/api-reference",
-          "icon": "book-open-cover"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.png",
@@ -101,7 +92,7 @@
 
     "primary": {
       "type": "button",
-      "label": "Login to myCF",
+      "label": "**Login to myCF**",
       "href": "https://login.connectedfleet.michelin.com/"
     }
   },
