@@ -39,18 +39,18 @@
             "group": "Solution",
             "pages": [
               "solution/overview",
+              "solution/tracking",
               "solution/driverBehaviour",
-              "solution/driverKeys",
-              "solution/group",
-              "solution/inputs",
               "solution/journey",
               "solution/locations",
+              "solution/group",
+              "solution/users",
+              "solution/driverKeys",
+              "solution/alerts",
+              "solution/inputs",
               "solution/singleSignOn",
               "solution/speeding",
-              "solution/taxExpense",
-              "solution/tracking",
-              "solution/users",
-              "solution/alerts"
+              "solution/taxExpense"
             ]
           },
           {
