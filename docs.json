@@ -8,20 +8,19 @@
     "dark": "#00205B"
   },
   "fonts": {
-  "family": "Open Sans"
+    "family": "Open Sans"
   },
   "favicon": "/favicon-michelin.png",
   "navigation": {
     "tabs": [
-         {
+      {
         "tab": "Guides",
         "groups": [
           {
             "group": "Get Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "quickstart"
             ]
           },
           {
@@ -38,9 +37,9 @@
           },
           {
             "group": "Solution",
-            "pages" : [
+            "pages": [
               "solution/driverBehaviour",
-              "solution/driverKeys",              
+              "solution/driverKeys",
               "solution/group",
               "solution/inputs",
               "solution/journey",
@@ -50,12 +49,12 @@
               "solution/taxExpense",
               "solution/tracking",
               "solution/users",
-              "solution/alerts"     
+              "solution/alerts"
             ]
           },
           {
             "group": "Success stories",
-            "pages" : [
+            "pages": [
               "stories/story1",
               "stories/story2",
               "stories/story3"
@@ -88,7 +87,6 @@
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-
     "primary": {
       "type": "button",
       "label": "Login to myCF",
