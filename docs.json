@@ -87,18 +87,8 @@
       "anchors": [
         {
           "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "href": "https://mcf.mintlify.io/api-reference",
           "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://www.linkedin.com/company/michelin-connected-fleet-global/",
-          "icon": "linkedin"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://connectedfleet.michelin.com/resources-center/",
-          "icon": "newspaper"
         }
       ]
     }
