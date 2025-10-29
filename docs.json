@@ -13,6 +13,24 @@
   "favicon": "/favicon-michelin.png",
   "navigation": {
     "tabs": [
+         {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "openapi": "api-reference/openapi.json"
+          },
+          {
+            "group": "Endpoint Examples",
+            "pages": [
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/delete",
+              "api-reference/endpoint/webhook"
+            ]
+          }
+        ]
+      },
       {
         "tab": "Guides",
         "groups": [
