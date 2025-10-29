@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "MCF APIs v1",
   "colors": {
     "primary": "#27509B",
     "light": "#FCE500",
@@ -17,7 +17,7 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "GET STARTED",
             "pages": [
               "index",
               "quickstart",
@@ -25,7 +25,7 @@
             ]
           },
           {
-            "group": "Essentials",
+            "group": "ESSENTIALS",
             "pages": [
               "essentials/programming",
               "essentials/restAPI",
@@ -38,7 +38,7 @@
             ]
           },
           {
-            "group": "Solution",
+            "group": "SOLUTION",
             "pages" : [
               "solution/driverBehaviour",
               "solution/driverKeys",              
@@ -55,7 +55,7 @@
             ]
           },
           {
-            "group": "Success stories",
+            "group": "COMMON USE CASES",
             "pages" : [
               "stories/story1",
               "stories/story2",
@@ -92,7 +92,7 @@
 
     "primary": {
       "type": "button",
-      "label": "**Login to myCF**",
+      "label": "Login to myCF",
       "href": "https://login.connectedfleet.michelin.com/"
     }
   },
