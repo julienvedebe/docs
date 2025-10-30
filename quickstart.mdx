@@ -1,135 +1,61 @@
 ---
-title: "My Connected Fleet API Quickstart Guide"
-description: "This quickstart guide will help you get started with My Connected Fleet REST API, allowing you to make your first API call and begin exploring the possibilities of the My Connected Fleet REST API."
+title: "Quickstart Guide"
+description: "This quickstart guide will help you get started with MICHELIN Connected Fleet REST API, allowing you to make your first API call and begin exploring the possibilities of the MICHELIN Connected Fleet REST API."
 ---
 
-My Connected Fleet provides a set of REST APIs to allow you to integrate My Connected Fleet into virtually any platform. The APIs cover all the features in My Connected Fleet, from telematics, driver behaviour, and vehicle management. 
+MICHELIN Connected Fleet provides a set of REST APIs to allow you to integrate MICHELIN Connected Fleet into virtually any platform. The APIs cover all the features in MICHELIN Connected Fleet, from telematics, driver behaviour, and vehicle management.
 
-To make a call to the My Connected Fleet REST API, you need an API **username**, **password **and your **My Connected Fleet accout number**.  Please speak to your My Connected Fleet account manager if you donot have these details.
+To make a call to the MICHELIN Connected Fleet REST API, you need an API **username**, **password** and your **customer accout number**.  Please speak to your MICHELIN Connected Fleet account manager if you do not have these details.
 
-My Connected Fleet REST API uses **Basic **HTTP authentication. Include your username/password encoded in base64 `Authorization` header of your HTTP request:
+MICHELIN Connected Fleet REST API uses **Basic** HTTP authentication. Include your username and password encoded in base64 in the `Authorization` header of your HTTP request, with your **customer accout identifier **in the URL.
 
-### Edit and preview
+```bash
+curl --request GET \
+  --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/tracking/live \
+  --header 'Authorization: Basic <encoded-value>'
+```
 
-<AccordionGroup>
-  <Accordion title="Step 1: Get a user ready for API" icon="github">
-    1. For use the Connect API you need a valid credential and the option activated on your account.
-    2. Please speak to your Customer Service Representative if you do not have a Masternaut Connect Partner username/password or you cannot access the required Masternaut Connect API endpoint. .
-    3. Use your credential in the basic auth header of each of your requests.
-  </Accordion>
-  <Accordion title="Step 2: Make Your First API Request " icon="rectangle-terminal">
-    Let's start by making a simple request to the Connect API to list your resources.
+The MICHELIN Connected Fleet REST API returns JSON-encoded responses:
 
-    ### Getting a list of your Drivers
+```json
+[
+  {
+    "assetRegistration": "TYOX-42-AK",
+    "assetName": "TYOX-42-AK",
+    "assetId": "2068071",
+    "assetGroupId": "63f3433d0936060ea00a6ed8",
+    "assetGroupName": "Sweden",
+    "date": "2024-11-03T11:22:46",
+    "status": "endOfJourney",
+    "eventType": "stopped",
+    "speed": 0,
+    "odometer": 150800,
+    "heading": 108,
+    "latitude": 60.08833,
+    "longitude": 16.544203,
+    "road": "Åsvägen 19",
+    "roadNumber": "",
+    "city": "Sala",
+    "postCode": "733 75",
+    "country": "Sweden",
+    "formattedAddress": "Åsvägen 19, 733 75 Sala, Sweden",
+    "inputs": [],
+    "inputEvents": [],
+    "privacy": false,
+    "assetType": "VAN_SMALL",
+    "energyType": "ICE",
+    "fuelType": [
+      "DIESEL"
+    ],
+    "fuelLevelLitres": 26,
+    "engineTotalHours": 1476.6,
+    "engineRpm": 0,
+    "engineTotalHoursType": "ESTIMATED",
+    "activeFaultCodes": [
+      "200"
+    ]
+  }
+]
+```
 
-    **API Call Response Example:**
-
-    ```json
-    { 
-     "totalPages":1, 
-     "totalCount":2, 
-     "items":[ 
-        {
-          "id":"3454070", 
-          "driverName": "Coburnhill Wood", 
-          "groupId": "5315b03360b12054ebd4a8c5", 
-          "groupdName": "Masternaut"", 
-          "customerId": "123456", 
-          "active": false 
-        }, 
-        {
-          "id" :": "3454072", 
-          "driverName": "Hayton Wood", 
-          "groupId": "5315b03360b12054ebd4a8c5", 
-          "groupdName": "Masternaut"", 
-          "customerId": "123456", 
-          "active": true, 
-          "defaultVehicleId": "235204", 
-          "keys": [ 
-            { 
-              Connect API Reference v1.31 | 60 
-              MN-Confidential 
-              "value": "AB7CADE2B1", 
-              "type": "RFID", 
-              "privateMode": false 
-            } 
-          ] 
-        } 
-      ] 
-     }
-    ```
-
-    This response confirms that the anchor has been successfully set and provides an `anchor_id` for future reference.
-  </Accordion>
-  <Accordion title="Step 3: Getting journeys" icon="rocket">
-    Next, let's retrieve some journeys.
-
-    ### Getting journeys based on date
-
-    **API Call Example:**
-
-    **API Call Response Example:**
-
-    ```json
-      { 
-        "totalPages": 1, 
-        "totalCount": 1, 
-        "processedDateTime": "2015-03-04T06:58:52.222", 
-        "items": 
-        [ 
-          { 
-            "driverId": "54070", 
-            "driverName": "Coburnhill Wood", 
-            "driverGroupName": " Masternaut", 
-            "vehicleId": "248849", 
-            "vehicleRegistration": " YA99RTE", 
-            "vehicleName": " YA99RTE", 
-            "totalTimeIdledSeconds": 0, 
-            "totalTimeDrivenSeconds": 1595, 
-            "totalTimeStoppedSeconds": 61713, 
-            "startDate": "2015-03-04T06:28:52", 
-            "endDate": "2015-03-04T06:55:27", 
-            "startAddress": "12 Berry Lane, Leeds, LS26 8, UK", 
-            "endAddress": "Leeds Rd (B6137), Kippax, Leeds, LS25 7, UK", 
-            "distanceKm": 21, 
-            "maximumSpeedKph": 129, 
-            "averageSpeedKph": 47.39811912225706, 
-            "startCoordinate": { 
-              "longitude": 6.375788, 
-              "latitude": 53.15396 
-            }, 
-            "endCoordinate": { 
-              "longitude": 6.608516, 
-              "latitude": 53.212845 
-            }, 
-            "startOdometer": 166333, 
-            "endOdometer": 166354, 
-            "idlingFidelity": 1 
-            "endLocationName" : "MY CUSTOMER" 
-          } 
-        ] 
-      }
-    ```
-
-    This response contain all the detail of a journey for a driver and a period of time.
-  </Accordion>
-</AccordionGroup>
-
-## Update your docs
-
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
-
-<CardGroup cols={2}>
-  <Card title="Add Content With MDX" icon="file" href="/essentials/markdown">
-    Add content to your docs with MDX syntax.
-  </Card>
-  <Card title="Add Code Blocks" icon="square-code" href="/essentials/code">
-    Add code directly to your docs with syntax highlighting.
-  </Card>
-  <Card title="Add Images" icon="image" href="/essentials/images">
-    Add images to your docs to make them more engaging.
-  </Card>
-  <Card title="Add Custom Components" icon="puzzle-piece" href="/essentials/reusable-snippets">
-    Add templates to your docs to make them more reusable.
-  </Card>
-</CardGroup>
+Read more about the [REST API](/essentials/restAPI) and the different features of the MICHELIN Connected Fleet REST API.
