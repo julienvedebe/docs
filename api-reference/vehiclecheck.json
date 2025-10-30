@@ -118,8 +118,9 @@
     },
     "/api/v1/vehicle-checks/defects/defect-status/{defectId}": {
       "put": {
-        "summary": "Public update defect status",
+        "summary": "Update Defect Status",
         "operationId": "updateDefectStatus",
+        "description": "PUT request to update defect status.",
         "parameters": [
           {
             "name": "defectId",
@@ -127,7 +128,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "System-generated unique identifier for the defect."
           },
           {
             "name": "Content-Type",
@@ -171,6 +173,7 @@
       "get": {
         "summary": "Get Image",
         "operationId": "getImage",
+        "description": "GET request to return an image",
         "parameters": [
           {
             "name": "imageId",
@@ -178,7 +181,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Id of image in string format."
           }
         ],
         "responses": {
@@ -205,6 +209,7 @@
         "properties": {
           "inspections": {
             "type": "array",
+            "description": "Array of inspection information.",
             "items": {
               "allOf": [
                 {
@@ -219,47 +224,63 @@
         "type": "object",
         "properties": {
           "inspectionNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "System generated identifier for the inspection"
           },
           "submittedDateTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Date & time for the fulfilment of inspection, in UTC, in the format of YYYY-MM-DDThh:mm:ssZ"
           },
           "inspectionDuration": {
-            "type": "string"
+            "type": "string",
+            "description": "Duration of inspection ISO8601 duration string"
           },
-          "personId": {
-            "type": "string"
+           "personId": {
+            "type": "string",
+            "description": "System identifier of the person submitting the check"
           },
           "personName": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the driver (person) that completed the check"
           },
           "vehicleId": {
-            "type": "string"
+            "type": "string",
+            "description": "System identifier of the vehicle on which the check was performed"
           },
           "vehicleName": {
-            "type": "string"
+            "type": "string",
+            "description": "Friendly name for the vehicle where the check was performed"
           },
           "groupName": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the group currently assigned to the vehicle"
           },
           "address": {
-            "type": "string"
+            "type": "string",
+            "description": "Address where the check was performed (shown as the location in the details page)"
           },
           "lng": {
-            "type": "number"
+            "type": "number",
+            "description": "Longitude value for the address where the check was performed"
           },
           "lat": {
-            "type": "string"
+            "type": "string",
+            "description": "Latitude value for the address where the check was performed"
           },
           "checkResult": {
-            "type": "string"
+            "type": "string",
+            "description": "Result of the check. Possible values: PASSED, FAILED, NOT_APPLICABLE, CRITICAL_FAILED",
+            "enum": ["PASSED", "FAILED", "NOT_APPLICABLE", "CRITICAL_FAILED"]
           },
           "repairStatus": {
-            "type": "string"
+            "type": "string",
+            "description": "Status of the repair. Possible values: OPEN, DEFERRED, CLOSED_REPAIRED, CLOSED_DUPLICATE, CLOSED_NO_FAULT_FOUND, CLOSED",
+            "enum": ["OPEN", "DEFERRED", "CLOSED_REPAIRED", "CLOSED_DUPLICATE", "CLOSED_NO_FAULT_FOUND", "CLOSED"]
           },
           "defects": {
             "type": "array",
+            "description": "Array of defects raised during the vehicle check.",
             "items": {
               "allOf": [
                 {
@@ -270,6 +291,7 @@
           },
           "checks": {
             "type": "array",
+            "description": "Array of checks that have passed.",
             "items": {
               "allOf": [
                 {
@@ -282,25 +304,32 @@
             "type": "string"
           },
           "contactName": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the person to contact for the inspection."
           },
           "contactPhone": {
-            "type": "string"
+            "type": "string",
+            "description": "Phone number for the named contact."
           },
           "odometer": {
-            "type": "number"
+            "type": "number",
+            "description": "The odometer reading submitted from the recording of the check."
           },
           "make": {
-            "type": "string"
+            "type": "string",
+            "description": "Make of the vehicle (brand)."
           },
           "model": {
-            "type": "string"
+            "type": "string",
+            "description": "Model of the vehicle (specific model)."
           },
           "completedTooQuickly": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "The Boolean value is set to true when the total check duration is less than the target duration."
           },
           "statusChanges": {
             "type": "array",
+            "description": "Changes in repairStatus for the defect during the specified time period.",
             "items": {
               "allOf": [
                 {
@@ -317,25 +346,32 @@
       "InspectionDefectDto": {
         "properties": {
           "category": {
-            "type": "string"
+            "type": "string",
+            "description": "Category that the defect was raised under. Custom templates are included."
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Defect name."
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Defect description."
           },
           "checkResult": {
-            "type": "string"
+            "type": "string",
+            "description": "FAILED"
           },
           "note": {
-            "type": "string"
+            "type": "string",
+            "description": "Any notes entered by the driver for this defect."
           },
           "repairStatus": {
-            "type": "string"
+            "type": "string",
+"description": "Status of the repair for particular defect:\n- OPEN\n- DEFERRED\n- CLOSED (REPAIRED)\n- CLOSED (DUPLICATE)\n- CLOSED (NO FAULT FOUND)"
           },
           "photoIds": {
             "type": "array",
+            "description": "Unique system identifiers for images attached to this vehicle check.",
             "items": {
               "allOf": [
                 {
@@ -345,63 +381,78 @@
             }
           },
           "defectId": {
-            "type": "string"
+            "type": "string",
+            "description": "System-generated unique identifier for the defect."
           }
         }
       },
       "InspectionCheckDto": {
         "properties": {
           "category": {
-            "type": "string"
+            "type": "string",
+            "description": "Category of the check."
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the check."
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the check."
           },
           "checkResult": {
-            "type": "string"
+            "type": "string",
+"description": "PASSED, FAILED, NOT_APPLICABLE, CRITICAL_FAILED"
           },
           "note": {
-            "type": "string"
+            "type": "string",
+            "description": ""
           }
         }
       },
       "InspectionDefectStatusChangeDto": {
         "properties": {
           "repairStatus": {
-            "type": "string"
+            "type": "string",
+            "description": "Status of the repair."
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "Text from changing the defectLog associated to a change in repairStatus."
           },
           "repairDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Date of repair work marked by user."
           },
           "signature": {
-            "type": "string"
+            "type": "string",
+            "description": "Signature of the person who closed the check."
           },
           "statusChangeTimestamp": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "The date/time when the status of this defect was last updated."
           }
         }
       },
       "CheckDefectStatusDetailDto": {
         "properties": {
           "status": {
-            "type": "string"
+            "type": "string",
+            "description": "The status to which the defect should be updated. Possible options for status: OPEN, DEFERRED, CLOSED_REPAIRED, CLOSED_DUPLICATE, CLOSED_NO_FAULT_FOUND."
           },
           "signature": {
-            "type": "string"
+            "type": "string",
+            "description": "The signature of the person who modified the status."
           },
           "repairDate": {
-            "type": "string"
+            "type": "string",
+            "description": "Date of repair in UTC, in the format yyyy-MM-dd'T'HH:mm'Z'."
           },
           "notes": {
-            "type": "string"
+            "type": "string",
+            "description": "The notes for this status change. Included in the response if notes have been specified for this status change."
           }
         }
       }
