@@ -153,36 +153,35 @@
                 "type": "string"
               }
             }
-          },
-          {
-            "name": "driverIds",
-            "in": "query",
-            "description": "Comma separated list of driver identifiers used for filtering.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-          {
-            "name": "showAllVehicleStatus",
-            "in": "query",
-            "description": "By default, vehicles with a status
-of SOLD are excluded. Set to TRUE to get details of all vehicles.",
-            "schema": {
-              "type": "boolean"
-            }
-          }
-          {
-            "name": "hideSpeedIfSpeedSensitive",
-            "in": "query",
-            "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
-            "schema": {
-              "type": "boolean"
-            }
-          }
-        ],
+  },
+  {
+    "name": "driverIds",
+    "in": "query",
+    "description": "Comma separated list of driver identifiers used for filtering.",
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "name": "showAllVehicleStatus",
+    "in": "query",
+    "description": "By default, vehicles with a status of SOLD are excluded. Set to TRUE to get details of all vehicles.",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  {
+    "name": "hideSpeedIfSpeedSensitive",
+    "in": "query",
+    "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
+    "schema": {
+      "type": "boolean"
+    }
+  }
+],
         "responses": {
           "200": {
             "description": "Live position data successfully returned",
@@ -279,7 +278,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "schema": {
               "type": "boolean"
             }
-          }
+          },
           {
             "name": "hideSpeedIfSpeedSensitive",
             "in": "query",
@@ -287,7 +286,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "schema": {
               "type": "boolean"
             }
-          },
+          }
         ],
         "responses": {
           "200": {
@@ -362,16 +361,15 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
                 "type": "string"
               }
             }
-          }
+          },
           {
-            "name": "showAllVehicleStatus",
-            "in": "query",
-            "description": "By default, vehicles with a status
-of SOLD are excluded. Set to TRUE to get details of all vehicles.",
-            "schema": {
-              "type": "boolean"
-            }
-          }
+"name": "showAllVehicleStatus",
+"in": "query",
+"description": "By default, vehicles with a status of SOLD are excluded. Set to TRUE to get details of all vehicles.",
+"schema": {
+  "type": "boolean"
+}
+          },
           {
             "name": "hideSpeedIfSpeedSensitive",
             "in": "query",
@@ -454,15 +452,14 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
                 "type": "string"
               }
             }
-          }
+          },
           {
-            "name": "showAllVehicleStatus",
-            "in": "query",
-            "description": "By default, vehicles with a status
-of SOLD are excluded. Set to TRUE to get details of all vehicles.",
-            "schema": {
-              "type": "boolean"
-            }
+"name": "showAllVehicleStatus",
+"in": "query",
+"description": "By default, vehicles with a status of SOLD are excluded. Set to TRUE to get details of all vehicles.",
+"schema": {
+  "type": "boolean"
+}
           },
           {
             "name": "hideSpeedIfSpeedSensitive",
@@ -480,7 +477,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
               "type": "string",
               "format": "date-time"
             }
-          },
+          }
         ],
         "parameters": [
           {
