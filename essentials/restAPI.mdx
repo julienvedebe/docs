@@ -1,6 +1,7 @@
 ---
-title: "REST endpoints"
-description: "The Connect API has been implemented using RESTful principles. All requests are made to specific URI endpoints. Data to an endpoint and the response from an endpoint are formatted in JSON. "
+title: "RESTful APIs"
+description: "The MICHELIN Connected Fleet API has been implemented using RESTful principles. All requests are made to specific URI endpoints. Data to an endpoint and the response from an endpoint are formatted in JSON. "
+icon: "code-xml"
 ---
 
 JSON data types, such as String, Number and Boolean are used where applicable. If there is no data to return, an empty JSON list is returned. Additionally, empty data is omitted in the result – i.e. there are no "null" values. 
@@ -22,7 +23,7 @@ Please speak to your **Customer Service Representative** if you do know your cus
 
 This is an example of the JSON output after calling the List Group --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
-As the **Connect API** has been implemented using RESTful principles, the following HTTP request methods are used: 
+As the **MICHELIN Connected Fleet** has been implemented using RESTful principles, the following HTTP request methods are used: 
 
 | **HTTP Request Method** | **Definition**                                                                                                                                                                                                 |
 | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -35,7 +36,7 @@ NOTE: For POST/PUT/DELETE requests, ensure you have set the **content-type** of 
 
 You can read more about the different HTTP requests methods (including GET, POST, PUT and DELETE) at [<u>http://en.wikipedia.org/wiki/PUT\_(HTTP)#Request_methods</u>](http://en.wikipedia.org/wiki/PUT_\(HTTP\)#Request_methods). 
 
-All requests to the **Connect API** receive an HTTP response code to confirm if the request was successful or not. The following HTTP codes can be returned:
+All requests to the **MICHELIN Connected Fleet** receive an HTTP response code to confirm if the request was successful or not. The following HTTP codes can be returned:
 
 | **HTTP response code** | **Definition**                                 | **When returned**                                                                                                                                                                                                                                               |
 | :--------------------- | :--------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -57,4 +58,4 @@ If there has been an error, the following JSON object is returned:
 
 The **errorMsg** element includes details of the error and what corrective action to take; for example, if an incorrect icon name has been specified, then the errorMsg includes a list of all the valid icon names. 
 
-The **Connect API** has an 8K limit on the length of the request line and header fields sent to an endpoint. If the 8K limit is exceeded, then the request will be rejected and no error code will be returned.
+The **MICHELIN Connected Fleet** has an 8K limit on the length of the request line and header fields sent to an endpoint. If the 8K limit is exceeded, then the request will be rejected and no error code will be returned.

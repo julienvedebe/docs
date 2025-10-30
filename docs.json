@@ -1,13 +1,16 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "MCF APIs v1",
   "colors": {
-    "primary": "#2b4f9d",
-    "light": "#2b4f9d",
-    "dark": "#15803D"
+    "primary": "#27509B",
+    "light": "#FCE500",
+    "dark": "#00205B"
   },
-  "favicon": "/favicon.svg",
+  "fonts": {
+    "family": "Open Sans"
+  },
+  "favicon": "/favicon-michelin.png",
   "navigation": {
     "tabs": [
       {
@@ -17,14 +20,12 @@
             "group": "Get Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "quickstart"
             ]
           },
           {
             "group": "Essentials",
             "pages": [
-              "essentials/programming",
               "essentials/restAPI",
               "essentials/authentication",
               "essentials/datetime",
@@ -36,24 +37,25 @@
           },
           {
             "group": "Solution",
-            "pages" : [
+            "pages": [
+              "solution/overview",
+              "solution/tracking",
               "solution/driverBehaviour",
-              "solution/driverKeys",              
-              "solution/group",
-              "solution/inputs",
               "solution/journey",
               "solution/locations",
+              "solution/group",
+              "solution/users",
+              "solution/driverKeys",
+              "solution/alerts",
+              "solution/inputs",
               "solution/singleSignOn",
               "solution/speeding",
-              "solution/taxExpense",
-              "solution/tracking",
-              "solution/users",
-              "solution/alerts"     
+              "solution/taxExpense"
             ]
           },
           {
             "group": "Success stories",
-            "pages" : [
+            "pages": [
               "stories/story1",
               "stories/story2",
               "stories/story3"
@@ -79,49 +81,24 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://www.linkedin.com/company/michelin-connected-fleet-global/",
-          "icon": "linkedin"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://connectedfleet.michelin.com/resources-center/",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.png",
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Login to myCF",
+      "href": "https://login.connectedfleet.michelin.com/"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://twitter.com/MichelinFleet",
+      "facebook": "https://www.facebook.com/MichelinConnectedFleet",
+      "linkedin": "https://www.linkedin.com/company/michelin-connected-fleet-global/"
     }
   }
 }

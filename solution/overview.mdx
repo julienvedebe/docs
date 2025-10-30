@@ -1,7 +1,7 @@
 ---
-title: 'Definitions'
+title: 'Overview'
 description: 'Text, title, and styling in standard markdown'
-icon: 'text-size'
+icon: 'eye'
 ---
 
 ## 2. MCF Solution
@@ -9,107 +9,80 @@ icon: 'text-size'
 The MCF Connect solution comprises of:
 
 
-- Connect – this is the component that receives and processes the tracking events from an On
-Board Unit (OBU).
+- my Connected Fleet Platform – this is the component that receives and processes the tracking events from an OnBoard Unit (OBU).
 
 
-- Connect Web Application - this is the web based application used for managing
-assets/resources and accessing the track and trace functionality of Connect.
+- my Connected Fleet Web Application - this is the web based application used for managing assets/resources and accessing the track and trace functionality of Connect.
 
 
-- OBU – is the tracking box installed on the resource and connects via GPRS to Connect. The
-OBU transmits vehicle events such as ignition on, ignition off, resource movement and
-resource position to Connect.
+- OBU – is the tracking box installed on the vehicle/asset. The OBU typically transmits vehicle events such as ignition on, ignition off, resource movement and resource position to the platform.
 
-- Connect API - this is the Application Programming Interface that allows data to be pulled
-from Connect.
+- MICHELIN Connected Fleet API - this is the Application Programming Interface that allows data to be pulled from my Connected Fleet.
+
 
 ### 2.1 Target Audience
 
-Connect is used to track and trace a resource. **Connect** receives location and related data from
-the asset via an **OBU**. The tracking data is viewable using the **Connect Web Application** in either
+my Connected Fleet is used to track and trace a resource. **my Connected Fleet Platform** receives location and related data from the asset via an **OBU**. The tracking data is viewable using the **my Connected Fleet Web Application** in either
 tabular or on a map.
 
 A resource can be:
 
-- Vehicle – An asset (car, van, truck, trailer, boat, power generator etc.) which has an OBU
-installed.
+- Vehicle – An asset (car, van, truck, trailer, boat, power generator etc.) which has an OBU installed.
 
-  - A vehicle can be assigned to a group. The group assigned to a vehicle does not have
-to be the same group as assigned to a driver.
+  - A vehicle can be assigned to a group. The group assigned to a vehicle does not have to be the same group as assigned to a driver.
 
-  - If a vehicle is part of the customer’s fleet (having a status of IN-CIRCULATION), its
-position is included in the response from Live Position.
+  - If a vehicle is part of the customer’s fleet (having a status of IN-CIRCULATION), its position is included in the response from Live Position.
 
-  - If a vehicle is no longer part of the customer’s fleet (having a status of SOLD), the
-vehicle is not included in the response from Live Position but details of historical
-journeys can be retrieved
+  - If a vehicle is no longer part of the customer’s fleet (having a status of SOLD), the vehicle is not included in the response from Live Position but details of historical journeys can be retrieved
 
-- Driver – A person that drives a vehicle. A driver can be associated with a key fob which
-enables Connect to determine who is driving a vehicle. A driver can be associated with a
-vehicle, e.g. their company car. A driver can be assigned to a group. The group for the driver
-does not have to be the same group as assigned to the vehicle.
+- Driver – A person that drives a vehicle. A driver can be associated with a key fob which enables Connect to determine who is driving a vehicle. A driver can be associated with a vehicle, e.g. their company car. A driver can be assigned to a group. The group for the driver does not have to be the same group as assigned to the vehicle.
+
 
 ### 2.2 Group
 
-**Connect** allows for the creation of a group hierarchy. You have only one group hierarchy, but
-you can create many subgroups within the hierarchy to meet your reporting/tracking
-requirements.
+**my Connected Fleet ** allows for the creation of a group hierarchy. You have only one primary group hierarchy, but you can create many subgroups within the hierarchy to meet your reporting/tracking requirements.
 
 
-A resource (vehicle or driver) can be assigned to only one group in the hierarchy. You do not
-need to assign a driver to the same group as their default vehicle.
+A resource (vehicle or driver) can be assigned to only one group in the hierarchy.  You do not need to assign a driver to the same group as their default vehicle.
 
-For example, the following company, country, city and fleet group hierarchy can be used to
-group drivers and vehicles. Drivers would be assigned to any of the subgroups under “Offices”,
-whilst vehicles would be assigned to any of the subgroups under “Fleet”.
+For example, the following company, country, city and fleet group hierarchy can be used to group drivers and vehicles. Drivers would be assigned to any of the subgroups under “Offices”, whilst vehicles would be assigned to any of the subgroups under “Fleet”.
 
 ```
-Masternaut
-Offices
-United Kingdom
-Leeds
-Skipton
-France
-Suresnes
-Germany
-Munich
-Fleet
-Car
-HGV
+MICHELIN
+- Offices
+ - United Kingdom
+   - Leeds
+   - London
+ - France
+  - Paris
+  - Lyon
+- Germany
+ - Munich
+- Fleet
+  - Car
+  - HGV
 ```
 By assigning a vehicle/driver to a group enables tracking information to be retrieved for either:
 
 
 - A single vehicle
-
 - A single driver.
-
 - All vehicles based on type (e.e. car).
-
 - All drivers based in one city (e.g. Leeds).
-
 - All drivers based in one country (e.g. United Kingdom).
-
 - All vehicles or drivers in the company (e.g. Masternaut)
+
 
 ### 2.3 Tracking and Tracing
 
-**Tracking** is knowing the location of a resource in real time. In addition to the location, Connect
-captures speed, direction of travel and other information items depending on the vehicle type
-(e.g. gritting events).
+**Tracking** is knowing the location of a resource in real time. In addition to the location, my Connected Fleet captures speed, direction of travel and other information items depending on the vehicle type (e.g. temperture events).
 
-**Tracing** is knowing the locations where a resource has been. Historic location information is
-stored by Connect based on the customer’s data retention period. This period is configurable,
-please speak to your **Customer Service Representative** for details.
+**Tracking** is knowing the locations where a resource has been. Historic location information is stored by my Connected Fleet based on the customer’s data retention period. This period is configurable,please speak to your **Customer Service Representative** for details.
 
 
 ### 2.4 Journey
 
-A journey is a vehicle moving between locations. The start of the journey is when the ignition is
-switched on and the end of the journey is when the ignition is switched off. There can be many
-journeys for a vehicle on the same day. By associating a driver with a vehicle or if the driver has a
-key fob, allows you to track and trace the journeys for a driver.
+A journey is a vehicle moving between locations. The start of the journey is when the ignition is switched on and the end of the journey is when the ignition is switched off. There can be many journeys for a vehicle on the same day. By associating a driver with a vehicle or if the driver has a ID key fob, allows you to track and trace the journeys for a driver.
 
 During the journey the vehicle’s status will change, for example:
 
@@ -123,16 +96,12 @@ certain events occur, e.g. harsh braking, harsh accelerating.
 ```
 ● endOfJourney - The vehicle’s ignition has been switched off.
 ```
-A private journey is a journey that a driver has specified as **private**. A **private journey** cannot be
-tracked or traced using the **Connect Web Application**. Likewise, the **Connect API** does not
-return any tracking or tracing information for a private journey. However, the distance travelled
-and the fuel used in a private journey are taken into account when calculating utilisation and fuel
-summary details.
+A private journey is a journey that a driver has specified as **private**. A **private journey** cannot be tracked or traced using the **my Connected Fleet Web Application**. Likewise, the **MICHELIN Connected Fleet  API** does not return any tracking or tracing information for a private journey. However, the distance travelled and the fuel used in a private journey are taken into account when calculating utilisation and fuel summary details.
+
 
 ### 2.5 Distance Travelled
 
-The distance that a vehicle travelled during a journey is captured by the OBU using one of two
-methods:
+The distance that a vehicle travelled during a journey is captured by the OBU using one of two methods:
 
 ```
 Method Definition
@@ -158,22 +127,16 @@ CANbus.
 ### 2.6 Point Of Interest (POI)
 
 ```
-A Point of Interest (POI) is a map location that has been given a name and marked by a geo-fence
-boundary. By creating POI locations, it is possible to report when a resource has arrived at or
-departed from that named location. There is a limit on the number of locations you can create.
+A Point of Interest (POI) is a map location that has been given a name and marked by a geo-fence boundary. By creating POI locations, it is possible to report when a resource has arrived at or departed from that named location. There is a limit on the number of locations you can create.
 ```
 ```
-● Using the Connect Web Application you can create a location and specify the geo-fence
-boundary to be either a circle or a polygon.
+● Using the my Connected Fleet  Web Application you can create a location and specify the geo-fence boundary to be either a circle or a polygon.
 ```
 ```
-● Using the Connect API , the geo-fence boundary can be defined as a circle or a polygon.
+● Using the MICHELIN Connected Fleet  API , the geo-fence boundary can be defined as a circle or a polygon.
 ```
 ```
-When creating a POI location, it is assigned a location category. You can create as many
-location categories as required to meet your reporting/tracking requirements. The location
-category can be assigned one of the standard Connect icons. The icon is displayed on the map
-when using the Connect Web Application to view a journey.
+When creating a POI location, it is assigned a location category. You can create as many location categories as required to meet your reporting/tracking requirements. The location category can be assigned one of the standard Connect icons. The icon is displayed on the map when using the my Connected Fleet Web Application to view a journey.
 ```
 ```
 This is a list of the icon names that can be used:
@@ -199,12 +162,10 @@ pin-white pin-yellow
 
 ### 2.7 Tags
 
-A tag is a word that you can use to add information about a driver or vehicle. For example, you
-can add a tag to identify if the driver is an engineer, has a particular skill, or if the vehicle has a
-long wheelbase etc.
+A tag can be used to add information about a driver or vehicle (skills and attributes). For example, you can add a tag to identify if the driver is an engineer, has a particular skill, or if the vehicle has a long wheelbase etc.
 
-Tags can be used in addition to the **Connect** features of groups and vehicle types. There is no
-limit on the number of tags you can create.
+Tags can be used in addition to the **Connect** features of groups and vehicle types. There is no limit on the number of tags you can create.
+
 
 ### 2.8 Driver Keys
 
@@ -236,81 +197,39 @@ Driver behaviour analysis requires the driver to be either the default driver fo
 driver signed in with their driver key during the journey.
 
 The three key performance indicators (KPI) are:
+● Smoother - This KPI shows how smoothly a vehicle was driven. It decreases when the driver brakes or accelerates harshly.
 
-```
-● Smoother
-```
-```
-○ This KPI shows how smoothly a vehicle was driven. It decreases when the driver
-brakes or accelerates harshly.
-```
-```
-● Safe Speed
-```
-```
-○ This KPI shows how the percentage of distance travelled at safe speed. It decreases
-when the driver exceeds the road speed limit by more than 10%.
-```
-```
-● Cleaner
-```
+● Safer -This KPI shows how the percentage of distance travelled at safe speed. It decreases when the driver exceeds the road speed limit by more than 10%.
 
-```
-○ This KPI shows the percentage of time spent driving compared to drive time + idling
-time. It decreases when more time is spent idling.
-```
-```
+● Cleaner - This KPI shows the percentage of time spent driving compared to drive time + idling time. It decreases when more time is spent idling.
+
+
 The aim for a driver is to achieve a value of 100% for each KPI.
-```
-```
+
 ● Changes in KPI values where the trend shows an increase in KPI value shows an
 improvement in driving behaviour.
-```
-```
-● Changes in KPI values where the trend shows a decrease in KPI value shows a deterioration
-in driving behaviour.
-```
-```
-Due to the methodology used to calculate these KPI, the KPI can be used to compare the driving
-style across drivers in different groups, and organisations.
-```
-```
-Note:
-```
-```
-● Although either Driver Behaviour or EcoDrive can be used to analyse the driver’s driving
-behaviour, MCF’s preferred methodology is to use Driver Behaviour.
-```
+
+● Changes in KPI values where the trend shows a decrease in KPI value shows a deterioration in driving behaviour.
+
+Due to the methodology used to calculate these KPI, the KPI can be used to compare the driving style across drivers in different groups, and organisations.
+
+
+Note: Although either Driver Behaviour or EcoDrive can be used to analyse the driver’s driving behaviour, MCF’s current methodology is to use Driver Behaviour.
+
+
 ### 2.10 EcoDrive
 
-```
-The EcoDrive product allows analysis of a driver’s driving behaviour based on driving events that
-occur during a journey. EcoDrive analysis can be performed either for a vehicle or driver. Driver
-analysis requires the driver to be either the default driver for a vehicle or the driver signed in
-with their driver key during the journey.
-```
-```
+The EcoDrive product allows analysis of a driver’s driving behaviour based on driving events that occur during a journey. EcoDrive analysis can be performed either for a vehicle or driver. Driver analysis requires the driver to be either the default driver for a vehicle or the driver signed in with their driver key during the journey.
+
+
 The events that can be analysed are:
-```
-```
 ● Harsh braking
-```
-```
 ● Harsh acceleration
-```
-```
 ● Harsh cornering
-```
-```
 ● Over revving
-```
-```
 ● Excessive idling
-```
-```
 ● Speed over a defined threshold
-```
-```
+
 Excessive idling can occur either inside or outside a specified set of POI location categories. For
 example, if you set the location category for a number of POI locations to be “Goods Drop Point”,
 you can then analyse the number of excessive idling that occurred within and outside these
