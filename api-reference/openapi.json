@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Connect Webservices",
+    "title": "My Connected Fleet API",
     "description": "Rest API Documentation",
     "contact": {
       "email": "purple@masternaut.com"
@@ -1805,7 +1805,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           "/fuelEvents"
         ],
         "summary": "Fuel Card Transactions",
-        "description": "Returns details of the fuel card transaction where the transaction occurred within the specified period. The value specified for the endDate cannot be before startDate. Either vehicleId or groupId must be specified. If vehicleId is specified, then transactions for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If IncludeUnmatchedVehicles is set to true, then transactions not matched to a vehicle registered in Connect will be included in the output response. If a value is not specified for both IncludeMatchedVehicles and for IncludeUnmatchedVehicles, then only matched transactions will be included in the response. If there are more than 20 transaction events to return, then by default only the first 20 transaction events are returned. To view details of the other transaction events you will need to specify values for pageSize and pageIndex.",
+        "description": "Returns details of the fuel card transaction where the transaction occurred within the specified period. The value specified for the endDate cannot be before startDate. Either vehicleId or groupId must be specified. If vehicleId is specified, then transactions for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If IncludeUnmatchedVehicles is set to true, then transactions not matched to a vehicle will be included in the output response. If a value is not specified for both IncludeMatchedVehicles and for IncludeUnmatchedVehicles, then only matched transactions will be included in the response. If there are more than 20 transaction events to return, then by default only the first 20 transaction events are returned. To view details of the other transaction events you will need to specify values for pageSize and pageIndex.",
         "operationId": "findFuelTransactionsForVehicles",
         "parameters": [
           {
@@ -3387,7 +3387,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           "/journey/detail"
         ],
         "summary": "Vehicle Journeys Latest",
-        "description": "Returns summary journey details for a vehicle for each journey that was processed by Connect since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those vehicles where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Vehicle Journey endpoint to see what journeys have been completed so far. 2. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Vehicle Journey endpoint. 3. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either vehicleId or groupId must be specified. If vehicleId is specified, then only journeys for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. Only vehicles that have completed a journey since the specified fromDateTime are included in the output response. The value for fromDateTime cannot be more than one hour in the past. No details will be returned if the value specified for fromDateTime is a future date/time. Request Limit The request limit on this endpoint is one request every 60 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
+        "description": "Returns summary journey details for a vehicle for each journey that was processed since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those vehicles where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Vehicle Journey endpoint to see what journeys have been completed so far. 2. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Vehicle Journey endpoint. 3. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either vehicleId or groupId must be specified. If vehicleId is specified, then only journeys for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. Only vehicles that have completed a journey since the specified fromDateTime are included in the output response. The value for fromDateTime cannot be more than one hour in the past. No details will be returned if the value specified for fromDateTime is a future date/time. Request Limit The request limit on this endpoint is one request every 60 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
         "parameters": [
           {
             "name": "customerId",
@@ -3570,7 +3570,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           "/journey/detail"
         ],
         "summary": "Driver Journeys Latest",
-        "description": "Returns summary journey details for a driver for each journey that was processed by Connect since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those drivers where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Driver Journeys endpoint to see what journeys have been completed so far. 2. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Driver Journeys endpoint. 3. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either driverId or groupId must be specified. If driverId is specified, then only journeys for the specified driver are included in the output. If groupId is specified, then the details for all drivers in the specified group are included in the output. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified. Only drivers that have completed a journey since the specified fromDateTime are included in the output response. The value for fromDateTime cannot be more than one hour in the past. No details will be returned if the value specified for fromDateTime is a future date/time. Request Limit The request limit on this endpoint is one request every 60 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
+        "description": "Returns summary journey details for a driver for each journey that was processed since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those drivers where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Driver Journeys endpoint to see what journeys have been completed so far. 2. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Driver Journeys endpoint. 3. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either driverId or groupId must be specified. If driverId is specified, then only journeys for the specified driver are included in the output. If groupId is specified, then the details for all drivers in the specified group are included in the output. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified. Only drivers that have completed a journey since the specified fromDateTime are included in the output response. The value for fromDateTime cannot be more than one hour in the past. No details will be returned if the value specified for fromDateTime is a future date/time. Request Limit The request limit on this endpoint is one request every 60 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
         "parameters": [
           {
             "name": "customerId",
@@ -4075,7 +4075,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           "/tracking/history"
         ],
         "summary": "Vehicle Journey History Latest",
-        "description": "Returns the latest tracking events that have been processed for a vehicle since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those vehicles that have been processed since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. 3. If there are more than 500 tracking events that have been processed by Connect from the value specified fromDateTime, then only 500 tracking events will be included in the output response. In this case, processedDateTime will be set to the date that the 500th tracking event was processed by Connect and therefore should be used as the value for fromDateTime in subsequent calls.",
+        "description": "Returns the latest tracking events that have been processed for a vehicle since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those vehicles that have been processed since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. 3. If there are more than 500 tracking events that have been processed from the value specified fromDateTime, then only 500 tracking events will be included in the output response. In this case, processedDateTime will be set to the date that the 500th tracking event was processed by Connect and therefore should be used as the value for fromDateTime in subsequent calls.",
         "operationId": "getLatestEventHistoryByVehicle",
         "parameters": [
           {
@@ -4230,7 +4230,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           "/tracking/history"
         ],
         "summary": "Driver Journey History Latest",
-        "description": "Returns the latest tracking events that have been processed for a driver since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those drivers that have been processed since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. 3. If there are more than 500 tracking events that have been processed by Connect from the value specified fromDateTime, then only 500 tracking events will be included in the output response. In this case, processedDateTime will be set to the date that the 500th tracking event was processed by Connect and therefore should be used as the value for fromDateTime in subsequent calls",
+        "description": "Returns the latest tracking events that have been processed for a driver since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those drivers that have been processed since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. 3. If there are more than 500 tracking events that have been processed from the value specified fromDateTime, then only 500 tracking events will be included in the output response. In this case, processedDateTime will be set to the date that the 500th tracking event was processed and therefore should be used as the value for fromDateTime in subsequent calls",
         "operationId": "getLatestEventHistoryByDriver",
         "parameters": [
           {
@@ -4253,7 +4253,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           {
             "name": "fromDateTime",
             "in": "query",
-            "description": "Only include tracking frames that have been processed by Connect since this date and time, in UTC, in format of YYYY-MM-DDThh:mm:ss.ms. Cannot be more than 14 days in the past.",
+            "description": "Only include tracking frames that have been processed since this date and time, in UTC, in format of YYYY-MM-DDThh:mm:ss.ms. Cannot be more than 14 days in the past.",
             "required": true,
             "schema": {
               "type": "string",
@@ -7038,7 +7038,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "accountName": {
             "type": "string",
-            "description": "The name of the account in Connect."
+            "description": "The name of the account in My Connected Fleet."
           },
           "siteId": {
             "type": "string",
@@ -7421,7 +7421,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "subscriberWebUser": {
             "type": "string",
-            "description": "Identifier of a Connect user. Can be used to return all alerts sent to the specified Connect user."
+            "description": "Identifier of a My Connected Fleet user. Can be used to return all alerts sent to the specified My Connected Fleet user."
           },
           "pageSize": {
             "type": "integer",
@@ -7477,7 +7477,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "subscriberWebUser": {
             "type": "string",
-            "description": "Identifier of a Connect user. Can be used to return all alerts sent to the specified Connect user."
+            "description": "Identifier of a My Connected Fleet user. Can be used to return all alerts sent to the specified My Connected Fleet user."
           },
           "pageSize": {
             "type": "integer",
@@ -7499,7 +7499,7 @@ of SOLD are excluded. Set to TRUE to get details of all vehicles.",
           },
           "customerId": {
             "type": "string",
-            "description": "The Connect identifier for the customer."
+            "description": "The identifier for the customer."
           },
           "dateTime": {
             "type": "string",
