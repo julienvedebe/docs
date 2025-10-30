@@ -1,0 +1,410 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Masternaut Vehicle Checks Public API",
+    "contact": {
+      "name": "Masternaut",
+      "url": "https://www.masternaut.com",
+      "email": "support@masternautconnect.com"
+    },
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/v1/vehicle-checks/inspections": {
+      "get": {
+        "summary": "List Inspections",
+        "description": "Returns vehicle checks for the vehicle. If vehicleName is specified, then returns all vehicle checks for that vehicle in the specified period. If personName is specified, then returns all vehicle checks completed by that driver in the specified period. If groupName is specified, returns all vehicle checks for all vehicles in the specified group in the specified period.\nAt least one of the parameters: personName, groupName, or vehicleName must be specified.",
+        "operationId": "inspections",
+        "parameters": [
+          {
+            "name": "dateTimeFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "anyOf": [
+                {
+                  "format": "yyyy-MM-dd"
+                },
+                {
+                  "format": "yyyy-MM-dd'T'HH:mm'Z'"
+                }
+              ],
+              "example": "2022-12-12"
+            },
+            "description": "Start of the period of the date of inspection, in UTC, in the format of either yyyy-MM-dd or yyyy-MM-dd'T'HH:mm'Z'.\nIf user sends parameter in format yyyy-MM-dd e.g. 2022-12-12 then it is the same as if user sends 2022-12-12T00:00Z\nThe period between dateTimeFrom and dateTimeTo cannot be more than 31 days."
+          },
+          {
+            "name": "dateTimeTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "anyOf": [
+                {
+                  "format": "yyyy-MM-dd"
+                },
+                {
+                  "format": "yyyy-MM-dd'T'HH:mm'Z'"
+                }
+              ],
+              "example": "2022-12-12"
+            },
+            "description": "End of the period of the date of inspection, in UTC, in the format of either yyyy-MM-dd or yyyy-MM-dd'T'HH:mm'Z'.\n\nIf user sends parameter in format yyyy-MM-dd e.g. 2023-01-01 then it is the same as if user sends 2023-01-01T23:59Z\n\nPeriod between dateTimeFrom and dateTimeTo cannot be more than 31 days"
+          },
+          {
+            "name": "groupName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Name of a group. Must be specified if a value for either personName or vehicleName is not specified"
+          },
+          {
+            "name": "personName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Name of the person who submitted the inspection. Must be specified if a value for either vehicleName or groupName is not specified. It supports a list of names."
+          },
+          {
+            "name": "vehicleName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Friendly name for the vehicle where inspection has been carried out. Must be specified if a value for either personName or groupName is not specified. It supports a list of names."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of inspections to include in the output. If not specified it will default to 200."
+          },
+          {
+            "name": "nextToken",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token returned in a previous call to this endpoint to get the next set of details."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/jsonl": {
+                "schema": {
+                  "$ref": "#/components/schemas/InspectionResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/vehicle-checks/defects/defect-status/{defectId}": {
+      "put": {
+        "summary": "Public update defect status",
+        "operationId": "updateDefectStatus",
+        "parameters": [
+          {
+            "name": "defectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string",
+              "default": "application/json"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckDefectStatusDetailDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "OPEN"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/vehicle-checks/images/{imageId}": {
+      "get": {
+        "summary": "Get Image",
+        "operationId": "getImage",
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  },
+  "components": {
+    "schemas": {
+      "InspectionResponseDto": {
+        "type": "object",
+        "properties": {
+          "inspections": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/CheckWithDefectDto"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "CheckWithDefectDto": {
+        "type": "object",
+        "properties": {
+          "inspectionNumber": {
+            "type": "string"
+          },
+          "submittedDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "inspectionDuration": {
+            "type": "string"
+          },
+          "personId": {
+            "type": "string"
+          },
+          "personName": {
+            "type": "string"
+          },
+          "vehicleId": {
+            "type": "string"
+          },
+          "vehicleName": {
+            "type": "string"
+          },
+          "groupName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "lng": {
+            "type": "number"
+          },
+          "lat": {
+            "type": "string"
+          },
+          "checkResult": {
+            "type": "string"
+          },
+          "repairStatus": {
+            "type": "string"
+          },
+          "defects": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/InspectionDefectDto"
+                }
+              ]
+            }
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/InspectionCheckDto"
+                }
+              ]
+            }
+          },
+          "notes": {
+            "type": "string"
+          },
+          "contactName": {
+            "type": "string"
+          },
+          "contactPhone": {
+            "type": "string"
+          },
+          "odometer": {
+            "type": "number"
+          },
+          "make": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "completedTooQuickly": {
+            "type": "boolean"
+          },
+          "statusChanges": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/InspectionDefectStatusChangeDto"
+                }
+              ]
+            }
+          },
+          "odometerUnit": {
+            "type": "string"
+          }
+        }
+      },
+      "InspectionDefectDto": {
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "checkResult": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "repairStatus": {
+            "type": "string"
+          },
+          "photoIds": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "defectId": {
+            "type": "string"
+          }
+        }
+      },
+      "InspectionCheckDto": {
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "checkResult": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      },
+      "InspectionDefectStatusChangeDto": {
+        "properties": {
+          "repairStatus": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "repairDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "statusChangeTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CheckDefectStatusDetailDto": {
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "repairDate": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
