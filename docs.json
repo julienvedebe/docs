@@ -60,7 +60,10 @@
             "icon": "pencil",
             "pages": [
               "solution/tracking",
-            "solution/journey"]
+            "solution/journey",
+              "solution/distance",
+            "solution/privacy"
+            ]
           }
         ]
       },

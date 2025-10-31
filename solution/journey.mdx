@@ -3,21 +3,18 @@ title: "Journey"
 description: "Description of your new file."
 ---
 
-A journey is a vehicle moving between locations. The start of the journey is when the ignition is switched on and the end of the journey is when the ignition is switched off.  There can be many journeys for a vehicle on the same day. By associating a driver with a vehicle or if the driver has a key fob, allows you to track and trace the journeys for a driver.
+**A Journey**
+A journey occurs when a a resource (a vehicle or driver) moves between locations. 
+- The start of the journey typically starts when the ignition is switched on, and ends when the is switched off.  However for some vehicles e.g trailers, this can be between start and stopped moving.  
 
-During the journey the vehicle’s status will change, for example:
+- There can be many journeys for a vehicle on the same day.
+
+- By associating a driver with a vehicle either a permeant assciation, or if the driver has a key fob, journeys can also be viewed by driver.
+
+
+During the journey the vehicle’s status can change, for example:
 
 - **driving** - The vehicle is moving. Movement events are generated every minute or when certain events occur, e.g. harsh braking, harsh accelerating.
 - **idling** - The vehicle has not moved location but the ignition is still on.
 - **endOfJourney** - The vehicle’s ignition has been switched off.
 
-A private journey is a journey that a driver has specified as **private**. A **private journey** cannot be tracked or traced using the **Connect Web Application**. Likewise, the **Connect API** does not return any tracking or tracing information for a private journey. However, the distance travelled and the fuel used in a private journey are taken into account when calculating utilisation and fuel summary details.
-
-## **Distance Travelled**
-
-The distance that a vehicle travelled during a journey is captured by the OBU using one of two methods:
-
-| **Method** | **Definition**                                                                                                                                                                                                                                        |
-| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CAN        | This is the most accurate method with the OBU extracting the distance travelled from the vehicle’s CANbus.<br /><br />You can read more about CANbus at [<u>http://en.wikipedia.org/wiki/CAN_bus</u>](http://en.wikipedia.org/wiki/CAN_bus)           |
-| GPS        | During a journey, the OBU calculates the distance between each GPS location and sums these distance values together to derive the total distance for the journey.<br /><br />This method is not as accurate as the distance obtained from the CANbus. |
