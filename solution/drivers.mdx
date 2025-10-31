@@ -2,17 +2,24 @@
 title: "Drivers"
 ---
 
-A Driver is a person that drives a vehicle. A driver can be associated with a key fob which enables Connect to determine who is driving a vehicle. A driver can be associated with a vehicle, e.g. their company car. A driver can be assigned to a group. The group for the driver does not have to be the same group as assigned to the vehicle.
+A driver represents a person who operates a vehicle. Each driver can be identified, tracked, and associated with specific vehicles or journeys.  
 
-- 
-A **driver key** is a way to identify who is driving a vehicle. A driver signs in with their key before they begin a journey. 
+A driver is assigned to a group for organisational and reporting purposes. *Note: A driver’s group assignment does not need to match the group assigned to their vehicle.*
 
-A driver can sign in using either:
+A driver may be associated with a vehicle in several ways; 
+1. A permanent asssociation e.g their assigned company car.
+2. Using an assigned **Driver Identification**
+3. Via the driver mobile app **SmartDriver**
 
-- **TachoID** – the driver signs in using their Tachograph smart card.
-- **RFID** – the driver touches their key fob against the MCF Light Bar.
-- **DALLAS** – the driver touches their Dallas key fob against the MCF Light Bar.
 
-A key can be configured so that all journeys using that key are specified as private journeys. A private journey cannot be tracked or traced using the **Connect Web Application**. 
+**Driver Identification**
+Supported sign-in methods include:
+- TachoID – via the driver’s Tachograph smart card
+- RFID – by touching an RFID key fob to the MCF Light Bar prior to driving
+- DALLAS – by touching a Dallas key fob
 
-A driver key (TachoID, RFID or DALLAS) can only be assigned to a single driver. Before you can assign the key to another driver, the key must be first deleted from the donor driver.
+Key Assignment Rules - A driver key (TachoID, RFID or DALLAS) can only be assigned to a single driver. Before you can assign the key to another driver, the key must be first deleted from the donor driver.
+
+
+**Private Journeys**
+A driver can set a journey as private using the in-cab lightbar. Private journeys are excluded from tracking and visibility within the **myConnectedFleet**.
