@@ -11,6 +11,11 @@
     "family": "Open Sans"
   },
   "favicon": "/favicon-michelin.png",
+  
+  "appearance": {
+    "default": "light",
+    "strict": true
+  },
   "navigation": {
     "tabs": [
       {
