@@ -36,13 +36,13 @@
             ]
           },
           {
-        "group": "Solution overview",
+        "group": "Solution concepts",
         "expanded": false,
         "pages": [
           "solution/overview",
           {
             "group": "Resources",
-            "icon": "pencil",
+            "icon": "truck",
             "pages": [
               "solution/vehicles",
               "solution/drivers",
@@ -51,7 +51,7 @@
           },
           {
             "group": "Users",
-            "icon": "pencil",
+            "icon": "user",
             "pages": [
               "solution/users"]
           },
