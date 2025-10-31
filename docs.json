@@ -37,10 +37,9 @@
           },
           {
         "group": "Solution overview",
-        "icon": "play",
         "expanded": false,
         "pages": [
-          "overview",
+          "solution/overview",
           {
             "group": "Editing",
             "icon": "pencil",
