@@ -36,18 +36,24 @@
             ]
           },
           {
-        "group": "Getting started",
+        "group": "Solution overview",
         "icon": "play",
         "expanded": false,
         "pages": [
-          "quickstart",
+          "overview",
           {
             "group": "Editing",
             "icon": "pencil",
             "pages": [
               "installation",
-              "editor"
-            ]
+              "editor"]
+          },
+             {
+            "group": "Editing",
+            "icon": "pencil",
+            "pages": [
+              "installation",
+              "editor"]
           }
         ]
       },
