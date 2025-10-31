@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Connect Webservices",
+    "title": "My Connected Fleet API",
     "description": "Rest API Documentation",
     "contact": {
       "email": "purple@masternaut.com"
@@ -135,7 +135,7 @@
           {
             "name": "vehicleIds",
             "in": "query",
-            "description": "Id of vehicle used for filtering.",
+            "description": "Comma separated list of vehicle identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -146,59 +146,42 @@
           {
             "name": "groupIds",
             "in": "query",
-            "description": "Id of group used for filtering.",
+            "description": "Comma separated list of group identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
                 "type": "string"
               }
             }
-          },
-          {
-            "name": "driverIds",
-            "in": "query",
-            "description": "Id of driver used for filtering.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "fromDateTime",
-            "in": "query",
-            "description": "Start date used for filtering.",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "showAllVehicleStatus",
-            "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "name": "locale",
-            "in": "query",
-            "description": "Locale used for language.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "hideSpeedIfSpeedSensitive",
-            "in": "query",
-            "description": "Boolean (true/false) to indicate if the vehicle speed should be excluded from the output if the driver;’s group (if there is a driver for the vehicle) or the vehicle’s group has been defined to be speed sensitive.  If not specified, defaults to FALSE, so the vehicle’s speed is included in the response. ",
-            "schema": {
-              "type": "boolean"
-            }
-          }
-        ],
+  },
+  {
+    "name": "driverIds",
+    "in": "query",
+    "description": "Comma separated list of driver identifiers used for filtering.",
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "name": "showAllVehicleStatus",
+    "in": "query",
+    "description": "By default, vehicles with a status of SOLD are excluded. Set to TRUE to get details of all vehicles.",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  {
+    "name": "hideSpeedIfSpeedSensitive",
+    "in": "query",
+    "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
+    "schema": {
+      "type": "boolean"
+    }
+  }
+],
         "responses": {
           "200": {
             "description": "Live position data successfully returned",
@@ -229,116 +212,6 @@
         }
       }
     },
-    "/customer/{customerId}/tracking/live/geojson": {
-      "get": {
-        "tags": [
-          "/tracking/live"
-        ],
-        "summary": "Live Position GeoJSON",
-        "description": "Gives detailed tracking inputs starting with the most recent entry based on filtering. Produces GeoJSON format response.",
-        "operationId": "getLiveStatusAsGeoJson",
-        "parameters": [
-          {
-            "name": "customerId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "vehicleIds",
-            "in": "query",
-            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "groupIds",
-            "in": "query",
-            "description": "Id(s) of the group used for filtering the live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "driverIds",
-            "in": "query",
-            "description": "Id(s) of the driver used for filtering the live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "fromDateTime",
-            "in": "query",
-            "description": "Start date used for filtering.",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "showAllVehicleStatus",
-            "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "locale",
-            "in": "query",
-            "description": "Locale used for language.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "hideSpeedIfSpeedSensitive",
-            "in": "query",
-            "description": "Hide speed from results if results are speed sensitive, default = FALSE.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of tracking inputs in GeoJSON format",
-            "content": {
-              "application/geo+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FeatureCollection"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When multiple filter option are filled in or resource not visible to user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/customer/{customerId}/tracking/live/latest": {
       "get": {
         "tags": [
@@ -359,7 +232,7 @@
           {
             "name": "vehicleIds",
             "in": "query",
-            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
+            "description": "Comma separated list of vehicle identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -370,7 +243,7 @@
           {
             "name": "groupIds",
             "in": "query",
-            "description": "Id(s) of the group used for filtering the live position response.",
+            "description": "Comma separated list of group identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -381,7 +254,7 @@
           {
             "name": "driverIds",
             "in": "query",
-            "description": "Id(s) of the driver used for filtering the live position response.",
+            "description": "Comma separated list of driver identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -392,7 +265,7 @@
           {
             "name": "fromDateTime",
             "in": "query",
-            "description": "Start date used for filtering.",
+            "description": "Filter vehicles that have been updated since this date and time, in UTC, in format of YYYY-MM-DDThh:mm:ss.ms.",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -401,27 +274,17 @@
           {
             "name": "showAllVehicleStatus",
             "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
+            "description": "By default, vehicles with a status of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "locale",
-            "in": "query",
-            "description": "Locale used for language.",
-            "schema": {
-              "type": "string"
+              "type": "boolean"
             }
           },
           {
             "name": "hideSpeedIfSpeedSensitive",
             "in": "query",
-            "description": "Hide speed from results if results are speed sensitive, default = FALSE.",
+            "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
             "schema": {
-              "type": "boolean",
-              "default": false
+              "type": "boolean"
             }
           }
         ],
@@ -438,6 +301,97 @@
           },
           "400": {
             "description": "fromDateTime is more than one day in the past or is a future date, or multiple filter options provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/tracking/live/geojson": {
+      "get": {
+        "tags": [
+          "/tracking/live"
+        ],
+        "summary": "Live Position GeoJSON",
+        "description": "live position and status for all vehicles in GeoJSON Specification (RFC 7946) format.",
+        "operationId": "getLiveStatusAsGeoJson",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "vehicleIds",
+            "in": "query",
+            "description": "Comma separated list of vehicle identifiers used for filtering.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "groupIds",
+            "in": "query",
+            "description": "Comma separated list of group identifiers used for filtering.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "driverIds",
+            "in": "query",
+            "description": "Comma separated list of driver identifiers used for filtering.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+"name": "showAllVehicleStatus",
+"in": "query",
+"description": "By default, vehicles with a status of SOLD are excluded. Set to TRUE to get details of all vehicles.",
+"schema": {
+  "type": "boolean"
+}
+          },
+          {
+            "name": "hideSpeedIfSpeedSensitive",
+            "in": "query",
+            "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of tracking inputs in GeoJSON format",
+            "content": {
+              "application/geo+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeatureCollection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When multiple filter option are filled in or resource not visible to user",
             "content": {
               "application/json": {
                 "schema": {
@@ -469,7 +423,7 @@
           {
             "name": "vehicleIds",
             "in": "query",
-            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
+            "description": "Comma separated list of vehicle identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -480,7 +434,7 @@
           {
             "name": "groupIds",
             "in": "query",
-            "description": "Id(s) of the group used for filtering the live position response.",
+            "description": "Comma separated list of group identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -491,7 +445,7 @@
           {
             "name": "driverIds",
             "in": "query",
-            "description": "Id(s) of the driver used for filtering the live position response.",
+            "description": "Comma separated list of driver identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -499,6 +453,54 @@
               }
             }
           },
+          {
+"name": "showAllVehicleStatus",
+"in": "query",
+"description": "By default, vehicles with a status of SOLD are excluded. Set to TRUE to get details of all vehicles.",
+"schema": {
+  "type": "boolean"
+}
+          },
+          {
+            "name": "hideSpeedIfSpeedSensitive",
+            "in": "query",
+            "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+                    {
+            "name": "fromDateTime",
+            "in": "query",
+            "description": "Start date used for filtering. Date must be less than one day ago.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "vehicleIds",
+            "in": "query",
+            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          
+          
           {
             "name": "fromDateTime",
             "in": "query",
@@ -572,65 +574,6 @@
             "name": "customerId",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "vehicleIds",
-            "in": "query",
-            "description": "Id(s) of the vehicle used for filtering the vehicle live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "groupIds",
-            "in": "query",
-            "description": "Id(s) of the group used for filtering the live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "driverIds",
-            "in": "query",
-            "description": "Id(s) of the driver used for filtering the live position response.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "fromDateTime",
-            "in": "query",
-            "description": "Start date used for filtering.",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "showAllVehicleStatus",
-            "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "locale",
-            "in": "query",
-            "description": "Locale used for language.",
             "schema": {
               "type": "string"
             }
@@ -773,7 +716,7 @@
           "/tracking/live"
         ],
         "summary": "Latest Input Events Live Status",
-        "description": "Fetches latest detailed tracking inputs with pagination and starting with the most recent entry based on filtering.",
+        "description": "Returns latest detailed tracking inputs with pagination and starting with the most recent entry based on filtering.",
         "operationId": "getLatestInputEventsLiveStatus",
         "parameters": [
           {
@@ -1236,7 +1179,7 @@
           "/location"
         ],
         "summary": "Add Location",
-        "description": "POST request to add a new location with a geo-fence boundary that can be either CIRCULAR or POLYGON. There cannot be an existing location with the same name as the location being created. The maximum number of POI that can be created in your account is limited based on the number of vehicles in your fleet. ● If your fleet size is less than 1,000 then you can create up to 250,000 locations. ● If your fleet size is more than 1,000, then the maximum is reduced on a sliding scale depending on the number of vehicles in your fleet. The address for the location can be specified as either: ● longitude and latitude coordinates An address lookup is done to determine values for roadNumber, road, city, postcode and country. The formattedAddress is constructed as a comma separated set of values from roadNumber, road, city, postcode and country. ● roadNumber, road, city, postcode, country Values for city, postcode and country are mandatory and must be included in the input JSON object. The formattedAddress is constructed as a comma separated set of values from roadNumber, road, city, postcode and country. A lookup is done to determine the longitude and latitude coordinates. If both an address and longitude/latitude values are specified, then no check is performed to validate that the address matches the longitude/latitude values. The geofence for the location can be specified as either: ● radius A geofence for the location is a circle. The radius for the circle must be between 0.001 and 1. ● polygon The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs. There must be at least three longitude and latitude pairs specified. The geofence boundary is closed by automatically linking the first longitude and latitude pair to the last longitude and latitude pair specified. The geofence for a location can overlap the geofence for another location. The geofence for this location can overlap up to 5 locations. The details for the new location are sent as a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\".",
+        "description": "POST request to add a new location with a geo-fence boundary that can be either CIRCULAR or POLYGON. There cannot be an existing location with the same name as the location being created. The maximum number of POI that can be created in your account is limited based on the number of vehicles in your fleet. 1. If your fleet size is less than 1,000 then you can create up to 250,000 locations. 2. If your fleet size is more than 1,000, then the maximum is reduced on a sliding scale depending on the number of vehicles in your fleet. The address for the location can be specified as either: i) longitude and latitude coordinates. An address lookup is done to determine values for roadNumber, road, city, postcode and country. The formattedAddress is constructed as a comma separated set of values from roadNumber, road, city, postcode and country. ii) roadNumber, road, city, postcode, country. Values for city, postcode and country are mandatory and must be included in the input JSON object. The formattedAddress is constructed as a comma separated set of values from roadNumber, road, city, postcode and country. A lookup is done to determine the longitude and latitude coordinates. If both an address and longitude/latitude values are specified, then no check is performed to validate that the address matches the longitude/latitude values. The geofence for the location can be specified as either: i) radius - A geofence for the location is a circle. The radius for the circle must be between 0.001 and 1. ii) polygon - The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs. There must be at least three longitude and latitude pairs specified. The geofence boundary is automatically closed by linking the first longitude and latitude pair to the last longitude and latitude pair specified. The geofence for a location can overlap the geofence for another location. The geofence for this location can overlap up to 5 locations. The details for the new location are sent as a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\".",
         "operationId": "createLocation",
         "parameters": [
           {
@@ -1276,7 +1219,7 @@
           "/location"
         ],
         "summary": "Update Location",
-        "description": "PUT request to update location details. The identifier for the location to be updated is included in the JSON body. This is a partial update and only those details specified in the JSON body will be updated. The updated address for the location can be specified as just the longitude and latitude coordinates or an address (roadNumber, road, city, postcode, country). The type of a location can be updated from a circle to a polygon or from a polygon to a circle, by specifying the the geofence for the location as either: ● radius A geofence for the location is a circle. The radius for the circle must be between 0.001 and 1. ● polygon The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs. There must be at least three longitude and latitude pairs specified. The geofence boundary is closed by automatically linking the first longitude and latitude pair to the last longitude and latitude pair specified. The geofence for a location can overlap the geofence for another location. The geofence for this location can overlap up to 5 locations. The location details are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". JSON object structure for the address specified as longitude and latitude:",
+        "description": "PUT request to update location details. The identifier for the location to be updated is included in the JSON body. This is a partial update and only those details specified in the JSON body will be updated. The updated address for the location can be specified as just the longitude and latitude coordinates or an address (roadNumber, road, city, postcode, country). The type of a location can be updated from a circle to a polygon or from a polygon to a circle, by specifying the the geofence for the location as either: i) radius - A geofence for the location is a circle. The radius for the circle must be between 0.001 and 1. ii) polygon - The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs. There must be at least three longitude and latitude pairs specified. The geofence boundary is automatically closed by linking the first longitude and latitude pair to the last longitude and latitude pair specified. The geofence for a location can overlap the geofence for another location. The geofence for this location can overlap up to 5 locations. The location details are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\". JSON object structure for the address specified as longitude and latitude:",
         "operationId": "updateLocation",
         "parameters": [
           {
@@ -1497,7 +1440,7 @@
           "/vehicle"
         ],
         "summary": "List Vehicle",
-        "description": "Returns the registration, group and current odometer reading for a vehicle. The odometer reading is in kilometres. If no parameters are specified, then details for all vehicles are returned. Input parameters that can be specified are: ● groupIds - all vehicles in the specified groups are included in the output. ● vehicleIds - only the specified vehicles are included in the output. ● name - only the vehicle with the specified name is included in the output. Connect API Reference / Version 1.39 / 51 / CLASSIFICATION : MCF-Internal Only one of vehicleIds, groupIds or name can be specified as an input parameter, an error is returned if more than one parameter is specified.",
+        "description": "Returns the registration, group and current odometer reading for a vehicle. The odometer reading is in kilometres. If no parameters are specified, then details for all vehicles are returned. Input parameters that can be specified are: i) groupIds - all vehicles in the specified groups are included in the output. ii) vehicleIds - only the specified vehicles are included in the output iii) name - only the vehicle with the specified name is included in the output. Only one of vehicleIds, groupIds or name can be specified as an input parameter, an error is returned if more than one parameter is specified.",
         "operationId": "searchVehicles",
         "parameters": [
           {
@@ -1859,7 +1802,7 @@
           "/fuelEvents"
         ],
         "summary": "Fuel Card Transactions",
-        "description": "Returns details of the fuel card transaction where the transaction occurred within the specified period. The value specified for the endDate cannot be before startDate. Either vehicleId or groupId must be specified. If vehicleId is specified, then transactions for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If IncludeUnmatchedVehicles is set to true, then transactions not matched to a vehicle registered in Connect will be included in the output response. If a value is not specified for both IncludeMatchedVehicles and for IncludeUnmatchedVehicles, then only matched transactions will be included in the response. If there are more than 20 transaction events to return, then by default only the first 20 transaction events are returned. To view details of the other transaction events you will need to specify values for pageSize and pageIndex.",
+        "description": "Returns details of the fuel card transaction where the transaction occurred within the specified period. The value specified for the endDate cannot be before startDate. Either vehicleId or groupId must be specified. If vehicleId is specified, then transactions for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If IncludeUnmatchedVehicles is set to true, then transactions not matched to a vehicle will be included in the output response. If a value is not specified for both IncludeMatchedVehicles and for IncludeUnmatchedVehicles, then only matched transactions will be included in the response. If there are more than 20 transaction events to return, then by default only the first 20 transaction events are returned. To view details of the other transaction events you will need to specify values for pageSize and pageIndex.",
         "operationId": "findFuelTransactionsForVehicles",
         "parameters": [
           {
@@ -2406,7 +2349,7 @@
           "/driver"
         ],
         "summary": "List Driver",
-        "description": "Returns details for all drivers and the group they have been assigned to.",
+        "description": "Returns details for all drivers.",
         "operationId": "findDrivers",
         "parameters": [
           {
@@ -2621,7 +2564,7 @@
           "/driver"
         ],
         "summary": "Set Driver Default Vehicle",
-        "description": "POST request to set the default vehicle for a driver to the specified {vehicleId}. An error is returned in the following cases: ● If there is already a default vehicle assigned to the driver; ● If the vehicle is already assigned to be the default vehicle for another driver;",
+        "description": "POST request to set the default vehicle for a driver to the specified {vehicleId}. An error is returned in the following cases: i) If there is already a default vehicle assigned to the driver; ii) If the vehicle is already assigned to be the default vehicle for another driver;",
         "operationId": "linkVehicle",
         "parameters": [
           {
@@ -2675,7 +2618,7 @@
           "/driver"
         ],
         "summary": "Delete Driver Default Vehicle",
-        "description": "DELETE request to delete the default vehicle for a driver. An error is returned in the following cases: ● There is no default vehicle assigned to the driver. ● The {vehicleId} does not match the existing default vehicle for the driver.",
+        "description": "DELETE request to delete the default vehicle for a driver. An error is returned in the following cases: i) There is no default vehicle assigned to the driver ii) The {vehicleId} does not match the existing default vehicle for the driver.",
         "operationId": "unlinkDefaultVehicle",
         "parameters": [
           {
@@ -2721,7 +2664,7 @@
           "/driver"
         ],
         "summary": "Enable Driver as a User",
-        "description": "POST request to enable a driver as a Connect Web User. You cannot include the password for the new user in the same request as enabling the driver as a user, instead you must use the Set User Password endpoint and include the token from the output response of this endpoint. The generated token will expire if it is not used within 30 days or if a password reset token is requested. If a value for externalIdentifier is specified, then the user will be enabled for SSO and a Connect password cannot be set. The details for the web user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\".",
+        "description": "POST request to enable a driver as a User. You cannot include the password for the new user in the same request as enabling the driver as a user, instead you must use the Set User Password endpoint and include the token from the output response of this endpoint. The generated token will expire if it is not used within 30 days or if a password reset token is requested. If a value for externalIdentifier is specified, then the user will be enabled for SSO and a password cannot be set. The details for the web user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\".",
         "operationId": "enableAsUser",
         "parameters": [
           {
@@ -2904,7 +2847,7 @@
       "post": {
         "tags": ["/user"],
         "summary": "Add User",
-        "description": "POST request to add a web user. You cannot include the password for the new user in the same request as adding a user, instead you must use the Set User Password endpoint and include the token from the output response of this endpoint. The generated token will expire if it is not used within 30 days or if a password reset token is requested. If a value for externalIdentifier is specified, then the user will be enabled for SSO and a Connect password cannot be set. If the user being created will be using the SmarterDriver Mobile application and login using SSO, then the same values must be specified for both username and emailAddress. The details for the user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\".",
+        "description": "POST request to add a user. You cannot include the password for the new user in the same request as adding a user, instead you must use the Set User Password endpoint and include the token from the output response of this endpoint. The generated token will expire if it is not used within 30 days or if a password reset token is requested. If a value for externalIdentifier is specified, then the user will be enabled for SSO and a password cannot be set. If the user being created will be using the SmarterDriver mobile application and login using SSO, then the same values must be specified for both username and emailAddress. The details for the user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\".",
         "operationId": "createUser",
         "parameters": [
           {
@@ -2989,7 +2932,7 @@
       "put": {
         "tags": ["/user"],
         "summary": "Update User",
-        "description": "PUT request to update an existing user. This is a partial update and only those values specified will be updated. You cannot use this endpoint to update the username or the password for an existing user. To update the password you must first get a token from the Password Reset Token endpoint and then use that token with the Set User Password endpoint. If a value for externalIdentifier is specified, then ● the user will be enabled for SSO ● the existing password for the user will be removed ● if the user had been enabled for \"Connect using Google\" this feature will be removed. If the value specified for externalIdentifier is an empty string, then SSO functionality is removed from the user, allowing for a Connect password to be set. The details for the user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\".",
+        "description": "PUT request to update an existing user. This is a partial update and only those values specified will be updated. You cannot use this endpoint to update the username or the password for an existing user. To update the password you must first get a token from the Password Reset Token endpoint and then use that token with the Set User Password endpoint. If a value for externalIdentifier is specified, then i) the user will be enabled for SSO ii) the existing password for the user will be removed iii) if the user had been enabled for \"Connect using Google\" this feature will be removed. If the value specified for externalIdentifier is an empty string, then SSO functionality is removed from the user, allowing for a  password to be set. The details for the user are in a JSON object included in the HTTP body. Ensure you have set the content-type of the request body to \"application/json;charset=UTF-8\".",
         "operationId": "updateUser",
         "parameters": [
           {
@@ -3441,7 +3384,7 @@
           "/journey/detail"
         ],
         "summary": "Vehicle Journeys Latest",
-        "description": "Returns summary journey details for a vehicle for each journey that was processed by Connect since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those vehicles where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Vehicle Journey endpoint to see what journeys have been completed so far. 2. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Vehicle Journey endpoint. 3. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either vehicleId or groupId must be specified. If vehicleId is specified, then only journeys for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. Only vehicles that have completed a journey since the specified fromDateTime are included in the output response. ● The value for fromDateTime cannot be more than one hour in the past. ● No details will be returned if the value specified for fromDateTime is a future date/time. Request Limit The request limit on this endpoint is one request every 60 seconds. ● You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
+        "description": "Returns summary journey details for a vehicle for each journey that was processed since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those vehicles where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Vehicle Journey endpoint to see what journeys have been completed so far. 2. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Vehicle Journey endpoint. 3. Call the Vehicle Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either vehicleId or groupId must be specified. If vehicleId is specified, then only journeys for the specified vehicle are included in the output. If groupId is specified, then the details for all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. Only vehicles that have completed a journey since the specified fromDateTime are included in the output response. The value for fromDateTime cannot be more than one hour in the past. No details will be returned if the value specified for fromDateTime is a future date/time. Request Limit The request limit on this endpoint is one request every 60 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
         "parameters": [
           {
             "name": "customerId",
@@ -3624,7 +3567,7 @@
           "/journey/detail"
         ],
         "summary": "Driver Journeys Latest",
-        "description": "Returns summary journey details for a driver for each journey that was processed by Connect since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those drivers where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Driver Journeys endpoint to see what journeys have been completed so far. 2. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Driver Journeys endpoint. 3. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either driverId or groupId must be specified. If driverId is specified, then only journeys for the specified driver are included in the output. If groupId is specified, then the details for all drivers in the specified group are included in the output. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified. Only drivers that have completed a journey since the specified fromDateTime are included in the output response. ● The value for fromDateTime cannot be more than one hour in the past. ● No details will be returned if the value specified for fromDateTime is a future date/time. Request Limit The request limit on this endpoint is one request every 60 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
+        "description": "Returns summary journey details for a driver for each journey that was processed since the specified date/time. For a private journey only limited details are returned. To use this endpoint to return details for only those drivers where the journey was processed since a specified date/time, the procedure is as follows: 1. Call the Driver Journeys endpoint to see what journeys have been completed so far. 2. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the response of the call to Driver Journeys endpoint. 3. Call the Driver Journey Latest endpoint, specify the value for fromDateTime to be processedDateTime from the previous call to this endpoint. Either driverId or groupId must be specified. If driverId is specified, then only journeys for the specified driver are included in the output. If groupId is specified, then the details for all drivers in the specified group are included in the output. Either driverId or groupId can be specified as an input parameter, an error is returned if both are specified. Only drivers that have completed a journey since the specified fromDateTime are included in the output response. The value for fromDateTime cannot be more than one hour in the past. No details will be returned if the value specified for fromDateTime is a future date/time. Request Limit The request limit on this endpoint is one request every 60 seconds. You will receive an HTTP status code of 429 (too many requests) and no details will be returned if you exceed this restriction.",
         "parameters": [
           {
             "name": "customerId",
@@ -4129,7 +4072,7 @@
           "/tracking/history"
         ],
         "summary": "Vehicle Journey History Latest",
-        "description": "Returns the latest tracking events that have been processed by Connect for a vehicle since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those vehicles that have been processed by Connect since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. 3. If there are more than 500 tracking events that have been processed by Connect from the value specified fromDateTime, then only 500 tracking events will be included in the output response. In this case, processedDateTime will be set to the date that the 500th tracking event was processed by Connect and therefore should be used as the value for fromDateTime in subsequent calls.",
+        "description": "Returns the latest tracking events that have been processed for a vehicle since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those vehicles that have been processed since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. 3. If there are more than 500 tracking events that have been processed from the value specified fromDateTime, then only 500 tracking events will be included in the output response. In this case, processedDateTime will be set to the date that the 500th tracking event was processed therefore should be used as the value for fromDateTime in subsequent calls.",
         "operationId": "getLatestEventHistoryByVehicle",
         "parameters": [
           {
@@ -4162,7 +4105,7 @@
           {
             "name": "fromDateTime",
             "in": "query",
-            "description": "Only include tracking frames that have been processed by Connect since this date and time, in UTC, in format of YYYY-MM-DDThh:mm:ss.ms. Cannot be more than 14 days in the past.",
+            "description": "Only include tracking frames that have been processed since this date and time, in UTC, in format of YYYY-MM-DDThh:mm:ss.ms. Cannot be more than 14 days in the past.",
             "required": true,
             "schema": {
               "type": "string",
@@ -4284,7 +4227,7 @@
           "/tracking/history"
         ],
         "summary": "Driver Journey History Latest",
-        "description": "Returns the latest tracking events that have been processed by Connect for a driver since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those drivers that have been processed by Connect since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. 3. If there are more than 500 tracking events that have been processed by Connect from the value specified fromDateTime, then only 500 tracking events will be included in the output response. In this case, processedDateTime will be set to the date that the 500th tracking event was processed by Connect and therefore should be used as the value for fromDateTime in subsequent calls",
+        "description": "Returns the latest tracking events that have been processed for a driver since the specified date. No details are returned for a private journey. An error is returned if the value specified for fromDateTime is more than 14 days in the past or is a future date. The output response is limited to a maximum of 500 tracking events as the output is not paged. To use this endpoint to return tracking events for only those drivers that have been processed since a specified processed date/time, the procedure is as follows: 1. Call the endpoint with a value for fromDateTime that is not 14 days in the past. 2. In the next call this endpoint, specify the value for fromDateTime to be processedDateTime from the previous call. 3. If there are more than 500 tracking events that have been processed from the value specified fromDateTime, then only 500 tracking events will be included in the output response. In this case, processedDateTime will be set to the date that the 500th tracking event was processed and therefore should be used as the value for fromDateTime in subsequent calls",
         "operationId": "getLatestEventHistoryByDriver",
         "parameters": [
           {
@@ -4307,7 +4250,7 @@
           {
             "name": "fromDateTime",
             "in": "query",
-            "description": "Only include tracking frames that have been processed by Connect since this date and time, in UTC, in format of YYYY-MM-DDThh:mm:ss.ms. Cannot be more than 14 days in the past.",
+            "description": "Only include tracking frames that have been processed since this date and time, in UTC, in format of YYYY-MM-DDThh:mm:ss.ms. Cannot be more than 14 days in the past.",
             "required": true,
             "schema": {
               "type": "string",
@@ -4567,7 +4510,7 @@
           {
             "name": "excludeChildGroups",
             "in": "query",
-            "description": "Specifies if speeding episodes for vehicles in child groups should be excluded and not included in the response. This parameter can be used to overcome asset day limits being exceeded. If not specified, then will default to a false, so speeding episodes for vehicles in child groups are included.",
+            "description": "Specifies if speeding episodes for vehicles in child groups should be excluded from the response. This parameter can be used to overcome asset day limits being exceeded. If not specified, then will default to a false, so speeding episodes for vehicles in child groups are included.",
             "schema": {
               "type": "boolean",
               "default": false
@@ -4621,7 +4564,7 @@
           "/speeding"
         ],
         "summary": "Latest speeding events for a vehicle",
-        "description": "Returns the latest set of speeding events for the specified vehicle, by customerId and assetId",
+        "description": "Returns the latest set of speeding events for a vehicle",
         "operationId": "getLatestVehicleSpeedingDetails",
         "parameters": [
           {
@@ -5656,7 +5599,7 @@
           "/ecoscore"
         ],
         "summary": "Vehicle Score",
-        "description": "● The Driver Behaviour endpoints (summary, metrics, group metrics and Group Ranking) should be used instead of EcoDrive Vehicle Score. Returns the score for a vehicle based on journeys that started in the specified period. The end date of the journey does not have to be within the specified period. The value specified for the endDate Cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days One of vehicleId or groupId must be specified. If vehicleId is specified, then details for the specified vehicle are included in the output. If groupId is specified, then details of all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If there are details for more than 20 vehicles to return, then by default only the first 20 vehicles are returned. To view details of the other vehicles you will need to specify values for pageSize and pageIndex. In ecoDrive, a speeding event is when the vehicle's speed exceeds the value set for the ecoDrive speed threshold. The ecoDrive speed threshold is not checked against the road speed limit and is not the same as a speeding episode.",
+        "description": "The Driver Behaviour endpoints (summary, metrics, group metrics and Group Ranking) should be used instead of EcoDrive Vehicle Score. Returns the score for a vehicle based on journeys that started in the specified period. The end date of the journey does not have to be within the specified period. The value specified for the endDate Cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days One of vehicleId or groupId must be specified. If vehicleId is specified, then details for the specified vehicle are included in the output. If groupId is specified, then details of all vehicles in the specified group are included in the output. Either vehicleId or groupId can be specified as an input parameter, an error is returned if both are specified. If there are details for more than 20 vehicles to return, then by default only the first 20 vehicles are returned. To view details of the other vehicles you will need to specify values for pageSize and pageIndex. In ecoDrive, a speeding event is when the vehicle's speed exceeds the value set for the ecoDrive speed threshold. The ecoDrive speed threshold is not checked against the road speed limit and is not the same as a speeding episode.",
         "parameters": [
           {
             "name": "customerId",
@@ -5743,7 +5686,7 @@
           "/ecoscore"
         ],
         "summary": "Driver Score",
-        "description": "The Driver Behaviour endpoints (summary, metrics, group metrics and Group Ranking) should be used instead of EcoDrive Driver Score. Returns the score for a driver based on journeys that started in the specified period. The end date of the journey does not have to be within the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days Connect API Reference / Version 1.39 / 204 / CLASSIFICATION : MCF-Internal One of driverId or groupId must be provided. If driverId is specified, then details for the specified driver are included in the output. If groupId is specified, then details for all drivers in the specified group are included in the output. Either driveId or groupId can be specified as an input parameter, an error is returned if both are specified. If there are details for more than 20 vehicles to return, then by default only the first 20 vehicles are returned. To view details of the other vehicles you will need to specify values for pageSize and pageIndex. In ecoDrive, a speeding event is when the vehicle's speed exceeds the value set for the ecoDrive speed threshold. The ecoDrive speed threshold is not checked against the road speed limit and is not the same as a speeding episode.",
+        "description": "The Driver Behaviour endpoints (summary, metrics, group metrics and Group Ranking) should be used instead of EcoDrive Driver Score. Returns the score for a driver based on journeys that started in the specified period. The end date of the journey does not have to be within the specified period. The value specified for the endDate cannot be before startDate and the date range between startDate and endDate cannot be more than 90 days One of driverId or groupId must be provided. If driverId is specified, then details for the specified driver are included in the output. If groupId is specified, then details for all drivers in the specified group are included in the output. Either driveId or groupId can be specified as an input parameter, an error is returned if both are specified. If there are details for more than 20 vehicles to return, then by default only the first 20 vehicles are returned. To view details of the other vehicles you will need to specify values for pageSize and pageIndex. In ecoDrive, a speeding event is when the vehicle's speed exceeds the value set for the ecoDrive speed threshold. The ecoDrive speed threshold is not checked against the road speed limit and is not the same as a speeding episode.",
         "parameters": [
           {
             "name": "customerId",
@@ -6057,7 +6000,7 @@
           },
           "eventType": {
             "type": "string",
-            "description": "Category for the most recent tracking event status of the vehicle. Can be one of the following: ● driving ○ Any tracking event sent when the vehicle is driving ● idling ○ An iding tracking event was received. ● stopped ○ Any tracking event indicating the vehicle has stopped. ● ping ○ A tracking event sent at set intervals. For example received from an OBU attached to a trailer. ● input ○ Any tracking event indicating a change in an input attached to the OBU. ● unknown ○ A non-activity ping is received, which is sent from an electric vehicle to indicate if it’s charging or not. ● defect ○ Vehicle fault information read from the CANBUs has been received. "
+            "description": "Category for the most recent tracking event status of the vehicle. Can be one of the following: driving, idling, stopped, ping, input, unknown, defect."
           },
           "speed": {
             "type": "number",
@@ -6135,14 +6078,14 @@
           },
           "energyType": {
             "type": "string",
-            "description": "The energy type for the vehicle. Can be one of the following: ● UNDEFINED ● EV - Battery Electric Vehicle ● PHEV - Plug-in Hybrid Electric Vehicle ● HEV - Hybrid Electric Vehicle ● FECV - Fuel Cell Electric Vehicle (Hydrogen) ● ICE - Internal combustion engine ● CNG - Compressed Natural Gas ● LNG - Liquefied natural gas ● LPG - Liquefied petroleum gas ● BI-FUEL - multi-fuel engines capable of running on two fuels. "
+            "description": "The energy type for the vehicle. Can be one of the following: UNDEFINED, EV - Battery Electric Vehicle, PHEV - Plug-in Hybrid Electric Vehicle, HEV - Hybrid Electric Vehicle, FECV - Fuel Cell Electric Vehicle (Hydrogen), ICE - Internal combustion engine, CNG - Compressed Natural Gas, LNG - Liquefied natural gas, LPG - Liquefied petroleum gas, BI-FUEL - multi-fuel engines capable of running on two fuels. "
           },
           "fuelType": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "A list of the primary and secondary fuel types for the vehicle.  Values in the list can included: ● PETROL ● DIESEL ● PROPANE ● METHANE ● ELECTRIC ● HYDROGEN "
+            "description": "A list of the primary and secondary fuel types for the vehicle.  Values in the list can included: PETROL, DIESEL, PROPANE, METHANE, ELECTRIC, HYDROGEN "
           },
           "electricRangeKm": {
             "type": "number",
@@ -6158,7 +6101,7 @@
           },
           "electricBatteryLevelPercentEstimated": {
             "type": "boolean",
-            "description": "Boolean (true/false) if the electric vehicle battery level was estimated - true if estimated, fal "
+            "description": "Boolean (true/false) if the electric vehicle battery level was estimated. true if estimated, false if received from the vehicle."
           },
           "electricCharging": {
             "type": "boolean"
@@ -6186,7 +6129,7 @@
           },
           "engineTotalHoursType": {
             "type": "string",
-            "description": "Either ESTIMATED or CAN. ● CAN indicates the engineTotalHours value has been read from the vehicle’s CANbus, ● ESTIMATED indicates the engineTotalHours value has been calculated from the total vehicle journey times. "
+            "description": "Either ESTIMATED or CAN. CAN indicates the engineTotalHours value has been read from the vehicle’s CANbus. ESTIMATED indicates the engineTotalHours value has been calculated from the total vehicle journey times. "
           },
           "serialNumber": {
             "type": "integer",
@@ -6235,7 +6178,7 @@
           },
           "path": {
             "type": "string",
-            "description": "List of the unique, unchangeable system generated identifiers (alphanumeric) for all the parent groups (starting from the root node) of this group, separated by full stops. The list includes the identifier for this group.",
+            "description": "List of the unique, unchangeable system generated identifiers (alphanumeric) for all parent groups (starting from the root node) of this group, separated by full stops. The list includes the identifier for this group.",
             "example": "rootGroupId.groupID",
             "readOnly": true
           },
@@ -6244,7 +6187,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the vehicles assigned to this group. Wil be an empty array for a newly created group.",
+            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the vehicles assigned to this group. Will be an empty array for a newly created group.",
             "example": [
               "vehicleID1",
               "vehicleID2"
@@ -6255,7 +6198,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the drivers and web users assigned to this group. Wil be an empty array for a newly created group.",
+            "description": "Array of unique, unchangeable system generated identifiers (alphanumeric) for the drivers and web users assigned to this group. Will be an empty array for a newly created group.",
             "example": [
               "personID1",
               "personID2"
@@ -6623,7 +6566,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Status of the vehicle. Can be one of the following: ● IN_CIRCULATION = Vehicle is active ● IN_MAINTENANCE = Vehicle is off the road for maintenance ● SOLD = Vehicle has been sold"
+            "description": "Status of the vehicle. Can be one of the following: IN_CIRCULATION = Vehicle is active. IN_MAINTENANCE = Vehicle is off the road for maintenance. SOLD = Vehicle has been sold"
           },
           "assetCosts": {
             "$ref": "#/components/schemas/VehicleCostsDto",
@@ -6634,7 +6577,7 @@
             "items": {
               "type": "string"
             },
-            "description": "A list of the primary and secondary fuel types for the vehicle. Values in the list can include: ● PETROL ● DIESEL ● PROPANE ● METHANE ● ELECTRIC ● HYDROGEN"
+            "description": "A list of the primary and secondary fuel types for the vehicle. Values in the list can include: PETROL, DIESEL, PROPANE, METHANE, ELECTRIC, HYDROGEN"
           },
           "engineTotalHours": {
             "type": "number",
@@ -6643,7 +6586,7 @@
           },
           "engineTotalHoursType": {
             "type": "string",
-            "description": "Either ESTIMATED or CAN. ● CAN indicates the engineTotalHours value has been read from the vehicle's CANbus, ● ESTIMATED indicates the engineTotalHours value has been calculated from the total vehicle journey times."
+            "description": "Either ESTIMATED or CAN. CAN indicates the engineTotalHours value has been read from the vehicle's CANbus.  ESTIMATED indicates the engineTotalHours value has been calculated from the total vehicle journey times."
           },
           "serialNumber": {
             "type": "integer",
@@ -6682,7 +6625,7 @@
           },
           "name": {
             "type": "string",
-            "description": "The friendly name for the vehicle. If a value is specified then ● Cannot contain any one of these characters: <>?*\""
+            "description": "The friendly name for the vehicle. If a value is specified then cannot contain any one of these characters: <>?*\""
           },
           "registration": {
             "type": "string",
@@ -6698,7 +6641,7 @@
           },
           "type": {
             "type": "string",
-            "description": "The vehicle type. Can be one of the following: ● AMBULANCE ● BICYCLE ● BOAT ● BUS ● BUS_DOUBLE_DECK ● CAR ● CAR_ESTATE ● CAR_SPORTS ● CARAVAN ● CARRIAGE ● COACH ● CONTAINER_ASSET ● DIGGER ● DIGGER_2 ● GRITTER ● HGV ● HORSEBOX ● MAN ● MINIBUS ● MIXER ● MOTORCYCLE ● MOTORHOME ● PDA111 ● RIGID ● SMARTPHONE_PDA ● SWEEPER_LARGE ● SWEEPER_SMALL ● TIPPER ● TIPPER_2 ● TRACTOR ● TRACTOR_TRAILER ● TRAILER ● TRAIN ● VAN ● VAN_BOX ● VAN_SMALL ● WASTE_VEHICLE ● CHERRY_PICKER_HGV ● CHERRY_PICKER_LCV ● VAN_LCV ● POOL_CAR ● HEAVY_VAN_HGV ● TIPPER_MEDIUM"
+            "description": "The vehicle type. Can be one of the following: AMBULANCE, BICYCLE, BOAT, BUS, BUS_DOUBLE_DECK, CAR, CAR_ESTATE, CAR_SPORTS, CARAVAN, CARRIAGE, COACH, CONTAINER_ASSET, DIGGER, DIGGER_2, GRITTER, HGV, HORSEBOX, MAN, MINIBUS, MIXER, MOTORCYCLE, MOTORHOME, PDA111, RIGID, SMARTPHONE_PDA, SWEEPER_LARGE, SWEEPER_SMALL, TIPPER, TIPPER_2, TRACTOR, TRACTOR_TRAILER, TRAILER,  TRAIN, VAN, VAN_BOX, VAN_SMALL, WASTE_VEHICLE, CHERRY_PICKER_HGV, CHERRY_PICKER_LCV, VAN_LCV, POOL_CAR, HEAVY_VAN_HGV, TIPPER_MEDIUM"
           },
           "make": {
             "type": "string",
@@ -6721,11 +6664,11 @@
           },
           "status": {
             "type": "string",
-            "description": "Status of the vehicle (optional). Will remain as its current value on the asset if not present in the update document. Can be one of the following: ● IN_CIRCULATION ● IN_MAINTENANCE ● SOLD"
+            "description": "Status of the vehicle (optional). Will remain as its current value on the asset if not present in the update document. Can be one of the following: IN_CIRCULATION, IN_MAINTENANCE, SOLD"
           },
           "assetCosts": {
             "$ref": "#/components/schemas/VehicleCostsDto",
-            "description": "Costs associated with the vehicle. ● If specified replaces all existing asset costs. ● An empty assetCosts document will remove all costs."
+            "description": "Costs associated with the vehicle. ● If specified replaces all existing asset costs. An empty assetCosts document will remove all costs."
           }
         }
       },
@@ -7092,7 +7035,7 @@
           },
           "accountName": {
             "type": "string",
-            "description": "The name of the account in Connect."
+            "description": "The name of the account in My Connected Fleet."
           },
           "siteId": {
             "type": "string",
@@ -7475,7 +7418,7 @@
           },
           "subscriberWebUser": {
             "type": "string",
-            "description": "Identifier of a Connect user. Can be used to return all alerts sent to the specified Connect user."
+            "description": "Identifier of a My Connected Fleet user. Can be used to return all alerts sent to the specified My Connected Fleet user."
           },
           "pageSize": {
             "type": "integer",
@@ -7531,7 +7474,7 @@
           },
           "subscriberWebUser": {
             "type": "string",
-            "description": "Identifier of a Connect user. Can be used to return all alerts sent to the specified Connect user."
+            "description": "Identifier of a My Connected Fleet user. Can be used to return all alerts sent to the specified My Connected Fleet user."
           },
           "pageSize": {
             "type": "integer",
@@ -7553,7 +7496,7 @@
           },
           "customerId": {
             "type": "string",
-            "description": "The Connect identifier for the customer."
+            "description": "The identifier for the customer."
           },
           "dateTime": {
             "type": "string",
@@ -7732,7 +7675,7 @@
         "properties": {
           "userName": {
             "type": "string",
-            "description": "Username for the web user"
+            "description": "Username for the user"
           },
           "fullName": {
             "type": "string",
@@ -7744,7 +7687,7 @@
           },
           "roleId": {
             "type": "string",
-            "description": "Role identifier for the user"
+            "description": "Identifier of the role assigned to the user"
           },
           "externalIdentifier": {
             "type": "string",
@@ -9331,7 +9274,7 @@
           },
           "groupId": {
             "type": "string",
-            "description": "System identifier (alphanumeric) of the group the vehicle has been assigned to."
+            "description": "System identifier (alphanumeric) of the group for vehicle has been assigned to."
           },
           "groupName": {
             "type": "string",
@@ -9490,14 +9433,14 @@
           },
           "energyType": {
             "type": "string",
-            "description": "The energy type for the vehicle. Can be one of the following: UNDEFINED, EV - Battery Electric Vehicle, PHEV - Plug-in Hybrid Electric Vehicle, HEV - Hybrid Electric Vehicle, FCEV - Fuel Cell Electric Vehicle (hydrogen), ICE - Internal combustion engine, CNG - Compressed Natural Gas, LNG - Liquefied natural gas, LPG - Liquefied petroleum gas, BI-FUEL - multi-fuel engines capable of running on two fuels."
+            "description": "The energy type for the vehicle."
           },
           "fuelType": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "A list of the primary and secondary fuel types for the vehicle. Values in the list can included: PETROL, DIESEL, PROPANE, METHANE, ELECTRIC, HYDROGEN."
+            "description": "A list of the primary and secondary fuel types for the vehicle."
           },
           "fuelUsedPetrolEquivalentLitres": {
             "type": "number",
