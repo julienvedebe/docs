@@ -36,7 +36,32 @@
             ]
           },
           {
-            "group": "Solution",
+        "group": "Getting started",
+        "icon": "play",
+        "expanded": false,
+        "pages": [
+          "quickstart",
+          {
+            "group": "Editing",
+            "icon": "pencil",
+            "pages": [
+              "installation",
+              "editor"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Writing content",
+        "icon": "notebook-text",
+        "tag": "NEW",
+        "pages": [
+          "writing-content/page",
+          "writing-content/text"
+        ]
+      },
+        {
+            "group": "Solution overview",
             "pages": [
               "solution/overview",
               "solution/tracking",
@@ -54,7 +79,7 @@
             ]
           },
           {
-            "group": "Success stories",
+            "group": "Common use cases",
             "pages": [
               "stories/story1",
               "stories/story2",
