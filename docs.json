@@ -46,7 +46,8 @@
             "pages": [
               "solution/vehicles",
               "solution/drivers",
-              "solution/group"
+              "solution/group",
+              "solution/tags"
             ]
           },
           {
