@@ -1,5 +1,15 @@
 ---
 title: 'Idling'
-description: 'Description of your new file.'
 ---
+
+Idling is the running of a vehicle's engine when not in motion, and is generally seen as a negative behaviour that increases fuel consumption and emissions. Reducing idling has a positive effect on fuel consumption and emissions, and ultimately costs.  
+
+By monitoring idling, **myConnectedFleet** can provide insight on both the duration of idling and where it geographically occured.  
+
+myConnectedFleet calculates Idling from the OBU where a vehicles Ignition is “ON” and it is not moving for more than 2 minutes.  
+ 
+Types of idling; 
+- True engine idling: Idling triggered by engine running and non movement sensors e.g. RPM from CANbus.  
+- Estimated Idling: Idling triggered by non movement and ignition on sensors (however not a guaranteed indication of engine running)
+
 

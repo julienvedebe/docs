@@ -14,3 +14,63 @@ Input events added using the **Advanced Inputs API** are
 
 - Shown in the myConnectedFleet Web Application.
 - Included in the response of **Live Position** and **Live Position Latest**.
+
+
+An input event consists of:
+- Asset identifier – the asset that the input event was generated against.
+`
+```
+● Location – the latitude and longitude values where the input event occurred.
+```
+```
+● Event type – that describes the overall event.
+```
+```
+● Channel - that describes data for the event consisting of a number of input type key/value
+pairs.
+These are some example event and input types:
+
+```
+```
+Event Type Input types
+```
+```
+Vehicle Metrics Engine temperature
+```
+```
+Tyre pressure
+```
+```
+Oil Level
+```
+```
+Refuse collection Bin Weight
+```
+```
+Bin RFID tag
+```
+```
+Photograph
+```
+```
+Gully Cleaning Customer name
+```
+```
+Work order
+```
+```
+Time taken
+```
+```
+Event Types and Input Types are loosely coupled. So, it is possible to use the “Oil Level” input for
+both the “Vehicle Metrics” and “Gully Cleaning” events.
+```
+```
+Input events added using the Advanced Inputs API are
+```
+```
+● Shown in the Connect Web Application.
+```
+```
+● Included in the response of Live Position and Live Position Latest.
+```
