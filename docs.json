@@ -55,7 +55,7 @@
             "icon": "route",
             "pages": [
               "solution/tracking",
-            "solution/journey",
+              "solution/journey",
               "solution/distance",
               "solution/privacy",
               "solution/inputs",
@@ -64,7 +64,7 @@
             ]
           },
           {
-            "group": "Points of Interest",
+            "group": "Locations (POIs)",
             "icon": "map-pin",
             "pages": [
               "solution/locations"
