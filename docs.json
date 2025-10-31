@@ -44,7 +44,8 @@
             "group": "Resources",
             "icon": "pencil",
             "pages": [
-             "solution/resources",
+              "solution/vehicles",
+              "solution/drivers",
               "solution/group"
             ]
           },
@@ -63,16 +64,7 @@
           }
         ]
       },
-      {
-        "group": "Writing content",
-        "icon": "notebook-text",
-        "tag": "NEW",
-        "pages": [
-          "writing-content/page",
-          "writing-content/text"
-        ]
-      },
-        {
+          {
             "group": "Solution overview",
             "pages": [
               
