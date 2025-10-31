@@ -23,7 +23,99 @@ An input event consists of:
 
 These are some example event and input types:
 
-<table style="min-width: 50px">
-<colgroup><col style="min-width: 25px"><col style="min-width: 25px"></colgroup><tbody><tr><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;background-color:#d8e1f1;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p><strong>Event Type</strong></p></td><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;background-color:#d8e1f1;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p><strong>Input types</strong></p></td></tr><tr><td colspan="1" rowspan="3" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Vehicle Metrics</p></td><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Engine temperature</p></td></tr><tr><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Tyre pressure</p></td></tr><tr><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Oil Level</p></td></tr><tr><td colspan="1" rowspan="3" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Refuse collection</p></td><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Bin Weight</p></td></tr><tr><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Bin RFID tag</p></td></tr><tr><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Photograph</p></td></tr><tr><td colspan="1" rowspan="3" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Gully Cleaning</p></td><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Customer name</p></td></tr><tr><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Work order</p></td></tr><tr><td colspan="1" rowspan="1" style="border-left:solid #a6a6a6 1pt;border-right:solid #a6a6a6 1pt;border-bottom:solid #a6a6a6 1pt;border-top:solid #a6a6a6 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p>Time taken</p></td></tr></tbody>
-</table>
+```
+### 2.11 Inputs and PTO
 
+```
+As well as detecting if the vehicle is moving, stopped or idling, the Masternaut OBU can be
+configured to detect other vehicle activity, for example:
+```
+```
+● if a door is opened or closed;
+```
+```
+● the beacon lights are switched on or switched off;
+```
+```
+● the street sweeper brushes are down or up.
+```
+```
+This vehicle activity is reported in Connect Web Application as an input.
+```
+```
+Power Take Off ( PTO ) is when the vehicle engine is being used to power additional machinery,
+for example a crane. PTO uses additional fuel, therefore, it is important to know if the PTO was
+active when the vehicle was moving, active when the vehicle was idling or if the PTO was inactive
+and the vehicle was idling.
+```
+### 2.12 Advanced Inputs (Input Events)
+
+```
+The OBU can be configured to interface to a physical input. To remove the need to physically
+interface to the OBU and to expand the type of inputs that can be supported by Connect , a set
+of advanced input event endpoints have been created that allow input event data to be sent to
+the Connect Application using the Advanced Inputs API.
+```
+```
+An input event consists of:
+```
+```
+● Asset identifier – the asset that the input event was generated against.
+```
+```
+● Location – the latitude and longitude values where the input event occurred.
+```
+```
+● Event type – that describes the overall event.
+```
+```
+● Channel - that describes data for the event consisting of a number of input type key/value
+pairs.
+```
+
+```
+These are some example event and input types:
+```
+```
+Event Type Input types
+```
+```
+Vehicle Metrics Engine temperature
+```
+```
+Tyre pressure
+```
+```
+Oil Level
+```
+```
+Refuse collection Bin Weight
+```
+```
+Bin RFID tag
+```
+```
+Photograph
+```
+```
+Gully Cleaning Customer name
+```
+```
+Work order
+```
+```
+Time taken
+```
+```
+Event Types and Input Types are loosely coupled. So, it is possible to use the “Oil Level” input for
+both the “Vehicle Metrics” and “Gully Cleaning” events.
+```
+```
+Input events added using the Advanced Inputs API are
+```
+```
+● Shown in the Connect Web Application.
+```
+```
+● Included in the response of Live Position and Live Position Latest.
+```

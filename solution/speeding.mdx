@@ -1,5 +1,5 @@
 ---
-title: "Speeding Episodes"
+title: "Speeding"
 description: "Description of your new file."
 ---
 
@@ -22,3 +22,74 @@ The road speed limit for a vehicle depends on the vehicle type. The following ar
 | Goods vehicles (not more than 7.5 tonnes maximum laden weight). | 50 mph (96 km/h)        | 60 mph (112 km/h)     | 70 mph (112 km/h) |
 
 It is important that the vehicle type is set correctly as this will ensure the correct road speed limit is used.
+
+
+### 2.16 Speeding Episodes
+
+```
+The Connect application is able to determine if a vehicle is speeding and will create a speeding
+episode whenever both of the following conditions are satisfied.
+```
+```
+● The vehicle speed exceeds the road speed limit for the vehicle type.
+```
+```
+● At least two consecutive tracking frames are received where the vehicle speed exceeded the
+road speed limit for the vehicle type.
+```
+```
+A speeding episode ends when any one of the following occurs:
+```
+```
+● The vehicle’s speed drops below the road speed limit for the vehicle type.
+```
+```
+● The speed limit for the road cannot be determined.
+```
+```
+● The road type changes.
+```
+```
+The road speed limit for a vehicle depends on the vehicle type. The following are UK examples of
+the road speed limits for different vehicle types.
+```
+```
+Vehicle Type Single
+carriageways
+```
+```
+Dual
+carriageways
+```
+```
+Motorways
+```
+```
+Cars, motorcycles,
+car-derived vans and
+dual-purpose vehicles.
+```
+```
+60 mph (96 km/h) 70 mph (
+km/h)
+```
+```
+70 mph (
+km/h)
+```
+```
+Goods vehicles (not more
+than 7.5 tonnes maximum
+laden weight).
+```
+```
+50 mph (96 km/h) 60 mph (
+km/h)
+```
+```
+70 mph (
+km/h)
+```
+```
+It is important that the vehicle type is set correctly as this will ensure the correct road speed limit
+is used.
