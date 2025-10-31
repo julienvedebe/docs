@@ -1,0 +1,20 @@
+---
+title: 'Drivers & Vehicles'
+description: 'Description of your new file.'
+---
+
+my Connected Fleet is used to track and trace a resource. **my Connected Fleet Platform** receives location and related data from the asset via an **OBU**. The tracking data is viewable using the **my Connected Fleet Web Application** in either
+tabular or on a map.
+
+A resource can be:
+
+- Vehicle – An asset (car, van, truck, trailer, boat, power generator etc.) which has an OBU installed.
+
+  - A vehicle can be assigned to a group. The group assigned to a vehicle does not have to be the same group as assigned to a driver.
+
+  - If a vehicle is part of the customer’s fleet (having a status of IN-CIRCULATION), its position is included in the response from Live Position.
+
+  - If a vehicle is no longer part of the customer’s fleet (having a status of SOLD), the vehicle is not included in the response from Live Position but details of historical journeys can be retrieved
+
+- Driver – A person that drives a vehicle. A driver can be associated with a key fob which enables Connect to determine who is driving a vehicle. A driver can be associated with a vehicle, e.g. their company car. A driver can be assigned to a group. The group for the driver does not have to be the same group as assigned to the vehicle.
+

@@ -41,18 +41,25 @@
         "pages": [
           "solution/overview",
           {
-            "group": "Editing",
+            "group": "Resources",
             "icon": "pencil",
             "pages": [
-              "installation",
-              "editor"]
+             "solution/resources",
+              "solution/group"
+            ]
           },
-             {
-            "group": "Editing",
+          {
+            "group": "Users",
             "icon": "pencil",
             "pages": [
-              "installation",
-              "editor"]
+              "solution/users"]
+          },
+          {
+            "group": "Track & Trace",
+            "icon": "pencil",
+            "pages": [
+              "solution/tracking",
+            "solution/journey"]
           }
         ]
       },
@@ -68,13 +75,9 @@
         {
             "group": "Solution overview",
             "pages": [
-              "solution/overview",
-              "solution/tracking",
+              
               "solution/driverBehaviour",
-              "solution/journey",
               "solution/locations",
-              "solution/group",
-              "solution/users",
               "solution/driverKeys",
               "solution/alerts",
               "solution/inputs",

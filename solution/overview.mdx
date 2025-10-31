@@ -20,64 +20,12 @@ The MCF Connect solution comprises of:
 - MICHELIN Connected Fleet API - this is the Application Programming Interface that allows data to be pulled from my Connected Fleet.
 
 
-### 2.1 Target Audience
-
-my Connected Fleet is used to track and trace a resource. **my Connected Fleet Platform** receives location and related data from the asset via an **OBU**. The tracking data is viewable using the **my Connected Fleet Web Application** in either
-tabular or on a map.
-
-A resource can be:
-
-- Vehicle – An asset (car, van, truck, trailer, boat, power generator etc.) which has an OBU installed.
-
-  - A vehicle can be assigned to a group. The group assigned to a vehicle does not have to be the same group as assigned to a driver.
-
-  - If a vehicle is part of the customer’s fleet (having a status of IN-CIRCULATION), its position is included in the response from Live Position.
-
-  - If a vehicle is no longer part of the customer’s fleet (having a status of SOLD), the vehicle is not included in the response from Live Position but details of historical journeys can be retrieved
-
-- Driver – A person that drives a vehicle. A driver can be associated with a key fob which enables Connect to determine who is driving a vehicle. A driver can be associated with a vehicle, e.g. their company car. A driver can be assigned to a group. The group for the driver does not have to be the same group as assigned to the vehicle.
 
 
-### 2.2 Group
-
-**my Connected Fleet ** allows for the creation of a group hierarchy. You have only one primary group hierarchy, but you can create many subgroups within the hierarchy to meet your reporting/tracking requirements.
 
 
-A resource (vehicle or driver) can be assigned to only one group in the hierarchy.  You do not need to assign a driver to the same group as their default vehicle.
-
-For example, the following company, country, city and fleet group hierarchy can be used to group drivers and vehicles. Drivers would be assigned to any of the subgroups under “Offices”, whilst vehicles would be assigned to any of the subgroups under “Fleet”.
-
-```
-MICHELIN
-- Offices
- - United Kingdom
-   - Leeds
-   - London
- - France
-  - Paris
-  - Lyon
-- Germany
- - Munich
-- Fleet
-  - Car
-  - HGV
-```
-By assigning a vehicle/driver to a group enables tracking information to be retrieved for either:
 
 
-- A single vehicle
-- A single driver.
-- All vehicles based on type (e.e. car).
-- All drivers based in one city (e.g. Leeds).
-- All drivers based in one country (e.g. United Kingdom).
-- All vehicles or drivers in the company (e.g. Masternaut)
-
-
-### 2.3 Tracking and Tracing
-
-**Tracking** is knowing the location of a resource in real time. In addition to the location, my Connected Fleet captures speed, direction of travel and other information items depending on the vehicle type (e.g. temperture events).
-
-**Tracking** is knowing the locations where a resource has been. Historic location information is stored by my Connected Fleet based on the customer’s data retention period. This period is configurable,please speak to your **Customer Service Representative** for details.
 
 
 ### 2.4 Journey
