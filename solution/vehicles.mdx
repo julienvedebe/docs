@@ -2,13 +2,10 @@
 title: 'Vehicles'
 ---
 
+A vehicle is a resource that is monitored and reproted on.  These asset that have an OBU installed and can be cars, vans, trucks, trailers, tractors etc.  
 
-A resource can be:
+- A vehicle can be assigned to a group. *Note: The group assigned to a vehicle does not have to be the same group as assigned to a driver.*
 
-- Vehicle – An asset (car, van, truck, trailer, boat, power generator etc.) which has an OBU installed.
+- If a vehicle is part of the customer’s fleet (having a status of IN-CIRCULATION), its position is included in the response from Live Position.
 
-  - A vehicle can be assigned to a group. The group assigned to a vehicle does not have to be the same group as assigned to a driver.
-
-  - If a vehicle is part of the customer’s fleet (having a status of IN-CIRCULATION), its position is included in the response from Live Position.
-
-  - If a vehicle is no longer part of the customer’s fleet (having a status of SOLD), the vehicle is not included in the response from Live Position but details of historical journeys can be retrieved
+- If a vehicle is no longer part of the customer’s fleet (having a status of SOLD), the vehicle is not included in the response from Live Position but details of historical journeys can be retrieved
