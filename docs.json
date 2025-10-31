@@ -86,6 +86,9 @@
             "icon": "user",
             "pages": [
               "solution/users",
+              "solution/language",
+              "solution/units",
+              "solution/timezone",
               "solution/passwords",
               "solution/singleSignOn"
             ]
@@ -93,11 +96,6 @@
           
         ]
       },
-          {
-            "group": "Solution overview",
-            "pages": [              "solution/taxExpense"
-            ]
-          },
           {
             "group": "Common use cases",
             "pages": [
