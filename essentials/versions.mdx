@@ -1,15 +1,17 @@
 ---
 title: "Version control"
-description: "API versions and backwards incompatible."
+description: "API versions and backward compatibility"
 icon: "history"
 ---
 
 The **API** version is shown in the URL endpoint e.g.
 
-[<u>https://api.masternautconnect.com/connectwebservices/services/public/v1/</u>](https://api.masternautconnect.com/connectwebservices/services/public/v1/)    
+```
+https://api.masternautconnect.com/connectwebservices/services/public/v1/   
+```
 
-Improvements to the **Connect API** will result in the addition of new endpoints or the addition of new elements in the output JSON structure. These changes are backward compatible and therefore, they will not will not result in a new version of the **Connect API**.  
+Improvements to the can result in the addition of new endpoints or the addition of new elements in the output JSON structure. These changes are backward compatible and therefore, they will not will not result in a new version of the **API**.  
 
-If elements are removed, then a new version of the **Connect API** will be released, because this change would not be backward compatible. 
+With JSON, the order of elements in the output data structure is not guaranteed. The ordering of elements in the JSON object may change following an update to the **API**.
 
-With JSON, the order of elements in the output data structure is not guaranteed. The ordering of elements in the JSON object may change following an update to the **Connect API**.
+Only, If elements are removed, will a new version of the **API** will be released.
