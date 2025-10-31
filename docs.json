@@ -86,6 +86,7 @@
             "icon": "user",
             "pages": [
               "solution/users",
+              "solution/passwords",
               "solution/singleSignOn"
             ]
           }

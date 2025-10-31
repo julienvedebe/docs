@@ -17,15 +17,3 @@ When creating or updating a user, you can specify the timezone and language for 
 | Language         | The **Connect Web Application** provides multilingual support for the following languages:   - English, English (US), French, Spanish, Swedish, German, Czech, Danish, Dutch, Polish, Italian, Greek, Finnish and Portuguese.<br /><br />The language for the user is specified as one of the following locales:  | **locale** | **Language**     | | :--------- | :--------------- | | en_GB      | English          | | en_US      | American English | | fr_FR      | French           | | es_ES      | Spanish          | | sv_SE      | Swedish          | | de_DE      | German           | | cs_CZ      | Czech            | | da_DK      | Danish           | | nl_NL      | Dutch            | | pl_PL      | Polish           | | it_IT      | Italian          | | el_GR      | Greek            | | fi_FI      | Finnish          | | pt_PT      | Portuguese       |                 |
 | Unit of measures | When a user is added to the **Connect Web Application** using the **Connect API**, the unit of measures to use when viewing fuel consumption, speed, fuel and distance are configured based on the settings for the user’s customer account. \ \ A user can update their settings using **Connect Web Application**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
-You cannot specify the password for a Connect Web User in the same request as creating a new Connect web user or when updating the details for an existing user. Instead, you set the password by using the **Set User Password** endpoint and using either the token returned in the JSON response from adding a new web user or the token returned in the JSON response from calling the **Password Reset Token** endpoint. 
-
-This approach has been done as it allows you to either:
-
-- Use the **Set User Password** endpoint to set the password.
-- Send an email to the user so the user can use the **Connect Web Application** to set the password.
-
-The URL to include in the email to allow the user to use the **Connect Web Application** set should be formatted as follows:
-
-[<u>https://www.masternautconnect.com/Account/LogOn?customer=&token={token}#reset-password</u>](https://www.masternautconnect.com/Account/LogOn?customer=&token={token}#reset-password) 
-
-Where **{token}** is the token returned in the JSON response from **Add User** or **Password Reset Token** endpoints. 
