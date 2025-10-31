@@ -62,7 +62,7 @@
           },
           {
             "group": "Points of Interest",
-            "icon": "award",
+            "icon": "map-pin",
             "pages": [
               "solution/locations"
             ]
