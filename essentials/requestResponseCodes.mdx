@@ -1,0 +1,39 @@
+---
+title: "Request response codes"
+description: "All requests to the API receive an HTTP response code to confirm if the request was successful or not."
+---
+
+Your API client should handle each response code as required:
+
+- **2XX codes** - the call was successful.
+- **4XX codes** - there was an error with the submitted request, such as a missing parameter or invalid value. You should modify requests before retrying.
+- **5XX codes** - there was a server error.
+
+| **HTTP response code** | **Definition**                                 | **When returned**                                                                                                                                                                                                                        |
+| :--------------------- | :--------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 200                    | Standard response for successful HTTP requests | When the request has been successfully completed.  <br />This response is returned for a GET, POST and PUT.  Also returned even if an empty set is returned.                                                                             |
+| 201                    | Created                                        | Not returned                                                                                                                                                                                                                             |
+| 204                    | No content                                     | The server successfully processed the request and has not returned any content.                                                                                                                                                          |
+| 400                    | Bad Request                                    | Invalid input parameters                                                                                                                                                                                                                 |
+| 401                    | Unauthorised                                   | Can be returned for two possible reasons:  - Invalid user credentials have been included in the HTTP header. - Valid user credentials have been included in the HTTP Header but access has not been authorised to the endpoint.          |
+| 403                    | Forbidden                                      | Valid User credentials in the HTTP Header but the user does not have the required permissions to access the endpoint.                                                                                                                    |
+| 404                    | Not found                                      | This is returned whenever the required item cannot be found.  This could be because of:  - The specified item was not found when an item identifier has been included as part of the URI, e.g.  customer/123456/location/category/cat12. |
+| 406                    | Not Acceptable                                 | The output from the endpoint is not acceptable to the calling client (as defined by the Accept headers included in the request).                                                                                                         |
+| 409                    | Conflict                                       | The request to the endpoint could not be completed as there is a conflict between the JSON data sent and the request to the endpoint.                                                                                                    |
+| 429                    | Too many requests                              | The request to the endpoint could not be completed because the rate restriction limit has been exceeded.                                                                                                                                 |
+| 500                    | Internal server error                          | There has been an internal error within the **API**.                                                                                                                                                                                     |
+
+If there has been an error, the following JSON object is returned:
+
+```
+{
+	 "errorCode": "",
+	 "errorMsg":	"error	message and corrective actions to take"
+}
+```
+
+**errorMsg** - includes details of the error and what corrective action to take; for example, if an incorrect icon name has been specified, then the errorMsg includes a list of all the valid icon names. 
+
+The **API** has an 8K limit on the length of the request line and header fields sent to an endpoint. If the 8K limit is exceeded, then the request will be rejected and no error code will be returned.
+
+You can read more about [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
