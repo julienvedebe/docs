@@ -56,8 +56,10 @@
               "solution/tracking",
             "solution/journey",
               "solution/distance",
+              "solution/privacy",
               "solution/inputs",
-            "solution/privacy"
+              "solution/advancedinputs"
+            
             ]
           },
           {
