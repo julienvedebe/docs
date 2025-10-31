@@ -50,35 +50,51 @@
             ]
           },
           {
-            "group": "Users",
-            "icon": "user",
-            "pages": [
-              "solution/users"]
-          },
-          {
             "group": "Track & Trace",
-            "icon": "pencil",
+            "icon": "route",
             "pages": [
               "solution/tracking",
             "solution/journey",
               "solution/distance",
+              "solution/inputs",
             "solution/privacy"
             ]
+          },
+          {
+            "group": "Points of Interest",
+            "icon": "award",
+            "pages": [
+              "solution/locations"
+            ]
+          },
+          {
+            "group": "Driving behaviour",
+            "icon": "award",
+            "pages": [
+              "solution/idling",
+              "solution/speeding",
+              "solution/driverBehaviour"
+            ]
+          },
+          {
+            "group": "Alerting",
+            "icon": "bell",
+            "pages": [ "solution/alerts"
+            ]
+          },
+          { "group": "Users",
+            "icon": "user",
+            "pages": [
+              "solution/users",
+              "solution/singleSignOn"
+            ]
           }
+          
         ]
       },
           {
             "group": "Solution overview",
-            "pages": [
-              
-              "solution/driverBehaviour",
-              "solution/locations",
-              "solution/driverKeys",
-              "solution/alerts",
-              "solution/inputs",
-              "solution/singleSignOn",
-              "solution/speeding",
-              "solution/taxExpense"
+            "pages": [              "solution/taxExpense"
             ]
           },
           {
