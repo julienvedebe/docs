@@ -15,15 +15,6 @@ By creating and categorising your key address locations using the /location and 
 Create location categories to group your address types
 Use /location/category to define logical groupings such as "Customer", "Depot", "Supplier", or "Warehouse".
 
-PUT /customer/{customerId}/location/category
-Content-Type: application/json
-
-{
-  "name": "Customer",
-  "icon": "Customer"
-}
-
-
 ```bash
 curl --request PUT \
   --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/location/category \
