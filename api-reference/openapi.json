@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Connect Webservices",
+    "title": "My Connected Fleet API",
     "description": "Rest API Documentation",
     "contact": {
       "email": "purple@masternaut.com"
@@ -135,7 +135,7 @@
           {
             "name": "vehicleIds",
             "in": "query",
-            "description": "Id of vehicle used for filtering.",
+            "description": "Comma separated list of vehicle identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -146,7 +146,7 @@
           {
             "name": "groupIds",
             "in": "query",
-            "description": "Id of group used for filtering.",
+            "description": "Comma separated list of group identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -157,7 +157,7 @@
           {
             "name": "driverIds",
             "in": "query",
-            "description": "Id of driver used for filtering.",
+            "description": "Comma separated list of driver identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
@@ -177,7 +177,7 @@
           {
             "name": "showAllVehicleStatus",
             "in": "query",
-            "description": "Show status of all vehicles, default = FALSE.",
+            "description": "By default, vehicles with a status of SOLD are excluded. Set to TRUE to get details of all vehicles.",
             "schema": {
               "type": "boolean"
             }
@@ -193,7 +193,7 @@
           {
             "name": "hideSpeedIfSpeedSensitive",
             "in": "query",
-            "description": "Boolean (true/false) to indicate if the vehicle speed should be excluded from the output if the driver;’s group (if there is a driver for the vehicle) or the vehicle’s group has been defined to be speed sensitive.  If not specified, defaults to FALSE, so the vehicle’s speed is included in the response. ",
+            "description": "By default the vehicle's speed is included. Set to TRUE exclude speed if either the vehicle's or driver's group is speed sensitive.",
             "schema": {
               "type": "boolean"
             }
