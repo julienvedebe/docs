@@ -1,6 +1,7 @@
 ---
+title: "Pagination & compression"
 description: "The response fpr a GET request can be paginated. This means for each request, the response will be one "page" of results."
-title: "Pagination"
+icon: "layers"
 ---
 
 To work with paginated endpoints, include `pageIndex`and `padeSize` in the request header
@@ -14,3 +15,11 @@ Example
 pageIndex=2&pageSize=3
 
 If not specified, then will default to a pageIndex of 0.
+
+
+**Compression**
+The API suppprts compress.
+
+Include the following in the **HTTP header** if your application can accept HTTP responses that have been compressed using GZIP.
+
+Accept-Encoding:     gzip

@@ -11,7 +11,6 @@
     "family": "Open Sans"
   },
   "favicon": "/favicon-michelin.png",
-  
   "appearance": {
     "default": "light",
     "strict": true
@@ -36,74 +35,73 @@
               "essentials/datetime",
               "essentials/pagination",
               "essentials/quotas",
-              "essentials/compress",
               "essentials/versions"
             ]
           },
           {
-        "group": "Solution concepts",
-        "expanded": false,
-        "pages": [
-          "solution/overview",
-          {
-            "group": "Resources",
-            "icon": "truck",
+            "group": "Solution concepts",
+            "expanded": false,
             "pages": [
-              "solution/vehicles",
-              "solution/drivers",
-              "solution/group",
-              "solution/tags"
+              "solution/overview",
+              {
+                "group": "Resources",
+                "icon": "truck",
+                "pages": [
+                  "solution/vehicles",
+                  "solution/drivers",
+                  "solution/group",
+                  "solution/tags"
+                ]
+              },
+              {
+                "group": "Track & Trace",
+                "icon": "route",
+                "pages": [
+                  "solution/tracking",
+                  "solution/journey",
+                  "solution/distance",
+                  "solution/privacy",
+                  "solution/inputs",
+                  "solution/advancedinputs"
+                ]
+              },
+              {
+                "group": "Locations (POIs)",
+                "icon": "map-pin",
+                "pages": [
+                  "solution/locations"
+                ]
+              },
+              {
+                "group": "Driving behaviour",
+                "icon": "award",
+                "pages": [
+                  "solution/idling",
+                  "solution/speeding",
+                  "solution/driverBehaviour"
+                ]
+              },
+              {
+                "group": "Alerting",
+                "icon": "bell",
+                "pages": [
+                  "solution/alerts"
+                ]
+              },
+              {
+                "group": "Users",
+                "icon": "user",
+                "pages": [
+                  "solution/users",
+                  "solution/language",
+                  "solution/units",
+                  "solution/timezone",
+                  "solution/passwords",
+                  "solution/singleSignOn"
+                ]
+              }
             ]
           },
-          {
-            "group": "Track & Trace",
-            "icon": "route",
-            "pages": [
-              "solution/tracking",
-              "solution/journey",
-              "solution/distance",
-              "solution/privacy",
-              "solution/inputs",
-              "solution/advancedinputs"
-            
-            ]
-          },
-          {
-            "group": "Locations (POIs)",
-            "icon": "map-pin",
-            "pages": [
-              "solution/locations"
-            ]
-          },
-          {
-            "group": "Driving behaviour",
-            "icon": "award",
-            "pages": [
-              "solution/idling",
-              "solution/speeding",
-              "solution/driverBehaviour"
-            ]
-          },
-          {
-            "group": "Alerting",
-            "icon": "bell",
-            "pages": [ "solution/alerts"
-            ]
-          },
-          { "group": "Users",
-            "icon": "user",
-            "pages": [
-              "solution/users",
-              "solution/language",
-              "solution/units",
-              "solution/timezone",
-              "solution/passwords",
-              "solution/singleSignOn"
-            ]
-          }
-          
-        ]
-      },
           {
             "group": "Common use cases",
             "pages": [
