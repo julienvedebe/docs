@@ -1,5 +1,5 @@
 ---
-title: "Pagination & compression"
+title: "Pagination, Latest & compression"
 icon: "list"
 ---
 
@@ -21,7 +21,7 @@ An API endpoint with paginated reposnse will include `totalPages`and `totalCount
 
 For example, the following response indicates that in total 4 requests have to be made to the API to get all the items (based on the default value of `pageSize` .
 
-```
+```json
 {
     "totalPages": 4,
     "totalCount": 164,
@@ -36,9 +36,48 @@ For example, the following response indicates that in total 4 requests have to b
 
 ## Latest endpoints
 
-An integration use case is to show changes that have occured recently, for example, which journeys have completed since 11:00, which vehicles have change position etc,
+An integration use case is to show changes that have occured recently, for example, which journeys have completed since 11:00, which vehicles have change position etc.
 
-To assist with this  integration, the following endpoints pairs   
+To assist with this type of integration, the following endpoints accept the optional parameter: `fromDateTime`
+
+- **Live Position Latest**
+- **Live Position Latest AEMP**
+- **Live Position Latest GeoJSON**
+- **Vehicle Journeys Latest**
+- **Driver Journeys Latest**
+- **Vehicle Journey History Latest**
+- **Driver Journey History Latest**
+
+To use these endpoints to return items that have been processed by MICHLEIN Connected Fleet since a specified processed date/time as follows:
+
+<Steps>
+  <Step title="Call the endpoint">
+    Call the endpoint and do not specify a value for `fromDateTime` 
+
+    - The output response will include `processedDateTime` 
+
+    ```json
+    {
+        ...
+        ,
+        "processedDateTime": "2025-11-03T13:56:46.393"
+    }
+    ```
+  </Step>
+  <Step title='On the next call specify the "fromDateTime"'>
+    In the next call to the endpoint, specify a value for`fromDateTime`to be the same as the value for `processedDateTime`from the previous call.
+
+    - The response for this request, will only include items that have been processed by MyConnectedFleet platform since the specified date/time.
+
+    The response for this request, will only include items that have been processed by MyConnectedFleet platform since the specified date/time.
+
+    ```bash
+    curl --request GET \
+      --url 'https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/25078/tracking/live/latest?fromDateTime=2025-11-03T14%3A31%3A56' \
+      --header 'Authorization: Basic #####'
+    ```
+  </Step>
+</Steps>
 
 ## Compression
 
