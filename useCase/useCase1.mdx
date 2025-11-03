@@ -31,6 +31,7 @@ curl --request PUT \
 Use /location to add or update points of interest.
 Each location can be defined by coordinates or a full postal address and linked to one of your categories.
 
+```
 POST /customer/{customerId}/location
 Content-Type: application/json
 
@@ -47,7 +48,7 @@ Content-Type: application/json
   "contact": "John Smith",
   "email": "john.smith@mycompany.com"
 }
-
+```
 
 Link your business data
 When your vehicles visit these locations, myConnectedFleet automatically tags journeys and stops using your defined names — e.g. Stopped at “Customer A”, returned to "Leeds Depot”.
