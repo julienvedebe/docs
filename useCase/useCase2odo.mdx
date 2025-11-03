@@ -1,0 +1,60 @@
+---
+title: 'Retrieve latest odo readings'
+description: 'Automatically collect live odometer data across your fleet for leasing, finance or compliance reporting.'
+---
+
+## Overview
+
+Instead of manually checking each vehicle’s mileage on site, use the myConnectedFleet API to retrieve **up-to-date odometer readings** for all vehicles in your account.  
+This data can be shared directly with your **leasing provider**, **finance department**, or **fleet management system**, saving time and improving accuracy.
+
+The `/vehicle` and `/livePosition/latest` endpoints return the latest distance and odometer values recorded by each connected asset.
+
+### How It Works
+
+Query your vehicle list and include the latest telemetry data such as odometer and total distance.
+
+```bash
+curl --request GET \
+  --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/vehicle \
+  --header 'Authorization: Basic <encoded-value>' \
+  --header 'Content-Type: application/json'
+Each response includes the following useful fields:
+
+Field	Description
+registration	Vehicle registration or plate number
+name	Friendly name or identifier
+odometerKm	Latest odometer reading (km)
+lastUpdated	Timestamp of the last recorded odometer value
+vin	Vehicle Identification Number (if available)
+division	Group or business unit (optional)
+
+💡 Tip: Use consistent vehicle names and registration numbers that match your leasing provider’s records.
+This ensures that exported mileage data aligns automatically with your external systems and avoids manual reconciliation.
+
+Example Output
+json
+Copy code
+{
+  "items": [
+    {
+      "registration": "YH18 ABC",
+      "name": "Truck 12",
+      "vin": "WDF1234567890",
+      "odometerKm": 128432,
+      "lastUpdated": "2025-10-29T16:22:45Z"
+    },
+    {
+      "registration": "DY20 LNX",
+      "name": "Trailer 07",
+      "vin": "1HTMKADN8LH123456",
+      "odometerKm": 89420,
+      "lastUpdated": "2025-10-29T15:54:33Z"
+    }
+  ]
+}
+Benefits
+✅ Save time: No more manual yard checks — retrieve all mileage readings in one call.
+✅ Improve accuracy: Values are sourced directly from the vehicle’s on-board telematics.
+✅ Automate reporting: Share JSON or CSV exports with leasing or finance systems.
+✅ Support compliance: Maintain verifiable, timestamped odometer logs for audits.

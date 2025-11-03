@@ -105,8 +105,8 @@
           {
             "group": "Common use cases",
             "pages": [
-              "useCase/useCase1",
-              "useCase/useCase2"
+              "useCase/useCase1poi",
+              "useCase/useCase2odo"
             ]
           }
         ]
