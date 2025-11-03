@@ -5,9 +5,16 @@
     "description": "Public API Gateway",
     "version": "2025-10-15T14:05:00.000Z"
   },
+   "tags": [
+    {
+      "name": "/tacho",
+      "description": "Live tracking operations"
+    }
+  ],
   "paths": {
     "/public/v1/customer/{customerId}/tacho/live": {
       "post": {
+        "tags": ["/tacho"],
         "parameters": [
           {
             "name": "customerId",
