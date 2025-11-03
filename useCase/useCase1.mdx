@@ -31,23 +31,31 @@ curl --request PUT \
 Use /location to add or update points of interest.
 Each location can be defined by coordinates or a full postal address and linked to one of your categories.
 
-```
-POST /customer/{customerId}/location
-Content-Type: application/json
-
-{
+```bash
+curl --request POST \
+  --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/location \
+  --header 'Authorization: Basic <encoded-value>' \
+  --header 'Content-Type: application/json' \
+  --data '{
   "name": "Leeds Depot",
-  "categoryName": "Depot",
+  "categoryName": "Customer",
   "address": {
     "road": "Priory Park",
     "city": "Leeds",
     "postCode": "LS25 3DF",
     "country": "England"
   },
-  "radius": 0.001,
+  "radius": 100,
+  "polygon": [
+    {
+      "longitude": 123,
+      "latitude": 123
+    }
+  ],
   "contact": "John Smith",
   "email": "john.smith@mycompany.com"
-}
+  "notes": "Open 8am until 6pm"
+}'
 ```
 
 Link your business data
