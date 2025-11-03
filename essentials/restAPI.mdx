@@ -43,7 +43,7 @@ Drivers can be created and managed through the API. The folliowig details can be
 Full create, read, and update operations are available through the API. See [Drivers](/solution/drivers) for more details.
 
 <Note>
-  Drivers cannot be deleted using the API. The **\_delete \_**operation will set the driver as inactive.
+  Drivers cannot be deleted using the API. The \*\*delete \*\*operation will set the driver as inactive.
 </Note>
 
 ## Group
@@ -74,13 +74,11 @@ Full create, read, delete and update operations are available through the API. S
 
 ## Users
 
-The MICHELIN Connected Fleet features that a user can access is dependent on their assigned role. You can define the features available for a role and can create as many roles as needed.
+The MICHELIN Connected Fleet portal features that a user can access, are dependent on their assigned role. You can define the features available for a role and can create as many roles as needed.
 
-A user is allocated to a group in the group hierarchy. A user can only view details (drivers, vehicles, journeys) in the same group (or one of its subgroups) in the group hierarchy
+A user is allocated to a group in the group hierarchy. A user can only view details for drivers, vehicles, journeys in the same group (or one of its subgroups) in the group hierarchy
 
 Full create, read, delete and update operations are available through the API. See the [Users ](/solution/users)API for more details.
-
-or you can pull ad-hoc reports. See the Telematics guide for an overview of available query patterns and diagnostics.
 
 ## Inputs and PTO
 
@@ -91,4 +89,6 @@ As well as detecting if the vehicle is moving, stopped or idling, the telematics
 - temperature of the cold chamber
 - tyre pressue and temperature
 
-**Power Take Off (PTO)** is when the vehicle's engine is being used to power additional machinery, for example a crane to unload goods from the vehicle. **PTO** uses additional fuel, therefore, it is important to know if the PTO was active when the vehicle was idling. 
+**Power Take Off (PTO)** is when the vehicle's engine is being used to power additional machinery, for example a crane to unload goods from the vehicle. **PTO** uses additional fuel, therefore, it is important to know if the PTO was active when the vehicle was idling.
+
+Only read operations are available through the API. See the [**Inputs**](/solution/inputs) API for more details.
