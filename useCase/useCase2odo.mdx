@@ -11,10 +11,10 @@ This data can be shared directly with your **leasing provider**, **finance depar
 The `/vehicle` and `/livePosition/latest` endpoints return the latest distance and odometer values recorded by each connected asset.
 
 ### Benefits
-✅ Save time: No more manual yard checks — retrieve all mileage readings in one call.
-✅ Improve accuracy: Values are sourced directly from the vehicle’s on-board telematics.
-✅ Automate reporting: Share JSON or CSV exports with leasing or finance systems.
-✅ Support compliance: Maintain verifiable, timestamped odometer logs for audits.
+- ✅ Save time: No more manual yard checks — retrieve all mileage readings in one call.
+- ✅ Improve accuracy: Values are sourced directly from the vehicle’s on-board telematics.
+- ✅ Automate reporting: Share JSON or CSV exports with leasing or finance systems.
+- ✅ Support compliance: Maintain verifiable, timestamped odometer logs for audits.
 
 
 ### How It Works
@@ -26,9 +26,8 @@ curl --request GET \
   --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/vehicle \
   --header 'Authorization: Basic <encoded-value>' \
   --header 'Content-Type: application/json'
-```
-
-
+  ```
+  
 Each response includes the following useful fields:
 
 Field	Description
@@ -42,10 +41,8 @@ division	Group or business unit (optional)
 >💡 **Tip**: Use consistent vehicle names and registration numbers that match your leasing provider’s records.
 >This ensures that exported mileage data aligns automatically with your external systems and avoids manual reconciliation.
 
-```
 Example Output
-json
-Copy code
+```
 {
   "items": [
     {
