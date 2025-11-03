@@ -26,6 +26,9 @@ curl --request GET \
   --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/vehicle \
   --header 'Authorization: Basic <encoded-value>' \
   --header 'Content-Type: application/json'
+```
+
+
 Each response includes the following useful fields:
 
 Field	Description
@@ -36,9 +39,10 @@ lastUpdated	Timestamp of the last recorded odometer value
 vin	Vehicle Identification Number (if available)
 division	Group or business unit (optional)
 
-💡 Tip: Use consistent vehicle names and registration numbers that match your leasing provider’s records.
-This ensures that exported mileage data aligns automatically with your external systems and avoids manual reconciliation.
+>💡 **Tip**: Use consistent vehicle names and registration numbers that match your leasing provider’s records.
+>This ensures that exported mileage data aligns automatically with your external systems and avoids manual reconciliation.
 
+```
 Example Output
 json
 Copy code
@@ -60,5 +64,4 @@ Copy code
     }
   ]
 }
-
-
+```
