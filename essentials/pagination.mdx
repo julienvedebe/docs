@@ -3,24 +3,49 @@ title: "Pagination & compression"
 icon: "list"
 ---
 
-The response for a GET request can be paginated. This means for each request, the response will be one page of results.
+The response for a GET request can be paginated. This means for each request, the response will be for one page of results.
 
-To work with paginated endpoints, include `pageIndex`and `padeSize` in the request header
+To work with paginated endpoints, include `pageIndex`and `pageSize` in the request header. If values are not specified, then default values will be used.
 
-**pageIndex** - specifies the pagination page index. Pages are zero indexed, i.e. the first page has an index value of zero. If not specified, then will default to a pageIndex of 0.
+- **pageIndex**
+  - Specifies the pagination page index. Pages are zero indexed, i.e. the first page has an index value of zero. If not specified, then will default to a pageIndex of 0.
+- **pageSize**
+  - Specifies the number of items to include on a page. Must be specified if pageIndex has been specified. If not specified, then will default to a pageSize of 50.
 
-**pageSize** - specifies the number of items to include on a page. Must be specified if pageIndex has been specified. If not specified, then will default to a pageSize of 50.
+An API endpoint with paginated reposnse will include `totalPages`and `totalCount`. These should be used to determine how many subsequent requests will need to be made.
 
-Example
+- **totalPages**
+  - Total number of pages based on the pageSize.
+- **totalCount**
+  - Total number of items that matched the search parameters
 
-pageIndex=2&pageSize=3
+For example, the following response indicates that in total 4 requests have to be made to the API to get all the items (based on the default value of `pageSize` .
 
-If not specified, then will default to a pageIndex of 0.
+```
+{
+    "totalPages": 4,
+    "totalCount": 164,
+    "items": [
+        {
+         ...
+        }
+    ],
+    "processedDateTime": "2025-11-03T13:56:46.393"
+}
+```
 
+## Latest endpoints
 
-**Compression**
+An integration use case is to show changes that have occured recently, for example, which journeys have completed since 11:00, which vehicles have change position etc,
+
+To assist with this  integration, the following endpoints pairs   
+
+## Compression
+
 The API suppprts compress.
 
 Include the following in the **HTTP header** if your application can accept HTTP responses that have been compressed using GZIP.
 
+```
 Accept-Encoding:     gzip
+```
