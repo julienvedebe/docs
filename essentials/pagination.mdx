@@ -12,7 +12,7 @@ To work with paginated endpoints, include `pageIndex`and `pageSize` in the reque
 - **pageSize**
   - Specifies the number of items to include on a page. Must be specified if pageIndex has been specified. If not specified, then will default to a pageSize of 50.
 
-An API endpoint with paginated reposnse will include `totalPages`and `totalCount`. These should be used to determine how many subsequent requests will need to be made.
+An API endpoint supporting pagination, will include `totalPages`and `totalCount` in the outpur response. These should be used to determine how many subsequent requests will need to be made.
 
 - **totalPages**
   - Total number of pages based on the pageSize.
@@ -52,9 +52,9 @@ To use these endpoints to return items that have been processed by MICHLEIN Conn
 
 <Steps>
   <Step title="Call the endpoint">
-    Call the endpoint and do not specify a value for `fromDateTime` 
+    Call the endpoint and do not specify a value for `fromDateTime`
 
-    - The output response will include `processedDateTime` 
+    - The output response will include `processedDateTime`
 
     ```json
     {
