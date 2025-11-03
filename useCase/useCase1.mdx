@@ -1,0 +1,50 @@
+---
+title: 'Sync address book (POIs)'
+description: 'Sync Your Customer & Depot Addresses with myConnectedFleet'
+---
+
+## Overview
+
+Enrich your tracking and journey data by synchronising your own list of customers, depots, and delivery sites with the myConnectedFleet platform.
+
+By creating and categorising your key address locations using the /location and /location/category endpoints, every journey, stop, and visit in your fleet reports will automatically include meaningful location names and context — rather than just coordinates.
+
+
+**How It Works**
+
+Create location categories to group your address types
+Use /location/category to define logical groupings such as "Customer", "Depot", "Supplier", or "Warehouse".
+
+PUT /customer/{customerId}/location/category
+Content-Type: application/json
+
+{
+  "name": "Customer",
+  "icon": "circle-blue"
+}
+
+
+**Add your customer or depot locations**
+Use /location to add or update points of interest.
+Each location can be defined by coordinates or a full postal address and linked to one of your categories.
+
+POST /customer/{customerId}/location
+Content-Type: application/json
+
+{
+  "name": "Leeds Depot",
+  "categoryName": "Depot",
+  "address": {
+    "road": "Priory Park",
+    "city": "Leeds",
+    "postCode": "LS25 3DF",
+    "country": "England"
+  },
+  "radius": 0.001,
+  "contact": "John Smith",
+  "email": "john.smith@mycompany.com"
+}
+
+
+Link your business data
+When your vehicles visit these locations, myConnectedFleet automatically tags journeys and stops using your defined names — e.g. Stopped at “Customer A”, returned to "Leeds Depot”.
