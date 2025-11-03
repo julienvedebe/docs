@@ -105,9 +105,7 @@
           {
             "group": "Common use cases",
             "pages": [
-              "stories/story1",
-              "stories/story2",
-              "stories/story3"
+              "useCase/useCase1"
             ]
           }
         ]
