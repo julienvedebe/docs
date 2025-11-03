@@ -52,7 +52,7 @@ To use these endpoints to return items that have been processed by MICHLEIN Conn
 
 <Steps>
   <Step title="Call the endpoint">
-    Call the endpoint and do not specify a value for `fromDateTime`
+    Do not specify a value for`fromDateTime`
 
     - The output response will include `processedDateTime`
 
@@ -65,11 +65,9 @@ To use these endpoints to return items that have been processed by MICHLEIN Conn
     ```
   </Step>
   <Step title='On the next call specify the "fromDateTime"'>
-    In the next call to the endpoint, specify a value for`fromDateTime`to be the same as the value for `processedDateTime`from the previous call.
+    Set the value for`fromDateTime`to be the same as the value for `processedDateTime`from the previous call.
 
-    - The response for this request, will only include items that have been processed by MyConnectedFleet platform since the specified date/time.
-
-    The response for this request, will only include items that have been processed by MyConnectedFleet platform since the specified date/time.
+    - The response for this request, will include only those items that have been processed by MyConnectedFleet platform since the specified date/time.
 
     ```bash
     curl --request GET \
