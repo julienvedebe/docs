@@ -32,6 +32,8 @@
             "pages": [
               "essentials/restAPI",
               "essentials/authentication",
+              "essentials/requestMethods",
+              "essentials/requestResponseCodes",
               "essentials/datetime",
               "essentials/pagination",
               "essentials/quotas",
