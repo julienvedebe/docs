@@ -20,8 +20,20 @@ Content-Type: application/json
 
 {
   "name": "Customer",
-  "icon": "circle-blue"
+  "icon": "Customer"
 }
+
+
+```bash
+curl --request PUT \
+  --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/location/category \
+  --header 'Authorization: Basic <encoded-value>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "name": "Customer",
+  "icon": "Customer"
+}'
+```
 
 
 **Add your customer or depot locations**
