@@ -3,7 +3,7 @@ title: 'Sync addresses (POIs)'
 description: 'Sync Your Customer & Depot contact addresses with myConnectedFleet'
 ---
 
-## Overview
+### Overview
 
 Enrich your tracking and journey data by synchronising your own list of customers, depots, and delivery sites with the myConnectedFleet platform.
 
@@ -26,15 +26,16 @@ curl --request PUT \
 }'
 ```
 
-> 💡 **Tip:** Use clear, descriptive names for your locations and categories — for example, **“Leeds Depot”** or **“Customer – Tesco Milton Keynes.”**  
-> Consistent, keyword-rich names make your data easier to search, filter, and understand in reports.  
-> Avoid vague codes or abbreviations, and keep your address book up to date as sites open, close, or change purpose.
+
+> 💡 **Tip:** Use clear, descriptive names for your locations and categories — for example, **“Leeds Depot”** or **“Tesco Milton Keynes.”**  
+> Consistent, keyword-rich names make your data easier to search, filter, and understand in reports.  Avoid vague codes or abbreviations, and keep your address book up to date as sites open, close, or change purpose.
 
 
 
 ### Add your customer or depot locations
 Use /location to add or update points of interest.
 Each location can be defined by coordinates or a full postal address and linked to one of your categories.
+
 
 ```bash
 curl --request POST \
@@ -57,5 +58,5 @@ curl --request POST \
 }'
 ```
 
-Link your business data
+### Link your business data
 When your vehicles visit these locations, myConnectedFleet automatically tags journeys and stops using your defined names — e.g. Stopped at “Customer A”, returned to "Leeds Depot”.
