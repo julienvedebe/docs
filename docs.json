@@ -37,6 +37,7 @@
               "essentials/datetime",
               "essentials/pagination",
               "essentials/quotas",
+              "essentials/latest",
               "essentials/versions"
             ]
           },
