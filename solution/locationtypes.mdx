@@ -2,14 +2,22 @@
 title: 'Location types'
 ---
 
-The geofence for the location can be specified as either:
+Each Location can be defined using one of two geofence types:
 
 ### Radius
-- A circualr geofence
-- The radius for the circle must be between 0.001 and 1.
+A circular geofence defined from a central point (latitude and longitude) or derived from an address.
+- The radius can be set between 0.001 km and 1 km (approximately 3 to 3,280 feet).
+- Recommended default: 100 metres (≈328 feet).
+- Ideal for simple, evenly shaped areas such as depots, yards, or customer sites.
+
+> 💡 Tip: Use a circular geofence for small, regularly shaped areas to minimise processing and simplify reporting.
 
 
 ### Polygon
-- The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs.
-- You must specify at least three  **longitude** and **latitude** pairs.
-- The geofence boundary is closed automatically by linking the first **longitude** and **latitude** pair to the last **longitude** and **latitude** pair specified.
+A polygonal geofence defined by an ordered array of coordinate pairs.
+- Must include at least three latitude and longitude pairs.
+- The geofence boundary is automatically closed by linking the first and last coordinate pair.
+- Suitable for irregularly shaped areas such as large warehouses, airfields, or industrial estates.
+
+> ⚙️ Note: When importing via API, ensure the coordinates are listed in order (clockwise or counter-clockwise) to prevent crossing lines or invalid shapes.
+
