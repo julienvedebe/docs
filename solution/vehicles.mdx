@@ -1,12 +1,42 @@
 ---
-title: 'Vehicles'
+title: "Vehicles"
 ---
 
-A vehicle is a tracked resource that represents any asset equipped with an On-Board Unit (OBU). Vehicles can include cars, vans, trucks, trailers, tractors, and other motorised or towed assets.
+A vehicle is a tracked resource that represents any asset equipped with an On-Board Unit (OBU) telematics device. Vehicles can include cars, vans, trucks, trailers, tractors, and other motorised or towed assets.
 
 - A vehicle can be assigned to a group for organisational or reporting purposes.
-Note: A vehicle’s group assignment does not need to match the group assigned to a driver.
-
 - When a vehicle is active in the customer’s fleet (status: IN-CIRCULATION), its latest position is returned in the Live Position API response.
+- When a vehicle is no longer part of the customer’s fleet (status: SOLD), it is excluded from the Live Position response, but its historical journey data remains available for retrieval.
 
-- When a vehicle is no longer part of the customer’s fleet (status: SOLD), it is excluded from the Live Position response, but its historical journey data remains available for retrieva
+<Note>
+  A vehicle’s group assignment does not need to match the group assigned to a driver.
+</Note>
+
+## Energy type
+
+**myConnectedFleet** has funtionality that is based on the energy type for the vehicle. The supported energy types:
+
+- **EV** - Battery Electric Vehicle
+- **PHEV** - Plug-in Hybrid Electric Vehicle
+- **HEV** - Hybrid Electric Vehicle
+- **FECV** - Fuel Cell Electric Vehicle (Hydrogen)
+- **ICE** - Internal combustion engine
+- **CNG** - Compressed Natural Gas
+- **LNG** - Liquefied natural gas
+- **LPG** - Liquefied petroleum gas
+- **BI-FUEL** - multi-fuel engines capable of running on two fuels
+
+## Fuel type
+
+**myConnectedFleet** has funtionality that is based on the fuel type for the vehicle, for example calculation of CO2 based on the volume of fuel consumed. 
+
+For hybrid and bi-fuel vehicles,  **myConnectedFleet** allows for a primary and a secondary fuel type to be defined for a vehicle.
+
+The supported fuel type are: 
+
+- PETROL
+- DIESEL
+- PROPANE
+- METHANE
+- ELECTRIC
+- HYDROGEN

@@ -1,11 +1,11 @@
 ---
-title: 'Distance travelled'
+title: "Distance travelled"
 ---
 
+The distance that a vehicle travelled during a journey is captured by **myConnectedFleet** using one of two methods:
 
-The distance that a vehicle travelled during a journey is captured by the OBU using one of two methods:
-
-
-- CAN: This is the most accurate method with the OBU extracting the distance travelled from the vehicle’s CANbus. You can read more about CANbus at [<u>http://en.wikipedia.org/wiki/CAN_bus</u>](http://en.wikipedia.org/wiki/CAN_bus)
-
-- GPS: During a journey, the OBU calculates the distance between each GPS location and sums these distance values together to derive the total distance for the journey. This method is not as accurate as the distance obtained from the CANbus.
+- **CAN** 
+  - This is the most accurate method with the OBU extracting the distance travelled from the vehicle’s CANbus. Read more about CANbus at http://en.wikipedia.org/wiki/CAN_bus
+- **GPS**
+  - During a journey, the OBU calculates the distance between each GPS location and sums these distance values together to derive the total distance for the journey. 
+  - This method is not as accurate as the distance obtained from the CANbus.
