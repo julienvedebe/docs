@@ -4,14 +4,12 @@ title: 'Location addresses'
 
 The address for the location can be specified as either:
 
-- **longitude **and **latitude **coordinates 
+- **longitude** and **latitude** coordinates 
 
 An address lookup is done to determine values for **roadNumber**, **road**, **city**, **postcode** and **country**. The **formattedAddress** is constructed as a comma separated set of values from **roadNumber**, **road**, **city**, **postcode** and **country**.
 
 - **roadNumber**, **road**, **city**, **postcode**, **country** 
 
-Values for **city**, **postcode** and **country** are mandatory and must be included in the input JSON object. The **formattedAddress** is constructed as a comma separated set of values from **roadNumber**, **road**, **city**, **postcode **and **country**. A lookup is done to determine the **longitude** and **latitude **coordinates.
+A lookup is done to determine the **longitude** and **latitude** coordinates for specified details. The **formattedAddress** is constructed as a comma separated set of values from **roadNumber**, **road**, **city**, **postcode **and **country**. 
 
-If both an address and longitude/latitude values are specified, then no check is performed to validate that the address matches the longitude/latitude values.
-
-
+If value for both address and longitude/latitude values are specified, then no check is performed to validate that the address matches the longitude/latitude values.
