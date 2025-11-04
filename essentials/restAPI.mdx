@@ -3,17 +3,15 @@ title: "REST API"
 icon: "code"
 ---
 
-These are the main features available in the MICHELIN Connected Fleet API.
+These are the main features available in the **MICHELIN Connected Fleet API**.
 
 ## Telematics
 
-You can get GPS and vehicle data to create integrations that synchronize this telematics data into your application. Get the latest GPS location of a vehicle, input status values, fuel consumption along with vehicle faults.
+You can get GPS and vehicle information to synchronize this telematics data into your own applications. Get the latest GPS location of a vehicle, input values, fuel consumption and details of vehicle faults.
 
-MICHELIN Connected Fleet has a number of telematics devices which can be installed on a vehicle. As each device has different interface features, the device will determine the telematics functionality you will see in MICHELIN Connected Fleet and data that can be retrieved from the API.
+**MICHELIN Connected Fleet** has a number of telematics devices which can be installed on a vehicle. As each device has different interface features, the device will determine the telematics functionality you will see in **MICHELIN Connected Fleet** and data that can be retrieved from the API.
 
-GPS tracking provide the location, sped and direction of travel for a vehicle in real time. By combining individual tracking data, we can generate the journeys for a vehicle.
-
-By linking to a driver of a vehicle, driver behaviour metrics can be calculated.
+GPS tracking provides the location, speed and direction of travel for a vehicle in real time. By combining individual tracking data, we can generate journeys for a vehicle. By linking a driver to a vehicle, driver behaviour metrics can be calculated.
 
 ## Vehicles
 
@@ -44,20 +42,19 @@ Drivers can be created and managed through the API. The folliowig details can be
 Full create, read, and update operations are available through the API. See [Drivers](/solution/drivers) for more details.
 
 <Note>
-  Drivers cannot be deleted using the API. The \*\*delete \*\*operation will set the driver as inactive.
+  Drivers are not deleted, instead the **delete** request will update the driver status **inactive**.
 </Note>
 
-## Group
+## Groups
 
-A group hierarchy allows you to organise your vehicles, drivers & users to meet your reporting needs.
+The group hierarchy allows you to organise your vehicles, drivers & users to meet your reporting needs.
 
 ```
 Offices
 	United Kingdom
-		Leeds
-		Skipton
+		London
 	France
-		Suresnes
+		Paris
 	Germany
 		Munich
 Fleet
@@ -69,13 +66,13 @@ Full create, read, and update operations are available through the API. See [Gro
 
 ## Locations / Points of interest (POI)
 
-The Location API allows you to manage known locations for use in driver timesheets, reports, alerts and more. You can create, read, update, and delete locations and configure their geofences.
+The Locations API allows you to manage known locations for use in driver timesheets, reports, alerts and more. You can create, read, update, and delete locations and configure their geofences.
 
 Full create, read, delete and update operations are available through the API. See the [Locations ](/solution/locations)API for more details.
 
 ## Users
 
-The MICHELIN Connected Fleet portal features that a user can access, are dependent on their assigned role. You can define the features available for a role and can create as many roles as needed.
+The features of the **MICHELIN Connected Fleet** portal that a user can access are dependent on their assigned role. You can define the features available for a role and can create as many roles as needed.
 
 A user is allocated to a group in the group hierarchy. A user can only view details for drivers, vehicles, journeys in the same group (or one of its subgroups) in the group hierarchy
 
@@ -92,4 +89,4 @@ As well as detecting if the vehicle is moving, stopped or idling, the telematics
 
 **Power Take Off (PTO)** is when the vehicle's engine is being used to power additional machinery, for example a crane to unload goods from the vehicle. **PTO** uses additional fuel, therefore, it is important to know if the PTO was active when the vehicle was idling.
 
-Only read operations are available through the API. See the [**Inputs**](/solution/inputs) API for more details.
+Only read operations are available through the API for inputs. See the [**Inputs**](/solution/inputs) API for more details.

@@ -3,9 +3,7 @@ title: "Request response codes"
 description: "The API has been implemented using RESTful principle and uses HTTP request methods."
 ---
 
-All requests to the API receive an HTTP response code to confirm if the request was successful or not.
-
-Your API client should handle each response code as required:
+All requests to the API receive an HTTP response code to confirm if the request was successful or not. Your API client should handle each response code as required:
 
 - **2XX codes** - the call was successful.
 - **4XX codes** - there was an error with the submitted request, such as a missing parameter or invalid value. You should modify requests before retrying.
@@ -38,4 +36,4 @@ If there has been an error, the following JSON object is returned:
 
 The **API** has an 8K limit on the length of the request line and header fields sent to an endpoint. If the 8K limit is exceeded, then the request will be rejected and no error code will be returned.
 
-You can read more about [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
+You can read more about status codes at [HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).

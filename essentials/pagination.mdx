@@ -10,16 +10,16 @@ To work with paginated endpoints, include `pageIndex`and `pageSize` in the reque
 - **pageIndex**
   - Specifies the pagination page index. Pages are zero indexed, i.e. the first page has an index value of zero. If not specified, then will default to a pageIndex of 0.
 - **pageSize**
-  - Specifies the number of items to include on a page. Must be specified if pageIndex has been specified. If not specified, then will default to a pageSize of 50.
+  - Specifies the number of items to include on a page. Must be specified if **pageIndex** has been specified. If not specified, then will default to a pageSize of 50.
 
-An API endpoint supporting pagination, will include `totalPages`and `totalCount` in the outpur response. These should be used to determine how many subsequent requests will need to be made.
+An API endpoint supporting pagination, will include `totalPages`and `totalCount` in the output response. These should be used to determine how many subsequent requests will need to be made.
 
 - **totalPages**
   - Total number of pages based on the pageSize.
 - **totalCount**
   - Total number of items that matched the search parameters
 
-For example, the following response indicates that in total 4 requests have to be made to the API to get all the items (based on the default value of `pageSize` .
+For example, the following response indicates that in total 4 requests have to be made to the API to get all the items (based on the default value of `pageSize` ).
 
 ```json
 {
@@ -30,13 +30,13 @@ For example, the following response indicates that in total 4 requests have to b
          ...
         }
     ],
-    "processedDateTime": "2025-11-03T13:56:46.393"
+    "processedDateTime": "2025-10-03T13:56:46.393"
 }
 ```
 
 ## Latest endpoints
 
-An integration use case is to show changes that have occured recently, for example, which journeys have completed since 11:00, which vehicles have change position etc.
+A common integration use case is to show changes that have occured recently, for example, which journeys have completed since 11:00, which vehicles have changed location etc.
 
 To assist with this type of integration, the following endpoints accept the optional parameter: `fromDateTime`
 
@@ -48,7 +48,7 @@ To assist with this type of integration, the following endpoints accept the opti
 - **Vehicle Journey History Latest**
 - **Driver Journey History Latest**
 
-To use these endpoints to return items that have been processed by MICHLEIN Connected Fleet since a specified processed date/time as follows:
+You can use these endpoints to return items that have been processed by MICHLEIN Connected Fleet since a specified date/time as follows:
 
 <Steps>
   <Step title="Call the endpoint">
@@ -58,9 +58,8 @@ To use these endpoints to return items that have been processed by MICHLEIN Conn
 
     ```json
     {
-        ...
-        ,
-        "processedDateTime": "2025-11-03T13:56:46.393"
+        ...,
+        "processedDateTime": "2025-10-03T13:56:46.393"
     }
     ```
   </Step>
@@ -71,7 +70,7 @@ To use these endpoints to return items that have been processed by MICHLEIN Conn
 
     ```bash
     curl --request GET \
-      --url 'https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/25078/tracking/live/latest?fromDateTime=2025-11-03T14%3A31%3A56' \
+      --url 'https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/25078/tracking/live/latest?fromDateTime=2025-10-03T14%3A31%3A56' \
       --header 'Authorization: Basic #####'
     ```
   </Step>
