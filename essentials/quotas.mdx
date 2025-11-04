@@ -5,14 +5,14 @@ icon: "map"
 
 To protect the MICHELIN Connected Fleet API from receiving more operations that it can handle, a quota system, request limits and asset day limits have been implemented.  
 
-## Location / POI limits
+### Location / POI limits
 
 There is a quota limit on the number of POI that you can create:
 
 - 250,000 if the number of vehicles in your fleet is less than 1,000. 
 - Based on 250,000,000/number of vehicles, if the number of vehicles in your fleet is over 1,000; e.g. for a fleet with 2,000 vehicles the maximum number of POI is restricted to 125,000.
 
-## Request limits
+### Request limits
 
 The following request limits are in place:
 
@@ -23,7 +23,7 @@ The following request limits are in place:
 - No more than one request for the **Vehicle Journeys Latest** endpoint every 60 seconds.
 - No more than one request for the **Driver Journeys Latest** endpoint every 60 seconds.
 
-## Asset Day Limits
+### Asset day limits
 
 An **Asset Day** is calculated based on the (number of vehicles \* the number of days in period) specified in the input parameters. For example,
 
@@ -45,3 +45,6 @@ The following Asset Day Limits are in place:
 - No request that exceeds 50 asset days for **Driver Idling Detail**.
 
 Additional quota limits, restrictions and changes to quota limits may be implemented in future releases of the **MICHELIN Connected Fleet API**.
+
+
+### Fair use policies
