@@ -2,14 +2,24 @@
 title: 'Location addresses'
 ---
 
-The address for the location can be specified as either:
+The address for a locations centrepoint can be specified as either a geographic coordinates or from address 
 
+### Coordinates 
 - **longitude** and **latitude** coordinates 
+- An address lookup is done to determine values for **roadNumber**, **road**, **city**, **postcode** and **country**. 
 
-An address lookup is done to determine values for **roadNumber**, **road**, **city**, **postcode** and **country**. The **formattedAddress** is constructed as a comma separated set of values from **roadNumber**, **road**, **city**, **postcode** and **country**.
 
+### Addresses 
 - **roadNumber**, **road**, **city**, **postcode**, **country** 
+- A lookup is done to determine the **longitude** and **latitude** coordinates for specified details.
 
-A lookup is done to determine the **longitude** and **latitude** coordinates for specified details. The **formattedAddress** is constructed as a comma separated set of values from **roadNumber**, **road**, **city**, **postcode **and **country**. 
 
-If value for both address and longitude/latitude values are specified, then no check is performed to validate that the address matches the longitude/latitude values.
+
+### Formatted address label
+The **formattedAddress** is constructed as a comma separated set of values from **roadNumber**, **road**, **city**, **postcode** and **country**.
+
+<Note> that if a value for both address and longitude/latitude values are specified int the API call, then no check is performed to validate that the address matches the longitude/latitude values.</Note>
+
+
+
+
