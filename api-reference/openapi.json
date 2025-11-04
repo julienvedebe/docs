@@ -112,6 +112,10 @@
     {
       "name": "/alert",
       "description": "Alert history and notification management operations"
+    },
+    {
+      "name": "/tacho",
+      "description": "Tachograph data management operations"
     }
   ],
   "paths": {
@@ -5997,6 +6001,110 @@
           }
         }
       }
+    },
+    "/public/v1/customer/{customerId}/tacho/live": {
+      "post": {
+        "tags": ["/tacho"],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ 'Content-Type': 'application/json' }"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authoriation: Token xxxxxxxxxxxxxxxxxx }"
+          },
+          {
+            "in": "body",
+            "name": "LiveBodyRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/LiveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LiveResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbiden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "tacAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:${aws_region}:lambda:path/2015-03-31/functions/${lambda_arn}/invocations",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_tac_public_api_invoke_lambda_role",
+          "httpMethod": "POST",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "requestParameters": {
+            "integration.request.path.customerId": "method.request.path.customerId"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -9765,6 +9873,268 @@
           }
         },
         "description": "Comprehensive driving event data with vehicle, driver, location and event details"
+      },
+      "LiveRequest": {
+        "type": "object",
+        "properties": {
+          "driverKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "registrations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "sort": {
+            "type": "object",
+            "properties": {
+              "driverId": {
+                "type": "string"
+              },
+              "driverKey": {
+                "type": "string"
+              },
+              "driverName": {
+                "type": "string"
+              },
+              "assetId": {
+                "type": "string"
+              },
+              "assetRegistration": {
+                "type": "string"
+              },
+              "eventDateTime": {
+                "type": "string"
+              },
+              "lastUpdateTime": {
+                "type": "string"
+              },
+              "heading": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "tachoMakeVersion": {
+                "type": "string"
+              },
+              "activity": {
+                "type": "string"
+              },
+              "infringementState": {
+                "type": "string"
+              },
+              "currentActivityTotalTime": {
+                "type": "string"
+              },
+              "continuousDrivingTime": {
+                "type": "string"
+              },
+              "dailyDrivingTime": {
+                "type": "string"
+              },
+              "weeklyDrivingTime": {
+                "type": "string"
+              },
+              "previousAndCurrentTotalDriveTime": {
+                "type": "string"
+              },
+              "remainingDrivingTime": {
+                "type": "string"
+              },
+              "remainingDailyDrivingTime": {
+                "type": "string"
+              },
+              "remainingWeeklyDrivingTime": {
+                "type": "string"
+              },
+              "timeLeftUntilNextDailyRest": {
+                "type": "string"
+              },
+              "nextDailyRestMinDuration": {
+                "type": "string"
+              },
+              "timeLeftUntilNextWeeklyRest": {
+                "type": "string"
+              },
+              "nextWeeklyRestMinDuration": {
+                "type": "string"
+              },
+              "lastDailyRestEnd": {
+                "type": "string"
+              },
+              "lastWeeklyRestEnd": {
+                "type": "string"
+              },
+              "remainingDailyExtendedDriveTimePeriods": {
+                "type": "string"
+              },
+              "remainingDailyShortenedRestTimePeriods": {
+                "type": "string"
+              },
+              "workingTimeSinceLastBreak": {
+                "type": "string"
+              },
+              "remainingWorkingTime": {
+                "type": "string"
+              },
+              "dailyWorkingTime": {
+                "type": "string"
+              },
+              "remainingDailyWorkingTime": {
+                "type": "string"
+              },
+              "weeklyWorkingTime": {
+                "type": "string"
+              },
+              "remainingWeeklyWorkingTime": {
+                "type": "string"
+              },
+              "dailyBreakTime": {
+                "type": "string"
+              },
+              "drivingPrediction.activity": {
+                "type": "string"
+              },
+              "drivingPrediction.duration": {
+                "type": "string"
+              },
+              "workingPrediction.activity": {
+                "type": "string"
+              },
+              "workingPrediction.duration": {
+                "type": "string"
+              },
+              "driverCardExpiryDate": {
+                "type": "string"
+              },
+              "driverCardNextMandatoryDownloadDate": {
+                "type": "string"
+              },
+              "timeLeftUntilNextRestPeriod": {
+                "type": "string"
+              },
+              "nextRestDuration": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "ActivityResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "driverId": {
+                  "type": "string"
+                },
+                "driverKey": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "assetId": {
+                        "type": "string"
+                      },
+                      "inProgress": {
+                        "type": "boolean"
+                      },
+                      "assetRegistration": {
+                        "type": "string"
+                      },
+                      "startTime": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "activity": {
+                        "type": "string"
+                      },
+                      "startLatitude": {
+                        "type": "number"
+                      },
+                      "startLongitude": {
+                        "type": "number"
+                      },
+                      "duration": {
+                        "type": "integer"
+                      },
+                      "endTime": {
+                        "type": "string"
+                      },
+                      "endLatitude": {
+                        "type": "number"
+                      },
+                      "endLongitude": {
+                        "type": "number"
+                      },
+                      "flagManualEntry": {
+                        "type": "boolean"
+                      },
+                      "flagDDD": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "assetId",
+                      "assetRegistration",
+                      "startTime",
+                      "type",
+                      "activity",
+                      "startLatitude",
+                      "startLongitude",
+                      "duration",
+                      "endTime",
+                      "endLatitude",
+                      "endLongitude"
+                    ]
+                  }
+                }
+              },
+              "required": ["driverId", "driverKey", "activities"]
+            }
+          }
+        },
+        "required": ["count", "data"]
+      },
+       "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "integer"
+          },
+          "errorMessage": {
+            "type": "string"
+          }
+        },
+        "required": ["errorCode", "errorMessage"]
       }
     }
   }
