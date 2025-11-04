@@ -82,12 +82,13 @@
                 ]
               },
               {
-                "group": "Driving behaviour",
+                "group": "Driving performance",
                 "icon": "award",
                 "pages": [
+                  "solution/driverBehaviour",
                   "solution/idling",
                   "solution/speeding",
-                  "solution/driverBehaviour"
+                  "solution/ecoDrive"
                 ]
               },
               {

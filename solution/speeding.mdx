@@ -2,22 +2,39 @@
 title: "Speeding"
 ---
 
-The **myConnectedFleet** platform is able to determine if a vehicle is speeding and will create a **speeding episode** whenever both of the following conditions are satisfied.
+Speeding occurs when a vehicle is driven faster than the legal road speed limit for its vehicle type.
+It is considered an undesirable *driving behaviour*, as it increases safety risks and contributes to higher fuel consumption, CO₂ emissions, and operating costs.
 
-- The vehicle speed exceeds the road speed limit for the vehicle type.
-- At least two consecutive tracking frames are received where the vehicle speed exceeded the road speed limit for the vehicle type.
+<Warning> Speeding detection may not be available in all geographies. Please check local regulations or consult your Michelin Connected Fleet representative for regional availability. </Warning>
 
-A speeding episode ends when any one of the following occurs:
 
-- The vehicle’s speed drops below the road speed limit for the vehicle type.
-- The speed limit for the road cannot be determined.
-- The road type changes.
+### Speeding Episodes
+**myConnectedFleet** automatically detects when a vehicle exceeds the applicable road speed limit and records these as speeding episodes.
 
-The road speed limit for a vehicle depends on the vehicle type. The following are UK examples of the road speed limits for different vehicle types.
+A speeding episode is created when both of the following conditions are met:
+- The vehicle’s speed exceeds the road speed limit for its vehicle type.
+- At least two consecutive tracking frames are received showing the vehicle above that limit.
+
+A speeding episode ends when any of the following occur:
+- The vehicle’s speed drops below the applicable speed limit.
+- The road speed limit cannot be determined.
+- The vehicle transitions to a different road type.
+
+
+<Tip> Analysing speeding episodes by driver, vehicle, or location can help identify training needs or route specific risks. </Tip> 
+
+
+### Road Speed Limits by Vehicle Type (UK Example)
+Vehicle Type	Single Carriageways	Dual Carriageways	Motorways
+Cars, motorcycles, car-derived vans, and dual-purpose vehicles	60 mph (96 km/h)	70 mph (112 km/h)	70 mph (112 km/h)
+Goods vehicles (≤ 7.5 tonnes maximum laden weight)	50 mph (80 km/h)	60 mph (96 km/h)	70 mph (112 km/h)
+
 
 | **Vehicle Type**                                                | **Single carriageways** | **Dual carriageways** | **Motorways**     |
 | :-------------------------------------------------------------- | :---------------------- | :-------------------- | :---------------- |
 | Cars, motorcycles, car-derived vans and dual-purpose vehicles.  | 60 mph (96 km/h)        | 70 mph (112 km/h)     | 70 mph (112 km/h) |
 | Goods vehicles (not more than 7.5 tonnes maximum laden weight). | 50 mph (96 km/h)        | 60 mph (112 km/h)     | 70 mph (112 km/h) |
 
-It is important that the vehicle type is set correctly as this will ensure the correct road speed limit is used.
+
+<Note> Ensure that each vehicle’s **type classification** is set correctly in **myConnectedFleet**. This guarantees the appropriate road speed limits are applied when evaluating speeding behaviour. </Note>
+

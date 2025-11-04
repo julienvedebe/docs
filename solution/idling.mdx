@@ -2,14 +2,25 @@
 title: 'Idling'
 ---
 
-Idling is the running of a vehicle's engine when not in motion, and is generally seen as a negative behaviour that increases fuel consumption and emissions. Reducing idling has a positive effect on fuel consumption and emissions, and ultimately costs.  
+Idling refers to when a vehicle’s engine is running while the vehicle is stationary. It is generally considered an undesirable **driving behaviour** because it leads to unnecessary fuel consumption, CO₂ emissions, and operational costs.
 
-By monitoring idling, **myConnectedFleet** can provide insight on both the duration of idling and where it geographically occured.  
+By monitoring idling, myConnectedFleet provides insights into both the duration of idling events and the locations where they occur. This helps operators identify opportunities to improve driving efficiency and reduce environmental impact.
 
-myConnectedFleet calculates Idling from the OBU where a vehicles Ignition is “ON” and it is not moving for more than 2 minutes.  
- 
-Types of idling; 
-- True engine idling: Idling triggered by engine running and non movement sensors e.g. RPM from CANbus.  
-- Estimated Idling: Idling triggered by non movement and ignition on sensors (however not a guaranteed indication of engine running)
+
+### Idling Calculation
+myConnectedFleet determines idling based on data from the On-Board Unit (OBU) using ignition and motion status.
+
+An idling event is recorded when a vehicle’s ignition is ON but no movement is detected for more than 2 minutes.
+
+
+### Types of Idling Detection
+- True Engine Idling: Detected using engine running data (RPM from CANbus) combined with non-movement sensors.
+→ Provides an accurate indication that the engine is running while stationary.
+
+- Estimated Idling: Detected using ignition ON and non-movement status only.
+→ May not guarantee the engine is running, but still provides useful behavioural insight where CANbus data is unavailable.
+
+
+<Tip> Reviewing idling hotspots on journey and location reports helps identify recurring patterns, such as extended idling at depots or customer sites. </Tip>
 
 
