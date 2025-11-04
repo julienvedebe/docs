@@ -38,6 +38,9 @@ Each response includes the following useful fields:
 
 >💡 **Tip**: Use consistent vehicle names and registration numbers that match your leasing provider’s records. This ensures that exported mileage data aligns automatically with your external systems and avoids manual reconciliation.
 
+
+
+
 Example Output
 ```
 {
@@ -59,3 +62,5 @@ Example Output
   ]
 }
 ```
+
+>💡 Tip: Remember that CANbus odometer type readings come directly from the vehicle’s onboard sensors, while readings with odometer type GPS are estimated based on distance travelled from a known starting point. For the most accurate mileage reporting, use CANbus where available, and treat GPS odometers as approximate values.
