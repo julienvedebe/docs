@@ -8,18 +8,16 @@ EcoDrive analyses a driver’s behaviour based on recorded driving events during
 
 
 The events that can be analysed are:
-- Harsh braking, Harsh acceleration and Harsh cornering
-- Over revving (high RPM)
-- Excessive idling (can occur either inside or outside a specified set of POI location categories e.g. outside of depots)
-- Speed over a defined threshold: A vehicle’s speed exceeds the threshold. It is not compared against the road speed limit and is **<u>not</u>** the same as a speeding episode.
+- Harsh braking, Harsh acceleration and Harsh cornering.  
+- Over revving (high RPM).  
+- Excessive idling: either inside or outside POI location  categories e.g. outside of depots.  
+- Speed over a defined threshold: Note this is not a road speed limit breache, and not the same as a speeding episode.
 
 
 ### Scoring Methodology
-The EcoDrive scoring algorithm evaluates these events to calculate a score per hour for each vehicle or driver.  The target score is zero, meaning no undesirable driving events occurred during the analysis period.
+The algorithm evaluates recorded events to calculate a score per hour per vehicle or driver. Scores can be used to rank drivers or vehicles within a group and to compare performance across the fleet The target score is zero, meaning no undesirable driving events occurred during the analysis period.
 
-Scores can be used to rank drivers or vehicles within a group and to compare performance across the fleet.
-
-The scoring algorithm can be customised to assign different weights to specific driving events.  For example initially, you might assign greater weight to speeding events.  As driver performance improves, you might shift focus to idling or cornering.
+Scoring can be customised to assign different weights to specific driving events.  For example, you might assign greater weight to speeding events.  As driver performance improves, you might shift focus to idling or braking.
 
 For details about your organisation’s configuration, please contact your **MICHELIN** Connected Fleet representative.
 
