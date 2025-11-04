@@ -76,6 +76,7 @@
                 "icon": "map-pin",
                 "pages": [
                   "solution/locations",
+                  "solution/locationtypes",
                   "solution/locationaddressses",
                   "solution/locationsicons"
                 ]

@@ -7,21 +7,9 @@ A Location is, also known as a Point of Interest (POI) is Geofence, a geogrpahic
 These can be created using the myConnectedFleet Web Application or API you can create a location and specify the geo-fence boundary to be either a circle or a polygon.
 
 
-The geofence for the location can be specified as either:
-
-### Radius
-- A circualr geofence
-- The radius for the circle must be between 0.001 and 1.
-
-
-### Polygon
-- The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs.
-- There must be at least three  **longitude** and **latitude **pairs specified.
-- The geofence boundary is closed by automatically linking the first **longitude** and **latitude **pair to the last **longitude** and **latitude **pair specified.
-
 The geofence for a location can overlap the geofence for another location. The geofence for this location can overlap up to 5 locations.
 
-a new location with a geo-fence boundary that can be either **CIRCULAR** or **POLYGON**. There cannot be an existing location with the same name as the location being created.
+There cannot be an existing location with the same name as the location being created.
 
 
 ### Limits
