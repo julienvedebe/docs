@@ -2,19 +2,24 @@
 title: "Locations"
 ---
 
-A Location is, also known as a Point of Interest (POI) is Geofence, a geogrpahic location that has been given a name and marked by a geo-fence boundary. By creating POI locations, it is possible to report when a resource has arrived at or departed from that named area (location).  
+A Location, also known as a Point of Interest (POI) or Geofence, is a defined geographic area that has been given a meaningful name and boundary. Locations are used to identify when a vehicle or asset enters or leaves a specific area — such as a customer site, depot, or delivery point.
 
-These can be created using the myConnectedFleet Web Application or API you can create a location and specify the geo-fence boundary to be either a circle or a polygon.
+You can create and manage Locations using either the myConnectedFleet Web Application or the API.
+
+When creating a Location, you can define its geofence boundary as either a circle or a polygon, depending on the shape and accuracy you need.
+
+> 💡 Tip: Use clear and consistent naming for your Locations (e.g., “Leeds Depot”, “Customer – Tesco York”) to make journey and visit reports easier to interpret.
 
 
-The geofence for a location can overlap the geofence for another location. The geofence for this location can overlap up to 5 locations.
-
-There cannot be an existing location with the same name as the location being created.
+### Additional Rules
+- A Location’s geofence may overlap with other Locations — up to a maximum of five overlapping areas.
+- Each Location must have a unique name; duplicate names are not allowed.
 
 
 ### Limits
-There is a limit on the number of locations you can create.  The maximum number of POI that can be created in your account is limited based on the number of vehicles in your fleet. 
-- If your fleet size is less than 1,000 then you can create up to 250,000 locations. 
-- If your fleet size is more than 1,000, then the maximum is reduced on a sliding scale depending on the number of vehicles in your fleet. 
+The number of Locations (POIs) that can be created in your account depends on the size of your fleet.
+- Fleets with fewer than 1,000 vehicles: You can create up to 250,000 Locations.
+- Fleets with more than 1,000 vehicles: The maximum number of Locations is reduced on a sliding scale based on the total number of vehicles in your fleet.
 
+> ⚙️ Note: These limits ensure optimal performance when processing geofence and visit data across large fleets. If you require higher limits, please contact your Michelin Connected Fleet representative.
 
