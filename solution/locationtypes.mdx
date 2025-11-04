@@ -2,7 +2,11 @@
 title: 'Location types'
 ---
 
-Each Location can be defined using one of two geofence types:
+Each Location can be defined using one of two geofence types radius polygon.  
+<img
+  className="block dark:hidden"
+  src="/images/locations.png"
+/>
 
 ### Radius
 A circular geofence defined from a central point (latitude and longitude) or derived from an address.
@@ -19,5 +23,6 @@ A polygonal geofence defined by an ordered array of coordinate pairs.
 - The geofence boundary is automatically closed by linking the first and last coordinate pair.
 - Suitable for irregularly shaped areas such as large warehouses, airfields, or industrial estates.
 
-> ⚙️ Note: When importing via API, ensure the coordinates are listed in order (clockwise or counter-clockwise) to prevent crossing lines or invalid shapes.
-
+<note>
+  ⚙️ Note: When importing via API, ensure the coordinates are listed in order (clockwise or counter-clockwise) to prevent crossing lines or invalid shapes.
+</note>
