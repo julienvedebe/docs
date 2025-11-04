@@ -3,21 +3,28 @@ title: "Pagination & compression"
 icon: "list"
 ---
 
+### Pagination
 The response for a GET request can be paginated. This means for each request, the response will be for one page of results.
 
 To work with paginated endpoints, include `pageIndex`and `pageSize` in the request header. If values are not specified, then default values will be used.
 
-- **pageIndex**
-  - Specifies the pagination page index. Pages are zero indexed, i.e. the first page has an index value of zero. If not specified, then will default to a pageIndex of 0.
-- **pageSize**
-  - Specifies the number of items to include on a page. Must be specified if **pageIndex** has been specified. If not specified, then will default to a pageSize of 50.
+**pageIndex**
+- Specifies the pagination page index. Pages are zero indexed, i.e. the first page has an index value of zero. If not specified, then will default to a pageIndex of 0.
+
+**pageSize**
+- Specifies the number of items to include on a page. Must be specified if
+
+**pageIndex** 
+- has been specified. If not specified, then will default to a pageSize of 50.
+
 
 An API endpoint supporting pagination, will include `totalPages`and `totalCount` in the output response. These should be used to determine how many subsequent requests will need to be made.
 
-- **totalPages**
-  - Total number of pages based on the pageSize.
-- **totalCount**
-  - Total number of items that matched the search parameters
+**totalPages**
+- Total number of pages based on the pageSize.
+  
+**totalCount**
+- Total number of items that matched the search parameters
 
 For example, the following response indicates that in total 4 requests have to be made to the API to get all the items (based on the default value of `pageSize` ).
 
@@ -34,7 +41,7 @@ For example, the following response indicates that in total 4 requests have to b
 }
 ```
 
-## Compression
+### Compression
 
 The API suppprts compress.
 
