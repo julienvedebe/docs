@@ -10,6 +10,9 @@
   "fonts": {
     "family": "Open Sans"
   },
+  "icons": {
+  "library": "lucide"
+},
   "favicon": "/favicon-michelin.png",
   "appearance": {
     "default": "light",
