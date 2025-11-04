@@ -60,7 +60,7 @@
                 ]
               },
               {
-                "group": "Track & Trace",
+                "group": "Track & trace",
                 "icon": "route",
                 "pages": [
                   "solution/tracking",
@@ -118,7 +118,7 @@
         ]
       },
       {
-        "tab": "API Reference - Core",
+        "tab": "Core APIs",
         "groups": [
           {
             "group": "API Documentation",
