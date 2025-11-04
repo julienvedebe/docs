@@ -10037,7 +10037,7 @@
           }
         }
       },
-      "ActivityResponse": {
+       "LiveResponse": {
         "type": "object",
         "properties": {
           "count": {
@@ -10054,71 +10054,202 @@
                 "driverKey": {
                   "type": "string"
                 },
-                "activities": {
+                "driverName": {
+                  "type": "string"
+                },
+                "assetId": {
+                  "type": "string"
+                },
+                "assetRegistration": {
+                  "type": "string"
+                },
+                "eventDateTime": {
+                  "type": "string"
+                },
+                "lastUpdateTime": {
+                  "type": "string"
+                },
+                "timersQualityLevel": {
+                  "type": "string"
+                },
+                "heading": {
+                  "type": "integer"
+                },
+                "latitude": {
+                  "type": "number"
+                },
+                "longitude": {
+                  "type": "number"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "tachoMakeVersion": {
+                  "type": "string"
+                },
+                "activity": {
+                  "type": "string"
+                },
+                "infringementState": {
+                  "type": "integer"
+                },
+                "currentActivityTotalTime": {
+                  "type": "integer"
+                },
+                "continuousDrivingTime": {
+                  "type": "integer"
+                },
+                "dailyDrivingTime": {
+                  "type": "integer"
+                },
+                "weeklyDrivingTime": {
+                  "type": "integer"
+                },
+                "previousAndCurrentTotalDriveTime": {
+                  "type": "integer"
+                },
+                "remainingDrivingTime": {
+                  "type": "integer"
+                },
+                "remainingDailyDrivingTime": {
+                  "type": "integer"
+                },
+                "remainingWeeklyDrivingTime": {
+                  "type": "integer"
+                },
+                "timeLeftUntilNextDailyRest": {
+                  "type": "integer"
+                },
+                "nextDailyRestMinDuration": {
+                  "type": "integer"
+                },
+                "timeLeftUntilNextWeeklyRest": {
+                  "type": "integer"
+                },
+                "nextWeeklyRestMinDuration": {
+                  "type": "integer"
+                },
+                "lastDailyRestEnd": {
+                  "type": "string"
+                },
+                "lastWeeklyRestEnd": {
+                  "type": "string"
+                },
+                "remainingDailyExtendedDriveTimePeriods": {
+                  "type": "integer"
+                },
+                "remainingDailyShortenedRestTimePeriods": {
+                  "type": "integer"
+                },
+                "workingTimeSinceLastBreak": {
+                  "type": "integer"
+                },
+                "remainingWorkingTime": {
+                  "type": "integer"
+                },
+                "dailyWorkingTime": {
+                  "type": "integer"
+                },
+                "remainingDailyWorkingTime": {
+                  "type": "integer"
+                },
+                "weeklyWorkingTime": {
+                  "type": "integer"
+                },
+                "remainingWeeklyWorkingTime": {
+                  "type": "integer"
+                },
+                "dailyBreakTime": {
+                  "type": "integer"
+                },
+                "drivingPrediction": {
                   "type": "array",
                   "items": {
                     "type": "object",
                     "properties": {
-                      "assetId": {
-                        "type": "string"
-                      },
-                      "inProgress": {
-                        "type": "boolean"
-                      },
-                      "assetRegistration": {
-                        "type": "string"
-                      },
-                      "startTime": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string"
-                      },
                       "activity": {
-                        "type": "string"
-                      },
-                      "startLatitude": {
-                        "type": "number"
-                      },
-                      "startLongitude": {
-                        "type": "number"
+                        "type": "integer"
                       },
                       "duration": {
                         "type": "integer"
-                      },
-                      "endTime": {
-                        "type": "string"
-                      },
-                      "endLatitude": {
-                        "type": "number"
-                      },
-                      "endLongitude": {
-                        "type": "number"
-                      },
-                      "flagManualEntry": {
-                        "type": "boolean"
-                      },
-                      "flagDDD": {
-                        "type": "boolean"
                       }
                     },
-                    "required": [
-                      "assetId",
-                      "assetRegistration",
-                      "startTime",
-                      "type",
-                      "activity",
-                      "startLatitude",
-                      "startLongitude",
-                      "duration",
-                      "endTime",
-                      "endLatitude",
-                      "endLongitude"
-                    ]
+                    "required": ["activity", "duration"]
                   }
+                },
+                "workingPrediction": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "activity": {
+                        "type": "integer"
+                      },
+                      "duration": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": ["activity", "duration"]
+                  }
+                },
+                "driverCardExpiryDate": {
+                  "type": "string"
+                },
+                "driverCardNextMandatoryDownloadDate": {
+                  "type": "string"
+                },
+                "timeLeftUntilNextRestPeriod": {
+                  "type": "integer"
+                },
+                "nextRestDuration": {
+                  "type": "integer"
                 }
               },
-              "required": ["driverId", "driverKey", "activities"]
+              "required": [
+                "driverId",
+                "driverKey",
+                "driverName",
+                "assetId",
+                "assetRegistration",
+                "eventDateTime",
+                "lastUpdateTime",
+                "heading",
+                "latitude",
+                "longitude",
+                "address",
+                "tachoMakeVersion",
+                "activity",
+                "infringementState",
+                "currentActivityTotalTime",
+                "continuousDrivingTime",
+                "dailyDrivingTime",
+                "weeklyDrivingTime",
+                "previousAndCurrentTotalDriveTime",
+                "remainingDrivingTime",
+                "remainingDailyDrivingTime",
+                "remainingWeeklyDrivingTime",
+                "timeLeftUntilNextDailyRest",
+                "nextDailyRestMinDuration",
+                "timeLeftUntilNextWeeklyRest",
+                "nextWeeklyRestMinDuration",
+                "lastDailyRestEnd",
+                "lastWeeklyRestEnd",
+                "remainingDailyExtendedDriveTimePeriods",
+                "remainingDailyShortenedRestTimePeriods",
+                "workingTimeSinceLastBreak",
+                "remainingWorkingTime",
+                "dailyWorkingTime",
+                "remainingDailyWorkingTime",
+                "weeklyWorkingTime",
+                "remainingWeeklyWorkingTime",
+                "dailyBreakTime",
+                "drivingPrediction",
+                "workingPrediction",
+                "driverCardExpiryDate",
+                "driverCardNextMandatoryDownloadDate",
+                "timeLeftUntilNextRestPeriod",
+                "nextRestDuration"
+              ]
             }
           }
         },
