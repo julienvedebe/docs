@@ -75,7 +75,9 @@
                 "group": "Locations (POIs)",
                 "icon": "map-pin",
                 "pages": [
-                  "solution/locations"
+                  "solution/locations",
+                  "solution/locationaddressses",
+                  "solution/locationsicons"
                 ]
               },
               {

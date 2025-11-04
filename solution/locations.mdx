@@ -2,76 +2,31 @@
 title: "Locations (POI)"
 ---
 
-A Point of Interest (POI) is a map location that has been given a name and marked by a geo-fence boundary. By creating POI locations, it is possible to report when a resource has arrived at or departed from that named location. There is a limit on the number of locations you can create.
+A Point of Interest (POI) is a map location that has been given a name and marked by a geo-fence boundary. By creating POI locations, it is possible to report when a resource has arrived at or departed from that named location. 
+
 
 - Using the my Connected Fleet Web Application or MICHELIN Connected Fleet API you can create a location and specify the geo-fence boundary to be either a circle or a polygon.
 
+The geofence for the location can be specified as either:
 
-When creating a POI location, it is assigned a location category. You can create as many location categories as required to meet your reporting/tracking requirements. The location category can be assigned one of the standard Connect icons. The icon is displayed on the map when using the my Connected Fleet Web Application to view a journey.
+### Radius
+- A geofence for the location is a circle.
+- The radius for the circle must be between 0.001 and 1.
 
 
-This is a list of the icon names that can be used:
+### Polygon
+- The geofence for the location is a polygon which is specified as an array of **longitude** and **latitude** pairs.
+- There must be at least three  **longitude** and **latitude **pairs specified.
+- The geofence boundary is closed by automatically linking the first **longitude** and **latitude **pair to the last **longitude** and **latitude **pair specified.
 
-| **Name**      | **Icon** | **Name**       |
-| :------------ | :------- | :------------- |
-| airport       |          | customer       |
-| local_usine   |          | location_hotel |
-| prospect      |          | restaurant     |
-| supplier      |          | train_station  |
-| depots        |          | fuel station   |
-| office        |          | port           |
-| restaurants   |          | service_red    |
-|               |          |                |
-| building      |          | company        |
-| hotel         |          | house          |
-| man           |          | none           |
-| gazStation    |          | home           |
-| internal      |          | location       |
-| others        |          | cusine         |
-| circle-blue   |          | circle-green   |
-| circle-red    |          | circle-white   |
-| circle-orange |          | circle-purple  |
-| circle-yellow |          |                |
-| dot-blue      |          | dot-green      |
-| dot-red       |          | dot-yellow     |
-| dot-navy      |          | dot-orange     |
-| flag-blue     |          | flag-green     |
-| flag-red      |          | flag-white     |
-| flag-orange   |          | flag-purple    |
-| flag-yellow   |          |                |
-| pin-orange    |          | pin-green      |
-| pin-white     |          | pin-yellow     |
-| pin-purple    |          | pin-red        |
-
+The geofence for a location can overlap the geofence for another location. The geofence for this location can overlap up to 5 locations.
 
 a new location with a geo-fence boundary that can be either **CIRCULAR** or **POLYGON**. There cannot be an existing location with the same name as the location being created.
 
-The maximum number of POI that can be created in your account  is limited based on the number of vehicles in your fleet. 
 
+### Limits
+There is a limit on the number of locations you can create.  The maximum number of POI that can be created in your account is limited based on the number of vehicles in your fleet. 
 - If your fleet size is less than 1,000 then you can create up to 250,000 locations. 
 - If your fleet size is more than 1,000, then the maximum is reduced on a sliding scale depending on the number of vehicles in your fleet. 
 
 
-The address for the location can be specified as either:
-
-- **longitude **and **latitude **coordinates 
-
-An address lookup is done to determine values for **roadNumber**, **road**, **city**, **postcode** and **country**. The **formattedAddress** is constructed as a comma separated set of values from **roadNumber**, **road**, **city**, **postcode** and **country**.
-
-- **roadNumber**, **road**, **city**, **postcode**, **country** 
-
-Values for **city**, **postcode** and **country** are mandatory and must be included in the input JSON object. The **formattedAddress** is constructed as a comma separated set of values from **roadNumber**, **road**, **city**, **postcode **and **country**. A lookup is done to determine the **longitude** and **latitude **coordinates.
-
-If both an address and longitude/latitude values are specified, then no check is performed to validate that the address matches the longitude/latitude values.
-
-The geofence for the location can be specified as either:
-
-- **radius** 
-
-A geofence for the location is a circle. The radius for the circle must be between 0.001 and 1.
-
-- **polygon** 
-
-The geofence for the location is a polygon which is specified as an array of **longitude** and **latitude** pairs. There must be at least three  **longitude** and **latitude **pairs specified. The geofence boundary is closed by automatically linking the first **longitude** and **latitude **pair to the last **longitude** and **latitude **pair specified.
-
-The geofence for a location can overlap the geofence for another location. The geofence for this location can overlap up to 5 locations.
