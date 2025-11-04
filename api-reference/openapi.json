@@ -115,7 +115,7 @@
     },
     {
       "name": "/tacho",
-      "description": "Tachograph data management operations"
+      "description": "Tachograph data management operations."
     }
   ],
   "paths": {
