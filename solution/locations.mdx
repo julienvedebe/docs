@@ -2,20 +2,20 @@
 title: "Locations (POI)"
 ---
 
-A Point of Interest (POI) is a map location that has been given a name and marked by a geo-fence boundary. By creating POI locations, it is possible to report when a resource has arrived at or departed from that named location. 
+A Location is, also known as a Point of Interest (POI) is Geofence, a geogrpahic location that has been given a name and marked by a geo-fence boundary. By creating POI locations, it is possible to report when a resource has arrived at or departed from that named area (location).  
 
+These can be created using the myConnectedFleet Web Application or API you can create a location and specify the geo-fence boundary to be either a circle or a polygon.
 
-- Using the my Connected Fleet Web Application or MICHELIN Connected Fleet API you can create a location and specify the geo-fence boundary to be either a circle or a polygon.
 
 The geofence for the location can be specified as either:
 
 ### Radius
-- A geofence for the location is a circle.
+- A circualr geofence
 - The radius for the circle must be between 0.001 and 1.
 
 
 ### Polygon
-- The geofence for the location is a polygon which is specified as an array of **longitude** and **latitude** pairs.
+- The geofence for the location is a polygon which is specified as an array of longitude and latitude pairs.
 - There must be at least three  **longitude** and **latitude **pairs specified.
 - The geofence boundary is closed by automatically linking the first **longitude** and **latitude **pair to the last **longitude** and **latitude **pair specified.
 
