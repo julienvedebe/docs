@@ -10,11 +10,22 @@ icon: "timer"
 />
 
 
-**MICHELIN Connected Fleet** APIs allow you to integrate telematics data from your fleet into virtually any platform. They cover all the features in **MICHELIN Connected Fleet**, from tracking, driver behaviour, vehicle management through to user management.
+**MICHELIN Connected Fleet** APIs allow you to integrate telematics data from your fleet into virtually any platform. Covering all features, from tracking, driver behaviour, vehicle management through to user management.
 
-To make a call to the API, you need a **username**, **password** and your **customer accout number**.  Please speak to your account manager if you do not have these details.
+### To make an API call
 
-The API uses **Basic** HTTP authentication. Include your username and password encoded in base64 in the `Authorization` header of your HTTP request, with your **customer accout identifier** included in the URL.
+<Steps>
+  <Step title="First Step">
+    You need a **username**, **password** and your **customer accout number**.  Please speak to your account manager if you do not have these details.
+  </Step>
+  <Step title="Second Step">
+   The API uses **Basic** HTTP authentication. Include your username and password encoded in base64 in the `Authorization` header of your HTTP request,
+  </Step>
+  <Step title="Third Step">
+     with your **customer account identifier** included in the URL.
+  </Step>
+</Steps>
+
 
 ```bash
 curl --request GET \
