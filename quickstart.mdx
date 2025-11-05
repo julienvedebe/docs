@@ -37,50 +37,31 @@ icon: "timer"
     --header 'Authorization: Basic <encoded-value>'
 
   ```
-    </Step>
-  </Steps>
+  </Step>
+  <Step title="5. Voila!">
+   You made your first call.  
+    The API response is JSON-encoded, see an example below; 
 
-The API response is JSON-encoded:
-
-```json
-[
-  {
-    "assetRegistration": "TYOX-42-AK",
-    "assetName": "TYOX-42-AK",
-    "assetId": "2068071",
-    "assetGroupId": "63f3433d0936060ea00a6ed8",
-    "assetGroupName": "Sweden",
-    "date": "2024-11-03T11:22:46",
-    "status": "endOfJourney",
-    "eventType": "stopped",
-    "speed": 0,
-    "odometer": 150800,
-    "heading": 108,
-    "latitude": 60.08833,
-    "longitude": 16.544203,
-    "road": "Åsvägen 19",
-    "roadNumber": "",
-    "city": "Sala",
-    "postCode": "733 75",
-    "country": "Sweden",
-    "formattedAddress": "Åsvägen 19, 733 75 Sala, Sweden",
-    "inputs": [],
-    "inputEvents": [],
-    "privacy": false,
-    "assetType": "VAN_SMALL",
-    "energyType": "ICE",
-    "fuelType": [
-      "DIESEL"
-    ],
-    "fuelLevelLitres": 26,
-    "engineTotalHours": 1476.6,
-    "engineRpm": 0,
-    "engineTotalHoursType": "ESTIMATED",
-    "activeFaultCodes": [
-      "200"
+    ```json
+    [
+      {
+        "assetRegistration": "TYOX-42-AK",
+        "assetName": "TYOX-42-AK",
+        "assetId": "2068071",
+        "assetGroupId": "63f3433d0936060ea00a6ed8",
+        "assetGroupName": "Sweden",
+        "date": "2024-11-03T11:22:46",
+        "status": "endOfJourney",
+        "eventType": "stopped",
+        "odometer": 150800,
+        "latitude": 60.08833,
+        "longitude": 16.544203,
+        "formattedAddress": "Åsvägen 19, 733 75 Sala, Sweden",
+        "assetType": "VAN_SMALL"
+      }
     ]
-  }
-]
-```
+    ```
+     </Step>
+      </Steps>
 
-Read more about the [REST API](/essentials/restAPI) and the feature that are available.
+Read more about the [REST API](/essentials/restAPI) and the feature that are available..
