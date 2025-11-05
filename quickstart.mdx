@@ -8,21 +8,21 @@ icon: "timer"
   src="/images/welcome_banner.png"
 />
 <Steps>
-  <Step title="1. Get your credentials">
+  <Step title="Get your credentials">
     You’ll need a **username**, **password**, and your **customer account number**.  
     If you don’t have these details, please ask your **Account Manager**.
   </Step>
-  <Step title="2. Authenticate your request">
+  <Step title="Authenticate your request">
     The MCF API uses **Basic HTTP Authentication**.  Encode your username and password in **Base64**, and include them in the `Authorization` header of your HTTP request:
     ```bash
     Authorization: Basic <base64(username:password)>
     ```
   </Step>
-  <Step title="3. Include your account identifier">
+  <Step title="Include your account identifier">
     Add your **customer account number** to the request URL.  
     This tells the API which account context to retrieve or modify data for.
   </Step>
- <Step title="4. Now make your first call!">
+ <Step title="Now make your first call!">
     Use this curl to request the latest poisition of your fleet.  
   ```bash
   curl --request GET \
@@ -30,7 +30,7 @@ icon: "timer"
     --header 'Authorization: Basic <encoded-value>'
   ```
   </Step>
-  <Step title="5. Voila!">
+  <Step title="Voila!">
     You made your first call.  
     The API response is JSON-encoded, see an example below; 
 
