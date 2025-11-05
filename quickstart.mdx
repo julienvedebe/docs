@@ -7,13 +7,11 @@ icon: "timer"
   className="block dark:hidden"
   src="/images/welcome_banner.png"
 />
-### To make an API call
 <Steps>
   <Step title="1. Get your credentials">
     You’ll need a **username**, **password**, and your **customer account number**.  
     If you don’t have these details, please ask your **Account Manager**.
   </Step>
-
   <Step title="2. Authenticate your request">
     The MCF API uses **Basic HTTP Authentication**.  Encode your username and password in **Base64**, and include them in the `Authorization` header of your HTTP request:
     ```bash
@@ -26,7 +24,6 @@ icon: "timer"
   </Step>
  <Step title="4. Now make your first call!">
     Use this curl to request the latest poisition of your fleet.  
-
   ```bash
   curl --request GET \
     --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/tracking/live \
