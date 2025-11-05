@@ -15,17 +15,28 @@ icon: "timer"
 ### To make an API call
 
 <Steps>
-  <Step title="First Step">
-    You need a **username**, **password** and your **customer accout number**.  Please speak to your account manager if you do not have these details.
+  <Step title="1. Get your credentials">
+    You’ll need a **username**, **password**, and your **customer account number**.  
+    If you don’t have these details, please contact your **Account Manager** to request API access.
   </Step>
-  <Step title="Second Step">
-   The API uses **Basic** HTTP authentication. Include your username and password encoded in base64 in the `Authorization` header of your HTTP request,
+
+  <Step title="2. Authenticate your request">
+    The MCF API uses **Basic HTTP Authentication**.  
+    Encode your username and password in **Base64**, and include them in the `Authorization` header of your HTTP request:
+    
+    ```bash
+    Authorization: Basic <base64(username:password)>
+    ```
   </Step>
-  <Step title="Third Step">
-     with your **customer account identifier** included in the URL.
+
+  <Step title="3. Include your account identifier">
+    Add your **customer account number** to the request URL.  
+    This tells the API which account context to retrieve or modify data for.
   </Step>
 </Steps>
 
+
+> 💡 **Tip:** You can quickly verify your credentials using a simple `curl` command before integrating into your application.
 
 ```bash
 curl --request GET \
