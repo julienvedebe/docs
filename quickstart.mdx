@@ -3,13 +3,10 @@ title: "Quickstart guide"
 description: "Make your first API call and begin exploring the possibilities of your connected fleet."
 icon: "timer"
 ---
-
 <img
   className="block dark:hidden"
   src="/images/welcome_banner.png"
 />
-
-
 ### To make an API call
 <Steps>
   <Step title="1. Get your credentials">
@@ -19,7 +16,6 @@ icon: "timer"
 
   <Step title="2. Authenticate your request">
     The MCF API uses **Basic HTTP Authentication**.  Encode your username and password in **Base64**, and include them in the `Authorization` header of your HTTP request:
-    
     ```bash
     Authorization: Basic <base64(username:password)>
     ```
@@ -29,17 +25,16 @@ icon: "timer"
     This tells the API which account context to retrieve or modify data for.
   </Step>
  <Step title="4. Now make your first call!">
-    In this example we rquest the latest poisition of the fleet.  
+    Use this curl to request the latest poisition of your fleet.  
 
   ```bash
   curl --request GET \
     --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/tracking/live \
     --header 'Authorization: Basic <encoded-value>'
-
   ```
   </Step>
   <Step title="5. Voila!">
-   You made your first call.  
+    You made your first call.  
     The API response is JSON-encoded, see an example below; 
 
     ```json
@@ -50,8 +45,7 @@ icon: "timer"
         "assetId": "2068071",
         "assetGroupId": "63f3433d0936060ea00a6ed8",
         "assetGroupName": "Sweden",
-        "date": "2024-11-03T11:22:46",
-        "status": "endOfJourney",
+        "date": "2025-11-03T11:22:46",
         "eventType": "stopped",
         "odometer": 150800,
         "latitude": 60.08833,
@@ -63,5 +57,4 @@ icon: "timer"
     ```
      </Step>
       </Steps>
-
 Read more about the [REST API](/essentials/restAPI) and the feature that are available..
