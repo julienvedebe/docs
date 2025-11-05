@@ -1,6 +1,6 @@
 ---
 title: "Quickstart guide"
-description: "This  guide will help you get started, allowing you to make your first API call and begin exploring the possibilities of your connected fleet."
+description: "Make your first API call and begin exploring the possibilities of your connected fleet."
 icon: "timer"
 ---
 
@@ -9,8 +9,6 @@ icon: "timer"
   src="/images/welcome_banner.png"
 />
 
-
-**MICHELIN Connected Fleet** APIs allow you to integrate telematics data from your fleet into virtually any platform. Covering all features, from tracking, driver behaviour, vehicle management through to user management.
 
 ### To make an API call
 
@@ -28,7 +26,6 @@ icon: "timer"
     Authorization: Basic <base64(username:password)>
     ```
   </Step>
-
   <Step title="3. Include your account identifier">
     Add your **customer account number** to the request URL.  
     This tells the API which account context to retrieve or modify data for.
@@ -36,7 +33,7 @@ icon: "timer"
 </Steps>
 
 
-> 💡 **Tip:** You can quickly verify your credentials using a simple `curl` command before integrating into your application.
+💡 **Tip:** You can quickly verify your credentials using a simple `curl` command before integrating into your application.
 
 ```bash
 curl --request GET \
