@@ -7,7 +7,7 @@ These are the main features available in the **MICHELIN Connected Fleet API**.
 
 ## Telematics
 
-You can get GPS and vehicle information to synchronize this telematics data into your own applications. Get the latest GPS location of a vehicle, input values, fuel consumption and details of vehicle faults.
+You can get the latest GPS location of a vehicle, vehicle information (input values, fuel consumption, vehicle faults) and synchronize this data into your own applications.
 
 **MICHELIN Connected Fleet** has a number of telematics devices which can be installed on a vehicle. As each device has different interface features, the device will determine the telematics functionality you will see in **MICHELIN Connected Fleet** and data that can be retrieved from the API.
 
@@ -26,7 +26,7 @@ Vehicles details can be managed through the API. The following details can be se
 See [Vehicles](/solution/vehicles) for more details.
 
 <Note>
-  Vehicles cannot be deleted using the API. They can only set as "SOLD" to indicate that the vehicle is no longer active in the fleet.
+  Vehicles cannot be created or deleted using the API. A vehicle can be set as "SOLD" to indicate that the vehicle is no longer active in the fleet.
 </Note>
 
 ## Drivers
@@ -85,7 +85,7 @@ As well as detecting if the vehicle is moving, stopped or idling, the telematics
 - if a door is open or closed
 - if beacon lights are switched on or switched off
 - temperature of the cold chamber
-- tyre pressue and temperature
+- tyre pressue and tyre temperature
 
 **Power Take Off (PTO)** is when the vehicle's engine is being used to power additional machinery, for example a crane to unload goods from the vehicle. **PTO** uses additional fuel, therefore, it is important to know if the PTO was active when the vehicle was idling.
 
