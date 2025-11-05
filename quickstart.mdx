@@ -15,12 +15,11 @@ icon: "timer"
 <Steps>
   <Step title="1. Get your credentials">
     You’ll need a **username**, **password**, and your **customer account number**.  
-    If you don’t have these details, please contact your **Account Manager** to request API access.
+    If you don’t have these details, please ask your **Account Manager**.
   </Step>
 
   <Step title="2. Authenticate your request">
-    The MCF API uses **Basic HTTP Authentication**.  
-    Encode your username and password in **Base64**, and include them in the `Authorization` header of your HTTP request:
+    The MCF API uses **Basic HTTP Authentication**.  Encode your username and password in **Base64**, and include them in the `Authorization` header of your HTTP request:
     
     ```bash
     Authorization: Basic <base64(username:password)>
@@ -30,16 +29,17 @@ icon: "timer"
     Add your **customer account number** to the request URL.  
     This tells the API which account context to retrieve or modify data for.
   </Step>
-</Steps>
+ <Step title="4. Now make your first call!">
+    In this example we rquest the latest poisition of the fleet.  
 
+  ```bash
+  curl --request GET \
+    --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/tracking/live \
+    --header 'Authorization: Basic <encoded-value>'
 
-💡 **Tip:** You can quickly verify your credentials using a simple `curl` command before integrating into your application.
-
-```bash
-curl --request GET \
-  --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/tracking/live \
-  --header 'Authorization: Basic <encoded-value>'
-```
+  ```
+    </Step>
+  </Steps>
 
 The API response is JSON-encoded:
 
