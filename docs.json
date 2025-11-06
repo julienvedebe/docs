@@ -140,15 +140,6 @@
             "openapi": "api-reference/openapi2.json"
           }
         ]
-      },
-      {
-        "tab": "tacho APIs",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "openapi": "api-reference/tacho.json"
-          }
-        ]
       }
     ]
   },
