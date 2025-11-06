@@ -42,7 +42,17 @@
               "essentials/pagination",
               "essentials/quotas",
               "essentials/latest",
-              "essentials/versions"
+              "essentials/versions",
+                 {
+                "group": "Resources",
+                "icon": "truck",
+                "pages": [
+                  "solution/vehicles",
+                  "solution/drivers",
+                  "solution/group",
+                  "solution/tags"
+                ]
+              }
             ]
           },
           {
