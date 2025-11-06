@@ -1,0 +1,470 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Masternaut Vehicle Checks Public API",
+    "contact": {
+      "name": "Masternaut",
+      "url": "https://www.masternaut.com",
+      "email": "support@masternautconnect.com"
+    },
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "/vehicle-checks",
+      "description": "Vehicle check and inspection operations"
+    }
+  ],
+  "paths": {
+    "/api/v1/vehicle-checks/inspections": {
+      "get": {
+        "tags": ["/vehicle-checks"],
+        "summary": "List Inspections",
+        "description": "Returns vehicle checks for the vehicle. If vehicleName is specified, then returns all vehicle checks for that vehicle in the specified period. If personName is specified, then returns all vehicle checks completed by that driver in the specified period. If groupName is specified, returns all vehicle checks for all vehicles in the specified group in the specified period.\nAt least one of the parameters: personName, groupName, or vehicleName must be specified.",
+        "operationId": "inspections",
+        "parameters": [
+          {
+            "name": "dateTimeFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "anyOf": [
+                {
+                  "format": "yyyy-MM-dd"
+                },
+                {
+                  "format": "yyyy-MM-dd'T'HH:mm'Z'"
+                }
+              ],
+              "example": "2022-12-12"
+            },
+            "description": "Start of the period of the date of inspection, in UTC, in the format of either yyyy-MM-dd or yyyy-MM-dd'T'HH:mm'Z'.\nIf user sends parameter in format yyyy-MM-dd e.g. 2022-12-12 then it is the same as if user sends 2022-12-12T00:00Z\nThe period between dateTimeFrom and dateTimeTo cannot be more than 31 days."
+          },
+          {
+            "name": "dateTimeTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "anyOf": [
+                {
+                  "format": "yyyy-MM-dd"
+                },
+                {
+                  "format": "yyyy-MM-dd'T'HH:mm'Z'"
+                }
+              ],
+              "example": "2022-12-12"
+            },
+            "description": "End of the period of the date of inspection, in UTC, in the format of either yyyy-MM-dd or yyyy-MM-dd'T'HH:mm'Z'.\n\nIf user sends parameter in format yyyy-MM-dd e.g. 2023-01-01 then it is the same as if user sends 2023-01-01T23:59Z\n\nPeriod between dateTimeFrom and dateTimeTo cannot be more than 31 days"
+          },
+          {
+            "name": "groupName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Name of a group. Must be specified if a value for either personName or vehicleName is not specified"
+          },
+          {
+            "name": "personName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Name of the person who submitted the inspection. Must be specified if a value for either vehicleName or groupName is not specified. It supports a list of names."
+          },
+          {
+            "name": "vehicleName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Friendly name for the vehicle where inspection has been carried out. Must be specified if a value for either personName or groupName is not specified. It supports a list of names."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of inspections to include in the output. If not specified it will default to 200."
+          },
+          {
+            "name": "nextToken",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token returned in a previous call to this endpoint to get the next set of details."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/jsonl": {
+                "schema": {
+                  "$ref": "#/components/schemas/InspectionResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/vehicle-checks/defects/defect-status/{defectId}": {
+      "put": {
+        "tags": ["/vehicle-checks"],
+        "summary": "Update Defect Status",
+        "operationId": "updateDefectStatus",
+        "description": "PUT request to update defect status.",
+        "parameters": [
+          {
+            "name": "defectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "System-generated unique identifier for the defect."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string",
+              "default": "application/json"
+            }
+          }
+        ],
+        "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string",
+                    "example": "OPEN"
+                  }
+                }
+              }
+            }
+          },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckDefectStatusDetailDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/vehicle-checks/images/{imageId}": {
+      "get": {
+        "tags": ["/vehicle-checks"],
+        "summary": "Get Image",
+        "operationId": "getImage",
+        "description": "GET request to return an image",
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Id of image in string format."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  },
+  "components": {
+    "schemas": {
+      "InspectionResponseDto": {
+        "type": "object",
+        "properties": {
+          "inspections": {
+            "type": "array",
+            "description": "Array of inspection information.",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/CheckWithDefectDto"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "CheckWithDefectDto": {
+        "type": "object",
+        "properties": {
+          "inspectionNumber": {
+            "type": "string",
+            "description": "System generated identifier for the inspection"
+          },
+          "submittedDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date & time for the fulfilment of inspection, in UTC, in the format of YYYY-MM-DDThh:mm:ssZ"
+          },
+          "inspectionDuration": {
+            "type": "string",
+            "description": "Duration of inspection ISO8601 duration string"
+          },
+           "personId": {
+            "type": "string",
+            "description": "System identifier of the person submitting the check"
+          },
+          "personName": {
+            "type": "string",
+            "description": "Name of the driver (person) that completed the check"
+          },
+          "vehicleId": {
+            "type": "string",
+            "description": "System identifier of the vehicle on which the check was performed"
+          },
+          "vehicleName": {
+            "type": "string",
+            "description": "Friendly name for the vehicle where the check was performed"
+          },
+          "groupName": {
+            "type": "string",
+            "description": "Name of the group currently assigned to the vehicle"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address where the check was performed (shown as the location in the details page)"
+          },
+          "lng": {
+            "type": "number",
+            "description": "Longitude value for the address where the check was performed"
+          },
+          "lat": {
+            "type": "string",
+            "description": "Latitude value for the address where the check was performed"
+          },
+          "checkResult": {
+            "type": "string",
+            "description": "Result of the check. Possible values: PASSED, FAILED, NOT_APPLICABLE, CRITICAL_FAILED",
+            "enum": ["PASSED", "FAILED", "NOT_APPLICABLE", "CRITICAL_FAILED"]
+          },
+          "repairStatus": {
+            "type": "string",
+            "description": "Status of the repair. Possible values: OPEN, DEFERRED, CLOSED_REPAIRED, CLOSED_DUPLICATE, CLOSED_NO_FAULT_FOUND, CLOSED",
+            "enum": ["OPEN", "DEFERRED", "CLOSED_REPAIRED", "CLOSED_DUPLICATE", "CLOSED_NO_FAULT_FOUND", "CLOSED"]
+          },
+          "defects": {
+            "type": "array",
+            "description": "Array of defects raised during the vehicle check.",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/InspectionDefectDto"
+                }
+              ]
+            }
+          },
+          "checks": {
+            "type": "array",
+            "description": "Array of checks that have passed.",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/InspectionCheckDto"
+                }
+              ]
+            }
+          },
+          "notes": {
+            "type": "string"
+          },
+          "contactName": {
+            "type": "string",
+            "description": "Name of the person to contact for the inspection."
+          },
+          "contactPhone": {
+            "type": "string",
+            "description": "Phone number for the named contact."
+          },
+          "odometer": {
+            "type": "number",
+            "description": "The odometer reading submitted from the recording of the check."
+          },
+          "make": {
+            "type": "string",
+            "description": "Make of the vehicle (brand)."
+          },
+          "model": {
+            "type": "string",
+            "description": "Model of the vehicle (specific model)."
+          },
+          "completedTooQuickly": {
+            "type": "boolean",
+            "description": "The Boolean value is set to true when the total check duration is less than the target duration."
+          },
+          "statusChanges": {
+            "type": "array",
+            "description": "Changes in repairStatus for the defect during the specified time period.",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/InspectionDefectStatusChangeDto"
+                }
+              ]
+            }
+          },
+          "odometerUnit": {
+            "type": "string"
+          }
+        }
+      },
+      "InspectionDefectDto": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category that the defect was raised under. Custom templates are included."
+          },
+          "name": {
+            "type": "string",
+            "description": "Defect name."
+          },
+          "description": {
+            "type": "string",
+            "description": "Defect description."
+          },
+          "checkResult": {
+            "type": "string",
+            "description": "FAILED"
+          },
+          "note": {
+            "type": "string",
+            "description": "Any notes entered by the driver for this defect."
+          },
+          "repairStatus": {
+            "type": "string",
+"description": "Status of the repair for particular defect:\n- OPEN\n- DEFERRED\n- CLOSED (REPAIRED)\n- CLOSED (DUPLICATE)\n- CLOSED (NO FAULT FOUND)"
+          },
+          "photoIds": {
+            "type": "array",
+            "description": "Unique system identifiers for images attached to this vehicle check.",
+            "items": {
+              "allOf": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "defectId": {
+            "type": "string",
+            "description": "System-generated unique identifier for the defect."
+          }
+        }
+      },
+      "InspectionCheckDto": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Category of the check."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the check."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the check."
+          },
+          "checkResult": {
+            "type": "string",
+"description": "PASSED, FAILED, NOT_APPLICABLE, CRITICAL_FAILED"
+          },
+          "note": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
+      "InspectionDefectStatusChangeDto": {
+        "properties": {
+          "repairStatus": {
+            "type": "string",
+            "description": "Status of the repair."
+          },
+          "description": {
+            "type": "string",
+            "description": "Text from changing the defectLog associated to a change in repairStatus."
+          },
+          "repairDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of repair work marked by user."
+          },
+          "signature": {
+            "type": "string",
+            "description": "Signature of the person who closed the check."
+          },
+          "statusChangeTimestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date/time when the status of this defect was last updated."
+          }
+        }
+      },
+      "CheckDefectStatusDetailDto": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "The status to which the defect should be updated. Possible options for status: OPEN, DEFERRED, CLOSED_REPAIRED, CLOSED_DUPLICATE, CLOSED_NO_FAULT_FOUND."
+          },
+          "signature": {
+            "type": "string",
+            "description": "The signature of the person who modified the status."
+          },
+          "repairDate": {
+            "type": "string",
+            "description": "Date of repair in UTC, in the format yyyy-MM-dd'T'HH:mm'Z'."
+          },
+          "notes": {
+            "type": "string",
+            "description": "The notes for this status change. Included in the response if notes have been specified for this status change."
+          }
+        }
+      }
+    }
+  }
+}
