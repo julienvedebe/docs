@@ -140,6 +140,15 @@
             "openapi": "api-reference/vehiclecheck.json"
           }
         ]
+      },
+      {
+        "tab": "tacho APIs",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "openapi": "api-reference/tacho.json"
+          }
+        ]
       }
     ]
   },
