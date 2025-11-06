@@ -80,6 +80,15 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Vehicle check API",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "openapi": "AS API/vehiclecheck.json"
+          }
+        ]
       }
     ]
   },
