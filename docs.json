@@ -11,8 +11,8 @@
     "family": "Open Sans"
   },
   "icons": {
-  "library": "lucide"
-},
+    "library": "lucide"
+  },
   "favicon": "/favicon-michelin.png",
   "appearance": {
     "default": "light",
@@ -42,7 +42,7 @@
               "essentials/pagination",
               {
                 "group": "Quotas, limits & misc",
-                "icon": "truck",
+                "icon": "map",
                 "pages": [
                   "essentials/quotas",
                   "essentials/latest",
