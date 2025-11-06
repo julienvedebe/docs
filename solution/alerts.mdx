@@ -8,14 +8,14 @@ The available alert types are:
 
 | **Alert Name** | **Alert Type** | **Description** |
 | :------------- | :------------- | :-------------- |
-| Arrive/Leave location alert | arriveOrLeaveLocationAlert           | An alert if a vehicle arrives at or leaves a specific location. |
-| xxx | a xxx | a cameraAlert | An alert when a High-G Event or Emergency button press is received from a camera.|
-| xxx | a cameraEventAlert | An alert when a High-G Event or Emergency button press is received from a camera. |
+| Arrive/Leave location alert | arriveOrLeaveLocationAlert | An alert if a vehicle arrives at or leaves a specific location. |
+| Camera event alert | a cameraEventAlert | An alert when a High-G Event or Emergency button press is received from a camera. |
 | Cold chain alert | ? | Create an alert if a temperature value is outside a defined threshold / if the refrigeration alarm is activated. |
 
 | xxx | a driveTimeAlert | An alert if a vehicle is moving for longer than a defined threshold. Moving time includes driving and idling |
 | Drive without key alert | drivingWithoutAuthenticationKeyAlert | An alert if a vehicle is driven without an identification key or tacho card being used. Note that vehicles need to be equipped with a MCF identification key reader or connected tachograph |
 | Exception alert | exceptionAlert | Ann alert if a vehicle performs a specific activity, for example idles longer than 20 minutes. |
+| Fuel level alert | ? | Create an alert when the fuel level is lower than when the vehicle stopped. Subject to compatibility. |
 | xxx | genericInputAlert                    | An alert if a temperature value is outside a defined threshold / if the refrigeration alarm is activated.                                                                                   |
 | Idling alert | idlingAssetAlert | An alert if someone idles too long. |
 | Input/PTO alert | inputAlert | An alert when an input or PTO is used. |
@@ -25,12 +25,12 @@ The available alert types are:
 | Low battery alert | lowBatteryAlert | An alert when the ATU's Battery is low. |
 | xxx | lowEVChargeAlert | An alert when the EV charge is low.                                                                                                                                                         |
 | xxx | maintenanceFaultAlert                | An alert if a maintenance fault is detected on a vehicle.                                                                                                                                   |
-| xxx | onTimeLateJobArrivalAlert            | An alert if a vehicle does NOT arrive at a scheduled job on time.                                                                                                                           |
-| xxx | outOfHoursAlert                      | An alert if a vehicle is used outside of working hours.                                                                                                                                     |
+| Late job alert | onTimeLateJobArrivalAlert            | An alert if a vehicle does NOT arrive at a scheduled job on time.                                                                                                                           |
+| Out of hours alert | outOfHoursAlert                      | An alert if a vehicle is used outside of working hours.                                                                                                                                     |
 | xxx | Posted Speed Alert                      | This alert notifies you when selected mobiles exceed posted speed limit by more than user defined maximum speed tolerance. Vehicle type will be taken into account when determining the limit.|
 | Speed over X alert | speedOverXAlert                      | An alert if a vehicle exceeds a user-defined speed threshold.                                                                                                                               |
 | Stop time alert | stopTimeAlert                        | An alert if a vehicle exceeds a user-defined stop time threshold                                                                                                                            |
-| xxx | tamperEventAlert                     | An alert when a device is unplugged from a vehicle (M210 only).                                                                    |
+| Tamper event alert | tamperEventAlert                     | An alert when a device is unplugged from a vehicle (M210 only).                                                                    |
 
 When the alert is triggered, the following can be set to receive the alert notification:
 
