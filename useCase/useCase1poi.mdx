@@ -1,5 +1,6 @@
 ---
 title: 'Sync addresses (POIs)'
+description: 'Enrich your tracking and journey data by synchronising your own list of customers, depots, and delivery sites with the myConnectedFleet platform.'
 "icon": "map-pin"
 ---
 <img
@@ -7,14 +8,10 @@ title: 'Sync addresses (POIs)'
   src="/images/useCasePOI.png"
 />
 ### Overview
-
-Enrich your tracking and journey data by synchronising your own list of customers, depots, and delivery sites with the myConnectedFleet platform.
-
 By creating and categorising your key address locations using the /location and /location/category endpoints, every journey, stop, and visit in your fleet reports will automatically include meaningful location names and context — rather than just coordinates.
 
 
 ### How It Works
-
 Create location categories to group your address types
 Use /location/category to define logical groupings such as "Customer", "Depot", "Supplier", or "Warehouse".
 
@@ -29,9 +26,7 @@ curl --request PUT \
 }'
 ```
 
-
 > 💡 **Tip:** Use clear, descriptive names for your locations and categories — for example, “Leeds Depot” or “Tesco Milton Keynes.” Consistent names make your data easier to understand in reports.  Avoid vague codes or abbreviations, and keep your address book up to date as sites open, close, or change purpose.
-
 
 
 ### Add your customer or depot locations
