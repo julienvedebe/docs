@@ -1,21 +1,23 @@
 ---
 title: 'Retrieve latest odo readings'
-description: 'Automatically collect live odometer data across your fleet for leasing, finance or compliance reporting.'
+description: 'Automatically live odometer data collection for leasing, finance or compliance reporting.'
 "icon": "gauge"
 ---
-
+<img
+  className="block dark:hidden"
+  src="/images/useCaseOdo.png"
+/>
 ### Overview
-
 Instead of manually checking each vehicle’s mileage on site, use the myConnectedFleet API to retrieve **up-to-date odometer readings** for all vehicles in your account.  
 This data can be shared directly with your **leasing provider**, **finance department**, or **fleet management system**, saving time and improving accuracy.
 
 The `/vehicle` and `/livePosition/latest` endpoints return the latest distance and odometer values recorded by each connected asset.
 
 ### Benefits
-- ✅ Save time: No more manual yard checks — retrieve all mileage readings in one call.
-- ✅ Improve accuracy: Values are sourced directly from the vehicle’s on-board telematics.
-- ✅ Automate reporting: Share JSON or CSV exports with leasing or finance systems.
-- ✅ Support compliance: Maintain verifiable, timestamped odometer logs for audits.
+- Save time: No more manual yard checks — retrieve all mileage readings in one call.
+- Improve accuracy: Values are sourced directly from the vehicle’s on-board telematics.
+- Automate reporting: Share JSON or CSV exports with leasing or finance systems.
+- Support compliance: Maintain verifiable, timestamped odometer logs for audits.
 
 
 ### How It Works
@@ -37,9 +39,8 @@ Each response includes the following useful fields:
 - lastUpdated: Timestamp of the last recorded odometer value
 
 
->💡 **Tip**: Use consistent vehicle names and registration numbers that match your leasing provider’s records. This ensures that exported mileage data aligns automatically with your external systems and avoids manual reconciliation.
-
-
+<Tip> Use consistent vehicle names and registration numbers that match your leasing provider’s records. This ensures that exported mileage data aligns automatically with your external systems and avoids manual reconciliation.
+</Tip> 
 
 
 Example Output
