@@ -40,17 +40,13 @@
               "essentials/requestResponseCodes",
               "essentials/datetime",
               "essentials/pagination",
-              "essentials/quotas",
-              "essentials/latest",
-              "essentials/versions",
-                 {
-                "group": "Resources",
+              {
+                "group": "Quotas, limits & misc",
                 "icon": "truck",
                 "pages": [
-                  "solution/vehicles",
-                  "solution/drivers",
-                  "solution/group",
-                  "solution/tags"
+                  "essentials/quotas",
+                  "essentials/latest",
+                  "essentials/versions"
                 ]
               }
             ]
