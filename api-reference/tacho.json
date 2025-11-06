@@ -41,16 +41,18 @@
               "type": "string"
             },
             "description": "{ Authoriation: Token xxxxxxxxxxxxxxxxxx }"
-          },
-          {
-            "in": "body",
-            "name": "LiveBodyRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/LiveRequest"
-            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LiveRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "200 response",
@@ -144,16 +146,19 @@
               "type": "string"
             },
             "description": "{ Authoriation: Token xxxxxxxxxxxxxxxxxx }"
-          },
-          {
-            "in": "body",
-            "name": "ActivityRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/ActivityRequest"
-            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityRequest"
+              }
+            }
+          },
+          "description": "ActivityRequest"
+        },
         "responses": {
           "200": {
             "description": "200 response",
@@ -530,16 +535,18 @@
               "type": "string"
             },
             "description": "{ Authoriation: Token xxxxxxxxxxxxxxxxxx }"
-          },
-          {
-            "in": "body",
-            "name": "LiveBodyRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/LiveRequest"
-            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LiveRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "200 response",
@@ -633,16 +640,18 @@
               "type": "string"
             },
             "description": "{ Authoriation: Token xxxxxxxxxxxxxxxxxx }"
-          },
-          {
-            "in": "body",
-            "name": "ActivityRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/ActivityRequest"
-            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "200 response",

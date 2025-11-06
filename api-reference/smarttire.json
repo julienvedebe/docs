@@ -1,0 +1,2688 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "public-api",
+    "description": "Public API Gateway",
+    "version": "2025-10-17T15:30:00.000Z"
+  },
+  "x-amazon-apigateway-request-validators": {
+    "all": {
+      "validateRequestBody": true,
+      "validateRequestParameters": true
+    }
+  },
+  "x-amazon-apigateway-gateway-responses": {
+    "BAD_REQUEST_BODY": {
+      "responseTemplates": {
+        "application/json": "{\"message\":\"$context.error.validationErrorString\"}"
+      }
+    }
+  },
+  "paths": {
+    "/public/v1/customer/{customerId}/st/tire/wear": {
+      "summary": "MCF Tire Wear API",
+      "post": {
+        "tags": [
+          "MCF Tire Wear"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "description": "MCF Customer ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ 'Content-Type': 'application/json' }"
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authorization: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TireWearRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "204 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbidden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_tire_wear_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/st/tire/defect": {
+      "summary": "MCF Tire Defect API",
+      "post": {
+        "tags": [
+          "MCF Tire Defect"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "description": "MCF Customer ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ 'Content-Type': 'application/json' }"
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authoriation: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TireDefectRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "204 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbidden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_tire_defect_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/st/asset/{assetId}/pressure": {
+      "summary": "MCF Tire Pressure API",
+      "get": {
+        "tags": [
+          "MCF Tire Pressure"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "description": "MCF Customer ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetId",
+            "description": "MCF Asset ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "description": "Start Date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "description": "End Date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "description": "Optional Integer and defaults to 0",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "description": "Optional Integer and defaults to 200",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authorization: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TirePressureResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbidden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_get_tire_pressure_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/st/asset/{assetId}/sensor/audit/history": {
+      "summary": "MCF Sensor Audit History API",
+      "get": {
+        "tags": [
+          "MCF Sensor Audit History"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "description": "MCF Customer ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetId",
+            "description": "MCF Asset ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SensorAuditHistoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbidden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_get_sensor_audit_history_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/asset/tire": {
+      "summary": "MCF Get Latest Tire Data API",
+      "get": {
+        "tags": [
+          "MCF Tire Data"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "description": "MCF Customer ID. This is required to identify the customer context.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetId",
+            "description": "Use this to retrieve data for a specific vehicle. If neither `assetId` nor `groupId` is provided, data for **all vehicles accessible to the user under the specified customer** will be returned.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "description": "MCF Group ID. Use this to retrieve data for all vehicles within a specific group. If neither `assetId` nor `groupId` is provided, data for **all vehicles accessible to the user under the specified customer** will be returned.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "inspectionTypes",
+            "description": "Comma separated list of includes, e.g. 'TIRE_WEAR, TIRE_PRESSURE",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                "TIRE_WEAR",
+                "TIRE_PRESSURE"
+              ]
+            },
+            "style": "form",
+            "explode": false
+          },
+          {
+            "name": "includeLocation",
+            "description": "Whether to include each vehicle’s last known location; the default is false",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sinceDate",
+            "description": "Only include vehicles whose tire wear/pressure have been updated since this date and time",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "description": "Optional Integer and defaults to 0",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "description": "Optional Integer and defaults to 200",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "default": 200
+            }
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authorization: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TireDataResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbidden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_get_tire_data_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/asset/{assetId}/tire/pressure/history": {
+      "summary": "MCF Tire Pressure API",
+      "get": {
+        "tags": [
+          "MCF Tire Pressure"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "description": "MCF Customer ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetId",
+            "description": "MCF Asset ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "description": "Only events occurring on or after this date will be included in the response. If not provided, defaults to 30 days ago.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "description": "Only events occurring before this date will be included in the response. If not provided, defaults to the current date and time. The endDate must be after the startDate.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "description": "Optional Integer and defaults to 0",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "description": "Optional Integer and defaults to 200",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authorization: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTirePressureResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbidden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_get_tire_pressure_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/asset/{assetId}/tire/wear/history": {
+      "summary": "MCF Tire Wear API",
+      "get": {
+        "tags": [
+          "MCF Tire Wear"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "description": "MCF Customer ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetId",
+            "description": "MCF Asset ID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "description": "Only events occurring on or after this date will be included in the response",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "description": "Only events occurring before this date will be included in the response",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "description": "Optional Integer and defaults to 0",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "description": "Optional Integer and defaults to 200",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authorization: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTireWearResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbidden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_get_tire_wear_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/asset/tire/defect/history": {
+      "summary": "MCF Get Tire Defects API",
+      "get": {
+        "tags": [
+          "MCF Tire Defects"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "description": "MCF Customer ID. This is required to identify the customer context.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "description": "The result will include defects that occurred between startDateTime and endDateTime, not exceeding 6 months",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "description": "The result will include defects that occurred between startDateTime and endDateTime, not exceeding 6 months",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "severities",
+            "description": "Filter by severity of the defect. If not provided, all severities will be returned.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ATTENTION",
+                  "MINOR",
+                  "MODERATE",
+                  "MAJOR",
+                  "CRITICAL",
+                  "INFORMATION",
+                  "NOT_INSTALLED",
+                  "OTHER_ACTION"
+                ]
+              }
+            }
+          },
+          {
+            "name": "assetId",
+            "description": "Use this to retrieve data for a specific vehicle. If neither `assetId` nor `groupId` is provided, data for **all vehicles accessible to the user under the specified customer** will be returned.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "description": "MCF Group ID. Use this to retrieve data for all vehicles within a specific group. If neither `assetId` nor `groupId` is provided, data for **all vehicles accessible to the user under the specified customer** will be returned.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "description": "Optional Integer and defaults to 0",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "description": "Optional Integer and defaults to 200",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authorization: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTireDefectsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401 response, not authorized or no valid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "403 response, Forbidden don't have access to the feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 response, bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_get_tire_defects_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/asset/tire/uninspected/pressure": {
+      "summary": "Get Vehicles Without Tire Pressure Measurements Since a Given Time",
+      "get": {
+        "tags": [
+          "MCF Tire Inspection"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "MCF Customer ID. This is required to identify the customer context.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "description": "MCF Group ID. Use this to retrieve data for all vehicles within a specific group. \n\nThere are generally two types of API clients: \n1. **MyCF web users**, who must always provide a `groupId` when accessing the API; \n2. **Customer-level API users**, who can access data by providing only the `customerId`.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "uninspectedSince",
+            "in": "query",
+            "description": "Includes only vehicles whose last inspection (`pressureEventDate` in the response) occurred **before** the specified timestamp, or that have **never been inspected**. Results are sorted in ascending order by inspection date (oldest first). Format: `YYYY-MM-DDThh:mm:ss.sssZ`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2025-07-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "includeLocation",
+            "in": "query",
+            "description": "Whether to include the vehicle's last known GPS location in the response. Defaults to false. \n\n️ Setting this to true may require additional backend resources to retrieve and enrich location data (e.g., GPS timestamp, optional POI information). If not strictly needed, it is recommended to leave this flag unset or set to false to improve response time and performance.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "Optional Integer and defaults to 0.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Optional Integer and defaults to 200",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 20
+            }
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authorization: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response. List of vehicles whose pressure has not been inspected since a specified timestamp.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUninspectedAssetsByPressureResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input parameters (e.g., missing required fields or invalid format)"
+          },
+          "404": {
+            "description": "Customer not found or no matching vehicles found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_get_uninspected_asset_pressure_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    },
+    "/public/v1/customer/{customerId}/asset/tire/uninspected/wear": {
+      "summary": "Get Vehicles Without Tire Wear Inspection Since Given Time",
+      "get": {
+        "tags": [
+          "MCF Tire Inspection"
+        ],
+        "x-amazon-apigateway-request-validator": "all",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "MCF Customer ID. This is required to identify the customer context.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "description": "MCF Group ID. Use this to retrieve data for all vehicles within a specific group. \n\nThere are generally two types of API clients: \n1. **MyCF web users**, who must always provide a `groupId` when accessing the API; \n2. **Customer-level API users**, who can access data by providing only the `customerId`.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "uninspectedSince",
+            "in": "query",
+            "description": "Includes only vehicles whose last inspection (`wearEventDate` in the response) occurred **before** the specified timestamp, or that have **never been inspected**. Results are sorted in ascending order by inspection date (oldest first). Format: `YYYY-MM-DDThh:mm:ss.sssZ`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2025-07-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "includeLocation",
+            "in": "query",
+            "description": "Whether to include the vehicle's last known GPS location in the response. Defaults to false. \n\n️ Setting this to true may require additional backend resources to retrieve and enrich location data (e.g., GPS timestamp, optional POI information). If not strictly needed, it is recommended to leave this flag unset or set to false to improve response time and performance.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "Optional Integer and defaults to 0.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Optional Integer and defaults to 200",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 200
+            }
+          },
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "{ Authorization: Token xxxxxxxxxxxxxxxxxx }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response. List of vehicles that have not undergone tire wear inspection since a specified timestamp.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUninspectedAssetsByWearResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input parameters (e.g., missing required fields or invalid format)"
+          },
+          "404": {
+            "description": "Customer not found or no matching vehicles found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "stAuthorizer": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws_proxy",
+          "uri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_get_uninspected_asset_wear_lambda_${env}/invocations",
+          "httpMethod": "POST",
+          "credentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "contentHandling": "CONVERT_TO_TEXT"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Empty": {
+        "type": "object"
+      },
+      "TireWearRequest": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string",
+            "enum": [
+              "automatedInspection"
+            ]
+          },
+          "sentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicle": {
+            "type": "object",
+            "properties": {
+              "refId": {
+                "type": "string",
+                "description": "QSS ref id"
+              },
+              "aid": {
+                "type": "string",
+                "description": "Asset ID from MCF"
+              },
+              "rfid": {
+                "type": "string",
+                "description": "The QuickScan tag"
+              },
+              "registrationNumber": {
+                "type": "string"
+              },
+              "lastPassageDate": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "inspection": {
+            "type": "object",
+            "properties": {
+              "inspectionDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "tires": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "refId": {
+                      "type": "string",
+                      "description": "QSS tire id"
+                    },
+                    "position": {
+                      "type": "object",
+                      "properties": {
+                        "axleRank": {
+                          "type": "number"
+                        },
+                        "tireRank": {
+                          "type": "number",
+                          "description": "When paired : 1,2,3,4 / not paired : 1,2"
+                        },
+                        "tireCount": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "inspectionStatus": {
+                      "type": "string",
+                      "enum": [
+                        "MOUNT_CHANGE_SUSPICION",
+                        "INVALID_PROJECTION",
+                        "MISSING_POSITION",
+                        "INVALID_UNDERLAYER",
+                        "POSITION_PASSAGE_TOO_OLD",
+                        "MOUNT_NEVER_SEEN",
+                        "POSITION_NEVER_SEEN",
+                        "VEHICLE_NEVER_SEEN",
+                        "DATE_OUT_OF_PROJECTION_PERIOD",
+                        "UNSURE_WITHOUT_PASSAGE_DATE",
+                        "NO_PROJECTION_DATA",
+                        "OK"
+                      ]
+                    },
+                    "regrooved": {
+                      "type": "boolean"
+                    },
+                    "retreaded": {
+                      "type": "boolean"
+                    },
+                    "tireMeasurement": {
+                      "type": "object",
+                      "properties": {
+                        "grooves": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "rank": {
+                                "type": "number"
+                              },
+                              "rtd": {
+                                "type": "number",
+                                "format": "float",
+                                "description": "Remaining tread depth"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TireDefectRequest": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string",
+            "enum": [
+              "vehicleDefects"
+            ]
+          },
+          "sentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicle": {
+            "type": "object",
+            "properties": {
+              "refId": {
+                "type": "string",
+                "description": "QSS ref id"
+              },
+              "aid": {
+                "type": "string",
+                "description": "Asset ID from MCF"
+              },
+              "rfid": {
+                "type": "string"
+              },
+              "registrationNumber": {
+                "type": "string"
+              },
+              "lastPassageDate": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "defectList": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "entityType": {
+                  "type": "string",
+                  "enum": [
+                    "TIRE",
+                    "AXLE",
+                    "VEHICLE"
+                  ]
+                },
+                "axleRank": {
+                  "type": "number"
+                },
+                "tire": {
+                  "type": "object",
+                  "properties": {
+                    "refId": {
+                      "type": "string",
+                      "description": "QSS tire id"
+                    },
+                    "position": {
+                      "type": "object",
+                      "properties": {
+                        "axleRank": {
+                          "type": "number"
+                        },
+                        "tireRank": {
+                          "type": "number",
+                          "description": "When paired : 1,2,3,4 / not paired : 1,2"
+                        },
+                        "tireCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                },
+                "defects": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "WEAR",
+                          "CONICITY",
+                          "TTC",
+                          "WEAR_TTC",
+                          "PRESSURE",
+                          "PRESSURE_TTC",
+                          "INCONSISTENCY",
+                          "MANUAL",
+                          "PRESSURE_FOOTPRINT"
+                        ]
+                      },
+                      "subType": {
+                        "type": "string",
+                        "enum": [
+                          "WEAR",
+                          "CONICITY",
+                          "AXLE_INCONSTITENCY",
+                          "UNDER_INFLATION",
+                          "OVER_INFLATION",
+                          "LEAK",
+                          "UNDER_INFLATION_LEAK",
+                          "OVER_INFLATION_LEAK",
+                          "UNDECLARE_MOUNT_CHANGE",
+                          "VEHICLE_INSPECTION"
+                        ]
+                      },
+                      "leak": {
+                        "type": "boolean"
+                      },
+                      "refId": {
+                        "type": "string"
+                      },
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updateDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "severity": {
+                        "type": "string",
+                        "enum": [
+                          "MODERATE",
+                          "CRITICAL",
+                          "MAJOR"
+                        ],
+                        "description": "MAJOR - only for axle defect"
+                      },
+                      "rtd": {
+                        "type": "number"
+                      },
+                      "conicity": {
+                        "type": "number"
+                      },
+                      "daysToCritical": {
+                        "type": "number"
+                      },
+                      "hoursToCritical": {
+                        "type": "number",
+                        "description": "required when PRESSURE_TTC defect"
+                      },
+                      "grooveHeightDifference": {
+                        "type": "number",
+                        "description": "in case of AXLE defect"
+                      },
+                      "normalizedPressure": {
+                        "type": "number",
+                        "description": "millibar - in case of PRESSURE_TTC defect"
+                      },
+                      "recommendedPressure": {
+                        "type": "number",
+                        "description": "millibar - in case of PRESSURE_TTC defect"
+                      },
+                      "recommendedAction": {
+                        "type": "string",
+                        "description": "free text e.g. Stop Remove & inspect tire for damage, Immediate Check, Repair, Urgent Replace"
+                      },
+                      "rule": {
+                        "type": "string",
+                        "description": "free text e.g. Brand Different on axle"
+                      },
+                      "observation": {
+                        "type": "string",
+                        "description": "free text e.g Axle mismatch (Tyre Make)"
+                      },
+                      "tires": {
+                        "type": "array",
+                        "description": "in case of AXLE defect",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "position": {
+                              "type": "object",
+                              "properties": {
+                                "axleRank": {
+                                  "type": "number"
+                                },
+                                "tireRank": {
+                                  "type": "number",
+                                  "description": "When paired : 1,2,3,4 / not paired : 1,2"
+                                },
+                                "tireCount": {
+                                  "type": "number"
+                                }
+                              }
+                            },
+                            "rtd": {
+                              "type": "number"
+                            },
+                            "refId": {
+                              "type": "string",
+                              "description": "QSS tire id"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "number"
+          },
+          "errorMessage": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "errorCode",
+          "errorMessage"
+        ]
+      },
+      "TirePressureResponse": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "type": "number"
+          },
+          "pageSize": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          },
+          "totalCount": {
+            "type": "number"
+          },
+          "resultCount": {
+            "type": "number"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          },
+          "sortDirection": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          "sortField": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "customerId": {
+                  "type": "string"
+                },
+                "assetId": {
+                  "type": "string"
+                },
+                "eventDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "speedKph": {
+                  "type": "number"
+                },
+                "highTemperatureThr": {
+                  "type": "number"
+                },
+                "lowPressureAlertThr": {
+                  "type": "number"
+                },
+                "lowPressureWarningThr": {
+                  "type": "number"
+                },
+                "nominalPressure": {
+                  "type": "number"
+                },
+                "tires": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "position": {
+                        "type": "object",
+                        "properties": {
+                          "axleRank": {
+                            "type": "number"
+                          },
+                          "tireCount": {
+                            "type": "number"
+                          },
+                          "tireRank": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "positionIdentifier": {
+                        "type": "string"
+                      },
+                      "alertBattery": {
+                        "type": "boolean"
+                      },
+                      "alertPressure": {
+                        "type": "number"
+                      },
+                      "alertTemp": {
+                        "type": "boolean"
+                      },
+                      "pressure": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "temperature": {
+                        "type": "number"
+                      },
+                      "normalizedPressure": {
+                        "type": "number"
+                      },
+                      "wheelSensorId": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SensorAuditHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string"
+          },
+          "assetId": {
+            "type": "string"
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "personId": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "request": {
+                  "type": "object",
+                  "properties": {
+                    "sensorPositions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "positionIdentifier": {
+                            "type": "string"
+                          },
+                          "sensorId": {
+                            "type": "string"
+                          },
+                          "unassigned": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "previousTireConfig": {
+                  "$ref": "#/components/schemas/AuditResultTirePosition"
+                }
+              }
+            }
+          },
+          "currentTireConfig": {
+            "type": "object",
+            "properties": {
+              "tires": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/AuditResultTirePosition"
+                }
+              }
+            }
+          }
+        }
+      },
+      "TireDataResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationInfo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "asset": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "registration": {
+                          "type": "string"
+                        },
+                        "formattedRegistration": {
+                          "type": "string"
+                        },
+                        "vin": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "pressureEventDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "wearEventDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "tires": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "position": {
+                            "type": "object",
+                            "properties": {
+                              "axleNumber": {
+                                "type": "number"
+                              },
+                              "tireCount": {
+                                "type": "number"
+                              },
+                              "tireNumber": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "positionIdentifier": {
+                            "type": "string"
+                          },
+                          "pressureInspection": {
+                            "type": "object",
+                            "properties": {
+                              "pressure": {
+                                "description": "Measured tire pressure in pascals (Pa).",
+                                "type": "number"
+                              },
+                              "normalizedPressure": {
+                                "description": "Tire pressure adjusted to a reference temperature of 20°C, in pascals (Pa).",
+                                "type": "number"
+                              },
+                              "temperature": {
+                                "description": "Tire temperature in degrees Celsius (°C) at the time of inspection.",
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "wearInspection": {
+                            "type": "object",
+                            "properties": {
+                              "grooves": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "grooveNumber": {
+                                      "description": "An index starting from 1 that identifies a specific tread groove on the tire, used to distinguish measurements from different grooves",
+                                      "type": "number"
+                                    },
+                                    "rtd": {
+                                      "type": "number",
+                                      "description": "Remaining tread depth (m)"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "inspectionStatus": {
+                            "description": "Status of the tire inspection",
+                            "type": "string"
+                          },
+                          "regrooved": {
+                            "description": "Indicates if the tire has been regrooved",
+                            "type": "boolean"
+                          },
+                          "retreaded": {
+                            "description": "Indicates if the tire has been retreaded",
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "location": {
+                      "type": "object",
+                      "properties": {
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "pois": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/POI"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "GetTireDefectsResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationInfo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "asset": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "registration": {
+                          "type": "string"
+                        },
+                        "formattedRegistration": {
+                          "type": "string"
+                        },
+                        "vin": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "category": {
+                      "type": "string",
+                      "description": "Classification of the defect",
+                      "enum": [
+                        "WEAR",
+                        "PRESSURE",
+                        "TEMPERATURE",
+                        "CONFIG_WEAR",
+                        "CONFIG_PRESSURE",
+                        "NOT_INSTALLED_PRESSURE",
+                        "NOT_INSTALLED_WEAR",
+                        "MANUAL"
+                      ]
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Type of the defect, e.g. WEAR, CONICITY, etc."
+                    },
+                    "entityType": {
+                      "type": "string",
+                      "enum": [
+                        "TIRE",
+                        "AXLE",
+                        "VEHICLE"
+                      ],
+                      "description": "Type of the entity associated with the defect, e.g. TIRE, AXLE, VEHICLE"
+                    },
+                    "inProgress": {
+                      "type": "boolean",
+                      "description": "Indicates whether the defect is still active on the vehicle. This value is set to true when the defect is open, and false once it has been fixed or closed"
+                    },
+                    "creationDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "The date and time when the defect was first reported"
+                    },
+                    "updateDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "The date and time when the defect was last updated"
+                    },
+                    "severity": {
+                      "type": "string",
+                      "description": "Severity of the defect, e.g. INFORMATION, MODERATE, CRITICAL"
+                    },
+                    "severityCode": {
+                      "type": "number",
+                      "description": "Severity code of the defect"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "dueDate": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "The date and time when the defect is expected to become critical"
+                        },
+                        "positions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "axleNumber": {
+                                "type": "number",
+                                "description": "Axle number associated with the tire position"
+                              },
+                              "tireCount": {
+                                "type": "number",
+                                "description": "Number of tires on the axle"
+                              },
+                              "tireNumber": {
+                                "type": "number",
+                                "description": "Tire number on the axle, starting from 1"
+                              },
+                              "positionIdentifier": {
+                                "type": "string",
+                                "description": "Unique identifier for the tire position"
+                              }
+                            }
+                          }
+                        },
+                        "pressure": {
+                          "type": "number",
+                          "description": "Measured tire pressure in pascals (Pa)"
+                        },
+                        "normalizedPressure": {
+                          "type": "number",
+                          "description": "Tire pressure adjusted to a reference temperature of 20°C, in pascals (Pa)"
+                        },
+                        "temperature": {
+                          "type": "number",
+                          "description": "Tire temperature in degrees Celsius (°C) at the time of inspection"
+                        },
+                        "conicity": {
+                          "type": "number",
+                          "description": "Measurement of wear in mm"
+                        },
+                        "grooveHeightDifference": {
+                          "type": "number",
+                          "description": "Difference in groove height, used to assess inconsistency"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "GetTirePressureResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationInfo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "asset": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "registration": {
+                        "type": "string"
+                      },
+                      "formattedRegistration": {
+                        "type": "string"
+                      },
+                      "vin": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "events": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "eventDate": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "speedKph": {
+                          "type": "number"
+                        },
+                        "tires": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "position": {
+                                "type": "object",
+                                "properties": {
+                                  "axleNumber": {
+                                    "type": "number"
+                                  },
+                                  "tireCount": {
+                                    "type": "number"
+                                  },
+                                  "tireNumber": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "positionIdentifier": {
+                                "type": "string"
+                              },
+                              "alertBattery": {
+                                "type": "boolean"
+                              },
+                              "alertPressure": {
+                                "type": "number"
+                              },
+                              "alertTemp": {
+                                "type": "boolean"
+                              },
+                              "pressure": {
+                                "type": "number"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "temperature": {
+                                "type": "number"
+                              },
+                              "normalizedPressure": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "GetTireWearResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationInfo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "asset": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "registration": {
+                        "type": "string"
+                      },
+                      "formattedRegistration": {
+                        "type": "string"
+                      },
+                      "vin": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "events": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "eventDate": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "tires": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "position": {
+                                "type": "object",
+                                "properties": {
+                                  "axleNumber": {
+                                    "type": "number"
+                                  },
+                                  "tireCount": {
+                                    "type": "number"
+                                  },
+                                  "tireNumber": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "positionIdentifier": {
+                                "type": "string"
+                              },
+                              "inspectionStatus": {
+                                "type": "string",
+                                "description": "Status of the tire inspection",
+                                "enum": [
+                                  "MOUNT_CHANGE_SUSPICION",
+                                  "INVALID_PROJECTION",
+                                  "MISSING_POSITION",
+                                  "INVALID_UNDERLAYER",
+                                  "POSITION_PASSAGE_TOO_OLD",
+                                  "MOUNT_NEVER_SEEN",
+                                  "POSITION_NEVER_SEEN",
+                                  "VEHICLE_NEVER_SEEN",
+                                  "DATE_OUT_OF_PROJECTION_PERIOD",
+                                  "UNSURE_WITHOUT_PASSAGE_DATE",
+                                  "NO_PROJECTION_DATA",
+                                  "OK"
+                                ]
+                              },
+                              "regrooved": {
+                                "type": "boolean"
+                              },
+                              "retreaded": {
+                                "type": "boolean"
+                              },
+                              "grooves": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "grooveNumber": {
+                                      "type": "number",
+                                      "description": "An index starting from 1 that identifies a specific tread groove on the tire, used to distinguish measurements from different grooves"
+                                    },
+                                    "rtd": {
+                                      "type": "number",
+                                      "format": "float",
+                                      "description": "Remaining tread depth"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "GetUninspectedAssetsByPressureResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationInfo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "asset": {
+                      "$ref": "#/components/schemas/BasicAsset"
+                    },
+                    "pressureEventDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Latest pressure inspection date (optional). This field may be missing or null for vehicles that have never been inspected. Format: YYYY-MM-DDThh:mm:ss.sssZ."
+                    },
+                    "location": {
+                      "type": "object",
+                      "description": "Last known GPS location of the vehicle, including the timestamp and optional POI (Point of Interest) information.",
+                      "properties": {
+                        "latitude": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "longitude": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "timestamp": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "UTC timestamp when this GPS location was recorded. Format: YYYY-MM-DDThh:mm:ss.sssZ."
+                        },
+                        "pois": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/POI"
+                          }
+                        },
+                        "address": {
+                          "$ref": "#/components/schemas/Address"
+                        }
+                      },
+                      "required": [
+                        "latitude",
+                        "longitude",
+                        "timestamp"
+                      ]
+                    },
+                    "tires": {
+                      "type": "array",
+                      "description": "Array of tire-related inspection data for each tire on the vehicle.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "position": {
+                            "type": "object",
+                            "properties": {
+                              "axleNumber": {
+                                "type": "number"
+                              },
+                              "tireCount": {
+                                "type": "number"
+                              },
+                              "tireNumber": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "positionIdentifier": {
+                            "type": "string"
+                          },
+                          "pressureInspection": {
+                            "type": "object",
+                            "properties": {
+                              "pressure": {
+                                "description": "Measured tire pressure in pascals (Pa).",
+                                "type": "number"
+                              },
+                              "normalizedPressure": {
+                                "description": "Tire pressure adjusted to a reference temperature of 20°C, in pascals (Pa).",
+                                "type": "number"
+                              },
+                              "temperature": {
+                                "description": "Tire temperature in degrees Celsius (°C) at the time of inspection.",
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "GetUninspectedAssetsByWearResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationInfo"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "asset": {
+                      "$ref": "#/components/schemas/BasicAsset"
+                    },
+                    "wearEventDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Latest wear inspection date (optional). This field may be missing or null for vehicles that have never been inspected. Format: YYYY-MM-DDThh:mm:ss.sssZ."
+                    },
+                    "location": {
+                      "type": "object",
+                      "description": "Last known GPS location of the vehicle, including the timestamp and optional POI (Point of Interest) information.",
+                      "properties": {
+                        "latitude": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "longitude": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "timestamp": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "UTC timestamp when this GPS location was recorded. Format: YYYY-MM-DDThh:mm:ss.sssZ."
+                        },
+                        "pois": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/POI"
+                          }
+                        }
+                      },
+                      "required": [
+                        "latitude",
+                        "longitude",
+                        "timestamp"
+                      ]
+                    },
+                    "tires": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "position": {
+                            "type": "object",
+                            "properties": {
+                              "axleNumber": {
+                                "type": "number"
+                              },
+                              "tireCount": {
+                                "type": "number"
+                              },
+                              "tireNumber": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "positionIdentifier": {
+                            "type": "string"
+                          },
+                          "wearInspection": {
+                            "type": "object",
+                            "properties": {
+                              "grooves": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "grooveNumber": {
+                                      "description": "An index starting from 1 that identifies a specific tread groove on the tire, used to distinguish measurements from different grooves",
+                                      "type": "number"
+                                    },
+                                    "rtd": {
+                                      "type": "number",
+                                      "description": "Remaining tread depth (m)"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "inspectionStatus": {
+                            "description": "Status of the tire inspection",
+                            "type": "string"
+                          },
+                          "regrooved": {
+                            "description": "Indicates if the tire has been regrooved",
+                            "type": "boolean"
+                          },
+                          "retreaded": {
+                            "description": "Indicates if the tire has been retreaded",
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "BasicAsset": {
+        "type": "object",
+        "description": "Basic vehicle identification information. This object exclusively represents static asset-level attributes such as ID, name, registration, and VIN, and does not include any dynamic tire inspection data such as pressure, wear, or temperature.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "registration": {
+            "type": "string",
+            "description": "The raw vehicle registration string, typically reflecting how it was originally provided. This field is not guaranteed to follow a standardized format and is intended for reference purposes only. For consistent identification and integration with external systems, use 'formattedRegistration' instead."
+          },
+          "formattedRegistration": {
+            "type": "string",
+            "description": "The formatted vehicle registration used in MCF Web as the 'serialNumber'. Third-party systems using the Smart Tire Public API can use this field to map MCF vehicles to their corresponding entries in their own systems."
+          },
+          "vin": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "PaginationInfo": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "type": "number"
+          },
+          "pageSize": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          },
+          "totalCount": {
+            "type": "number"
+          },
+          "resultCount": {
+            "type": "number"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      },
+      "POI": {
+        "type": "object",
+        "description": "Point of Interest (POI) related to the vehicle's location",
+        "properties": {
+          "locationId": {
+            "type": "string"
+          },
+          "locationName": {
+            "type": "string"
+          },
+          "locationCategory": {
+            "type": "string"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "description": "Address information derived from GPS coordinates via reverse geocoding. May be undefined if reverse geocoding was not performed or failed.",
+        "properties": {
+          "formattedAddress": {
+            "type": "string",
+            "description": "Full formatted address."
+          },
+          "road": {
+            "type": "string",
+            "description": "Street or road name."
+          },
+          "roadNumber": {
+            "type": "string",
+            "description": "Street or road number."
+          },
+          "city": {
+            "type": "string",
+            "description": "City name."
+          },
+          "postCode": {
+            "type": "string",
+            "description": "Postal code."
+          },
+          "country": {
+            "type": "string",
+            "description": "Country name."
+          }
+        }
+      },
+      "AuditResultTirePosition": {
+        "type": "object",
+        "properties": {
+          "positionIdentifier": {
+            "type": "string"
+          },
+          "sensorId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "stAuthorizer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "x-amazon-apigateway-authtype": "Custom authorization scheme using Masternauth",
+        "x-amazon-apigateway-authorizer": {
+          "type": "request",
+          "identitySource": "method.request.header.Authorization, context.identity.sourceIp",
+          "authorizerCredentials": "arn:aws:iam::${aws_account}:role/mn_st_public_api_invoke_lambda_role",
+          "authorizerUri": "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:${aws_account}:function:mn_st_public_api_masternauth_authorizer_lambda_${env}/invocations",
+          "authorizerResultTtlInSeconds": 300
+        }
+      }
+    }
+  }
+}
