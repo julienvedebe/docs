@@ -129,15 +129,15 @@
           {
             "group": "API Documentation",
             "openapi": "api-reference/openapi.json"
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Vehiclecheck APIs",
+        "groups": [
           {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
+            "group": "API Documentation",
+            "openapi": "api-reference/vehiclecheck.json"
           }
         ]
       }
