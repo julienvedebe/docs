@@ -38,7 +38,7 @@
               "essentials/authentication",
               {
                 "group": "Requests",
-                "icon": "map",
+                "icon": "code",
                 "pages": [
                   "essentials/requestMethods",
                   "essentials/requestResponseCodes"
