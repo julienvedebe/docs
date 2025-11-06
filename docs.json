@@ -36,8 +36,14 @@
             "pages": [
               "essentials/restAPI",
               "essentials/authentication",
-              "essentials/requestMethods",
-              "essentials/requestResponseCodes",
+              {
+                "group": "Requests",
+                "icon": "map",
+                "pages": [
+                  "essentials/requestMethods",
+                  "essentials/requestResponseCodes"
+                ]
+              },
               "essentials/datetime",
               "essentials/pagination",
               {
