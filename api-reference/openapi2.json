@@ -152,16 +152,7 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CheckDefectStatusDetailDto"
-              }
-            }
-          },
-          "responses": {
+        "responses": {
             "200": {
               "description": "OK",
               "content": {
@@ -171,6 +162,15 @@
                     "example": "OPEN"
                   }
                 }
+              }
+            }
+          },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckDefectStatusDetailDto"
               }
             }
           }
