@@ -8,7 +8,7 @@ description: 'Enrich your tracking and journey data by synchronising your own li
   src="/images/useCasePOI.png"
 />
 ### Overview
-By creating and categorising your key address locations using the /location and /location/category endpoints, every journey, stop, and visit in your fleet reports will automatically include meaningful location names and context — rather than just coordinates.
+By creating and categorising your key address locations using the /location and /location/category endpoints, every journey, stop, and visit in your fleet reports will automatically include meaningful location names and context — rather than just address (or coordinates).
 
 
 ### How It Works
@@ -26,7 +26,9 @@ curl --request PUT \
 }'
 ```
 
-> 💡 **Tip:** Use clear, descriptive names for your locations and categories — for example, “Leeds Depot” or “Tesco Milton Keynes.” Consistent names make your data easier to understand in reports.  Avoid vague codes or abbreviations, and keep your address book up to date as sites open, close, or change purpose.
+<Tip> 
+Use clear, descriptive names for your locations and categories — for example, “Leeds Depot” or “Tesco Milton Keynes.” Consistent names make your data easier to understand in reports.  Avoid vague codes or abbreviations, and keep your address book up to date as sites open, close, or change purpose.
+</Tip>
 
 
 ### Add your customer or depot locations
