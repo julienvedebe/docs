@@ -21,7 +21,6 @@ The `/vehicle` and `/livePosition/latest` endpoints return the latest distance a
 
 
 ### How It Works
-
 Query your vehicle list and include the latest telemetry data such as odometer and total distance.
 
 ```bash
@@ -65,4 +64,7 @@ Example Output
 }
 ```
 
->💡 Tip: Remember that CANbus odometer type readings come directly from the vehicle’s onboard sensors, while readings with odometer type GPS are estimated based on distance travelled from a known starting point. For the most accurate mileage reporting, use CANbus where available, and treat GPS odometers as approximate values.
+<Note> 
+Remember that CANbus odometer type readings come directly from the vehicle’s onboard sensors, while readings with odometer type GPS are estimated based on distance travelled from a known starting point. For the most accurate mileage reporting, use CANbus where available, and treat GPS odometers as approximate values.
+</Note> 
+
