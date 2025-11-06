@@ -149,15 +149,6 @@
             "openapi": "api-reference/tacho.json"
           }
         ]
-      },
-      {
-        "tab": "smart tire APIs",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "openapi": "api-reference/smarttire.json"
-          }
-        ]
       }
     ]
   },
