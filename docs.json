@@ -167,6 +167,7 @@
     }
   },
   "footer": {
+    "poweredBy": false,
     "socials": {
       "x": "https://twitter.com/MichelinFleet",
       "facebook": "https://www.facebook.com/MichelinConnectedFleet",
