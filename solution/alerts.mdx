@@ -2,39 +2,37 @@
 title: "Alerts"
 ---
 
-The **myConnectedFleet platform** can trigger an alert when specific conditions are met.  Alerts can be set for a single vehicle or for the vehicles in a group. 
+The **myConnectedFleet platform** can trigger an alert when specific conditions are met.  Alerts can be set for a single vehicle or for the vehicles in a group.
 
 The available alert types are:
 
-| **Name** | **Type** | **Description** |
-| :------------- | :------------- | :---------------------------------- |
-| Arrive/Leave location alert | arriveOrLeaveLocationAlert | Alert if a vehicle arrives at or leaves a specific location. |
-| Camera event alert | a cameraEventAlert | Alert when a High-G Event or Emergency button press is received from a camera. |
-| Cold chain alert | ? | Alert if a temperature is outside a defined threshold / if the refrigeration alarm is activated. |
-| xxx | a driveTimeAlert | Alert if a vehicle is moving for longer than a defined threshold. |
-| Drive without key alert | drivingWithout AuthenticationKeyAlert | Alert if a vehicle is driven without an ID. |
-| Exception alert | exceptionAlert | Alert if a vehicle performs a specific activity, for example idles longer than 20 minutes. |
-| Fuel level alert | ? | Alert if fuel level is drop after a stop. |
-| xxx | genericInputAlert | Alert if a temperature value is outside a defined threshold / if the refrigeration alarm is activated. |
-| Idling alert | idlingAssetAlert | Alert if someone idles too long. |
-| Input/PTO alert | inputAlert | Alert when an input or PTO is used. |
-| Late start alert | lateStartAlert | Alert if a vehicle doesn’t start its day by a specific time. |
-| Long drive time alert | ? | Alert if a vehicle is moving for longer than a defined threshold. |
-| Low battery alert | lowBatteryAlert | Alert when the ATU's Battery is low. |
-| xxx | lowEVChargeAlert | An alert when the EV charge is low. |
-| xxx | maintenanceFaultAlert | Alert if a vehicle maintenance fault is detected. |
-| Late job alert | onTimeLateJobArrivalAlert | Alert if a vehicle does NOT arrive at a scheduled job on time.|                                                           
-| Out of hours alert | outOfHoursAlert | Alert if a vehicle is used outside of working hours. |
-| xxx | Posted Speed Alert | Alert if a vehicle  you when selected mobiles exceeds the speed limit.|
-| Speed over X alert | speedOverXAlert |  Alert if a vehicle exceeds a user-defined speed threshold. |
-| Stop time alert | stopTimeAlert | Alert if a vehicle exceeds a user-defined stop time threshold |
-| Tamper event alert | tamperEventAlert | Alert when a device is unplugged from a vehicle. |
-| Trailer rollover alert (VDC) | ? | Aalert when a trailers rollover prevention system (VDC) detects and corrects lateral acceleration. | 
-|Trailer equipment disconnected alert | ? | Alert when the power supply is not correctly connected to MCF equipment in the trailer. |
-
-
+| **Name**                             | **Type**                              | **Description**                                                                                           |
+| :----------------------------------- | :------------------------------------ | :-------------------------------------------------------------------------------------------------------- |
+| Arrive/Leave location alert          | arriveOrLeaveLocationAlert            | Alert if a vehicle arrives at or leaves a specific location.                                              |
+| Camera event alert                   | cameraEventAlert                      | Alert when a High-G Event or Emergency button press is received from a camera.                            |
+| Cold chain alert                     | genericInputAlert                     | Alert if a temperature is outside a defined threshold / if the refrigeration alarm is activated.          |
+| Long Drive Time Alert                | driveTimeAlert                        | Alert if a vehicle is moving for longer than a defined threshold.                                         |
+| Drive without key alert              | drivingWithout AuthenticationKeyAlert | Alert if a vehicle is driven without an ID.                                                               |
+| Exception alert                      | exceptionAlert                        | Alert if a vehicle performs a specific activity, for example idles longer than 20 minutes.                |
+| Fuel level alert                     | ????                                  | Alert if fuel level is lower by a threshold after a stop.                                                 |
+| Idling alert                         | idlingAssetAlert                      | Alert if someone idles too long.                                                                          |
+| Input/PTO alert                      | inputAlert                            | Alert when an input or PTO is used.                                                                       |
+| Late start alert                     | lateStartAlert                        | Alert if a vehicle doesn’t start its day by a specific time.                                              |
+| Long drive time alert                | driveTimeAlert                        | Alert if a vehicle is moving for longer than a defined threshold. Moving time includes driving and idling |
+| Low battery alert                    | lowBatteryAlert                       | Alert when the ATU's Battery is low.                                                                      |
+| Low EV Charge Alert                  | lowEVChargeAlert                      | An alert when the EV charge is low.                                                                       |
+| ????                                 | maintenanceFaultAlert                 | Alert if a vehicle maintenance fault is detected.                                                         |
+| Late job alert                       | onTimeLateJobArrivalAlert             | Alert if a vehicle does NOT arrive at a scheduled job on time.                                            |
+| Out of hours alert                   | outOfHoursAlert                       | Alert if a vehicle is used outside of working hours.                                                      |
+| xxx                                  | Posted Speed Alert                    | Alert if a vehicle  you when selected mobiles exceeds the speed limit.                                    |
+| Speed over X alert                   | speedOverXAlert                       | Alert if a vehicle exceeds a user-defined speed threshold.                                                |
+| Stop time alert                      | stopTimeAlert                         | Alert if a vehicle exceeds a user-defined stop time threshold.                                            |
+| Tamper event alert                   | tamperEventAlert                      | Alert when a device is unplugged from a vehicle.                                                          |
+| Trailer rollover alert (VDC)         | ?                                     | Aalert when a trailers rollover prevention system (VDC) detects and corrects lateral acceleration.        |
+| Trailer equipment disconnected alert | ?                                     | Alert when the power supply is not correctly connected to MCF equipment in the trailer.                   |
 
 When the alert is triggered, the following can be set to receive the alert notification:
+
 - One or more **myConnectedFleet** portal users
 - One or more email addresses
 - One or more mobile telephone numbers
