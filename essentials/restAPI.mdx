@@ -3,9 +3,14 @@ title: "Our APIs"
 icon: "eye"
 ---
 
-These are the main features available in the **MICHELIN Connected Fleet API**.
+Explore the key information you’ll need to get started with the **MICHELIN Connected Fleet APIs**.  
 
-## Telematics
+These APIs enable seamless integration of vehicle, driver, and journey data into your own systems — helping you build connected, data-driven fleet solutions.
+
+For a deeper understanding of how our platform works, see [Solution Concepts](/solution/overview).
+
+
+### Telematics
 
 You can get the latest GPS location of a vehicle, vehicle information (input values, fuel consumption, vehicle faults) and synchronize this data into your own applications.
 
@@ -13,7 +18,7 @@ You can get the latest GPS location of a vehicle, vehicle information (input val
 
 GPS tracking provides the location, speed and direction of travel for a vehicle in real time. By combining individual tracking data, we can generate journeys for a vehicle. By linking a driver to a vehicle, driver behaviour metrics can be calculated.
 
-## Vehicles
+### Vehicles
 
 Vehicles details can be managed through the API. The following details can be set for a vehicle:
 
@@ -29,7 +34,7 @@ See [Vehicles](/solution/vehicles) for more details.
   Vehicles cannot be created or deleted using the API. A vehicle can be set as "SOLD" to indicate that the vehicle is no longer active in the fleet.
 </Note>
 
-## Drivers
+### Drivers
 
 Drivers can be created and managed through the API. The folliowig details can be set for a driver:
 
@@ -45,7 +50,7 @@ Full create, read, and update operations are available through the API. See [Dri
   Drivers are not deleted, instead the **delete** request will update the driver status **inactive**.
 </Note>
 
-## Groups
+### Groups
 
 The group hierarchy allows you to organise your vehicles, drivers & users to meet your reporting needs.
 
@@ -64,13 +69,13 @@ Fleet
 
 Full create, read, and update operations are available through the API. See [Group ](/solution/group)for more details.
 
-## Locations / Points of interest (POI)
+### Locations / Points of interest (POI)
 
 The Locations API allows you to manage known locations for use in driver timesheets, reports, alerts and more. You can create, read, update, and delete locations and configure their geofences.
 
 Full create, read, delete and update operations are available through the API. See the [Locations ](/solution/locations)API for more details.
 
-## Users
+### Users
 
 The features of the **MICHELIN Connected Fleet** portal that a user can access are dependent on their assigned role. You can define the features available for a role and can create as many roles as needed.
 
@@ -78,15 +83,4 @@ A user is allocated to a group in the group hierarchy. A user can only view deta
 
 Full create, read, delete and update operations are available through the API. See the [Users ](/solution/users)API for more details.
 
-## Inputs and PTO
 
-As well as detecting if the vehicle is moving, stopped or idling, the telematics device can be configured to detect other vehicle activity, for example:
-
-- if a door is open or closed
-- if beacon lights are switched on or switched off
-- temperature of the cold chamber
-- tyre pressue and tyre temperature
-
-**Power Take Off (PTO)** is when the vehicle's engine is being used to power additional machinery, for example a crane to unload goods from the vehicle. **PTO** uses additional fuel, therefore, it is important to know if the PTO was active when the vehicle was idling.
-
-Only read operations are available through the API for inputs. See the [**Inputs**](/solution/inputs) API for more details.
