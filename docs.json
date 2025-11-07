@@ -167,6 +167,7 @@
     }
   },
   "footer": {
+    "text": "© 2025 MICHELIN Connected Fleet. All rights reserved.",
     "poweredBy": false,
     "socials": {
       "x": "https://twitter.com/MichelinFleet",
