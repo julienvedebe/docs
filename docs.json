@@ -137,7 +137,7 @@
         "groups": [
           {
             "group": "API Documentation",
-            "openapi": "api-reference/openapi2.json"
+            "openapi": "api-reference/vehiclecheck.json"
           }
         ]
       },
