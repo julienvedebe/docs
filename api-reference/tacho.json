@@ -15,6 +15,8 @@
     "/public/v1/customer/{customerId}/tacho/live": {
       "post": {
         "tags": ["/tacho"],
+        "summary": "Tacho Live",
+        "description": "The Tacho Live Endpoint aims to provide the latest known tacho status and aggregated timers in a list of requested drivers.\nThe intention is to feed a third-party application, like a Transport Management System (TMS) or any productivity management tool with up-to-date Drivers’ times.\nNote: this endpoint should not be used to historicize the data. Instead, please use the Tacho Activity endpoint to request the drivers’ past tacho activities.",
         "parameters": [
           {
             "name": "customerId",
@@ -22,7 +24,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID of the customer"
           },
           {
             "name": "Content-Type",
@@ -120,11 +123,15 @@
     },
     "/public/v1/customer/{customerId}/tacho/activity": {
       "post": {
+        "tags": ["/tacho"],
+        "summary": "Tacho Activity",
+        "description": "The Tacho Activity Endpoint aims to provide the drivers’ historical activities. The intention is to feed a third-party application, like a Workforce, or Payroll Prep management tool with historical Drivers’ activities",
         "parameters": [
           {
             "name": "customerId",
             "in": "path",
             "required": true,
+            "description": "ID of the customer",
             "schema": {
               "type": "string"
             }
@@ -226,6 +233,9 @@
     },
     "/public/v1/customer/{customerId}/tacho/settings": {
       "put": {
+        "tags": ["/tacho"],
+        "summary": "Tacho Update Settings",
+        "description": "Updates the settings for a specific customer account",
         "parameters": [
           {
             "name": "customerId",
@@ -319,9 +329,13 @@
         }
       },
       "get": {
+        "tags": ["/tacho"],
+        "summary": "Tacho Get Settings",
+        "description": "Returns the current values of customer settings for a specific customer account",
         "parameters": [
           {
             "name": "customerId",
+            "description": "ID of the customer",
             "in": "path",
             "required": true,
             "schema": {
@@ -417,6 +431,7 @@
         "parameters": [
           {
             "name": "customerId",
+            "description": "ID of the customer",
             "in": "path",
             "required": true,
             "schema": {
@@ -1115,22 +1130,28 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "description": "MUST be identical to the full key unique 14 character chars and issue number. At least one parameter from this list must be provided: driverKeys, registrations, lastUpdatedSince"
           },
           "registrations": {
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "description": "MUST be identical to the vehicle registration registered with Connect."
+
           },
           "skip": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of records to be skipped before the beginning of the result set. This acts as an offset from the first record matching the request parameters."
           },
           "limit": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Limit the number of records to return in the response."
           },
           "sort": {
             "type": "object",
+            "description": "The object contains direction and field path to sort. Sets the sort order to be either ascending (ASC) or descending (DESC).",
             "properties": {
               "driverId": {
                 "type": "string"
@@ -1481,137 +1502,180 @@
         "type": "object",
         "properties": {
           "count": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Total number of records found"
           },
           "data": {
             "type": "array",
+            "description": "List of driver's current tacho status and cumulated time",
             "items": {
               "type": "object",
               "properties": {
                 "driverId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Connect driver identifier"
                 },
                 "driverKey": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Tacho driver card key"
                 },
                 "driverName": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Driver name from tacho card"
                 },
                 "assetId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Connect vehicle identifier"
                 },
                 "assetRegistration": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Vehicle registration number (VRN)"
                 },
                 "eventDateTime": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Date and time in UTC when the last tacho event was received"
                 },
                 "lastUpdateTime": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Date and time in UTC when the last tacho driver status was updated"
                 },
                 "timersQualityLevel": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Indicates the level of quality of the Live timers"
                 },
                 "heading": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Compass heading of the vehicle in degrees clockwise from north."
                 },
                 "latitude": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "Asset latitude position."
                 },
                 "longitude": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "Asset longitude position."
                 },
                 "address": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Formatted address for the location"
                 },
                 "tachoMakeVersion": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Tachograph make and version"
                 },
                 "activity": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "RESTING, WORKING, AVAILABLE, DRIVING, DRIVERCARDEJECTED"
                 },
                 "infringementState": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "0 — no time-related warning detected\n1 — continuous driving time pre-warning active (15 min before 4h30)\n2 — continuous driving time warning active (4h30 exceeded)\n3 — daily driving time pre-warning active (daily driving time above 9 hours or above the maximum allowed daily driving time)\n4 — daily driving time warning active (daily driving time above 9 hours or above the maximum allowed daily driving time)\n5 — daily/weekly rest pre-warning active\n6 — daily/weekly rest warning active\n7 — weekly driving time pre-warning active\n8 — weekly driving time warning active\n9 — 2 weeks driving time pre-warning active\n10 — 2 weeks driving time warning active\n11 — driver 1 card expiry warning active\n12 — next mandatory driver 1 card download warning active\n13 — Working time warning active (6h)\n14 — Daily working time warning active (10h)\n15 — Weekly working time warning active  (60h)\n16 — Driving without a card inserted\n17 — Driver Card inserted during weekly rest"
                 },
                 "currentActivityTotalTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Cumulated current activity total time (mins)"
                 },
                 "continuousDrivingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Continuous Driving in the current 4.5 h shift. Any value > 4.5h means an infringement. (mins)"
                 },
                 "dailyDrivingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Cumulated Driving time since the beginning of the working day (mins)"
                 },
                 "weeklyDrivingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Cumulated driving time since the beginning of the week. (mins)"
                 },
                 "previousAndCurrentTotalDriveTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Total drive time of current and previous week (mins)"
                 },
                 "remainingDrivingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "This time is the maximum remaining driving time left to the next required break/rest (mins)"
                 },
                 "remainingDailyDrivingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Maximum remaining driving time left on the current day for a driver (mins)"
                 },
                 "remainingWeeklyDrivingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Maximum remaining driving time left on the current week for a driver (mins)"
                 },
                 "timeLeftUntilNextDailyRest": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Time left until the driver can start a new daily rest period (mins)"
                 },
                 "nextDailyRestMinDuration": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Minimum daily rest the driver needs to do to fulfill an ongoing or approaching daily rest period (mins)"
                 },
                 "timeLeftUntilNextWeeklyRest": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Time left until the driver can start a new weekly rest period (mins)"
                 },
                 "nextWeeklyRestMinDuration": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Minimum weekly rest the driver needs to do to fulfill an ongoing or approaching weekly rest period (mins)"
                 },
                 "lastDailyRestEnd": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "This date is the end of the last daily rest period of driver 1, as computed by the tachograph using driver 1 card data"
                 },
                 "lastWeeklyRestEnd": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "This date is the end of the last weekly rest period of driver 1, as computed by the tachograph using driver 1 card data"
                 },
                 "remainingDailyExtendedDriveTimePeriods": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Number of remaining times the driver can have an extended 10 hours daily drive time (can be 2, 1, 0)"
                 },
                 "remainingDailyShortenedRestTimePeriods": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Number of remaining times driver can have a short 9 hours daily rest (can be 3, 2, 1, 0)"
                 },
                 "workingTimeSinceLastBreak": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Working time since last break/rest was taken (mins)"
                 },
                 "remainingWorkingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Remaining working time left to next required break/rest according to (mins)"
                 },
                 "dailyWorkingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Cumulated working time since the beginning of the working day (mins)"
                 },
                 "remainingDailyWorkingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Remaining working time left to next daily rest(mins)"
                 },
                 "weeklyWorkingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Cumulated working time since the beginning of the working week (mins)"
                 },
                 "remainingWeeklyWorkingTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Remaining working time left for next weekly rest (mins)"
                 },
                 "dailyBreakTime": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Cumulated breaking time of the day (mins)"
                 },
                 "drivingPrediction": {
                   "type": "array",
+                  "description": "List of next possible driving-related activities",
                   "items": {
                     "type": "object",
                     "properties": {
                       "activity": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Type of activity"
                       },
                       "duration": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Duration of the activity in minutes"
                       }
                     },
                     "required": ["activity", "duration"]
@@ -1619,30 +1683,37 @@
                 },
                 "workingPrediction": {
                   "type": "array",
+                  "description": "List of next possible working-related activities",
                   "items": {
                     "type": "object",
                     "properties": {
                       "activity": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Type of activity"
                       },
                       "duration": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Duration of the activity in minutes"
                       }
                     },
                     "required": ["activity", "duration"]
                   }
                 },
                 "driverCardExpiryDate": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Date of expiry for the driver's card"
                 },
                 "driverCardNextMandatoryDownloadDate": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "This date is the mandatory date for card download"
                 },
                 "timeLeftUntilNextRestPeriod": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "This time is the time left until the next break/rest period (mins)"
                 },
                 "nextRestDuration": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "duration of the next break/rest for the driver"
                 }
               },
               "required": [
@@ -1712,34 +1783,42 @@
         "properties": {
           "driverKeys": {
             "type": "array",
+            "description": "MUST be identical to the full key unique 14 character chars and issue number",
             "items": {
               "type": "string"
             }
           },
           "registrations": {
             "type": "array",
+            "description": "MUST be identical to the vehicle registration registered with Connect.",
             "items": {
               "type": "string"
             }
           },
           "startTime": {
-            "type": "string"
+            "type": "string",
+            "description": "The start date and time for the period, in UTC, in format of YYYY-MM-DDThh:mm:ss"
           },
           "endTime": {
-            "type": "string"
+            "type": "string",
+            "description": "The end date and time for the period, in UTC, in format of YYYY-MM-DDThh:mm:ss"
           },
           "dataContent": {
             "type": "string",
-            "enum": ["live", "DDD"]
+            "enum": ["live", "DDD"],
+            "description": "DEPRECATED"
           },
           "skip": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of records to be skipped before the beginning of the result set. This acts as an offset from the first record matching the request parameters."
           },
           "limit": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Limit the number of records to return in the response"
           },
           "sort": {
             "type": "object",
+            "description": "Object contain direction and field path to sort. Sets the sort order to be either ascending (ASC) or descending (DESC)",
             "properties": {
               "driverId": {
                 "type": "string"
@@ -1783,65 +1862,84 @@
         "type": "object",
         "properties": {
           "count": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Total number of records found"
           },
           "data": {
             "type": "array",
+            "description": "List of drivers",
             "items": {
               "type": "object",
               "properties": {
                 "driverId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Connect driver identifier"
                 },
                 "driverKey": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Tacho driver key"
                 },
                 "activities": {
                   "type": "array",
+                  "description": "See tacho activity fields table",
                   "items": {
                     "type": "object",
                     "properties": {
                       "assetId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Connect vehicle identifier"
                       },
                       "inProgress": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates whether the activity block is currently open (true) or closed by a further activity (false)"
                       },
                       "assetRegistration": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Vehicle Registration Number (VRN)"
                       },
                       "startTime": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Start date and time in UTC of the tacho activity"
                       },
                       "type": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "TACHO, INFRINGEMENT"
                       },
                       "activity": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "When \"type\" is TACHO.\nPossible values of \"activity\" are :\nRESTING\nAVAILABLE\nWORKING\nDRIVING\nDRIVER_CARD_EJECTED"
                       },
                       "startLatitude": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "Asset latitude position when the activity starts"
                       },
                       "startLongitude": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "Asset longitude position when the activity starts"
                       },
                       "duration": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Activity duration (mins)"
                       },
                       "endTime": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "End date and time in UTC of the tacho activity"
                       },
                       "endLatitude": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "Asset latitude position when the activity ends"
                       },
                       "endLongitude": {
-                        "type": "number"
-                      },
-                      "flagManualEntry": {
-                        "type": "boolean"
+                        "type": "number",
+                        "description": "Asset longitude position when the activity ends"
                       },
                       "flagDDD": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates what is the data source of the activity. True: the activity is from DDD. False: the activity has been generated in real-time by the platform"
+                      },
+                      "flagManualEntry": {
+                        "type": "boolean",
+                        "description": "Indicates whether the activity was manually entered (true) or automatically generated (false)"
                       }
                     },
                     "required": [
@@ -1875,10 +1973,12 @@
               "type": "object",
               "properties": {
                 "colors": {
-                  "type": "object"
+                  "type": "object",
+                  "description": "key : activity type\nPossible values :\nRESTING\nAVAILABLE\nWORKING\nDRIVING\nDRIVER_CARD_EJECTED\nINFRINGEMENT\nNIGHT_HOURS\n\nvalue : colour code\nPossible values :\nSILVER\nSTEEL\nAZURE\nBLUE\nGREY\nRED\nGREEN\nPURPLE\nYELLOW"
                 },
                 "disabledInfringements": {
-                  "type": "array"
+                  "type": "array",
+                  "description": "This is always empty by default\n\nPossible values :\nEXCEEDED_CONTINUOUS_DRIVING\nEXCEEDED_DAILY_DRIVING\nINSUFFICIENT_REST\nEXCEEDED_WEEKLY_DRIVING\nEXCEEDED_BIWEEKLY_DRIVING\nEXCEEDED_CONTINUOUS_WORKING\nEXCEEDED_DAILY_WORKING\nEXCEEDED_WEEKLY_WORKING"
                 }
               },
               "required": ["colors", "disabledInfringements"]
