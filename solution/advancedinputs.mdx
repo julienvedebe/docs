@@ -2,9 +2,7 @@
 title: "Advanced inputs"
 ---
 
-To remove the need to physically interface to the **OBU** and to expand the type of inputs that can be supported by **myConnectedFleet**, a set of advanced input event endpoints have been created that allow input event data to be sent to the \*\*myConnectedFleet platform \*\*using the **Advanced Inputs API**.
-
-Event Types and Input Types are loosely coupled. So, it is possible to use the “Oil Level” input for both the “Vehicle Metrics” and “Gully Cleaning” events.
+To remove the need to physically interface to the **OBU** and to expand the type of inputs that can be supported by **myConnectedFleet**, a set of advanced input event endpoints have been created that allow input event data to be sent to the **myConnectedFleet platform** using the **Advanced Inputs API**.
 
 Input events added using the **Advanced Inputs API** are
 
@@ -16,16 +14,14 @@ An input event consists of:
 - **Asset identifier**: the asset that the input event was generated against.
 - **Location**: the latitude and longitude values where the input event occurred.
 - **Event type**: describes the overall event.
-- **Channel**: describes data for the event consisting of a number of input type key/value
+- **Channel**: describes data for the event consisting of a number of **input type** key/value pairs.
 
+These are some example event and input types:
 
-These are some event and input types as an example:
-
-| Event Type         | Input types                                  |
-| -------------------| ---------------------------------------------|
-| Vehicle Metrics    | Engine temperature, Tyre pressure, Oil Level |
-| Refuse collection  | Bin Weight, Bin RFID tag, Photograph         |
-| Gully Cleaning     | Customer name, Work order, Time taken        |
-
+| Event Type        | Input types                                      |
+| ----------------- | ------------------------------------------------ |
+| Vehicle Metrics   | Engine temperature, Tyre pressure, Oil Level     |
+| Refuse collection | Bin Weight, Bin RFID tag, Photograph             |
+| Gully Cleaning    | Customer name, Work order, Time taken. Oil Level |
 
 Event Types and Input Types are loosely coupled. So, it is possible to use the “Oil Level” input for both the “Vehicle Metrics” and “Gully Cleaning” events.
