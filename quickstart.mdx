@@ -3,36 +3,40 @@ title: "Quickstart guide"
 description: "Make your first API call and begin exploring the possibilities of your connected fleet."
 icon: "timer"
 ---
+
 <img
   className="block dark:hidden"
   src="/images/welcome_banner.png"
 />
+
 <Steps>
   <Step title="Get your credentials">
-    You’ll need a **username**, **password**, and your **customer account number**.  
+    You’ll need a **username**, **password**, and your **customer account number**.\
     If you don’t have these details, please ask your **Account Manager**.
   </Step>
   <Step title="Authenticate your request">
-    The MCF API uses **Basic HTTP Authentication**.  Encode your username and password in **Base64**, and include them in the `Authorization` header of your HTTP request:
+    The **myConnectedFleet** API uses **Basic HTTP Authentication**.  Encode your username and password in **Base64**, and include them in the `Authorization` header of your HTTP request:
+
     ```bash
     Authorization: Basic <base64(username:password)>
     ```
   </Step>
   <Step title="Include your account identifier">
-    Add your **customer account number** to the request URL.  
+    Add your **customer account number** to the request URL.\
     This tells the API which account context to retrieve or modify data for.
   </Step>
- <Step title="Now make your first call!">
-    Use this curl to request the latest poisition of your fleet.  
-  ```bash
-  curl --request GET \
-    --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/tracking/live \
-    --header 'Authorization: Basic <encoded-value>'
-  ```
+  <Step title="Now make your first call!">
+    Use this curl to request the latest poisition of your fleet.
+
+    ```bash
+    curl --request GET \
+      --url https://api.masternautconnect.com/connect-webservices/services/public/v1/customer/{customerId}/tracking/live \
+      --header 'Authorization: Basic <encoded-value>'
+    ```
   </Step>
   <Step title="Voila!">
-    You made your first call.  
-    The API response is JSON-encoded, see an example below; 
+    You made your first call.\
+    The API response is JSON-encoded, see an example below;
 
     ```json
     [
@@ -52,6 +56,7 @@ icon: "timer"
       }
     ]
     ```
-     </Step>
-      </Steps>
+  </Step>
+</Steps>
+
 Read more about the [REST API](/essentials/restAPI) and the feature that are available..
