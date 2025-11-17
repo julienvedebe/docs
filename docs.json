@@ -18,6 +18,11 @@
     "default": "light",
     "strict": true
   },
+   "integrations": {
+    "mixpanel": {
+      "projectToken": "f08bf00781b02a156a26adab475a6604"
+    }
+   },
   "navigation": {
     "tabs": [
       {
