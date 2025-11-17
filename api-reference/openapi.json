@@ -124,7 +124,7 @@
         "x-mint": {
           "content": "<Card title=\"Card title\" icon=\"text\">Returns the live position and status for a resource (driver or vehicle). The live position for a vehicle on a private journey is not returned. <br>By default vehicles which have a status of SOLD are not included in the response.</Card><note>Request Limit: The request limit on this endpoint is one request every 15 seconds.</note>"
         },
-        "description": "Returns the live position and status for a resource (driver or vehicle). The live position for a vehicle on a private journey is not returned. By default vehicles which have a status of SOLD are not included in the response. Request Limit: The request limit on this endpoint is one request every 15 seconds.",
+        
         "operationId": "getLiveStatus",
         "parameters": [
           {
