@@ -138,7 +138,7 @@
           {
             "name": "vehicleIds",
             "in": "query",
-            "description": "Comma separated list of vehicle identifiers used for filtering.",
+            "description": "CComma separated list of vehicle identifiers used for filtering.",
             "schema": {
               "type": "array",
               "items": {
