@@ -1,0 +1,1741 @@
+openapi: 3.0.1
+info:
+  title: Masternaut On Time
+  description: Jobs - API Documentation
+  contact:
+    url: http://www.masternaut.com
+  version: 1.0.0
+paths:
+  /auth/register-device-token:
+    post:
+      summary:
+        "Register given device token into app, to be able for triggering and\
+        \ accepting push notifications"
+      operationId: registerDeviceToken
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterDeviceTokenRequestDTO"
+        required: true
+      responses:
+        "200":
+          description: registerDeviceToken 200 response
+  /custom-job-type/list:
+    get:
+      operationId: listCustomJobTypes
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: listCustomJobTypes 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CustomJobTypeDto"
+  /custom-job-type/{jobTypeId}/resources:
+    get:
+      summary: It will return presigned s3 urls for resources for Job Type
+      operationId: getPresignedUrls
+      parameters:
+        - name: jobTypeId
+          in: path
+          description: ID of wanted job type resources
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getPresignedUrls 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PresignedS3UrlDto"
+  /health:
+    get:
+      summary: Get health status of service
+      operationId: getHealthStatus
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getHealthStatus 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatusResponseDto"
+  /job/addressSearch:
+    post:
+      summary: It will return addresses based on input string
+      operationId: searchAddress
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressSearchInputDto"
+        required: true
+      responses:
+        "200":
+          description: searchAddress 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlaceAutocompleteResultDto"
+  /job/create:
+    post:
+      summary: Create or Update a Job
+      operationId: createJob
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: override
+          in: query
+          required: false
+          schema:
+            type: boolean
+            nullable: true
+            default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobDto"
+        required: true
+      responses:
+        "200":
+          description: createJob 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/delete/image:
+    delete:
+      summary: Deletes image from job
+      operationId: deleteJobImage
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteJobImageRequestDTO"
+        required: true
+      responses:
+        "200":
+          description: deleteJobImage 200 response
+  /job/delete/{jobNumber}:
+    delete:
+      summary: Delete a Job
+      operationId: deleteJob
+      parameters:
+        - name: jobNumber
+          in: path
+          description: number of job to be deleted
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteJob 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/getPresignedPost:
+    post:
+      summary: Return presigned post for uploading files
+      operationId: getPresignedPost
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetPresignedPostInputDto"
+        required: true
+      responses:
+        "200":
+          description: getPresignedPost 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PresignedPostDto"
+  /job/listJobs:
+    post:
+      summary: List jobs
+      operationId: listJobs
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobListRequestDto"
+        required: true
+      responses:
+        "200":
+          description: listJobs 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobListResponseDto"
+  /job/overlaps:
+    get:
+      summary: It will return all of the overlapping jobs for selected timeframe.
+      operationId: overlaps
+      parameters:
+        - name: startWindow
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: endWindow
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: overlaps 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OverlapsResponseDto"
+  /job/read/{jobNumber}:
+    get:
+      summary:
+        "Read Job details, 'personId' or 'vehicleId' is mandatory when user\
+        \ is driver"
+      operationId: getJob
+      parameters:
+        - name: jobNumber
+          in: path
+          description: number of job to be fetched
+          required: true
+          schema:
+            type: string
+        - name: personId
+          in: query
+          description:
+            "Specifies for which driver we fetch the job, mandatory when\
+            \ user is driver"
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: vehicleId
+          in: query
+          description:
+            "Specifies for which vehicle we fetch the job, mandatory when\
+            \ user is driver"
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getJob 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/resources:
+    delete:
+      summary: It will delete selected resources if present
+      operationId: deleteJobResources
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteJobResourcesRequestDTO"
+        required: true
+      responses:
+        "200":
+          description: deleteJobResources 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DeleteJobResourceDTO"
+  /job/smarter-driver/update-status:
+    post:
+      summary: Update states for both driver and vehicle jobs
+      operationId: updateStatus
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStatusDto"
+        required: true
+      responses:
+        "200":
+          description: updateStatus 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobDto"
+  /job/updateStatus:
+    post:
+      summary: Update job status
+      operationId: updateJobStatus
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStatusDto"
+        required: true
+      responses:
+        "200":
+          description: updateJobStatus 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/updateVisitResults:
+    post:
+      summary: Update visit results of a Job
+      operationId: updateVisitResults
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VisitResultInputDto"
+        required: true
+      responses:
+        "200":
+          description: updateVisitResults 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/updatedSince:
+    get:
+      summary:
+        "It will return all jobs updated later than given timestamp(query param:\
+        \ updatedSince), maximum is 7 days old"
+      operationId: getUpdatedSince
+      parameters:
+        - name: updatedSince
+          in: query
+          description:
+            Date Time timestamp to indicate from which date time we want
+            to know last updated
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Specifies limit of listed jobs
+          required: false
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: nextToken
+          in: query
+          description: Specifies where to continue listing jobs
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getUpdatedSince 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobListResponseDto"
+  /job/v{version}/create:
+    post:
+      summary: Create or Update a Job
+      operationId: createJob_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1' or '2' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: override
+          in: query
+          required: false
+          schema:
+            type: boolean
+            nullable: true
+            default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobDto"
+        required: true
+      responses:
+        "200":
+          description: createJob_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/v{version}/delete/{jobNumber}:
+    delete:
+      summary: Delete a Job
+      operationId: deleteJob_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1', '2', '3' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: jobNumber
+          in: path
+          description: number of job to be deleted
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteJob_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/v{version}/listJobs:
+    post:
+      summary: List jobs
+      operationId: listJobs_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1', '2', '3' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobListRequestDto"
+        required: true
+      responses:
+        "200":
+          description: listJobs_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobListResponseDto"
+  /job/v{version}/overlaps:
+    get:
+      summary: It will return all of the overlapping jobs for selected timeframe.
+      operationId: overlaps_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1' or '2' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: startWindow
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: endWindow
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: overlaps_1 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OverlapsResponseDto"
+  /job/v{version}/read/{jobNumber}:
+    get:
+      summary:
+        "Read Job details, 'personId' or 'vehicleId' is mandatory when user\
+        \ is driver"
+      operationId: getJob_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1', '2', '3' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: jobNumber
+          in: path
+          description: number of job to be fetched
+          required: true
+          schema:
+            type: string
+        - name: personId
+          in: query
+          description:
+            "Specifies for which driver we fetch the job, mandatory when\
+            \ user is driver"
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: vehicleId
+          in: query
+          description:
+            "Specifies for which vehicle we fetch the job, mandatory when\
+            \ user is driver"
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getJob_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/v{version}/smarter-driver/update-status:
+    post:
+      summary: Update states for both driver and vehicle jobs
+      operationId: updateStatus_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1' or '2' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStatusDto"
+        required: true
+      responses:
+        "200":
+          description: updateStatus_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobDto"
+  /job/v{version}/updateStatus:
+    post:
+      summary: Update job status
+      operationId: updateJobStatus_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1' or '2' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStatusDto"
+        required: true
+      responses:
+        "200":
+          description: updateJobStatus_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/v{version}/updateVisitResults:
+    post:
+      summary: Update visit results of a Job
+      operationId: updateVisitResults_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1' or '2' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VisitResultInputDto"
+        required: true
+      responses:
+        "200":
+          description: updateVisitResults_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobResponseDto"
+  /job/v{version}/updatedSince:
+    get:
+      summary:
+        "It will return all jobs updated later than given timestamp(query param:\
+        \ updatedSince), maximum is 7 days old"
+      operationId: getUpdatedSince_1
+      parameters:
+        - name: version
+          in: path
+          description: "Defines version of API endpoint, supported '1' or '2' "
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: updatedSince
+          in: query
+          description:
+            Date Time timestamp to indicate from which date time we want
+            to know last updated
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Specifies limit of listed jobs
+          required: false
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: nextToken
+          in: query
+          description: Specifies where to continue listing jobs
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getUpdatedSince_1 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobListResponseDto"
+  /job/{jobId}/delete/signature:
+    delete:
+      summary: Deletes signature from job
+      operationId: deleteJobSignature
+      parameters:
+        - name: jobId
+          in: path
+          description: ID of job to which should be uploaded an image
+          required: true
+          schema:
+            type: string
+        - name: assetId
+          in: query
+          description: ID of asset if it is vehicle job
+          required: false
+          schema:
+            type: string
+            nullable: true
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteJobSignature 200 response
+  /job/{jobId}/resources:
+    get:
+      summary: It will return presigned s3 urls for resources
+      operationId: getPresignedUrls_1
+      parameters:
+        - name: jobId
+          in: path
+          description: ID of job from which want to receive resources
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getPresignedUrls_1 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PresignedS3UrlDto"
+  /job/{jobId}/upload/{type}:
+    post:
+      summary: Uploads either image or signature into job
+      operationId: uploadJobImage
+      parameters:
+        - name: jobId
+          in: path
+          description: ID of job to which should be uploaded an image
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: path
+          description: "Type of image to be uploaded, either job image or job signature"
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UploadImageRequestDTO"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/UploadImageRequestDTO"
+        required: true
+      responses:
+        "200":
+          description: uploadJobImage 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceDto"
+  /job/{jobId}/upload/{type}/workflow:
+    post:
+      summary: Uploads either image workflow or signature workflow img into job
+      operationId: uploadJobImageWorkflow
+      parameters:
+        - name: jobId
+          in: path
+          description: ID of job to which should be uploaded an image
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: path
+          description: "Type of image to be uploaded, either job image or job signature"
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UploadWorkflowImageRequestDTO"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/UploadWorkflowImageRequestDTO"
+        required: true
+      responses:
+        "200":
+          description: uploadJobImageWorkflow 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadedResourceDTO"
+  /jobTypes:
+    get:
+      summary: List job types
+      operationId: listJobTypes
+      parameters:
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: listJobTypes 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobTypeListResponseDto"
+  /workflow/{id}:
+    get:
+      summary: Fetch workflow
+      operationId: getWorkflow
+      parameters:
+        - name: id
+          in: path
+          description: ID of wanted workflow
+          required: true
+          schema:
+            type: string
+        - name: x-connect-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getWorkflow 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkflowDto"
+components:
+  schemas:
+    AddressSearchInputDto:
+      type: object
+      properties:
+        inputString:
+          type: string
+        sessionToken:
+          type: string
+        offset:
+          type: integer
+          format: int32
+        language:
+          type: string
+        countryCode:
+          type: string
+    CoordinateDto:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+    CustomJobTypeDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomJobTypeState"
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResourceDto"
+        sendJobReportOnCompletion:
+          type: boolean
+    CustomJobTypeState:
+      type: object
+      properties:
+        statusCode:
+          type: string
+        subStatuses:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomJobTypeSubState"
+        label:
+          type: string
+        actionLabel:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatusTaskDto"
+    CustomJobTypeSubState:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        actionLabel:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatusTaskDto"
+    DeleteJobImageRequestDTO:
+      type: object
+      properties:
+        jobId:
+          type: string
+        fileName:
+          type: string
+        assetId:
+          type: string
+    DeleteJobResourceDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        deleted:
+          type: boolean
+        message:
+          type: string
+    DeleteJobResourcesRequestDTO:
+      type: object
+      properties:
+        jobId:
+          type: string
+        resources:
+          type: array
+          items:
+            type: string
+    GetPresignedPostInputDto:
+      type: object
+      properties:
+        jobId:
+          type: string
+        resource:
+          type: string
+    HealthStatusResponseDto:
+      type: object
+      properties:
+        status:
+          type: string
+        mongo:
+          $ref: "#/components/schemas/MongoStatus"
+        serviceName:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationErrorDto"
+    JobDto:
+      type: object
+      properties:
+        jobId:
+          type: string
+        jobNumber:
+          type: string
+        jobTitle:
+          type: string
+        clientName:
+          type: string
+        accountNumber:
+          type: string
+        contactName:
+          type: string
+        contactEmail:
+          type: string
+        contactPhone:
+          type: string
+        notes:
+          type: string
+        lat:
+          type: number
+          format: double
+        lng:
+          type: number
+          format: double
+        address:
+          type: string
+        statusChangeTimestamp:
+          type: string
+        statusChangeId:
+          type: string
+        scheduledStartDateTime:
+          type: string
+          description: Date format yyyy-MM-dd'T'HH:mm'Z' or yyyy-MM-dd
+        jobDuration:
+          type: string
+        arrivalWindowStart:
+          type: string
+          description: Date format yyyy-MM-dd'T'HH:mm'Z'
+        arrivalWindowEnd:
+          type: string
+          description: Date format yyyy-MM-dd'T'HH:mm'Z'
+        personId:
+          type: string
+        vehicleId:
+          type: string
+        groupName:
+          type: string
+        personName:
+          type: string
+        vehicleName:
+          type: string
+        orderNumbers:
+          type: array
+          items:
+            type: string
+        status:
+          $ref: "#/components/schemas/JobStatus"
+        driverNotes:
+          type: string
+        statusHistory:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobStatusHistoryDto"
+        actualStart:
+          type: string
+        actualEnd:
+          type: string
+        overrideLat:
+          type: number
+          format: double
+        overrideLng:
+          type: number
+          format: double
+        jobHistory:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobHistoryDto"
+        jobRadius:
+          type: integer
+          format: int32
+        eta:
+          type: string
+        etaDistanceKms:
+          type: number
+          format: double
+        lastEtaCalcTime:
+          type: string
+        primaryResource:
+          $ref: "#/components/schemas/PrimaryResource"
+        jobTypeId:
+          type: string
+        jobType:
+          $ref: "#/components/schemas/JobType"
+        jobPhotos:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobPhotoDto"
+        jobSignature:
+          $ref: "#/components/schemas/JobSignatureDto"
+        linkingId:
+          type: string
+        linkedJobDescription:
+          type: string
+        linkedJobIndex:
+          type: string
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResourceDto"
+        subStatus:
+          $ref: "#/components/schemas/JobSubStatusDTO"
+        lastServerTime:
+          type: string
+        visitResults:
+          type: array
+          items:
+            $ref: "#/components/schemas/VisitResultDto"
+        subStatusLabel:
+          type: string
+        statusLabel:
+          type: string
+    JobHistoryDto:
+      type: object
+      properties:
+        date:
+          type: string
+        personId:
+          type: string
+        name:
+          type: string
+        assignedPersonName:
+          type: string
+        assignedAssetName:
+          type: string
+    JobListRequestDto:
+      type: object
+      properties:
+        groupName:
+          type: string
+        scheduledStartDateTimeFrom:
+          type: string
+        scheduledStartDateTimeTo:
+          type: string
+        personId:
+          type: string
+        personName:
+          type: string
+        vehicleId:
+          type: string
+        vehicleName:
+          type: string
+        statuses:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobStatus"
+        jobTypeIds:
+          type: array
+          items:
+            type: string
+        limit:
+          type: integer
+          format: int32
+        nextToken:
+          type: string
+    JobListResponseDto:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobDto"
+        nextToken:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationErrorDto"
+        count:
+          type: integer
+          format: int32
+    JobPhotoDto:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+        downloadUrl:
+          type: string
+    JobResponseDto:
+      type: object
+      properties:
+        job:
+          $ref: "#/components/schemas/JobDto"
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationErrorDto"
+        csvUploadLink:
+          type: string
+    JobSignatureDto:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+        downloadUrl:
+          type: string
+        signeeName:
+          type: string
+    JobStatus:
+      type: string
+      enum:
+        - NEW
+        - ASSIGNED
+        - RECEIVED
+        - IN_PROGRESS
+        - VISITED
+        - CANCELLED
+        - MISSED
+        - ACCEPTED
+        - INCOMPLETE
+        - $UNKNOWN
+    JobStatusHistoryDto:
+      type: object
+      properties:
+        date:
+          type: string
+        personId:
+          type: string
+        name:
+          type: string
+        status:
+          $ref: "#/components/schemas/JobStatus"
+        statusChangeId:
+          type: string
+    JobSubStatusDTO:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    JobType:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        global:
+          type: boolean
+        used:
+          type: boolean
+        disabled:
+          type: boolean
+        key:
+          type: string
+        earliestStartTime:
+          type: integer
+          format: int32
+        latestStartTime:
+          type: integer
+          format: int32
+        duration:
+          type: string
+        notes:
+          type: string
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResourceDto"
+        sendJobReportOnCompletion:
+          type: boolean
+        workflowId:
+          type: string
+    JobTypeListResponseDto:
+      type: object
+      properties:
+        jobTypes:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobType"
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationErrorDto"
+    MongoStatus:
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+    OverlappedJobDto:
+      type: object
+      properties:
+        id:
+          type: string
+        scheduledStart:
+          type: string
+        primeResource:
+          $ref: "#/components/schemas/PrimaryResource"
+        duration:
+          type: string
+        title:
+          type: string
+        jobNumber:
+          type: string
+    OverlappingJobDto:
+      type: object
+      properties:
+        jobInfo:
+          $ref: "#/components/schemas/OverlappedJobDto"
+        overlaps:
+          type: array
+          items:
+            $ref: "#/components/schemas/OverlappedJobDto"
+    OverlapsResponseDto:
+      type: object
+      properties:
+        primaryResource:
+          $ref: "#/components/schemas/PrimaryResource"
+        resourceId:
+          type: string
+        overlappingJobs:
+          type: array
+          items:
+            $ref: "#/components/schemas/OverlappingJobDto"
+        resourceName:
+          type: string
+    PlaceAutocompleteResultDto:
+      type: object
+      properties:
+        placeId:
+          type: string
+        description:
+          type: string
+        poiAddress:
+          type: string
+        type:
+          type: string
+        coordinate:
+          $ref: "#/components/schemas/CoordinateDto"
+    PresignedPostDto:
+      type: object
+      properties:
+        url:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/PresignedPostFieldsDto"
+    PresignedPostFieldsDto:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    PresignedS3UrlDto:
+      type: object
+      properties:
+        presignedS3Url:
+          type: string
+        resource:
+          $ref: "#/components/schemas/S3Resource"
+    PrimaryResource:
+      type: string
+      enum:
+        - DRIVER
+        - VEHICLE
+        - $UNKNOWN
+    RegisterDeviceTokenRequestDTO:
+      type: object
+      properties:
+        deviceToken:
+          type: string
+        platform:
+          type: string
+    ResourceDto:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          $ref: "#/components/schemas/ResourceStatus"
+        fileType:
+          type: string
+        storageUrl:
+          type: string
+        uploadUrl:
+          type: string
+        presignedGetUrl:
+          type: string
+    ResourceStatus:
+      type: string
+      enum:
+        - NONE
+        - AVAILABLE
+        - UPLOADING
+        - $UNKNOWN
+    S3Resource:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          $ref: "#/components/schemas/ResourceStatus"
+    StatusTaskDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        key:
+          type: string
+        firstTask:
+          type: boolean
+        nextTaskKey:
+          type: string
+        taskHandler:
+          $ref: "#/components/schemas/TaskHandler"
+        mandatory:
+          type: boolean
+        includeInReport:
+          type: boolean
+        taskValue:
+          $ref: "#/components/schemas/TaskValueDto"
+        itemGroup:
+          $ref: "#/components/schemas/TaskItemGroupDto"
+    TaskAnswerDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        key:
+          type: string
+        statusChangeId:
+          type: string
+        timestamp:
+          type: string
+        nextTaskKey:
+          type: string
+        taskHandler:
+          $ref: "#/components/schemas/TaskHandler"
+        onTransitionTo:
+          type: string
+        mandatory:
+          type: boolean
+        includeInReport:
+          type: boolean
+        value:
+          $ref: "#/components/schemas/TaskAnswerValueDto"
+        onTransitionToLabel:
+          type: string
+        personId:
+          type: string
+        personName:
+          type: string
+    TaskAnswerInputDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        key:
+          type: string
+        timestamp:
+          type: string
+        nextTaskKey:
+          type: string
+        taskHandler:
+          $ref: "#/components/schemas/TaskHandler"
+        onTransitionTo:
+          type: string
+        mandatory:
+          type: boolean
+        includeInReport:
+          type: boolean
+        value:
+          $ref: "#/components/schemas/TaskAnswerValueDto"
+        itemGroup:
+          $ref: "#/components/schemas/TaskAnswerItemGroupDto"
+        onTransitionToLabel:
+          type: string
+        statusChangeId:
+          type: string
+    TaskAnswerItemGroupDto:
+      type: object
+      properties:
+        key:
+          type: string
+        currency:
+          type: string
+    TaskAnswerValueDto:
+      type: object
+      properties:
+        stringValues:
+          type: array
+          items:
+            type: string
+        integerValue:
+          type: integer
+          format: int32
+        doubleValue:
+          type: number
+          format: double
+        blobValues:
+          type: array
+          items:
+            type: string
+    TaskDoubleValue:
+      type: object
+      properties:
+        defaultValue:
+          type: number
+          format: double
+        min:
+          type: number
+          format: double
+        max:
+          type: number
+          format: double
+        precision:
+          type: integer
+          format: int32
+    TaskHandler:
+      type: string
+      enum:
+        - TEXT_INFO_DISPLAY
+        - IMAGE_INFO_DISPLAY
+        - PDF_INFO_DISPLAY
+        - FREE_TEXT_INFO_INPUT
+        - TEXT_INFO_INPUT
+        - INTEGER_INFO_INPUT
+        - DOUBLE_INFO_INPUT
+        - IMAGE_INFO_INPUT
+        - SIGNATURE_INFO_INPUT
+        - SINGLE_CHOICE_INPUT
+        - MULTIPLE_CHOICE_INPUT
+        - PROCESS_ITEMS
+        - $UNKNOWN
+    TaskIntValue:
+      type: object
+      properties:
+        defaultValue:
+          type: integer
+          format: int32
+        min:
+          type: integer
+          format: int32
+        max:
+          type: integer
+          format: int32
+    TaskItemGroupDto:
+      type: object
+      properties:
+        key:
+          type: string
+        currency:
+          type: string
+        option:
+          $ref: "#/components/schemas/TaskItemGroupOptionDto"
+    TaskItemGroupOptionDto:
+      type: object
+      properties:
+        showHideIfEqual:
+          type: boolean
+        showHideAllEqual:
+          type: boolean
+    TaskStringValues:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            type: string
+        other:
+          type: boolean
+    TaskValueDto:
+      type: object
+      properties:
+        stringValues:
+          $ref: "#/components/schemas/TaskStringValues"
+        integerValue:
+          $ref: "#/components/schemas/TaskIntValue"
+        doubleValue:
+          $ref: "#/components/schemas/TaskDoubleValue"
+        blobValues:
+          type: array
+          items:
+            type: string
+    UpdateStatusDto:
+      type: object
+      properties:
+        jobNumber:
+          type: string
+        status:
+          $ref: "#/components/schemas/JobStatus"
+        statusUpdateDateTime:
+          type: string
+        statusChangeId:
+          type: string
+        driverNotes:
+          type: string
+        subStatus:
+          $ref: "#/components/schemas/JobSubStatusDTO"
+        actualStart:
+          type: string
+        actualEnd:
+          type: string
+    UploadImageRequestDTO:
+      type: object
+      properties:
+        signerName:
+          type: string
+        data:
+          type: string
+        fileName:
+          type: string
+        contentType:
+          type: string
+        assetId:
+          type: string
+    UploadWorkflowImageRequestDTO:
+      type: object
+      properties:
+        data:
+          type: string
+        fileName:
+          type: string
+        contentType:
+          type: string
+        key:
+          type: string
+    UploadedResourceDTO:
+      allOf:
+        - $ref: "#/components/schemas/ResourceDto"
+        - type: object
+          properties:
+            region:
+              type: string
+    ValidationErrorDto:
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+    VisitResultDto:
+      type: object
+      properties:
+        jobScheduledStart:
+          type: string
+        taskAnswers:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaskAnswerDto"
+    VisitResultInputDto:
+      type: object
+      properties:
+        jobId:
+          type: string
+        jobScheduledStart:
+          type: string
+        taskAnswers:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaskAnswerInputDto"
+    WorkflowDto:
+      required:
+        - id
+        - label
+        - states
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomJobTypeState"
