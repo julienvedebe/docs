@@ -1,26 +1,22 @@
 ---
-title: 'Idling'
+title: "Idling"
 ---
 
-Idling refers to when a vehicle’s engine is running while the vehicle is stationary. It is generally considered an undesirable **driving behaviour** because it leads to unnecessary fuel consumption, CO₂ emissions, and operational costs.
+Idling refers to when a vehicle’s engine is running when the vehicle is stationary. It is generally considered an undesirable **driving behaviour** because it leads to unnecessary fuel consumption, CO₂ emissions, and operational costs.
 
-By monitoring idling, myConnectedFleet provides insights into both the duration of idling events and the locations where they occur. This helps operators identify opportunities to improve driving efficiency and reduce environmental impact.
-
+By monitoring idling, **myConnectedFleet** provides insights into both the duration of idling events and the locations where they occur. This helps operators identify opportunities to improve driving efficiency and reduce environmental impact.
 
 ### Idling Calculation
-myConnectedFleet determines idling based on data from the On-Board Unit (OBU) using ignition and motion status.
+
+**myConnectedFleet** determines idling based on data from the OBU using ignition and motion status.
 
 An idling event is recorded when a vehicle’s ignition is ON but no movement is detected for more than 2 minutes.
 
-
 ### Types of Idling Detection
-- True Engine Idling: Detected using engine running data (RPM from CANbus) combined with non-movement sensors.
-→ Provides an accurate indication that the engine is running while stationary.
 
-- Estimated Idling: Detected using ignition ON and non-movement status only.
-→ May not guarantee the engine is running, but still provides useful behavioural insight where CANbus data is unavailable.
+- **True Engine Idling**: Detected using engine running data (RPM from CANbus) combined with non-movement sensors. → Provides an accurate indication that the engine is running while stationary.
+- **Estimated Idling**: Detected using ignition ON and non-movement status only. → May not guarantee the engine is running, but still provides useful behavioural insight where CANbus data is unavailable.
 
-
-<Tip> Reviewing idling hotspots on journey and location reports helps identify recurring patterns, such as extended idling at depots or customer sites. </Tip>
-
-
+<Tip>
+  Reviewing idling hotspots on journey and location reports helps identify recurring patterns, such as extended idling at depots or customer sites.
+</Tip>

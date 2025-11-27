@@ -2,52 +2,49 @@
 title: "Timezones"
 ---
 
-Dates and times are stored in **UTC** and converted into the specified timezone when displayed in the **myConnectedFleet portal**.
+Dates and times are stored in **UTC** and converted into the user's timezone when displayed in the **myConnectedFleet portal**.
 
 You can select from the following supported timezones:
 
-| **Region** | **Timezone** | **Example UTC Offset** | **Notes** |
-| :---------- | :------------ | :-------------------- | :-------- |
-| **Australia** | Australia/Sydney | UTC+10 | Eastern Standard Time |
-|  | Australia/Brisbane | UTC+10 | Queensland (no DST) |
-|  | Australia/Adelaide | UTC+9:30 | South Australia |
-|  | Australia/Darwin | UTC+9:30 | Northern Territory |
-|  | Australia/Perth | UTC+8 | Western Australia |
-| **Atlantic** | Atlantic/Azores | UTC−1 | Azores Islands |
-| **Europe** | Europe/Prague | UTC+1 | Czech Republic |
-|  | Europe/Berlin | UTC+1 | Central Europe |
-|  | Europe/Copenhagen | UTC+1 | Denmark |
-|  | Europe/London | UTC+0 | United Kingdom |
-|  | Europe/Helsinki | UTC+2 | Finland |
-|  | Europe/Paris | UTC+1 | France |
-|  | Europe/Athens | UTC+2 | Greece |
-|  | Europe/Rome | UTC+1 | Italy |
-|  | Europe/Amsterdam | UTC+1 | Netherlands |
-|  | Europe/Warsaw | UTC+1 | Poland |
-|  | Europe/Lisbon | UTC+0 | Portugal |
-|  | Europe/Madrid | UTC+1 | Spain |
-|  | Europe/Stockholm | UTC+1 | Sweden |
-| **Africa** | Africa/Luanda | UTC+1 | Angola |
-|  | Africa/Casablanca | UTC+0 | Morocco |
-|  | Africa/Maputo | UTC+2 | Mozambique |
-| **Americas** | America/New_York | UTC−5 | Eastern Time |
-|  | America/Chicago | UTC−6 | Central Time |
-|  | America/Denver | UTC−7 | Mountain Time |
-|  | America/Los_Angeles | UTC−8 | Pacific Time |
-|  | America/Anchorage | UTC−9 | Alaska |
-|  | America/Halifax | UTC−4 | Atlantic Canada |
-|  | America/Cayenne | UTC−3 | French Guiana |
-|  | America/Guadeloupe | UTC−4 | Caribbean |
-|  | America/Martinique | UTC−4 | Caribbean |
-| **Pacific** | Pacific/Honolulu | UTC−10 | Hawaii |
-|  | Pacific/Midway | UTC−11 | American Samoa |
-|  | Pacific/Noumea | UTC+11 | New Caledonia |
-|  | Pacific/Auckland | UTC+12 | New Zealand |
-| **Indian Ocean** | Indian/Mayotte | UTC+3 | Mayotte |
-|  | Indian/Reunion | UTC+4 | Réunion Island |
+| **Region**       | **Timezone**        | **Example UTC Offset** | **Notes**             |
+| :--------------- | :------------------ | :--------------------- | :-------------------- |
+| **Australia**    | Australia/Sydney    | UTC+10                 | Eastern Standard Time |
+|                  | Australia/Brisbane  | UTC+10                 | Queensland (no DST)   |
+|                  | Australia/Adelaide  | UTC+9:30               | South Australia       |
+|                  | Australia/Darwin    | UTC+9:30               | Northern Territory    |
+|                  | Australia/Perth     | UTC+8                  | Western Australia     |
+| **Atlantic**     | Atlantic/Azores     | UTC−1                  | Azores Islands        |
+| **Europe**       | Europe/Prague       | UTC+1                  | Czech Republic        |
+|                  | Europe/Berlin       | UTC+1                  | Central Europe        |
+|                  | Europe/Copenhagen   | UTC+1                  | Denmark               |
+|                  | Europe/London       | UTC+0                  | United Kingdom        |
+|                  | Europe/Helsinki     | UTC+2                  | Finland               |
+|                  | Europe/Paris        | UTC+1                  | France                |
+|                  | Europe/Athens       | UTC+2                  | Greece                |
+|                  | Europe/Rome         | UTC+1                  | Italy                 |
+|                  | Europe/Amsterdam    | UTC+1                  | Netherlands           |
+|                  | Europe/Warsaw       | UTC+1                  | Poland                |
+|                  | Europe/Lisbon       | UTC+0                  | Portugal              |
+|                  | Europe/Madrid       | UTC+1                  | Spain                 |
+|                  | Europe/Stockholm    | UTC+1                  | Sweden                |
+| **Africa**       | Africa/Luanda       | UTC+1                  | Angola                |
+|                  | Africa/Casablanca   | UTC+0                  | Morocco               |
+|                  | Africa/Maputo       | UTC+2                  | Mozambique            |
+| **Americas**     | America/New_York    | UTC−5                  | Eastern Time          |
+|                  | America/Chicago     | UTC−6                  | Central Time          |
+|                  | America/Denver      | UTC−7                  | Mountain Time         |
+|                  | America/Los_Angeles | UTC−8                  | Pacific Time          |
+|                  | America/Anchorage   | UTC−9                  | Alaska                |
+|                  | America/Halifax     | UTC−4                  | Atlantic Canada       |
+|                  | America/Cayenne     | UTC−3                  | French Guiana         |
+|                  | America/Guadeloupe  | UTC−4                  | Caribbean             |
+|                  | America/Martinique  | UTC−4                  | Caribbean             |
+| **Pacific**      | Pacific/Honolulu    | UTC−10                 | Hawaii                |
+|                  | Pacific/Midway      | UTC−11                 | American Samoa        |
+|                  | Pacific/Noumea      | UTC+11                 | New Caledonia         |
+|                  | Pacific/Auckland    | UTC+12                 | New Zealand           |
+| **Indian Ocean** | Indian/Mayotte      | UTC+3                  | Mayotte               |
+|                  | Indian/Reunion      | UTC+4                  | Réunion Island        |
 
-
-> 💡 **Tip:**  
-> Returned timestamps are in **UTC** when integrating with APIs.
-> The portal automatically adjusts for **Daylight Saving Time (DST)** where applicable.  
-
+> 💡 **Tip:**\
+> Returned timestamps are in **UTC** when integrating with APIs. The portal automatically adjusts for **Daylight Saving Time (DST)** where applicable.
